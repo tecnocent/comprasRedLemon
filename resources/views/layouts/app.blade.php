@@ -27,6 +27,7 @@
   <link href="{{asset('dist/css/select2.min.css')}}" rel="stylesheet" />
   <!-- DataTables -->
   <link href="{{asset('dist/css/DataTables/dataTables.bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('dist/css/DataTables/responsive.dataTables.min.css')}}" rel="stylesheet" />
   <!-- Checkbox -->
   <link href="{{asset('dist/css/checkbox.css')}}" rel="stylesheet" />
   <!-- DatePicker -->
@@ -167,6 +168,7 @@
 <!-- Datatables -->
 <script src="{{asset('dist/js/Datatables/dataTables.min.js')}}"></script>
 <script src="{{asset('dist/js/Datatables/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('dist/js/Datatables/dataTables.responsive.min.js')}}"></script>
 <!-- DatePicker -->
 <script src="{{asset('dist/js/datepicker.js')}}"></script>
 <script>
@@ -192,24 +194,6 @@
     if(exist){
         alert(msg);
     }
-</script>
-<script type="text/javascript">
-    jQuery(document).ready(function($) {
-        PNotify.prototype.options.styling = "bootstrap3";
-        PNotify.prototype.options.styling = "fontawesome";
-      @foreach (Alert::getMessages() as $type => $messages)
-      @foreach ($messages as $message)
-      $(function(){
-          new PNotify({
-              // title: 'Regular Notice',
-              text: "{{ $message }}",
-              type: "{{ $type }}",
-              icon: true
-          });
-      });
-      @endforeach
-      @endforeach
-    });
 </script>
 
 @yield('javascript')

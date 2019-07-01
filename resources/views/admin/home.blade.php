@@ -153,7 +153,6 @@
                 "pageLength": 25,
                 "serverSide": true,
                 "searchDelay": 1500,
-                "responsive": true,
                 @include('partials/datatables_lang')
             });
 
@@ -173,7 +172,6 @@
                 $('#delete_orden').attr("href", "{{ url('/admin/elimina_orden') }}" + "/" + id);
             });
         });
-
 
     </script>
     <script>
