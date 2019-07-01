@@ -24,20 +24,37 @@
                         <a href="{{route('orden.create')}}" class="btn btn-primary btn-xs" role="button" style="height: 27px;"><i class="fa fa-file"></i> Nueva Orden de compra</a>
                     </div>
                     <div class="box-body">
-                        <small>Filtra status</small>
-                        <select class="form-control" name="filtro_status" id="filtro_status">
-                            <option>Selecciona</option>
-                            <option value="">Todos</option>
-                            <option value="borrador">Borrador</option>
-                            <option value="pi pedido">PI Pedido</option>
-                            <option value="por autorizar">Por Autorizar</option>
-                            <option value="produccion">Produccion</option>
-                            <option value="enviado">Enviado</option>
-                            <option value="aduana">Aduana</option>
-                            <option value="recepcion">Recepcion</option>
-                            <option value="cancelado">Cancelado</option>
-                            <option value="almacen">Almacen</option>
-                        </select>
+                        <small>Filtra status</small><br><br>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">PO creada</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Borador</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">PI Pedido</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Por Autorizar</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Produccion</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Enviado</button>
+                        </div><div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Aduana</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Recepcion</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Cancelado</button>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Almacen</button>
+                        </div>
+
                         <br>
                         <small>Selecciona encargado</small>
                         <select class="form-control" name="encargado" id="encargado">
@@ -176,7 +193,7 @@
     </script>
     <script>
         window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(".alert").fadeTo(300, 0).slideUp(300, function(){
                 $(this).remove();
             });
         }, 4000);
