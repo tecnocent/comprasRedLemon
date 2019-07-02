@@ -151,7 +151,7 @@
                         request_data.page = Math.ceil(d.start / d.length) + 1;
                         request_data.order = d.columns[d.order[0].column].data;
                         request_data.sort = d.order[0].dir;
-                        //request_data.search = d.search.value;
+                        //request_data.search = d.search.value; No funciona por ahora
                         request_data.encargdo_interno = $('#encargado').val();
                         request_data.po_creada = $('#po_creada').val();
                         request_data.borrador = $('#borrador').val();
@@ -325,7 +325,7 @@
                 $('#almacen').val('');
                 dtable.search('').draw();
             });
-            $('#cancelado').click(function(){
+            $('#canceladoB').click(function(){
                 $('#cancelado').val('cancelado');
                 $('#por_autorizar').val('');
                 $('#borrador').val('');
@@ -337,7 +337,7 @@
                 $('#almacen').val('');
                 dtable.search('').draw();
             });
-            $('#almacen').click(function(){
+            $('#almacenB').click(function(){
                 $('#almacen').val('almacen');
                 $('#por_autorizar').val('');
                 $('#borrador').val('');
