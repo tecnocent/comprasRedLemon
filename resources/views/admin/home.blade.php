@@ -2,8 +2,8 @@
 
 @section('content')
     <style>
-        .filtro {
-            margin-top: -30px !important;
+        .filtro{
+            margin-bottom: 10px;
         }
     </style>
 
@@ -23,35 +23,48 @@
                     </div>
                     <div class="box-body">
                         <small>Filtra status</small><br><br>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="PO creada" id="po_creada" name="po_creada"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="todos" >Todos</button>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Borrador"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="po_creadaB" >Po Creada</button>
+                            <input type="hidden" class="btn btn-success btn-xs " role="button" style="width: 100%;" value="" id="po_creada" name="po_creada"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="PI Pedido"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="borradorB" >Borrador</button>
+                            <input type="hidden" id="borrador" name="borrador"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Por Autorizar"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="pi_pedidoB" >Pi Pedido</button>
+                            <input type="hidden" id="pi_pedido" name="pi_pedido"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Produccion"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="por_autorizarB" >Por Autorizar</button>
+                            <input type="hidden" id="por_autorizar" name="por_autorizar"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Enviado"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="produccionB" >Produccion</button>
+                            <input type="hidden"  id="produccion" name="produccion"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Aduana"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB" >Enviado</button>
+                            <input type="hidden"   id="enviado" name="enviado"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Recepcion"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="aduanaB" >Aduana</button>
+                            <input type="hidden"  id="aduana" name="aduana"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Cancelado"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="recepcionB" >Recepcion</button>
+                            <input type="hidden"  id="recepcion" name="recepcion"/>
                         </div>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Almacen"/>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="canceladoB" >Cancelado</button>
+                            <input type="hidden"  id="cancelado" name="cancelado"/>
+                        </div>
+                        <div class="form-group formPrincipal">
+                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="almacenB" >Almacen</button>
+                            <input type="hidden" id="almacen" name="almacen"/>
                         </div>
 
                         <br>
@@ -125,6 +138,7 @@
 
 @section('javascript')
     <script>
+        $.fn.dataTable.ext.errMode = 'none';
         jQuery(function($){
             // Inicializa tabla de datos
             var dtable = $('#example').DataTable({
@@ -139,6 +153,16 @@
                         request_data.sort = d.order[0].dir;
                         //request_data.search = d.search.value;
                         request_data.encargdo_interno = $('#encargado').val();
+                        request_data.po_creada = $('#po_creada').val();
+                        request_data.borrador = $('#borrador').val();
+                        request_data.pi_pedido = $('#pi_pedido').val();
+                        request_data.por_autorizar = $('#por_autorizar').val();
+                        request_data.produccion = $('#produccion').val();
+                        request_data.enviado = $('#enviado').val();
+                        request_data.aduana = $('#aduana').val();
+                        request_data.recepcion = $('#recepcion').val();
+                        request_data.cancelado = $('#cancelado').val();
+                        request_data.almacen = $('#almacen').val();
                         return request_data;
                     },
                     "dataFilter": function(response_data){
@@ -164,8 +188,8 @@
                             return restante;
                         }
                     },
-                    {data: null, orderable: false, render: function (d) { return '<a href="/' + d.id + '" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
-                    {data: null, orderable: false, render: function (d) { return '<a href="/' + d.id + '" class="btn btn-primary btn-xs" role="button"><i class="fa fa-copy"></i></a>'; } },
+                    {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
+                    {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-primary btn-xs" role="button"><i class="fa fa-copy"></i></a>'; } },
                     {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger" data-id="'+ d.id +'"><i class="fa fa-remove"></i></button>'; } },
                 ],
                 // Opciones iguales en todas las tablas.
@@ -184,12 +208,145 @@
                     dtable.search( this.value ).draw();
                 }
             });
+            // Filtros avanzados
             $('#encargado').on('change', function() {
                 $("#encargado").val();
                 dtable.search('').draw();
             });
-            $('#po_creada').click(function(){
-                $('#po_creada').val();
+            $('#todos').click(function(){
+                $('#po_creada').val('');
+                $('#borrador').val('');
+                $('#pi_pedido').val('');
+                $('#por_autorizar').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#po_creadaB').click(function(){
+                $('#po_creada').val('po creada');
+                $('#borrador').val('');
+                $('#pi_pedido').val('');
+                $('#por_autorizar').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#borradorB').click(function(){
+                $('#borrador').val('borrador');
+                $('#po_creada').val('');
+                $('#pi_pedido').val('');
+                $('#por_autorizar').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#pi_pedidoB').click(function(){
+                $('#pi_pedido').val('pi pedido');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#por_autorizar').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#por_autorizarB').click(function(){
+                $('#por_autorizar').val('por autorizar');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#produccionB').click(function(){
+                $('#produccion').val('produccion');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#enviadoB').click(function(){
+                $('#enviado').val('enviado');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#aduanaB').click(function(){
+                $('#aduana').val('aduana');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#recepcionB').click(function(){
+                $('#recepcion').val('recepcion');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#cancelado').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#cancelado').click(function(){
+                $('#cancelado').val('cancelado');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#almacen').val('');
+                dtable.search('').draw();
+            });
+            $('#almacen').click(function(){
+                $('#almacen').val('almacen');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
                 dtable.search('').draw();
             });
         });
