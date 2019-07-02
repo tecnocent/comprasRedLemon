@@ -1,23 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        .filtro {
+            margin-top: -30px !important;
+        }
+    </style>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="margin-top:0px"><br>
+    <div class="content-wrapper" style="margin-top:0px; width: 100% !important;"><br>
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1 style="margin-top:-20px"> Ordenes de compra<small>Listado</small> </h1>
+        <section class="">
+            <br>
+            <h1 style="margin-top:-20px"> Ordenes de compra<small> Listado</small> </h1>
         </section>
         <!-- Main content -->
         <div class="row" style="width:100%; margin-top: 10px">
-            @foreach (Alert::getMessages() as $type => $messages)
-                @foreach ($messages as $message)
-                    <div class="alert alert-{{ $type }}" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <strong>{{ $message }}</strong>
-                    </div>
-                @endforeach
-            @endforeach
             <section class="col-lg-2 connectedSortable ui-sortable">
                 <div class="box">
                     <div class="box-header">
@@ -26,44 +24,47 @@
                     <div class="box-body">
                         <small>Filtra status</small><br><br>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">PO creada</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="PO creada" id="po_creada" name="po_creada"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Borador</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Borrador"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">PI Pedido</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="PI Pedido"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Por Autorizar</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Por Autorizar"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Produccion</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Produccion"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Enviado</button>
-                        </div><div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Aduana</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Enviado"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Recepcion</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Aduana"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Cancelado</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Recepcion"/>
                         </div>
                         <div class="form-group col-sm-12 formPrincipal">
-                            <button type="button" class="btn btn-primary btn-xs" role="button" style="width: 100%;">Almacen</button>
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Cancelado"/>
+                        </div>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <input type="button" class="btn btn-success btn-xs filtro" role="button" style="width: 100%;" value="Almacen"/>
                         </div>
 
                         <br>
-                        <small>Selecciona encargado</small>
-                        <select class="form-control" name="encargado" id="encargado">
-                            <option value="">Selecciona</option>
-                            <option value="">Todos</option>
-                            @foreach($encargados as $encargado)
-                                <option value="{{ $encargado->id }}">{{ $encargado->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group col-sm-12 formPrincipal">
+                            <small>Selecciona encargado</small>
+                            <select class="form-control" name="encargado" id="encargado">
+                                <option value="">Selecciona</option>
+                                <option value="">Todos</option>
+                                @foreach($encargados as $encargado)
+                                    <option value="{{ $encargado->name }}">{{ $encargado->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -136,7 +137,8 @@
                         request_data.page = Math.ceil(d.start / d.length) + 1;
                         request_data.order = d.columns[d.order[0].column].data;
                         request_data.sort = d.order[0].dir;
-                        request_data.encargdo_interno = $('#encargdo_interno').val();
+                        //request_data.search = d.search.value;
+                        request_data.encargdo_interno = $('#encargado').val();
                         return request_data;
                     },
                     "dataFilter": function(response_data){
@@ -170,6 +172,7 @@
                 "pageLength": 25,
                 "serverSide": true,
                 "searchDelay": 1500,
+                "searching": false,
                 @include('partials/datatables_lang')
             });
 
@@ -181,22 +184,21 @@
                     dtable.search( this.value ).draw();
                 }
             });
+            $('#encargado').on('change', function() {
+                $("#encargado").val();
+                dtable.search('').draw();
+            });
+            $('#po_creada').click(function(){
+                $('#po_creada').val();
+                dtable.search('').draw();
+            });
         });
-
         $(document).ready(function() {
             $('#modal-danger').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $('#delete_orden').attr("href", "{{ url('/admin/elimina_orden') }}" + "/" + id);
             });
         });
-
-    </script>
-    <script>
-        window.setTimeout(function() {
-            $(".alert").fadeTo(300, 0).slideUp(300, function(){
-                $(this).remove();
-            });
-        }, 4000);
     </script>
 @stop
 @endsection

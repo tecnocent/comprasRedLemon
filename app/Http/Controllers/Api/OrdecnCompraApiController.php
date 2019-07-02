@@ -53,13 +53,12 @@ class OrdecnCompraApiController extends Controller
                     function ($q) use ($sEncargado) {
                         if (!empty($sEncargado)) {
                             return $q
-                                ->orWhere('encargdo_interno', '=', $sEncargado);
+                                ->orWhere('encargdo_interno', 'like', "%$sEncargado%");
                         }
                     }
                 )
                 ->orderBy($oRequest->input('order', 'id'), $oRequest->input('sort', 'asc'))
                 ->paginate((int) $oRequest->input('per_page', 25));
-
             // Envía datos paginados
             return response()->json(["status" => "success", "data" => ["ordenes" => $aOrdenes]]);
         } catch (\Exception $e) {

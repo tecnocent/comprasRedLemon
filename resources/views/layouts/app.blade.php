@@ -32,6 +32,8 @@
   <link href="{{asset('dist/css/checkbox.css')}}" rel="stylesheet" />
   <!-- DatePicker -->
   <link href="{{asset('dist/css/datepicker.css')}}" rel="stylesheet" />
+  <!-- Toastr -->
+  <link href="{{asset('dist/css/alerts/toastr.css')}}" rel="stylesheet" />
 
   @yield('stylesheet')
 
@@ -188,12 +190,32 @@
         language: 'es'
     });
 </script>
+<!-- Toastr -->
+<script src="{{asset('dist/js/alerts/toastr.min.js')}}"></script>
+<script type="text/javascript">
+    toastr.options = {"closeButton":true,"closeClass":"toast-close-button","closeDuration":300,"closeEasing":"swing","closeHtml":"<button><i class=\"icon-off\"><\/i><\/button>","closeMethod":"fadeOut","closeOnHover":true,"containerId":"toast-container","debug":false,"escapeHtml":false,"extendedTimeOut":10000,"hideDuration":1000,"hideEasing":"linear","hideMethod":"fadeOut","iconClass":"toast-info","iconClasses":{"error":"toast-error","info":"toast-info","success":"toast-success","warning":"toast-warning"},"messageClass":"toast-message","newestOnTop":false,"onHidden":null,"onShown":null,"positionClass":"toast-top-right","preventDuplicates":true,"progressBar":true,"progressClass":"toast-progress","rtl":false,"showDuration":300,"showEasing":"swing","showMethod":"fadeIn","tapToDismiss":true,"target":"body","timeOut":5000,"titleClass":"toast-title","toastClass":"toast"};
+</script>
 <script>
-    var msg = '{{Session::get('alert')}}';
-    var exist = '{{Session::has('alert')}}';
-    if(exist){
-        alert(msg);
+          @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
     }
+  @endif
 </script>
 
 @yield('javascript')

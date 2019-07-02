@@ -223,8 +223,8 @@
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <br>
-                                    <button type="submit" class="btn btn-success" id="po_creada">Guardar como PO creada</button>
-                                    <button type="submit" class="btn btn-primary" id="borrador">Guardar como borrador</button>
+                                    <button type="submit" class="btn btn-success pull-right" id="po_creada">Guardar como PO creada</button>
+                                    <button type="submit" class="btn btn-primary pull-right" id="borrador" style="margin-right: 10px;">Guardar como borrador</button>
                                 </div>
                             </div>
                         </form>

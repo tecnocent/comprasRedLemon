@@ -93,12 +93,21 @@ class OrdenesCompraController extends Controller
                 'almacen_id'        => $oRequest->almacen_llegada,
             ]);
 
-            Alert::success('Orden de compra ceada exitosamente.')->flash();
-            return redirect()->route('home');
+            // Alerta
+            $notification = array(
+                'message' => 'Orden de compra ceada exitosamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('home')->with($notification);
 
         } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
             Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
-            return redirect()->back();
+            return redirect()->back()->with($notification);
         }
     }
 
@@ -156,13 +165,23 @@ class OrdenesCompraController extends Controller
             if ($oOrdenCompra == null) {
                 return view('admin/errores/no_encontrado')->with(['model' => 'OrdenCompra', 'id' => $id]);
             }
-            // Elimina estado
+            // Elimina orden compra
             $oOrdenCompra->delete();
-            Alert::error('Orden de compra eliminada exitosamente.')->flash();
-            return redirect()->route('home');
+
+            // Alerta
+            $notification = array(
+                'message' => 'Orden de compra eliminada',
+                'alert-type' => 'error'
+            );
+            return redirect()->route('home')->with($notification);
         }catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Ocurrio algun error',
+                'alert-type' => 'warning'
+            );
             Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
-            return redirect()->back();
+            return redirect()->back()->with($notification);
         }
     }
 }
