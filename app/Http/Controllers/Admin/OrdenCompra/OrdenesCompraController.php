@@ -6,6 +6,8 @@ use App\Http\Requests\OrdenCompraRequest;
 use App\Models\Almacen;
 use App\Models\CostoDestino;
 use App\Models\CostoOrigen;
+use App\Models\GastosDestinoOrdenCompra;
+use App\Models\GastosOrigenOrdenCompra;
 use App\Models\OrdenCompra;
 use App\Models\Producto;
 use App\Models\ProductoOrdenCompra;
@@ -29,13 +31,15 @@ class OrdenesCompraController extends Controller
     protected $mCostoOrigen;
     protected $mOrdenCompra;
     protected $mProductoOrdenCompra;
+    protected $mGastosOrigenOrdenCompra;
+    protected $mGastosDestinoOrdenCompra;
 
 
     /**
      * OrdenesConpraController constructor.
      * @param Proveedor $proveedor
      */
-    public function __construct(OrdenCompra $ordenCompra, Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra)
+    public function __construct(OrdenCompra $ordenCompra, Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -45,6 +49,8 @@ class OrdenesCompraController extends Controller
         $this->mCostoOrigen = $costoOrigen;
         $this->mOrdenCompra = $ordenCompra;
         $this->mProductoOrdenCompra = $productoOrdenCompra;
+        $this->mGastosOrigenOrdenCompra = $gastosOrigenOrden;
+        $this->mGastosDestinoOrdenCompra = $gastosDestinoOrden;
 
     }
 
@@ -121,7 +127,31 @@ class OrdenesCompraController extends Controller
                     ]);
                 }
             }
-
+            // Gastos origen
+            if ($oRequest->has('gastosOr')) {
+                foreach ($oRequest->get('gastosOr') as $gast ) {
+                    $gOrigen = $this->mGastosOrigenOrdenCompra->create([
+                        'costo' => $gast['costo_gastos_origen'],
+                        'notas' => $gast['nota_gastos_origen'],
+                        'comprobante' => $gast['comprobante_gastos_origen'],
+                        'orden_compra_id' => $ordenCompra->id,
+                        'tipo_gasto_id' => $gast['tipo_gasto_origen'],
+                    ]);
+                }
+            }
+            // Gastos destino
+            if ($oRequest->has('gastosDe')) {
+                foreach ($oRequest->get('gastosDe') as $gast ) {
+                    $gOrigen = $this->mGastosDestinoOrdenCompra->create([
+                        'moneda' => $gast['moneda_gastos_destino'],
+                        'costo' => $gast['costo_gastos_destino'],
+                        'notas' => $gast['nota_gastos_destino'],
+                        'comprobante' => $gast['comporbante_gastos_destino'],
+                        'orden_compra_id' => $ordenCompra->id,
+                        'tipo_gasto_destino_id' => $gast['tipo_gasto_gastos_destino'],
+                    ]);
+                }
+            }
             // Alerta
             $notification = array(
                 'message' => 'Orden de compra ceada exitosamente.',

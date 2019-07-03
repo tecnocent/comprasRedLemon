@@ -91,7 +91,7 @@
                         <select class="form-control" name="tipo_gasto_origenM" id="tipo_gasto_origen">
                             <option value="a">Selecciona</option>
                             @foreach($gastosOrigen as $gastoOrigen)
-                                <option value="{{$gastoOrigen->name}}">{{$gastoOrigen->name}}</option>
+                                <option value="{{$gastoOrigen->id}}">{{$gastoOrigen->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -128,7 +128,7 @@
                         <select class="form-control" name="tipo_gasto_gastos_destinoM" id="tipo_gasto_gastos_destino">
                             <option value="1">Selecciona</option>
                             @foreach($gastosDestino as $gastoDestino)
-                                <option value="{{$gastoDestino->name}}">{{$gastoDestino->name}}</option>
+                                <option value="{{$gastoDestino->id}}">{{$gastoDestino->name}}</option>
                             @endforeach
                         </select>
                     </div>

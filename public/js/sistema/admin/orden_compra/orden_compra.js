@@ -162,12 +162,13 @@ $(document).ready(function() {
 });
 // Llenado de Gasto origen
 $(document).ready(function() {
+    var countGastosO = 0;
     //obtenemos el valor de los input
     $('#adicionarGastoOrigen').click(function() {
-        var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="tipo_gasto_origen[]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
-        var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="costo_gastos_origen[]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
-        var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="nota_gastos_origen[]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
-        var arcivo_gastos_origen = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" multiple></span></label>';
+        var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
+        var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
+        var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
+        var arcivo_gastos_origen = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" multiple name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></span></label>';
 
         var i = 1; //contador para asignar id al boton que borrara la fila
 
@@ -180,7 +181,7 @@ $(document).ready(function() {
             '</tr>'; //esto seria lo que contendria la fila
 
         i++;
-
+        countGastosO++;
         $('.gastosOrigen tr:first').after(fila);
 
         var nFilas = $(".gastosOrigen tr").length;
@@ -203,14 +204,15 @@ $(document).ready(function() {
 
 // Llenado de Gasto destino
 $(document).ready(function() {
+    var countGD = 0;
     //obtenemos el valor de los input
     $('#adicionarGastoDestino').click(function() {
 
-        var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="tipo_gasto_gastos_destino[]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>';
-        var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="costo_gastos_destino[]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
-        var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="moneda_gastos_destino[]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
-        var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="nota_gastos_destino[]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
-        var comporbante_gastos_destino = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" multiple></span></label>';
+        var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>';
+        var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
+        var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
+        var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
+        var comporbante_gastos_destino = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" multiple></span></label>';
 
         var i = 1; //contador para asignar id al boton que borrara la fila
 
@@ -226,6 +228,7 @@ $(document).ready(function() {
         i++;
 
         $('.gastosDestino tr:first').after(fila);
+        countGD++;
 
         var nFilas = $(".gastosDestino tr").length;
         //le resto 1 para no contar la fila del header
