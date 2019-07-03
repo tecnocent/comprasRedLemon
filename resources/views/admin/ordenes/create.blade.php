@@ -11,15 +11,29 @@
         .formPrincipal {
             height: 68px;
         }
+        .compra-create , .content-create-orden {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+        }
+        .select-tipo {
+            font-size: 10px !important;
+            width: 75px !important;
+            height: 21px !important;
+        }
+        .file-input {
+            font-size: 10px !important;
+            width: 75px !important;
+            height: 21px !important;
+        }
 
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
         <!-- Content Header (Page header) -->
-        <section class="content">
+        <section class="content content-create-orden">
             <h1 style="margin-top:-20px"> Nueva Orden de Compra<small> Creación</small> </h1>
             <div class="row">
-                <section class="col-lg-12 connectedSortable ui-sortable">
+                <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
                         <!-- Formulario -->
                         <form role="form" method="POST" action="{{route('orden.save')}}">
@@ -245,7 +259,9 @@
             $("#po_creada").click(function () {
                 $("#status").val('po creada');
             });
+
         </script>
         <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
+
     @stop
 @endsection

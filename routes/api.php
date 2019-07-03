@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 require base_path('routes/api/admin/ordenes.php');
+require base_path('routes/api/admin/productos.php');

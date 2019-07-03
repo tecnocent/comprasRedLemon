@@ -8,6 +8,7 @@ use App\Models\CostoDestino;
 use App\Models\CostoOrigen;
 use App\Models\OrdenCompra;
 use App\Models\Producto;
+use App\Models\ProductoOrdenCompra;
 use App\Models\Proveedor;
 use App\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -27,13 +28,14 @@ class OrdenesCompraController extends Controller
     protected $mCostoDestino;
     protected $mCostoOrigen;
     protected $mOrdenCompra;
+    protected $mProductoOrdenCompra;
 
 
     /**
      * OrdenesConpraController constructor.
      * @param Proveedor $proveedor
      */
-    public function __construct(OrdenCompra $ordenCompra, Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen)
+    public function __construct(OrdenCompra $ordenCompra, Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -42,6 +44,7 @@ class OrdenesCompraController extends Controller
         $this->mCostoDestino = $costoDestino;
         $this->mCostoOrigen = $costoOrigen;
         $this->mOrdenCompra = $ordenCompra;
+        $this->mProductoOrdenCompra = $productoOrdenCompra;
 
     }
 
@@ -81,6 +84,7 @@ class OrdenesCompraController extends Controller
     public function store(OrdenCompraRequest $oRequest)
     {
         try {
+            // Orden de compra
             $ordenCompra = $this->mOrdenCompra->create([
                 'status'            => $oRequest->status,
                 'identificador'     => $oRequest->id_orden,
@@ -92,6 +96,31 @@ class OrdenesCompraController extends Controller
                 'proveedor_id'      => $oRequest->proveedor,
                 'almacen_id'        => $oRequest->almacen_llegada,
             ]);
+            // Productos
+            if ($oRequest->has('productos')) {
+                foreach ($oRequest->get('productos') as $prod ) {
+                    $logo = (in_array('logo', $prod)) ? true : false;
+                    $oem = (in_array('oem', $prod)) ? true : false;
+                    $instructivo = (in_array('instructivo', $prod)) ? true : false;
+
+                    $productoOrden = $this->mProductoOrdenCompra->create([
+                        'cantidad' => $prod['cantidad_producto'],
+                        'costo' => $prod['costo_producto'],
+                        'total' => $prod['subtotal_producto'],
+                        'incoterm' => $prod['icoterm_producto'],
+                        'leadtime' => $prod['leadtime_producto'],
+                        'logo' => $logo,
+                        'box' => $oem,
+                        'instructivo' => $instructivo,
+                        'archivos_fabricante' => null,
+                        'archivos_design' => null,
+                        'tipo' => $prod['tipo'],
+                        'fecha_requerida' => $prod['fechaRequerida'],
+                        'orden_compra_id' => $ordenCompra->id,
+                        'producto_id' => $prod['producto_id'],
+                    ]);
+                }
+            }
 
             // Alerta
             $notification = array(
@@ -101,6 +130,7 @@ class OrdenesCompraController extends Controller
             return redirect()->route('home')->with($notification);
 
         } catch (\Exception $e) {
+            dd($e->getMessage());
             // Alerta
             $notification = array(
                 'message' => 'Algun error ocurrio.',

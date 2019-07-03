@@ -5,10 +5,20 @@
         .filtro{
             margin-bottom: 10px;
         }
+        .home-section {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+        }
+        .div-home {
+            margin-top: 0px;
+            width: 111% !important;
+            min-height: 273px;
+            margin-left: -57px;
+        }
     </style>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="margin-top:0px; width: 100% !important;"><br>
+    <div class="content-wrapper div-home"><br>
         <!-- Content Header (Page header) -->
         <section class="">
             <br>
@@ -16,100 +26,102 @@
         </section>
         <!-- Main content -->
         <div class="row" style="width:100%; margin-top: 10px">
-            <section class="col-lg-2 connectedSortable ui-sortable">
-                <div class="box">
-                    <div class="box-header">
-                        <a href="{{route('orden.create')}}" class="btn btn-primary btn-xs" role="button" style="height: 27px;"><i class="fa fa-file"></i> Nueva Orden de compra</a>
-                    </div>
-                    <div class="box-body">
-                        <small>Filtra status</small><br><br>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="todos" >Todos</button>
+            <section class="col-lg-12 connectedSortable ui-sortable home-section">
+                <section class="col-lg-2 connectedSortable ui-sortable">
+                    <div class="box">
+                        <div class="box-header">
+                            <a href="{{route('orden.create')}}" class="btn btn-primary btn-xs" role="button" style="height: 27px;"><i class="fa fa-file"></i> Nueva Orden de compra</a>
                         </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="po_creadaB" >Po Creada</button>
-                            <input type="hidden" class="btn btn-success btn-xs " role="button" style="width: 100%;" value="" id="po_creada" name="po_creada"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="borradorB" >Borrador</button>
-                            <input type="hidden" id="borrador" name="borrador"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="pi_pedidoB" >Pi Pedido</button>
-                            <input type="hidden" id="pi_pedido" name="pi_pedido"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="por_autorizarB" >Por Autorizar</button>
-                            <input type="hidden" id="por_autorizar" name="por_autorizar"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="produccionB" >Produccion</button>
-                            <input type="hidden"  id="produccion" name="produccion"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB" >Enviado</button>
-                            <input type="hidden"   id="enviado" name="enviado"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="aduanaB" >Aduana</button>
-                            <input type="hidden"  id="aduana" name="aduana"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="recepcionB" >Recepcion</button>
-                            <input type="hidden"  id="recepcion" name="recepcion"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="canceladoB" >Cancelado</button>
-                            <input type="hidden"  id="cancelado" name="cancelado"/>
-                        </div>
-                        <div class="form-group formPrincipal">
-                            <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="almacenB" >Almacen</button>
-                            <input type="hidden" id="almacen" name="almacen"/>
-                        </div>
+                        <div class="box-body">
+                            <small>Filtra status</small><br><br>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="todos" >Todos</button>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="po_creadaB" >Po Creada</button>
+                                <input type="hidden" class="btn btn-success btn-xs " role="button" style="width: 100%;" value="" id="po_creada" name="po_creada"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="borradorB" >Borrador</button>
+                                <input type="hidden" id="borrador" name="borrador"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="pi_pedidoB" >Pi Pedido</button>
+                                <input type="hidden" id="pi_pedido" name="pi_pedido"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="por_autorizarB" >Por Autorizar</button>
+                                <input type="hidden" id="por_autorizar" name="por_autorizar"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="produccionB" >Produccion</button>
+                                <input type="hidden"  id="produccion" name="produccion"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB" >Enviado</button>
+                                <input type="hidden"   id="enviado" name="enviado"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="aduanaB" >Aduana</button>
+                                <input type="hidden"  id="aduana" name="aduana"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="recepcionB" >Recepcion</button>
+                                <input type="hidden"  id="recepcion" name="recepcion"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="canceladoB" >Cancelado</button>
+                                <input type="hidden"  id="cancelado" name="cancelado"/>
+                            </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="almacenB" >Almacen</button>
+                                <input type="hidden" id="almacen" name="almacen"/>
+                            </div>
 
-                        <br>
-                        <div class="form-group col-sm-12 formPrincipal">
-                            <small>Selecciona encargado</small>
-                            <select class="form-control" name="encargado" id="encargado">
-                                <option value="">Selecciona</option>
-                                <option value="">Todos</option>
-                                @foreach($encargados as $encargado)
-                                    <option value="{{ $encargado->name }}">{{ $encargado->name }}</option>
-                                @endforeach
-                            </select>
+                            <br>
+                            <div class="form-group col-sm-12 formPrincipal">
+                                <small>Selecciona encargado</small>
+                                <select class="form-control" name="encargado" id="encargado">
+                                    <option value="">Selecciona</option>
+                                    <option value="">Todos</option>
+                                    @foreach($encargados as $encargado)
+                                        <option value="{{ $encargado->name }}">{{ $encargado->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="col-lg-10 connectedSortable ui-sortable">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Ordenes</h3>
-                        <div class="box-tools">
+                </section>
+                <section class="col-lg-10 connectedSortable ui-sortable">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Ordenes</h3>
+                            <div class="box-tools">
+                            </div>
+                        </div>
+                        <div class="box-body" id="table1">
+                            <table id="example" class="table table-striped table-bordered responsive" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th data-priority="1">Status</th>
+                                    <th data-priority="2">Orden de compra</th>
+                                    <th>Encargado</th>
+                                    <th>Proveedor</th>
+                                    <th>Fecha PI</th>
+                                    <th>Método envio</th>
+                                    <th>Guia</th>
+                                    <th>Total</th>
+                                    <th>Pagado</th>
+                                    <th>Restante</th>
+                                    <th data-priority="3"></th>
+                                    <th data-priority="4"></th>
+                                    <th data-priority="5"></th>
+                                </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
-                    <div class="box-body" id="table1">
-                        <table id="example" class="table table-striped table-bordered responsive" cellspacing="0" width="100%">
-                            <thead>
-                            <tr>
-                                <th data-priority="1">Status</th>
-                                <th data-priority="2">Orden de compra</th>
-                                <th>Encargado</th>
-                                <th>Proveedor</th>
-                                <th>Fecha PI</th>
-                                <th>Método envio</th>
-                                <th>Guia</th>
-                                <th>Total</th>
-                                <th>Pagado</th>
-                                <th>Restante</th>
-                                <th data-priority="3"></th>
-                                <th data-priority="4"></th>
-                                <th data-priority="5"></th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+                </section>
             </section>
         </div>
         <!-- /.content -->

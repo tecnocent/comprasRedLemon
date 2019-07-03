@@ -25,8 +25,8 @@
                         <tbody>
                         <tr>
                             <td>
-                                <div class="form-group">
-                                    <select id="select" class="form-control" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
+                                <div class="form-group extras">
+                                    <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
                                         <option value="">Selecciona</option>
                                         @foreach($productos as $producto)
                                             <option value="{{$producto->sku}}">{{$producto->name}}</option>
@@ -156,3 +156,4 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
