@@ -9,7 +9,7 @@
             padding-right: 0px !important;
             padding-left: 0px !important;
             margin-left: -74px;
-            width: 103%;
+            width: 105%;
         }
         .div-home {
             margin-top: 0px;
@@ -148,6 +148,35 @@
             </div>
         </div>
         <!-- end Modal -->
+
+
+        <div id="modal-view" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+
+                            </div>
+                            <div class="form-group">
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                </div>
+            </div>
+
+
     </div>
 
 @section('javascript')
@@ -203,7 +232,7 @@
                         }
                     },
                     {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
-                    {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-primary btn-xs" role="button"><i class="fa fa-copy"></i></a>'; } },
+                    {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-view" data-id="'+ d.id +'" role="button"><i class="fa fa-eye"></i></button>'; } },
                     {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger" data-id="'+ d.id +'"><i class="fa fa-remove"></i></button>'; } },
                 ],
                 // Opciones iguales en todas las tablas.

@@ -28,8 +28,7 @@ class ProductoOrdenCompra extends Model
         'logo',
         'box',
         'instructivo',
-        'archivos_fabricante',
-        'archivos_design',
+        'archivos',
         'tipo',
         'fecha_requerida',
         // Llaves foraneas

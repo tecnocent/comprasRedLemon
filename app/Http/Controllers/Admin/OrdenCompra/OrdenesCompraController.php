@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\OrdenCompra;
 
 use App\Http\Requests\OrdenCompraRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Almacen;
 use App\Models\CostoDestino;
 use App\Models\CostoOrigen;
@@ -17,8 +18,8 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Log;
-use Prologue\Alerts\Facades\Alert;
 use Validator;
+use File;
 
 class OrdenesCompraController extends Controller
 {
@@ -102,8 +103,26 @@ class OrdenesCompraController extends Controller
                 'proveedor_id'      => $oRequest->proveedor,
                 'almacen_id'        => $oRequest->almacen_llegada,
             ]);
+            $identificador = $ordenCompra->identificador;
             // Productos
             if ($oRequest->has('productos')) {
+                // Guardado de archivos producto
+                $archivos = [];
+                $archivosProductos = $oRequest->file('productos');
+                if (isset($archivosProductos)) {
+                    for ($i = 0; $i < count($archivosProductos); $i++) {
+                        $fabricante = $archivosProductos[$i]['archivosFabricante'];
+                        $design = $archivosProductos[$i]['archivosDiseno'];
+                        if ($fabricante) {
+                            $archivoFab = $this->guardaArchivo($identificador, $fabricante, 'archivo-fabricante-');
+                            $archivos[] = $archivoFab;
+                        }
+                        if ($design) {
+                            $archivoDis = $this->guardaArchivo($identificador, $design, 'archivo-design-');
+                            $archivos[] = $archivoDis;
+                        }
+                    }
+                }
                 foreach ($oRequest->get('productos') as $prod ) {
                     $logo = (in_array('logo', $prod)) ? true : false;
                     $oem = (in_array('oem', $prod)) ? true : false;
@@ -118,8 +137,7 @@ class OrdenesCompraController extends Controller
                         'logo' => $logo,
                         'box' => $oem,
                         'instructivo' => $instructivo,
-                        'archivos_fabricante' => null,
-                        'archivos_design' => null,
+                        'archivos' => json_encode($archivos),
                         'tipo' => $prod['tipo'],
                         'fecha_requerida' => $prod['fechaRequerida'],
                         'orden_compra_id' => $ordenCompra->id,
@@ -129,11 +147,22 @@ class OrdenesCompraController extends Controller
             }
             // Gastos origen
             if ($oRequest->has('gastosOr')) {
+                $archivosG = [];
+                $archivosGastosOrigen = $oRequest->file('gastosOr');
+                if (isset($archivosGastosOrigen)) {
+                    for ($i = 0; $i < count($archivosGastosOrigen); $i++) {
+                        $gastos = $archivosGastosOrigen[$i]['comprobante_gastos_origen'];
+                        if ($gastos) {
+                            $archivoGastosOr = $this->guardaArchivo($identificador, $gastos, 'archivo-gastosO-');
+                            $archivosG[] = $archivoGastosOr;
+                        }
+                    }
+                }
                 foreach ($oRequest->get('gastosOr') as $gast ) {
                     $gOrigen = $this->mGastosOrigenOrdenCompra->create([
                         'costo' => $gast['costo_gastos_origen'],
                         'notas' => $gast['nota_gastos_origen'],
-                        'comprobante' => $gast['comprobante_gastos_origen'],
+                        'comprobante' => json_encode($archivosG),
                         'orden_compra_id' => $ordenCompra->id,
                         'tipo_gasto_id' => $gast['tipo_gasto_origen'],
                     ]);
@@ -141,12 +170,23 @@ class OrdenesCompraController extends Controller
             }
             // Gastos destino
             if ($oRequest->has('gastosDe')) {
+                $archivosD = [];
+                $archivosGastosDestino = $oRequest->file('gastosDe');
+                if (isset($archivosGastosDestino)) {
+                    for ($i = 0; $i < count($archivosGastosDestino); $i++) {
+                        $gastosDestino = $archivosGastosDestino[$i]['comporbante_gastos_destino'];
+                        if ($gastosDestino) {
+                            $archivoDestino = $this->guardaArchivo($identificador, $gastosDestino, 'archivo-gastosD-');
+                            $archivosD[] = $archivoDestino;
+                        }
+                    }
+                }
                 foreach ($oRequest->get('gastosDe') as $gast ) {
                     $gOrigen = $this->mGastosDestinoOrdenCompra->create([
                         'moneda' => $gast['moneda_gastos_destino'],
                         'costo' => $gast['costo_gastos_destino'],
                         'notas' => $gast['nota_gastos_destino'],
-                        'comprobante' => $gast['comporbante_gastos_destino'],
+                        'comprobante' => json_encode($archivosD),
                         'orden_compra_id' => $ordenCompra->id,
                         'tipo_gasto_destino_id' => $gast['tipo_gasto_gastos_destino'],
                     ]);
@@ -244,4 +284,27 @@ class OrdenesCompraController extends Controller
             return redirect()->back()->with($notification);
         }
     }
+
+
+    /**
+     * Guardado de archivos
+     * @param $path
+     * @param $identificador
+     * @param $archivo
+     * @param $tipoArchivo
+     * @return string
+     */
+    private function guardaArchivo($identificador,$archivo,$tipoArchivo)
+    {
+        ///obtenemos el campo file definido en el formulario
+        $file = $archivo;
+        //obtenemos el nombre del archivo
+        $nombreSubs = $tipoArchivo.$identificador;
+        $nombre = $nombreSubs.$file->getClientOriginalName();
+        //indicamos que queremos guardar un nuevo archivo en el disco local
+        \Storage::disk('local')->put($nombre,  \File::get($file));
+
+        return $nombre;
+    }
+
 }

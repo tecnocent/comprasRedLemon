@@ -20,12 +20,11 @@
             width: 75px !important;
             height: 21px !important;
         }
-        .file-input {
-            font-size: 10px !important;
-            width: 75px !important;
-            height: 21px !important;
+        .fecha-requerida {
+            height: 21px;
+            width: 126px;
+            font-size: 10px;
         }
-
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
@@ -36,7 +35,7 @@
                 <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
                         <!-- Formulario -->
-                        <form role="form" method="POST" action="{{route('orden.save')}}">
+                        <form role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="box box-primary">
                                 <div class="box-header with-border">
@@ -67,7 +66,7 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-6 formPrincipal">
+                                    <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Proveedor</label>
                                         <select class="form-control" name="proveedor">
                                             <option value="">Selecciona</option>
@@ -80,6 +79,10 @@
                                                 {{ $errors->first('proveedor') }}
                                             </span>
                                         @endif
+                                    </div>
+                                    <div class="form-group col-sm-1 formPrincipal">
+                                        <label for="">&nbsp;</label>
+                                        <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-proveedor-modal" id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i> </button>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Fecha inicio</label>

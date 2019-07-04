@@ -34,6 +34,18 @@
   <link href="{{asset('dist/css/datepicker.css')}}" rel="stylesheet" />
   <!-- Toastr -->
   <link href="{{asset('dist/css/alerts/toastr.css')}}" rel="stylesheet" />
+  <style>
+    .loader {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url({{ asset('dist/img/pageLoader.gif') }}) 50% 50% no-repeat rgb(249,249,249);
+      opacity: .8;
+    }
+  </style>
 
   @yield('stylesheet')
 
@@ -131,11 +143,7 @@
   <!-- Full Width Column -->
   <div class="content-wrapper">
     <div class="container">
-      @if (session('alert'))
-        <div class="alert alert-success">
-          {{ session('alert') }}
-        </div>
-      @endif
+      <div class="loader"></div>
       @yield('content')
       <!-- /.content -->
     </div>
@@ -216,6 +224,11 @@
             break;
     }
   @endif
+</script>
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $(".loader").fadeOut("xslow ");
+    });
 </script>
 
 @yield('javascript')
