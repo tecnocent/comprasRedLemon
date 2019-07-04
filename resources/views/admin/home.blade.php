@@ -8,6 +8,8 @@
         .home-section {
             padding-right: 0px !important;
             padding-left: 0px !important;
+            margin-left: -74px;
+            width: 103%;
         }
         .div-home {
             margin-top: 0px;
