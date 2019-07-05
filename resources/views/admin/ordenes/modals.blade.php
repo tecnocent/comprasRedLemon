@@ -162,64 +162,61 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form role="form" method="POST" action="">
+            <form id="proveedor-form" method="post">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Nuevo Proveedor</h4>
                 </div>
                 <div class="modal-body">
-
-
                     <div class="">
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Nombre</label>
                                         <input type="text" class="form-control" placeholder="Nombre" id="nombreProveedor" name="nombreProveedor">
                                     </div>
-                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Nombre de contacto</label>
                                         <input type="text" class="form-control" placeholder="Nombre de contacto" id="nombreContactoProveedor" name="nombreContactoProveedor">
                                     </div>
-                                    <!-- /.form-group -->
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Tax</label>
                                         <input type="text" class="form-control" placeholder="Tax" id="taxProveedor" name="taxProveedor">
                                     </div>
-                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Dirección</label>
                                         <input type="text" class="form-control" placeholder="Dirección" id="direccionProveedor" name="direccionProveedor">
                                     </div>
-                                    <!-- /.form-group -->
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>País</label>
                                         <input type="text" class="form-control" placeholder="País" id="paisProveedor" name="paisProveedor">
                                     </div>
-                                    <!-- /.form-group -->
+                                </div>
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Telefono</label>
                                         <input type="text" class="form-control" placeholder="Telefono" id="tlefonoProveedor" name="tlefonoProveedor">
                                     </div>
-                                    <!-- /.form-group -->
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6">
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Correo</label>
-                                        <input type="email" class="form-control" placeholder="País" id="paisProveedor" name="paisProveedor">
+                                        <input type="email" class="form-control" placeholder="Correo" id="correoProveedor" name="correoProveedor">
                                     </div>
-
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -231,9 +228,48 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="adicionarGastoDestino">Agregar</button>
+                    <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
                 </div>
-            </form><!-- /. Formulario -->
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Nuevo Tipo de compra-->
+<div class="modal right1 fade" id="nuevo-tipo-compra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="tipo-compra-form" method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo Tipo de compra</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <input type="text" class="form-control" placeholder="Tipo de compra" id="tipoCompra" name="tipoCompra">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
+                </div>
+            </form>
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->

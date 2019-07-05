@@ -25,6 +25,10 @@
             width: 126px;
             font-size: 10px;
         }
+        .error {
+            color: red;
+            font-weight: 100;
+        }
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
@@ -38,6 +42,7 @@
                         <form role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="box box-primary">
+                                <meta name="csrf-token" content="{{ csrf_token() }}" />
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Ingresa los datos para crear una orden de compra</h3>
                                 </div>
@@ -68,11 +73,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Proveedor</label>
-                                        <select class="form-control" name="proveedor">
-                                            <option value="">Selecciona</option>
-                                            @foreach ($proveedores as $proveedor)
-                                                <option value="{{ $proveedor->id }}">{{ $proveedor->name }}</option>
-                                            @endforeach
+                                        <select id="proveedor" class="form-control" name="proveedor">
                                         </select>
                                         @if ($errors->has('proveedor'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
@@ -102,19 +103,19 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-6 formPrincipal">
+                                    <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Tipo de compra</label>
                                         <select class="form-control" name="tipo_compra">
-                                            <option value="">Selecciona</option>
-                                            <option value="resurtido">Resurtido</option>
-                                            <option value="nuevo">Nuevo</option>
-                                            <option value="mixto">Mixto</option>
                                         </select>
                                         @if ($errors->has('tipo_compra'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
                                                 {{ $errors->first('tipo_compra') }}
                                             </span>
                                         @endif
+                                    </div>
+                                    <div class="form-group col-sm-1 formPrincipal">
+                                        <label for="">&nbsp;</label>
+                                        <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-tipo-compra" id="nuevo_tipo_compra"><i class="fa fa-pencil-square-o"></i> </button>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Requerimiento</label>
@@ -262,7 +263,85 @@
             $("#po_creada").click(function () {
                 $("#status").val('po creada');
             });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('proveedores.index')}}",
+                    dataType: "json",
+                    success: function(data){
+                        $("#proveedor").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
 
+            });
+        </script>
+        <script>
+            // Guardado de nuevo proveedor
+            $(document).ready(function(){
+                $("#proveedor-form").validate({
+                    event: "blur",rules: {
+                        'nombreProveedor': "required",
+                        'correoProveedor': "required email",
+                        'tlefonoProveedor': "required",
+                        'nombreContactoProveedor': "required"
+                    },
+                    messages: {
+                        'nombreProveedor': "El nombre es requerido",
+                        'correoProveedor': "Indica una direcci&oacute;n de e-mail v&aacute;lida",
+                        'tlefonoProveedor': "El telefono es reuerido",
+                        'nombreContactoProveedor': "El nombre de contacto es requerido"
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("proveedor.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                nombreProveedor: $('#nombreProveedor').val(),
+                                nombreContactoProveedor: $('#nombreContactoProveedor').val(),
+                                taxProveedor: $('#taxProveedor').val(),
+                                direccionProveedor: $('#direccionProveedor').val(),
+                                paisProveedor: $('#paisProveedor').val(),
+                                tlefonoProveedor: $('#tlefonoProveedor').val(),
+                                correoProveedor: $('#correoProveedor').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("nombreProveedor").value="";
+                                document.getElementById("nombreContactoProveedor").value="";
+                                document.getElementById("taxProveedor").value="";
+                                document.getElementById("direccionProveedor").value="";
+                                document.getElementById("paisProveedor").value="";
+                                document.getElementById("tlefonoProveedor").value="";
+                                document.getElementById("correoProveedor").value="";
+                                $("#nuevo-proveedor-modal").modal('hide');
+                                $.ajax({
+                                    url: "{{route('proveedores.index')}}",
+                                    dataType: "json",
+                                    success: function(data){
+                                        $("#proveedor").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
         </script>
         <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
 

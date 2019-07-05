@@ -21,7 +21,7 @@ class Proveedor extends Model
     protected $fillable = [
         'name',
         'tax',
-        'contacname',
+        'contactname',
         'direction',
         'country',
         'phone',

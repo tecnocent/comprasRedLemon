@@ -173,6 +173,12 @@
 <script src="{{asset('dist/js/app.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<!-- cargando pagina -->
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $(".loader").fadeOut("xslow ");
+    });
+</script>
 <!-- Select2 -->
 <script src="{{asset('dist/js/select2.min.js')}}"></script>
 <!-- Datatables -->
@@ -225,12 +231,9 @@
     }
   @endif
 </script>
-<script type="text/javascript">
-    $(window).on('load', function() {
-        $(".loader").fadeOut("xslow ");
-    });
-</script>
-
+<!-- Validate JQuery -->
+<script src="{{asset('dist/js/jquery.form.min.js')}}"></script>
+<script src="{{asset('dist/js/jquery.validate.min.js')}}"></script>
 @yield('javascript')
 </body>
 </html>

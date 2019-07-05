@@ -186,7 +186,7 @@
             // Inicializa tabla de datos
             var dtable = $('#example').DataTable({
                 "ajax": {
-                    "url": "/api/ordenes",
+                    "url": "{{ route('ordenes.index') }}",
                     "dataSrc": "data.ordenes.data",
                     "data": function (d) {
                         var request_data = {};
