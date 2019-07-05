@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Tipo de compra</label>
-                                        <select class="form-control" name="tipo_compra">
+                                        <select class="form-control" id="tipoCompraSelect" name="tipo_compra">
                                         </select>
                                         @if ($errors->has('tipo_compra'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
@@ -324,6 +324,7 @@
                                 document.getElementById("tlefonoProveedor").value="";
                                 document.getElementById("correoProveedor").value="";
                                 $("#nuevo-proveedor-modal").modal('hide');
+                                $('#proveedor option').remove();
                                 $.ajax({
                                     url: "{{route('proveedores.index')}}",
                                     dataType: "json",
@@ -331,6 +332,70 @@
                                         $("#proveedor").append('<option value="">Selecciona</option>');
                                         $.each(data,function(key, registro) {
                                             $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('tipo_compra.index')}}",
+                    dataType: "json",
+                    type:"GET",
+                    success: function(data){
+                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
+
+            });
+        </script>
+        <script>
+            // Guardado de tipo de compra
+            $(document).ready(function(){
+                $("#tipo-compra-form").validate({
+                    event: "blur",rules: {
+                        'tipoCompraNombre': "required",
+                    },
+                    messages: {
+                        'tipoCompraNombre': "El tipo de compra es requerido",
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("tipo_compra.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                tipoCompraNombre: $('#tipoCompraNombre').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("tipoCompraNombre").value = "";
+                                $("#nuevo-tipo-compra").modal('hide');
+                                $('#tipoCompraSelect option').remove();
+                                $.ajax({
+                                    url: "{{route('tipo_compra.index')}}",
+                                    dataType: "json",
+                                    type:"GET",
+                                    success: function(data){
+                                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
                                         });
                                     },
                                     error: function(data) {

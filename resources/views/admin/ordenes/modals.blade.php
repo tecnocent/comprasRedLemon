@@ -254,7 +254,7 @@
                                 <div class="col-md-12 line">
                                     <div class="form-group">
                                         <label>Tipo</label>
-                                        <input type="text" class="form-control" placeholder="Tipo de compra" id="tipoCompra" name="tipoCompra">
+                                        <input type="text" class="form-control" placeholder="Tipo de compra" id="tipoCompraNombre" name="tipoCompraNombre">
                                     </div>
                                 </div>
                                 <!-- /.col -->
