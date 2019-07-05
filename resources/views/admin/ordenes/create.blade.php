@@ -385,7 +385,7 @@
                                 tipoCompraNombre: $('#tipoCompraNombre').val(),
                             },
                             success: function(msg){
-                                document.getElementById("tipoCompraNombre").value = "";
+                                document.getElementById("tipoCompraNombre").value="";
                                 $("#nuevo-tipo-compra").modal('hide');
                                 $('#tipoCompraSelect option').remove();
                                 $.ajax({

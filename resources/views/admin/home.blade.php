@@ -154,7 +154,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Orden de compra:</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -232,7 +232,7 @@
                         }
                     },
                     {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
-                    {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal-view" data-id="'+ d.id +'" role="button"><i class="fa fa-eye"></i></button>'; } },
+                    {data: null, orderable: false, render: function (d) { return '<button type="button" id="buscaOrden" class="btn btn-primary btn-xs" data-id="'+ d.id +'" role="button"><i class="fa fa-eye"></i></button>'; } },
                     {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger" data-id="'+ d.id +'"><i class="fa fa-remove"></i></button>'; } },
                 ],
                 // Opciones iguales en todas las tablas.
@@ -392,6 +392,13 @@
                 $('#cancelado').val('');
                 dtable.search('').draw();
             });
+
+
+            $('#example').on('click', 'tbody #buscaOrden', function () {
+                var data_row = dtable.row($(this).closest('tr')).data();
+                $("#modal-view").modal('show');
+
+            })
         });
         $(document).ready(function() {
             $('#modal-danger').on('show.bs.modal', function(e) {
@@ -399,6 +406,7 @@
                 $('#delete_orden').attr("href", "{{ url('/admin/elimina_orden') }}" + "/" + id);
             });
         });
+
     </script>
 @stop
 @endsection
