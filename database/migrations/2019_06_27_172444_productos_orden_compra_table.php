@@ -25,11 +25,10 @@ class ProductosOrdenCompraTable extends Migration
             $table->boolean('logo')->nullable();
             $table->boolean('box')->nullable();
             $table->boolean('instructivo')->nullable();
-            $table->json('archivos_fabricante')->nullable()->nullable();
-            $table->json('archivos_design')->nullable()->nullable();
+            $table->json('archivos')->nullable()->nullable();
             $table->string('tipo')->nullable();
             $table->date('fecha_requerida')->nullable();
-            $table->foreign('orden_compra_id')->references('id')->on('orden_compra');
+            $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

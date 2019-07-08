@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Proveedor extends Model
+class TipoCompra extends Model
 {
     // Traits
     use Notifiable;
 
     // Nombre de la tabla
-    protected $table = 'providers';
+    protected $table = 'tipo_compra';
 
     /**
      * Atributos modificables
@@ -19,15 +19,7 @@ class Proveedor extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'tax',
-        'contactname',
-        'direction',
-        'country',
-        'phone',
-        'wechat',
-        'whatsapp',
-        'email',
+        'nombre',
     ];
 
     /**
@@ -40,5 +32,4 @@ class Proveedor extends Model
     /**
      * Relaciones ===========================================
      */
-
 }

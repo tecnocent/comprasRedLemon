@@ -27,10 +27,25 @@
   <link href="{{asset('dist/css/select2.min.css')}}" rel="stylesheet" />
   <!-- DataTables -->
   <link href="{{asset('dist/css/DataTables/dataTables.bootstrap.min.css')}}" rel="stylesheet" />
+  <link href="{{asset('dist/css/DataTables/responsive.dataTables.min.css')}}" rel="stylesheet" />
   <!-- Checkbox -->
   <link href="{{asset('dist/css/checkbox.css')}}" rel="stylesheet" />
   <!-- DatePicker -->
   <link href="{{asset('dist/css/datepicker.css')}}" rel="stylesheet" />
+  <!-- Toastr -->
+  <link href="{{asset('dist/css/alerts/toastr.css')}}" rel="stylesheet" />
+  <style>
+    .loader {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url({{ asset('dist/img/pageLoader.gif') }}) 50% 50% no-repeat rgb(249,249,249);
+      opacity: .8;
+    }
+  </style>
 
   @yield('stylesheet')
 
@@ -128,11 +143,7 @@
   <!-- Full Width Column -->
   <div class="content-wrapper">
     <div class="container">
-      @if (session('alert'))
-        <div class="alert alert-success">
-          {{ session('alert') }}
-        </div>
-      @endif
+      <div class="loader"></div>
       @yield('content')
       <!-- /.content -->
     </div>
@@ -162,11 +173,18 @@
 <script src="{{asset('dist/js/app.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<!-- cargando pagina -->
+<script type="text/javascript">
+    $(window).on('load', function() {
+        $(".loader").fadeOut("xslow ");
+    });
+</script>
 <!-- Select2 -->
 <script src="{{asset('dist/js/select2.min.js')}}"></script>
 <!-- Datatables -->
 <script src="{{asset('dist/js/Datatables/dataTables.min.js')}}"></script>
 <script src="{{asset('dist/js/Datatables/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('dist/js/Datatables/dataTables.responsive.min.js')}}"></script>
 <!-- DatePicker -->
 <script src="{{asset('dist/js/datepicker.js')}}"></script>
 <script>
@@ -186,32 +204,44 @@
         language: 'es'
     });
 </script>
-<script>
-    var msg = '{{Session::get('alert')}}';
-    var exist = '{{Session::has('alert')}}';
-    if(exist){
-        alert(msg);
-    }
-</script>
+<!-- Toastr -->
+<script src="{{asset('dist/js/alerts/toastr.min.js')}}"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function($) {
-        PNotify.prototype.options.styling = "bootstrap3";
-        PNotify.prototype.options.styling = "fontawesome";
-      @foreach (Alert::getMessages() as $type => $messages)
-      @foreach ($messages as $message)
-      $(function(){
-          new PNotify({
-              // title: 'Regular Notice',
-              text: "{{ $message }}",
-              type: "{{ $type }}",
-              icon: true
-          });
-      });
-      @endforeach
-      @endforeach
+    toastr.options = {"closeButton":true,"closeClass":"toast-close-button","closeDuration":300,"closeEasing":"swing","closeHtml":"<button><i class=\"icon-off\"><\/i><\/button>","closeMethod":"fadeOut","closeOnHover":true,"containerId":"toast-container","debug":false,"escapeHtml":false,"extendedTimeOut":10000,"hideDuration":1000,"hideEasing":"linear","hideMethod":"fadeOut","iconClass":"toast-info","iconClasses":{"error":"toast-error","info":"toast-info","success":"toast-success","warning":"toast-warning"},"messageClass":"toast-message","newestOnTop":false,"onHidden":null,"onShown":null,"positionClass":"toast-top-right","preventDuplicates":true,"progressBar":true,"progressClass":"toast-progress","rtl":false,"showDuration":300,"showEasing":"swing","showMethod":"fadeIn","tapToDismiss":true,"target":"body","timeOut":5000,"titleClass":"toast-title","toastClass":"toast"};
+</script>
+<script>
+          @if(Session::has('message'))
+    var type = "{{ Session::get('alert-type', 'info') }}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+  @endif
+</script>
+<!-- Validate JQuery -->
+<script src="{{asset('dist/js/jquery.form.min.js')}}"></script>
+<script src="{{asset('dist/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('dist/js/bootstrap-filestyle.js')}}"></script>
+<script>
+    $(":file").filestyle({
+        text: "Buscar ...",
+        btnClass: "btn-primary",
+        dragdrop: false
     });
 </script>
-
 @yield('javascript')
 </body>
 </html>

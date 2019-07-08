@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/admin/ordenes', 'Admin\Dashboard\HomeController@index')->name('home');
 
 // Admin
-Route::group(['namespace' => 'Admin\OrdenCompra', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     require base_path('routes/web/admin/app/orden.php');
 });
 

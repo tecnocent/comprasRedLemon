@@ -25,8 +25,8 @@
                         <tbody>
                         <tr>
                             <td>
-                                <div class="form-group">
-                                    <select id="select" class="form-control" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
+                                <div class="form-group extras">
+                                    <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
                                         <option value="">Selecciona</option>
                                         @foreach($productos as $producto)
                                             <option value="{{$producto->sku}}">{{$producto->name}}</option>
@@ -91,7 +91,7 @@
                         <select class="form-control" name="tipo_gasto_origenM" id="tipo_gasto_origen">
                             <option value="a">Selecciona</option>
                             @foreach($gastosOrigen as $gastoOrigen)
-                                <option value="{{$gastoOrigen->name}}">{{$gastoOrigen->name}}</option>
+                                <option value="{{$gastoOrigen->id}}">{{$gastoOrigen->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -128,7 +128,7 @@
                         <select class="form-control" name="tipo_gasto_gastos_destinoM" id="tipo_gasto_gastos_destino">
                             <option value="1">Selecciona</option>
                             @foreach($gastosDestino as $gastoDestino)
-                                <option value="{{$gastoDestino->name}}">{{$gastoDestino->name}}</option>
+                                <option value="{{$gastoDestino->id}}">{{$gastoDestino->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -153,6 +153,243 @@
                     <button type="button" class="btn btn-success" id="adicionarGastoDestino">Agregar</button>
                 </div>
             </form><!-- /. Formulario -->
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Nuevo Proveedor-->
+<div class="modal right1 fade" id="nuevo-proveedor-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="proveedor-form" method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo Proveedor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre" id="nombreProveedor" name="nombreProveedor">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Nombre de contacto</label>
+                                        <input type="text" class="form-control" placeholder="Nombre de contacto" id="nombreContactoProveedor" name="nombreContactoProveedor">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tax</label>
+                                        <input type="text" class="form-control" placeholder="Tax" id="taxProveedor" name="taxProveedor">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Dirección</label>
+                                        <input type="text" class="form-control" placeholder="Dirección" id="direccionProveedor" name="direccionProveedor">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>País</label>
+                                        <input type="text" class="form-control" placeholder="País" id="paisProveedor" name="paisProveedor">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Telefono</label>
+                                        <input type="text" class="form-control" placeholder="Telefono" id="tlefonoProveedor" name="tlefonoProveedor">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Correo</label>
+                                        <input type="email" class="form-control" placeholder="Correo" id="correoProveedor" name="correoProveedor">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Nuevo Tipo de compra-->
+<div class="modal right1 fade" id="nuevo-tipo-compra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="tipo-compra-form" method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo Tipo de compra</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <input type="text" class="form-control" placeholder="Tipo de compra" id="tipoCompraNombre" name="tipoCompraNombre">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Pagos-->
+<div class="modal right1 fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="pagos-form" method="">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Registrar Pago</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Monto USD</label>
+                                        <input type="text" class="form-control" placeholder="Monto" id="monto_pago" name="monto_pago" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Comprobante</label>
+                                        <input type="file" id="comprobante_monto_pago" name="comprobante_monto_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_pago" name="tipo_cambio_pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>BFCVU</label>
+                                        <input type="text" class="form-control" placeholder="BFCVU" id="bfcvu_pago" name="bfcvu_pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Pago #1</label>
+                                        <input type="text" class="form-control" placeholder="Pago #1" id="pago_1_pago" name="pago_1_pago" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Comprobante pago #1</label>
+                                        <input type="file" id="comprobante_pago_1_pago" name="comprobante_pago_1_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio 1</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio 1" id="tipo_cambio_1_pago" name="tipo_cambio_1_pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Pago #2</label>
+                                        <input type="text" class="form-control" placeholder="Pago #2" id="pago_2_pago" name="pago_2_pago" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Comprobante pago #2</label>
+                                        <input type="file" id="comprobante_pago_2_pago" name="comprobante_pago_2_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio 2</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio 2" id="tipo_cambio_2_pago" name="tipo_cambio_2_pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Pago #3</label>
+                                        <input type="text" class="form-control" placeholder="Pago #3" id="pago_3_pago" name="pago_3_pago" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Comprobante pago #3</label>
+                                        <input type="file" id="comprobante_pago_3_pago" name="comprobante_pago_3_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio 3</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio 3" id="tipo_cambio_3_pago" name="tipo_cambio_3_pago">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Total pagado</label>
+                                        <input type="text" class="form-control" placeholder="Total pagado" id="total_pagado_pago" name="total_pagado_pago" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Restante</label>
+                                        <input type="text" class="form-control" placeholder="Restante" id="restante_pago" name="restante_pago" disabled>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="adicionarPago">Guardar</button>
+                </div>
+            </form>
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->

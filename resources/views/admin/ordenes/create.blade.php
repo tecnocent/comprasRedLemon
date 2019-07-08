@@ -11,20 +11,38 @@
         .formPrincipal {
             height: 68px;
         }
-
+        .compra-create , .content-create-orden {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+        }
+        .select-tipo {
+            font-size: 10px !important;
+            width: 75px !important;
+            height: 21px !important;
+        }
+        .fecha-requerida {
+            height: 21px;
+            width: 126px;
+            font-size: 10px;
+        }
+        .error {
+            color: red;
+            font-weight: 100;
+        }
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
         <!-- Content Header (Page header) -->
-        <section class="content">
+        <section class="content content-create-orden">
             <h1 style="margin-top:-20px"> Nueva Orden de Compra<small> Creación</small> </h1>
             <div class="row">
-                <section class="col-lg-12 connectedSortable ui-sortable">
+                <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
                         <!-- Formulario -->
-                        <form role="form" method="POST" action="{{route('orden.save')}}">
+                        <form role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="box box-primary">
+                                <meta name="csrf-token" content="{{ csrf_token() }}" />
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Ingresa los datos para crear una orden de compra</h3>
                                 </div>
@@ -53,19 +71,19 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-6 formPrincipal">
+                                    <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Proveedor</label>
-                                        <select class="form-control" name="proveedor">
-                                            <option value="">Selecciona</option>
-                                            @foreach ($proveedores as $proveedor)
-                                                <option value="{{ $proveedor->id }}">{{ $proveedor->name }}</option>
-                                            @endforeach
+                                        <select id="proveedor" class="form-control" name="proveedor">
                                         </select>
                                         @if ($errors->has('proveedor'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
                                                 {{ $errors->first('proveedor') }}
                                             </span>
                                         @endif
+                                    </div>
+                                    <div class="form-group col-sm-1 formPrincipal">
+                                        <label for="">&nbsp;</label>
+                                        <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-proveedor-modal" id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i> </button>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Fecha inicio</label>
@@ -85,19 +103,19 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <div class="form-group col-sm-6 formPrincipal">
+                                    <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Tipo de compra</label>
-                                        <select class="form-control" name="tipo_compra">
-                                            <option value="">Selecciona</option>
-                                            <option value="resurtido">Resurtido</option>
-                                            <option value="nuevo">Nuevo</option>
-                                            <option value="mixto">Mixto</option>
+                                        <select class="form-control" id="tipoCompraSelect" name="tipo_compra">
                                         </select>
                                         @if ($errors->has('tipo_compra'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
                                                 {{ $errors->first('tipo_compra') }}
                                             </span>
                                         @endif
+                                    </div>
+                                    <div class="form-group col-sm-1 formPrincipal">
+                                        <label for="">&nbsp;</label>
+                                        <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-tipo-compra" id="nuevo_tipo_compra"><i class="fa fa-pencil-square-o"></i> </button>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Requerimiento</label>
@@ -130,13 +148,16 @@
                                                 <a  href="#1b" data-toggle="tab">Productos</a>
                                             </li>
                                             <li>
-                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                                <a href="#4b" data-toggle="tab">Diseño</a>
                                             </li>
                                             <li>
                                                 <a href="#3b" data-toggle="tab">Gastos Destino</a>
                                             </li>
                                             <li>
-                                                <a href="#4b" data-toggle="tab">Diseño</a>
+                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                            </li>
+                                            <li>
+                                                <a href="#5b" data-toggle="tab">Pagos</a>
                                             </li>
                                         </ul>
 
@@ -217,14 +238,33 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <div class="tab-pane" id="5b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar pago</button>
+                                                <div class="row" id="table2">
+                                                    <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Monto</th>
+                                                            <th>Pago 1</th>
+                                                            <th>Pago 2</th>
+                                                            <th>Pago 3</th>
+                                                            <th>Total pagado</th>
+                                                            <th>Restante</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <br>
-                                    <button type="submit" class="btn btn-success" id="po_creada">Guardar como PO creada</button>
-                                    <button type="submit" class="btn btn-primary" id="borrador">Guardar como borrador</button>
+                                    <button type="submit" class="btn btn-success pull-right" id="po_creada">Guardar como PO creada</button>
+                                    <button type="submit" class="btn btn-primary pull-right" id="borrador" style="margin-right: 10px;">Guardar como borrador</button>
                                 </div>
                             </div>
                         </form>
@@ -246,6 +286,151 @@
                 $("#status").val('po creada');
             });
         </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('proveedores.index')}}",
+                    dataType: "json",
+                    success: function(data){
+                        $("#proveedor").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
+
+            });
+        </script>
+        <script>
+            // Guardado de nuevo proveedor
+            $(document).ready(function(){
+                $("#proveedor-form").validate({
+                    event: "blur",rules: {
+                        'nombreProveedor': "required",
+                        'correoProveedor': "required email",
+                        'tlefonoProveedor': "required",
+                        'nombreContactoProveedor': "required"
+                    },
+                    messages: {
+                        'nombreProveedor': "El nombre es requerido",
+                        'correoProveedor': "Indica una direcci&oacute;n de e-mail v&aacute;lida",
+                        'tlefonoProveedor': "El telefono es reuerido",
+                        'nombreContactoProveedor': "El nombre de contacto es requerido"
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("proveedor.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                nombreProveedor: $('#nombreProveedor').val(),
+                                nombreContactoProveedor: $('#nombreContactoProveedor').val(),
+                                taxProveedor: $('#taxProveedor').val(),
+                                direccionProveedor: $('#direccionProveedor').val(),
+                                paisProveedor: $('#paisProveedor').val(),
+                                tlefonoProveedor: $('#tlefonoProveedor').val(),
+                                correoProveedor: $('#correoProveedor').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("nombreProveedor").value="";
+                                document.getElementById("nombreContactoProveedor").value="";
+                                document.getElementById("taxProveedor").value="";
+                                document.getElementById("direccionProveedor").value="";
+                                document.getElementById("paisProveedor").value="";
+                                document.getElementById("tlefonoProveedor").value="";
+                                document.getElementById("correoProveedor").value="";
+                                $("#nuevo-proveedor-modal").modal('hide');
+                                $('#proveedor option').remove();
+                                $.ajax({
+                                    url: "{{route('proveedores.index')}}",
+                                    dataType: "json",
+                                    success: function(data){
+                                        $("#proveedor").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('tipo_compra.index')}}",
+                    dataType: "json",
+                    type:"GET",
+                    success: function(data){
+                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
+
+            });
+        </script>
+        <script>
+            // Guardado de tipo de compra
+            $(document).ready(function(){
+                $("#tipo-compra-form").validate({
+                    event: "blur",rules: {
+                        'tipoCompraNombre': "required",
+                    },
+                    messages: {
+                        'tipoCompraNombre': "El tipo de compra es requerido",
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("tipo_compra.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                tipoCompraNombre: $('#tipoCompraNombre').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("tipoCompraNombre").value="";
+                                $("#nuevo-tipo-compra").modal('hide');
+                                $('#tipoCompraSelect option').remove();
+                                $.ajax({
+                                    url: "{{route('tipo_compra.index')}}",
+                                    dataType: "json",
+                                    type:"GET",
+                                    success: function(data){
+                                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
         <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
+
     @stop
 @endsection
