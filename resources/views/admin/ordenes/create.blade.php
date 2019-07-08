@@ -148,13 +148,16 @@
                                                 <a  href="#1b" data-toggle="tab">Productos</a>
                                             </li>
                                             <li>
-                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                                <a href="#4b" data-toggle="tab">Diseño</a>
                                             </li>
                                             <li>
                                                 <a href="#3b" data-toggle="tab">Gastos Destino</a>
                                             </li>
                                             <li>
-                                                <a href="#4b" data-toggle="tab">Diseño</a>
+                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                            </li>
+                                            <li>
+                                                <a href="#5b" data-toggle="tab">Pagos</a>
                                             </li>
                                         </ul>
 
@@ -230,6 +233,25 @@
                                                             <th>Archivos autorizados Diseño</th>
                                                             <th>Tipo</th>
                                                             <th>Fecha requerida</th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="5b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar pago</button>
+                                                <div class="row" id="table2">
+                                                    <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Monto</th>
+                                                            <th>Pago 1</th>
+                                                            <th>Pago 2</th>
+                                                            <th>Pago 3</th>
+                                                            <th>Total pagado</th>
+                                                            <th>Restante</th>
+                                                            <th></th>
                                                         </tr>
                                                         </thead>
                                                     </table>

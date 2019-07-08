@@ -28,7 +28,7 @@ class ProductosOrdenCompraTable extends Migration
             $table->json('archivos')->nullable()->nullable();
             $table->string('tipo')->nullable();
             $table->date('fecha_requerida')->nullable();
-            $table->foreign('orden_compra_id')->references('id')->on('orden_compra');
+            $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

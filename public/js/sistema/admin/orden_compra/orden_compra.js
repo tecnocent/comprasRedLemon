@@ -249,6 +249,65 @@ $(document).ready(function() {
     });
 });
 
+// Llenado de Pagos
+$(document).ready(function() {
+    var countPago = 0;
+    //obtenemos el valor de los input
+    $('#adicionarPago').click(function() {
+        var monto_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pago_table" name="pagos['+ countPago +'][monto_pago_table]" value="'+ document.getElementById("monto_pago").value +'"></div>';
+        var comprobante_monto_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_monto_pago_table" name="pagos['+ countPago +'][comprobante_monto_pago_table]" value="'+ $("#comprobante_monto_pago").val() +'"></div>';
+        var tipo_cambio_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pago_table" name="pagos['+ countPago +'][tipo_cambio_pago_table]" value="'+ $("#tipo_cambio_pago").val() +'"></div>';
+        var bfcvu_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="bfcvu_pago_table" name="pagos['+ countPago +'][bfcvu_pago_table]" value="'+ document.getElementById("bfcvu_pago").value +'"></div>';
+        var pago_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_1_pago_table" name="pagos['+ countPago +'][pago_1_pago_table]" value="'+ document.getElementById("pago_1_pago").value +'"></div>';
+        var comprobante_pago_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_1_pago_table" name="pagos['+ countPago +'][comprobante_pago_1_pago_table]" value="'+ $("#comprobante_pago_1_pago").val() +'"></div>';
+        var tipo_cambio_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_1_pago_table" name="pagos['+ countPago +'][tipo_cambio_1_pago_table]" value="'+ document.getElementById("tipo_cambio_1_pago").value +'"></div>';
+        var pago_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_2_pago_table" name="pagos['+ countPago +'][pago_2_pago_table]" value="'+ document.getElementById("pago_2_pago").value +'"></div>';
+        var comprobante_pago_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_2_table" name="pagos['+ countPago +'][comprobante_pago_2_table]" value="'+ $("#comprobante_pago_2_pago").val() +'"></div>';
+        var tipo_cambio_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_2_pago_table" name="pagos['+ countPago +'][tipo_cambio_2_pago_table]" value="'+ document.getElementById("tipo_cambio_2_pago").value +'"></div>';
+        var pago_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_3_pago_table" name="pagos['+ countPago +'][pago_3_pago_table]" value="'+ document.getElementById("pago_3_pago").value +'"></div>';
+        var comprobante_pago_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_3_pago_table" name="pagos['+ countPago +'][comprobante_pago_3_pago_table]" value="'+ $("#comprobante_pago_3_pago").val() +'"></div>';
+        var tipo_cambio_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_3_pago_table" name="pagos['+ countPago +'][tipo_cambio_3_pago_table]" value="'+ document.getElementById("tipo_cambio_3_pago").value +'"></div>';
+        var total_pagado_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado_pago_table" name="pagos['+ countPago +'][total_pagado_pago_table]" value="'+ document.getElementById("total_pagado_pago").value +'"></div>';
+        var restante_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="restante_pago_table" name="pagos['+ countPago +'][restante_pago_table]" value="'+ document.getElementById("restante_pago").value +'"></div>';
+
+        var i = 1; //contador para asignar id al boton que borrara la fila
+
+        var fila = '<tr id="pagos' + i + '">' +
+            '<td>' + monto_pago +' '+ document.getElementById("monto_pago").value +'</td>' +
+            '<td>' + pago_1_pago +' '+ document.getElementById("pago_1_pago").value +'</td>' +
+            '<td>' + pago_2_pago +' '+ document.getElementById("pago_2_pago").value +'</td>' +
+            '<td>' + pago_3_pago +' '+ document.getElementById("pago_3_pago").value +'</td>' +
+            '<td>' + total_pagado_pago +' '+ document.getElementById("total_pagado_pago").value +'</td>' +
+            '<td>' + restante_pago +' '+ document.getElementById("restante_pago").value +'</td>' +
+
+            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger remove_pagos"><i class="fa fa-trash  "></i></button></td>' +
+            '</tr>'; //esto seria lo que contendria la fila
+
+        i++;
+
+        $('.pagos tr:first').after(fila);
+        countPago++;
+
+        var nFilas = $(".pagos tr").length;
+        //le resto 1 para no contar la fila del header
+        document.getElementById("tipo_gasto_gastos_destino").value ="1";
+        document.getElementById("costo_gastos_destino").value = "";
+        document.getElementById("moneda_gastos_destino").value ="a";
+        document.getElementById("nota_gastos_destino").value = "";
+
+        $("#pagos").modal('hide');//oculto el modal
+    });
+
+    $(document).on('click', '.remove_pagos', function() {
+        var button_id = $(this).attr("id");
+        //cuando da click obtenemos el id del boton
+        $('#pagos' + button_id).remove(); //borra la fila
+        //limpia el para que vuelva a contar las filas de la tabla
+        var nFilas = $(".pagos tr").length;
+    });
+});
+
+
 // Solo numeros
 function soloNumeros(e){
     var key = window.Event ? e.which : e.keyCode

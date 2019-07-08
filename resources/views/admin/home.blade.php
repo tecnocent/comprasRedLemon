@@ -150,11 +150,11 @@
         <!-- end Modal -->
 
 
-        <div id="modal-view" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div id="modal-view" class="modal fade bd-example-modal-lg right" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Orden de compra:</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Orden de compra: </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -396,8 +396,11 @@
 
             $('#example').on('click', 'tbody #buscaOrden', function () {
                 var data_row = dtable.row($(this).closest('tr')).data();
-                $("#modal-view").modal('show');
-
+                var identificador = $("<label>").text(data_row.identificador);
+                $('#modal-view').modal('show');
+                $('#modal-view').on('shown.bs.modal', function() {
+                    $('#exampleModalLabel').append(identificador);
+                });
             })
         });
         $(document).ready(function() {

@@ -200,7 +200,6 @@ class OrdenesCompraController extends Controller
             return redirect()->route('home')->with($notification);
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             // Alerta
             $notification = array(
                 'message' => 'Algun error ocurrio.',

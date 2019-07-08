@@ -234,6 +234,14 @@
 <!-- Validate JQuery -->
 <script src="{{asset('dist/js/jquery.form.min.js')}}"></script>
 <script src="{{asset('dist/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('dist/js/bootstrap-filestyle.js')}}"></script>
+<script>
+    $(":file").filestyle({
+        text: "Buscar ...",
+        btnClass: "btn-primary",
+        dragdrop: false
+    });
+</script>
 @yield('javascript')
 </body>
 </html>
