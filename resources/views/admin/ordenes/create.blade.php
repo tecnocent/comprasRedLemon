@@ -249,19 +249,35 @@
                                             </div>
                                             <div class="tab-pane" id="5b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar pago</button>
-                                                <div class="row" id="table2">
-                                                    <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Monto</th>
-                                                            <th>Comprobante monto</th>
-                                                            <th>Pago</th>
-                                                            <th>Comprobante pago</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                    </table>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
+                                                <div class="row montoPago" id="montoPago">
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-heading">
+                                                            <div class="row">
+                                                                <div class="col-md-6 line">
+                                                                    <div class="form-group">
+                                                                        <h4>Monto USD</h4>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 line">
+                                                                    <div class="form-group">
+                                                                        <h4>Comprobante</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Pago</th>
+                                                                    <th>Comprobante pago</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,6 +301,149 @@
     @extends('admin.ordenes.modals')
     <!-- Scripts -->
     @section('javascript')
+        <script>
+            // Llenado de select proveedores
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('proveedores.index')}}",
+                    dataType: "json",
+                    success: function(data){
+                        $("#proveedor").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
+
+            });
+
+            // Guardado de nuevo proveedor
+            $(document).ready(function(){
+                $("#proveedor-form").validate({
+                    event: "blur",rules: {
+                        'nombreProveedor': "required",
+                        'correoProveedor': "required email",
+                        'tlefonoProveedor': "required",
+                        'nombreContactoProveedor': "required"
+                    },
+                    messages: {
+                        'nombreProveedor': "El nombre es requerido",
+                        'correoProveedor': "Indica una direcci&oacute;n de e-mail v&aacute;lida",
+                        'tlefonoProveedor': "El telefono es reuerido",
+                        'nombreContactoProveedor': "El nombre de contacto es requerido"
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("proveedor.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                nombreProveedor: $('#nombreProveedor').val(),
+                                nombreContactoProveedor: $('#nombreContactoProveedor').val(),
+                                taxProveedor: $('#taxProveedor').val(),
+                                direccionProveedor: $('#direccionProveedor').val(),
+                                paisProveedor: $('#paisProveedor').val(),
+                                tlefonoProveedor: $('#tlefonoProveedor').val(),
+                                correoProveedor: $('#correoProveedor').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("nombreProveedor").value="";
+                                document.getElementById("nombreContactoProveedor").value="";
+                                document.getElementById("taxProveedor").value="";
+                                document.getElementById("direccionProveedor").value="";
+                                document.getElementById("paisProveedor").value="";
+                                document.getElementById("tlefonoProveedor").value="";
+                                document.getElementById("correoProveedor").value="";
+                                $("#nuevo-proveedor-modal").modal('hide');
+                                $('#proveedor option').remove();
+                                $.ajax({
+                                    url: "{{route('proveedores.index')}}",
+                                    dataType: "json",
+                                    success: function(data){
+                                        $("#proveedor").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Select tipo de compra
+            $(document).ready(function() {
+                $.ajax({
+                    url: "{{route('tipo_compra.index')}}",
+                    dataType: "json",
+                    type:"GET",
+                    success: function(data){
+                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                        $.each(data,function(key, registro) {
+                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                        });
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                });
+            });
+
+            // Guardado de tipo de compra
+            $(document).ready(function(){
+                $("#tipo-compra-form").validate({
+                    event: "blur",rules: {
+                        'tipoCompraNombre': "required",
+                    },
+                    messages: {
+                        'tipoCompraNombre': "El tipo de compra es requerido",
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("tipo_compra.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                tipoCompraNombre: $('#tipoCompraNombre').val(),
+                            },
+                            success: function(msg){
+                                document.getElementById("tipoCompraNombre").value="";
+                                $("#nuevo-tipo-compra").modal('hide');
+                                $('#tipoCompraSelect option').remove();
+                                $.ajax({
+                                    url: "{{route('tipo_compra.index')}}",
+                                    dataType: "json",
+                                    type:"GET",
+                                    success: function(data){
+                                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                                        });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+        </script>
         <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
     @stop
 @endsection

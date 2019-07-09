@@ -331,13 +331,13 @@
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Pago</label>
-                                        <input type="text" class="form-control" placeholder="Pago" id="pago_pagos-0" name="pago_pagos-0" onkeypress="return filterFloat(event,this);">
+                                        <input type="text" class="form-control pago-input" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs pago1">
                                     <div class="form-group">
                                         <label>Tipo de cambio de pago</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-0" name="tipo_cambio_pago_pagos-0">
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos" name="tipo_cambio_pago_pagos">
                                     </div>
                                 </div>
                                 <!-- /.col -->
