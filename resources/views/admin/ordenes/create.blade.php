@@ -270,7 +270,7 @@
                                                             <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Pago</th>
+                                                                    <th>Pago $</th>
                                                                     <th>Comprobante pago</th>
                                                                     <th></th>
                                                                 </tr>

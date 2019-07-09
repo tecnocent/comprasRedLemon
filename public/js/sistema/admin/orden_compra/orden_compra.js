@@ -301,7 +301,6 @@ $(document).ready(function() {
 
 // Llenado de Pagos
 $(document).ready(function() {
-    var countPago = 0;
     var contadorDiv = 0;
     //obtenemos el valor de los input
     $('#pagos-form').validate({
@@ -326,10 +325,10 @@ $(document).ready(function() {
             document.getElementById("table-monto-default").style.visibility = "hidden";
             document.getElementById("table-monto-default").style.marginTop = "-14px";
 
-            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="montos['+ countPago +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
-            var buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="montos['+ countPago +'][comprobanteMonto]" >';
+            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="montos['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
+            var buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="montos['+ contadorDiv +'][comprobanteMonto]" >';
 
-            var monto = '<div class="row" id="montoPago">\n' +
+            var monto = '<div class="row" id="remove-div-monto'+contadorDiv+'" class="remove-div-monto">\n' +
                 '           <div class="panel panel-default">\n' +
                 '               <div class="panel-heading">\n' +
                 '                   <div class="row">\n' +
@@ -339,21 +338,25 @@ $(document).ready(function() {
                 '                               <h4>$ '+ monto_pagos +' '+ document.getElementById("monto_pagos").value +'</h4>\n' +
                 '                           </div>\n' +
                 '                       </div>\n' +
-                '                       <div class="col-md-6 line">\n' +
+                '                       <div class="col-md-5 line">\n' +
                 '                           <div class="form-group">\n' +
                 '                               <h4>Comprobante</h4>\n' +
                 '                               '+ buscaComprobante +'\n' +
                 '                           </div>\n' +
                 '                       </div>\n' +
+                '                       <div class="col-md-1 line">\n' +
+                '                           <div class="form-group">\n' +
+                '                               <button type="button" name="remove-monto" id="'+ contadorDiv +'" class="btn btn-danger remove-monto"><i class="fa fa-trash  "></i></button>\n' +
+                '                           </div>\n' +
+                '                       </div>\n' +
                 '                   </div>\n' +
                 '               </div>\n' +
                 '               <div class="panel-body">\n' +
-                '                   <table id="pagos_a_guardar" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">\n' +
+                '                   <table id="pagos_a_guardar" class="table table-striped table-bordered pagos_a_guardar" cellspacing="0" width="100%">\n' +
                 '                       <thead>\n' +
                 '                           <tr>\n' +
-                '                               <th>Pago</th>\n' +
+                '                               <th>Pago $</th>\n' +
                 '                               <th>Comprobante pago</th>\n' +
-                '                               <th></th>\n' +
                 '                           </tr>\n' +
                 '                           <tbody id="forPagos">\n' +
                 '                           </tbody>\n' +
@@ -366,6 +369,12 @@ $(document).ready(function() {
             $('.montoPago').after(monto);
             contadorDiv++;
 
+            $(document).on('click', '.remove-monto', function() {
+                var button_id = $(this).attr("id");
+                console.log(button_id);
+                $('#remove-div-monto' + button_id).remove();
+                var nFilas = $(".montoPago").length;
+            });
 
             var pagos = [];
             $('input[name^="pago_pagos"]').each(function() {
@@ -375,15 +384,13 @@ $(document).ready(function() {
             $('input[name^="tipo_cambio_pago_pagos"]').each(function() {
                 tipoCambioPago = tipoCambioPago.concat($(this).val());
             });
-
-
-            /***********************************************/
-
             function logArrayElements(element, index, array) {
                 var cuentaPago = 0;
+                var filas = 0;
                 element.pagosInput.forEach(function(e) {
                     pagoHTML = '<td><input type="text" class="form-control pull-right " id="pago-pagos" name="pagos['+ cuentaPago +'][pago]" value="'+ e +'"></td>' +
                         '<td><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_pago['+cuentaPago+']" name="pagos['+ cuentaPago +'][comprobantePago]" ></td>';
+
                     fila = fila.concat(pagoHTML);
                     cuentaPago++;
                 });
@@ -394,7 +401,7 @@ $(document).ready(function() {
                     cuentaTipoCam++;
                 });
 
-                var html = "<tr>";
+                var html = '<tr id="removePago'+filas+'">';
 
                 // Loop through array and add table cells
                 for (var i=0; i < fila.length; i++) {
@@ -405,6 +412,8 @@ $(document).ready(function() {
                 }
                 html += "</tr>";
                 document.getElementById("forPagos").innerHTML = html;
+                filas++;
+
             }
 
 
@@ -425,14 +434,6 @@ $(document).ready(function() {
 
             $("#pagos").modal('hide');//oculto el modal
         }
-    });
-
-    $(document).on('click', '.remove_pagos', function() {
-        var button_id = $(this).attr("id");
-        //cuando da click obtenemos el id del boton
-        $('#pagos' + button_id).remove(); //borra la fila
-        //limpia el para que vuelva a contar las filas de la tabla
-        var nFilas = $(".pagos tr").length;
     });
 });
 
