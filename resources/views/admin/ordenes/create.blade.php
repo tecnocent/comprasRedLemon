@@ -29,6 +29,15 @@
             color: red;
             font-weight: 100;
         }
+        .pagos-inputs {
+            height: 78px;
+        }
+        .visible {
+            visibility: visible;
+        }
+        .invisible {
+            visibility: hidden;
+        }
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
@@ -246,11 +255,9 @@
                                                         <thead>
                                                         <tr>
                                                             <th>Monto</th>
-                                                            <th>Pago 1</th>
-                                                            <th>Pago 2</th>
-                                                            <th>Pago 3</th>
-                                                            <th>Total pagado</th>
-                                                            <th>Restante</th>
+                                                            <th>Comprobante monto</th>
+                                                            <th>Pago</th>
+                                                            <th>Comprobante pago</th>
                                                             <th></th>
                                                         </tr>
                                                         </thead>
@@ -276,161 +283,8 @@
     </div>
     <!-- Modals-->
     @extends('admin.ordenes.modals')
+    <!-- Scripts -->
     @section('javascript')
-        <script>
-            //Status de la orden
-            $("#borrador").click(function () {
-                $("#status").val('borrador');
-            });
-            $("#po_creada").click(function () {
-                $("#status").val('po creada');
-            });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.ajax({
-                    url: "{{route('proveedores.index')}}",
-                    dataType: "json",
-                    success: function(data){
-                        $("#proveedor").append('<option value="">Selecciona</option>');
-                        $.each(data,function(key, registro) {
-                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
-                        });
-                    },
-                    error: function(data) {
-                        alert('error');
-                    }
-                });
-
-            });
-        </script>
-        <script>
-            // Guardado de nuevo proveedor
-            $(document).ready(function(){
-                $("#proveedor-form").validate({
-                    event: "blur",rules: {
-                        'nombreProveedor': "required",
-                        'correoProveedor': "required email",
-                        'tlefonoProveedor': "required",
-                        'nombreContactoProveedor': "required"
-                    },
-                    messages: {
-                        'nombreProveedor': "El nombre es requerido",
-                        'correoProveedor': "Indica una direcci&oacute;n de e-mail v&aacute;lida",
-                        'tlefonoProveedor': "El telefono es reuerido",
-                        'nombreContactoProveedor': "El nombre de contacto es requerido"
-                    },
-                    debug: true,errorElement: "label",
-                    submitHandler: function(form){
-                        $.ajax({
-                            type: "POST",
-                            url: '{{route("proveedor.save")}}',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: {
-                                nombreProveedor: $('#nombreProveedor').val(),
-                                nombreContactoProveedor: $('#nombreContactoProveedor').val(),
-                                taxProveedor: $('#taxProveedor').val(),
-                                direccionProveedor: $('#direccionProveedor').val(),
-                                paisProveedor: $('#paisProveedor').val(),
-                                tlefonoProveedor: $('#tlefonoProveedor').val(),
-                                correoProveedor: $('#correoProveedor').val(),
-                            },
-                            success: function(msg){
-                                document.getElementById("nombreProveedor").value="";
-                                document.getElementById("nombreContactoProveedor").value="";
-                                document.getElementById("taxProveedor").value="";
-                                document.getElementById("direccionProveedor").value="";
-                                document.getElementById("paisProveedor").value="";
-                                document.getElementById("tlefonoProveedor").value="";
-                                document.getElementById("correoProveedor").value="";
-                                $("#nuevo-proveedor-modal").modal('hide');
-                                $('#proveedor option').remove();
-                                $.ajax({
-                                    url: "{{route('proveedores.index')}}",
-                                    dataType: "json",
-                                    success: function(data){
-                                        $("#proveedor").append('<option value="">Selecciona</option>');
-                                        $.each(data,function(key, registro) {
-                                            $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
-                                        });
-                                    },
-                                    error: function(data) {
-                                        alert('error');
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.ajax({
-                    url: "{{route('tipo_compra.index')}}",
-                    dataType: "json",
-                    type:"GET",
-                    success: function(data){
-                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
-                        $.each(data,function(key, registro) {
-                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
-                        });
-                    },
-                    error: function(data) {
-                        alert('error');
-                    }
-                });
-
-            });
-        </script>
-        <script>
-            // Guardado de tipo de compra
-            $(document).ready(function(){
-                $("#tipo-compra-form").validate({
-                    event: "blur",rules: {
-                        'tipoCompraNombre': "required",
-                    },
-                    messages: {
-                        'tipoCompraNombre': "El tipo de compra es requerido",
-                    },
-                    debug: true,errorElement: "label",
-                    submitHandler: function(form){
-                        $.ajax({
-                            type: "POST",
-                            url: '{{route("tipo_compra.save")}}',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: {
-                                tipoCompraNombre: $('#tipoCompraNombre').val(),
-                            },
-                            success: function(msg){
-                                document.getElementById("tipoCompraNombre").value="";
-                                $("#nuevo-tipo-compra").modal('hide');
-                                $('#tipoCompraSelect option').remove();
-                                $.ajax({
-                                    url: "{{route('tipo_compra.index')}}",
-                                    dataType: "json",
-                                    type:"GET",
-                                    success: function(data){
-                                        $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
-                                        $.each(data,function(key, registro) {
-                                            $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
-                                        });
-                                    },
-                                    error: function(data) {
-                                        alert('error');
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-        </script>
         <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
-
     @stop
 @endsection

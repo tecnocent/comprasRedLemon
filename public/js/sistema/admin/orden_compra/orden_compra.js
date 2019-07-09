@@ -1,3 +1,151 @@
+//Status de la orden
+$("#borrador").click(function () {
+    $("#status").val('borrador');
+});
+$("#po_creada").click(function () {
+    $("#status").val('po creada');
+});
+
+// Llenado de select proveedores
+$(document).ready(function() {
+    $.ajax({
+        url: "{{route('proveedores.index')}}",
+        dataType: "json",
+        success: function(data){
+            $("#proveedor").append('<option value="">Selecciona</option>');
+            $.each(data,function(key, registro) {
+                $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+            });
+        },
+        error: function(data) {
+            alert('error');
+        }
+    });
+
+});
+
+// Guardado de nuevo proveedor
+$(document).ready(function(){
+    $("#proveedor-form").validate({
+        event: "blur",rules: {
+            'nombreProveedor': "required",
+            'correoProveedor': "required email",
+            'tlefonoProveedor': "required",
+            'nombreContactoProveedor': "required"
+        },
+        messages: {
+            'nombreProveedor': "El nombre es requerido",
+            'correoProveedor': "Indica una direcci&oacute;n de e-mail v&aacute;lida",
+            'tlefonoProveedor': "El telefono es reuerido",
+            'nombreContactoProveedor': "El nombre de contacto es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            $.ajax({
+                type: "POST",
+                url: '{{route("proveedor.save")}}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    nombreProveedor: $('#nombreProveedor').val(),
+                    nombreContactoProveedor: $('#nombreContactoProveedor').val(),
+                    taxProveedor: $('#taxProveedor').val(),
+                    direccionProveedor: $('#direccionProveedor').val(),
+                    paisProveedor: $('#paisProveedor').val(),
+                    tlefonoProveedor: $('#tlefonoProveedor').val(),
+                    correoProveedor: $('#correoProveedor').val(),
+                },
+                success: function(msg){
+                    document.getElementById("nombreProveedor").value="";
+                    document.getElementById("nombreContactoProveedor").value="";
+                    document.getElementById("taxProveedor").value="";
+                    document.getElementById("direccionProveedor").value="";
+                    document.getElementById("paisProveedor").value="";
+                    document.getElementById("tlefonoProveedor").value="";
+                    document.getElementById("correoProveedor").value="";
+                    $("#nuevo-proveedor-modal").modal('hide');
+                    $('#proveedor option').remove();
+                    $.ajax({
+                        url: "{{route('proveedores.index')}}",
+                        dataType: "json",
+                        success: function(data){
+                            $("#proveedor").append('<option value="">Selecciona</option>');
+                            $.each(data,function(key, registro) {
+                                $("#proveedor").append('<option value='+registro.id+'>'+registro.name+'</option>');
+                            });
+                        },
+                        error: function(data) {
+                            alert('error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+// Select tipo de compra
+$(document).ready(function() {
+    $.ajax({
+        url: "{{route('tipo_compra.index')}}",
+        dataType: "json",
+        type:"GET",
+        success: function(data){
+            $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+            $.each(data,function(key, registro) {
+                $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+            });
+        },
+        error: function(data) {
+            alert('error');
+        }
+    });
+});
+
+// Guardado de tipo de compra
+$(document).ready(function(){
+    $("#tipo-compra-form").validate({
+        event: "blur",rules: {
+            'tipoCompraNombre': "required",
+        },
+        messages: {
+            'tipoCompraNombre': "El tipo de compra es requerido",
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            $.ajax({
+                type: "POST",
+                url: '{{route("tipo_compra.save")}}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    tipoCompraNombre: $('#tipoCompraNombre').val(),
+                },
+                success: function(msg){
+                    document.getElementById("tipoCompraNombre").value="";
+                    $("#nuevo-tipo-compra").modal('hide');
+                    $('#tipoCompraSelect option').remove();
+                    $.ajax({
+                        url: "{{route('tipo_compra.index')}}",
+                        dataType: "json",
+                        type:"GET",
+                        success: function(data){
+                            $("#tipoCompraSelect").append('<option value="">Selecciona</option>');
+                            $.each(data,function(key, registro) {
+                                $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
+                            });
+                        },
+                        error: function(data) {
+                            alert('error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
 
 // Funcion para select2 dentro de modal
 $(document).ready(function() {
@@ -253,49 +401,58 @@ $(document).ready(function() {
 $(document).ready(function() {
     var countPago = 0;
     //obtenemos el valor de los input
-    $('#adicionarPago').click(function() {
-        var monto_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pago_table" name="pagos['+ countPago +'][monto_pago_table]" value="'+ document.getElementById("monto_pago").value +'"></div>';
-        var comprobante_monto_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_monto_pago_table" name="pagos['+ countPago +'][comprobante_monto_pago_table]" value="'+ $("#comprobante_monto_pago").val() +'"></div>';
-        var tipo_cambio_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pago_table" name="pagos['+ countPago +'][tipo_cambio_pago_table]" value="'+ $("#tipo_cambio_pago").val() +'"></div>';
-        var bfcvu_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="bfcvu_pago_table" name="pagos['+ countPago +'][bfcvu_pago_table]" value="'+ document.getElementById("bfcvu_pago").value +'"></div>';
-        var pago_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_1_pago_table" name="pagos['+ countPago +'][pago_1_pago_table]" value="'+ document.getElementById("pago_1_pago").value +'"></div>';
-        var comprobante_pago_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_1_pago_table" name="pagos['+ countPago +'][comprobante_pago_1_pago_table]" value="'+ $("#comprobante_pago_1_pago").val() +'"></div>';
-        var tipo_cambio_1_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_1_pago_table" name="pagos['+ countPago +'][tipo_cambio_1_pago_table]" value="'+ document.getElementById("tipo_cambio_1_pago").value +'"></div>';
-        var pago_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_2_pago_table" name="pagos['+ countPago +'][pago_2_pago_table]" value="'+ document.getElementById("pago_2_pago").value +'"></div>';
-        var comprobante_pago_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_2_table" name="pagos['+ countPago +'][comprobante_pago_2_table]" value="'+ $("#comprobante_pago_2_pago").val() +'"></div>';
-        var tipo_cambio_2_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_2_pago_table" name="pagos['+ countPago +'][tipo_cambio_2_pago_table]" value="'+ document.getElementById("tipo_cambio_2_pago").value +'"></div>';
-        var pago_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_3_pago_table" name="pagos['+ countPago +'][pago_3_pago_table]" value="'+ document.getElementById("pago_3_pago").value +'"></div>';
-        var comprobante_pago_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comprobante_pago_3_pago_table" name="pagos['+ countPago +'][comprobante_pago_3_pago_table]" value="'+ $("#comprobante_pago_3_pago").val() +'"></div>';
-        var tipo_cambio_3_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_3_pago_table" name="pagos['+ countPago +'][tipo_cambio_3_pago_table]" value="'+ document.getElementById("tipo_cambio_3_pago").value +'"></div>';
-        var total_pagado_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado_pago_table" name="pagos['+ countPago +'][total_pagado_pago_table]" value="'+ document.getElementById("total_pagado_pago").value +'"></div>';
-        var restante_pago = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="restante_pago_table" name="pagos['+ countPago +'][restante_pago_table]" value="'+ document.getElementById("restante_pago").value +'"></div>';
+    $('#pagos-form').validate({
+        event: "blur",rules: {
+            'monto_pagos': "required",
+            'tipo_cambio_monto_pagos': 'required',
+            'bfcvu_pagos': 'required',
+            'pago_pagos-0': 'required',
+            'tipo_cambio_pago_pagos-0': 'required'
+        },
+        messages: {
+            'monto_pagos': "El monto es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+        var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pago_table" name="pagos['+ countPago +'][monto_pago]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
+        var comprobante_monto_pago = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="pagos['+ countPago +'][comprobante_monto_pago]"></div>';
+        var tipo_cambio_monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto_pagos_table" name="pagos['+ countPago +'][tipo_cambio_monto_pagos]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>';
+        var bfcvu_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="bfcvu_pago_table" name="pagos['+ countPago +'][bfcvu_pago]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>';
+        var pago_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="pago_pagos_table" name="pagos['+ countPago +'][pago_pagos]" value="'+ document.getElementById("pago_pagos-0").value +'"></div>';
+        var comprobante_pago_pagos = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="comprobante_pago_pagos" name="pagos['+ countPago +'][comprobante_pago_pagos]"></div>';
+        var tipo_cambio_pago_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pago_pagos_table" name="pagos['+ countPago +'][tipo_cambio_pago_pagos]" value="'+ document.getElementById("tipo_cambio_pago_pagos-0").value +'"></div>';
 
         var i = 1; //contador para asignar id al boton que borrara la fila
 
         var fila = '<tr id="pagos' + i + '">' +
-            '<td>' + monto_pago +' '+ document.getElementById("monto_pago").value +'</td>' +
-            '<td>' + pago_1_pago +' '+ document.getElementById("pago_1_pago").value +'</td>' +
-            '<td>' + pago_2_pago +' '+ document.getElementById("pago_2_pago").value +'</td>' +
-            '<td>' + pago_3_pago +' '+ document.getElementById("pago_3_pago").value +'</td>' +
-            '<td>' + total_pagado_pago +' '+ document.getElementById("total_pagado_pago").value +'</td>' +
-            '<td>' + restante_pago +' '+ document.getElementById("restante_pago").value +'</td>' +
-
+            '<td>' + monto_pagos +' '+ document.getElementById("monto_pagos").value +'</td>' +
+            '<td>' + comprobante_monto_pago +'</td>' +
+            '<td>' + pago_pagos +' '+ document.getElementById("pago_pagos-0").value +'</td>' +
+            '<td>' + comprobante_pago_pagos +'</td>' +
             '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger remove_pagos"><i class="fa fa-trash  "></i></button></td>' +
             '</tr>'; //esto seria lo que contendria la fila
 
         i++;
+
+        // recargo el filestyle
+        $.ajax({
+            url: '/dist/js/filestyle.js',
+            dataType: 'script'
+        });
 
         $('.pagos tr:first').after(fila);
         countPago++;
 
         var nFilas = $(".pagos tr").length;
         //le resto 1 para no contar la fila del header
-        document.getElementById("tipo_gasto_gastos_destino").value ="1";
-        document.getElementById("costo_gastos_destino").value = "";
-        document.getElementById("moneda_gastos_destino").value ="a";
-        document.getElementById("nota_gastos_destino").value = "";
+        document.getElementById("monto_pagos").value ="";
+        document.getElementById("tipo_cambio_monto_pagos").value ="";
+        document.getElementById("bfcvu_pagos").value ="";
+        document.getElementById("pago_pagos-0").value ="";
+        document.getElementById("tipo_cambio_pago_pagos-0").value ="";
 
         $("#pagos").modal('hide');//oculto el modal
+        }
     });
 
     $(document).on('click', '.remove_pagos', function() {
@@ -307,6 +464,24 @@ $(document).ready(function() {
     });
 });
 
+
+$(document).ready(function() {
+    var contador = 1;
+    $('#otropago').click(function() {
+        var pago = '<div id="remove-pago'+contador+'"><div class="col-md-6 line pagos-inputs"><div class="form-group"><label>Pago</label><input type="text" class="form-control" placeholder="Pago" id="pago_pagos-'+contador+'" name="pago_pagos-'+contador+'" onkeypress="return filterFloat(event,this);"></div></div>' +
+            '<div class="col-md-5 line pagos-inputs"><div class="form-group"><label>Tipo de cambio de pago</label><input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-'+contador+'" name="tipo_cambio_pago_pagos-'+contador+'"></div></div>' +
+            '<div class="col-md-1 line pagos-inputs"><div class="form-group"><label><br><br></label><button type="button" name="remove-p" id="' + contador + '" class="btn btn-danger remove-p" style="margin-top: 18px;"><i class="fa fa-trash  "></i></button></div></div></div>';
+        $('.pago1').after(pago);
+        contador++;
+    });
+    $(document).on('click', '.remove-p', function() {
+        var button_id = $(this).attr("id");
+        //cuando da click obtenemos el id del boton
+        $('#remove-pago' + button_id).remove(); //borra la fila
+        //limpia el para que vuelva a contar las filas de la tabla
+        var nFilas = $(".pago1").length;
+    });
+});
 
 // Solo numeros
 function soloNumeros(e){

@@ -192,6 +192,10 @@ class OrdenesCompraController extends Controller
                     ]);
                 }
             }
+            // Pagos
+            if ($oRequest->has('pagos')) {
+                dd($oRequest->pagos);
+            }
             // Alerta
             $notification = array(
                 'message' => 'Orden de compra ceada exitosamente.',

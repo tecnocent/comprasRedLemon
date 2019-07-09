@@ -290,94 +290,54 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-6 line">
+                                <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Monto USD</label>
-                                        <input type="text" class="form-control" placeholder="Monto" id="monto_pago" name="monto_pago" onkeypress="return filterFloat(event,this);">
+                                        <input type="text" class="form-control" placeholder="Monto" id="monto_pagos" name="monto_pagos" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Comprobante</label>
-                                        <input type="file" id="comprobante_monto_pago" name="comprobante_monto_pago" data-btnClass="btn-primary" data-dragdrop="false">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Tipo de cambio</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_pago" name="tipo_cambio_pago">
+                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_monto_pagos" name="tipo_cambio_monto_pagos">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
-                                        <label>BFCVU</label>
-                                        <input type="text" class="form-control" placeholder="BFCVU" id="bfcvu_pago" name="bfcvu_pago">
+                                        <label>BFCV</label>
+                                        <input type="text" class="form-control" placeholder="BFCV" id="bfcvu_pagos" name="bfcvu_pagos">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-12 line pagos-inputs" style="height: 13px;">
                                     <div class="form-group">
-                                        <label>Pago #1</label>
-                                        <input type="text" class="form-control" placeholder="Pago #1" id="pago_1_pago" name="pago_1_pago" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-1 line">
                                     <div class="form-group">
-                                        <label>Comprobante pago #1</label>
-                                        <input type="file" id="comprobante_pago_1_pago" name="comprobante_pago_1_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                        <h4 class="modal-title" id="">Pagos</h4><br>
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-9 line">
                                     <div class="form-group">
-                                        <label>Tipo de cambio 1</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio 1" id="tipo_cambio_1_pago" name="tipo_cambio_1_pago">
+                                        <button type="button" class="btn btn-primary pull-left" id="otropago" data-toggle="tooltip" data-placement="right" title="Agregar pago">
+                                            <i class="fa fa-plus">&nbsp;</i>
+                                        </button>
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-12 line pagos" style="height: 0px;">
                                     <div class="form-group">
-                                        <label>Pago #2</label>
-                                        <input type="text" class="form-control" placeholder="Pago #2" id="pago_2_pago" name="pago_2_pago" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
-                                        <label>Comprobante pago #2</label>
-                                        <input type="file" id="comprobante_pago_2_pago" name="comprobante_pago_2_pago" data-btnClass="btn-primary" data-dragdrop="false">
+                                        <label>Pago</label>
+                                        <input type="text" class="form-control" placeholder="Pago" id="pago_pagos-0" name="pago_pagos-0" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
-                                <div class="col-md-6 line">
+                                <div class="col-md-6 line pagos-inputs pago1">
                                     <div class="form-group">
-                                        <label>Tipo de cambio 2</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio 2" id="tipo_cambio_2_pago" name="tipo_cambio_2_pago">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Pago #3</label>
-                                        <input type="text" class="form-control" placeholder="Pago #3" id="pago_3_pago" name="pago_3_pago" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Comprobante pago #3</label>
-                                        <input type="file" id="comprobante_pago_3_pago" name="comprobante_pago_3_pago" data-btnClass="btn-primary" data-dragdrop="false">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Tipo de cambio 3</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio 3" id="tipo_cambio_3_pago" name="tipo_cambio_3_pago">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Total pagado</label>
-                                        <input type="text" class="form-control" placeholder="Total pagado" id="total_pagado_pago" name="total_pagado_pago" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line">
-                                    <div class="form-group">
-                                        <label>Restante</label>
-                                        <input type="text" class="form-control" placeholder="Restante" id="restante_pago" name="restante_pago" disabled>
+                                        <label>Tipo de cambio de pago</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-0" name="tipo_cambio_pago_pagos-0">
                                     </div>
                                 </div>
                                 <!-- /.col -->
@@ -387,7 +347,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="adicionarPago">Guardar</button>
+                    <button type="submit" class="btn btn-success" id="adicionarPago">Agregar</button>
                 </div>
             </form>
         </div><!-- modal-content -->
