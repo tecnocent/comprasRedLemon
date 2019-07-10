@@ -294,6 +294,8 @@
                                     <div class="form-group">
                                         <label>Monto USD</label>
                                         <input type="text" class="form-control" placeholder="Monto" id="monto_pagos" name="monto_pagos" onkeypress="return filterFloat(event,this);">
+                                        <input type="hidden" class="form-control" id="total_pagado" name="total_pagado">
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">
@@ -331,7 +333,7 @@
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Pago</label>
-                                        <input type="text" class="form-control pago-input" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);">
+                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);" onkeyup="sumar();">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs pago1">
@@ -348,6 +350,188 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" id="adicionarPago">Agregar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Transito-->
+<div class="modal right1 fade" id="transito" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="transito-form" method="">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Registrar Transito</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Metodo</label>
+                                        <select class="form-control" name="metodo_transito" id="metodo_transito">
+                                            <option value="">Selecciona</option>
+                                            <option value="1">uno</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Guia</label>
+                                        <input type="text" class="form-control" placeholder="Guia" id="guia_transito" name="guia_transito">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Forwarder</label>
+                                        <select class="form-control" name="forwarder_transito" id="forwarder_transito">
+                                            <option value="">Selecciona</option>
+                                            <option value="1">uno</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Fecha de embarque</label>
+                                        <input type="text" class="form-control datepicker" id="fecha_embarque_transito" name="fecha_embarque_transito">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Fecha tentativa de llegada</label>
+                                        <input type="text" class="form-control datepicker" id="fecha_tentativa_llegada_transito" name="fecha_tentativa_llegada_transito">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Comercial invoce</label>
+                                        <input type="text" class="form-control" placeholder="Comercial invoce" id="comercial_invoce_transito" name="comercial_invoce_transito">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Cajas #</label>
+                                        <input type="text" class="form-control" placeholder="Cajas #" id="cajas_transito" name="cajas_transito" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>CBM #</label>
+                                        <input type="text" class="form-control" placeholder="CBM #" id="cbm_transito" name="cbm_transito" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Peso KG</label>
+                                        <input type="text" class="form-control" placeholder="Peso KG" id="peso_transito" name="peso_transito" onkeypress="return filterFloat(event,this);">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="adicionarTansito">Agregar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!--Modal Pedimento-->
+<div class="modal right1 fade" id="pedimento" tabindex="-1" role="dialog" aria-labelledby="pedimento">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="pedimento-form" method="">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Registrar Transito</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label># Pedimento</label>
+                                        <input type="text" class="form-control" placeholder="# Pedimento" id="numero_pedimento" name="numero_pedimento">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Aduana</label>
+                                        <select class="form-control" name="aduana_pedimento" id="aduana_pedimento">
+                                            <option value="">Selecciona</option>
+                                            <option value="1">aduana 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Agente Aduanal</label>
+                                        <select class="form-control" name="agente_aduanal_pedimento" id="agente_aduanal_pedimento">
+                                            <option value="">Selecciona</option>
+                                            <option value="1">agente 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio de pedimento</label>
+                                        <input type="text" class="form-control" placeholder="Tipo de cambio de pedimento" id="tipo_cambio_pedimento_pedimento" name="tipo_cambio_pedimento_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>DTA</label>
+                                        <input type="text" class="form-control" placeholder="DTA" id="dta_pedimento" name="dta_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>CNT</label>
+                                        <input type="text" class="form-control" placeholder="CNT" id="cnt_pedimento" name="cnt_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>IGI</label>
+                                        <input type="text" class="form-control" placeholder="IGI" id="igi_pedimento" name="igi_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>PRV</label>
+                                        <input type="text" class="form-control" placeholder="PRV" id="prv_pedimento" name="prv_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
+                                        <label>IVA</label>
+                                        <input type="text" class="form-control" placeholder="IVA" id="iva_pedimento" name="iva_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="adicionarTansito">Agregar</button>
                 </div>
             </form>
         </div><!-- modal-content -->

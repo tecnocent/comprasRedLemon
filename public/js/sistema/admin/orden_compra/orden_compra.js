@@ -316,17 +316,18 @@ $(document).ready(function() {
             'pago_pagos': "El pago es requerido",
             'bfcvu_pagos': "BFCV requerido",
             'tipo_cambio_pago_pagos': "Tipo de cambio es requerido",
-            'tipo_cambio_monto_pagos': 'Tipo de cambio es requerido',
+            'tipo_cambio_monto_pagos': 'Tipo de cambio es requerido'
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            document.getElementById("table-monto-default").style.height = "0px";
-            document.getElementById("table-monto-default").style.lineHeight = "0px";
-            document.getElementById("table-monto-default").style.visibility = "hidden";
-            document.getElementById("table-monto-default").style.marginTop = "-14px";
+            var div = document.getElementById("table-monto-default");
+            div.style.display = "none";
 
-            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="montos['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
-            var buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="montos['+ contadorDiv +'][comprobanteMonto]" >';
+            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="monto['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
+            var tipo_cambio_monto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][tipo_cambio_monto]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>';
+            var bfcv = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][bfcv]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>';
+            var total_pagado = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado" name="monto['+ contadorDiv +'][total_pagado]" value="'+ document.getElementById("total_pagado").value +'"></div>';
+            var buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="monto['+ contadorDiv +'][comprobanteMonto]" >';
 
             var monto = '<div class="row" id="remove-div-monto'+contadorDiv+'" class="remove-div-monto">\n' +
                 '           <div class="panel panel-default">\n' +
@@ -335,7 +336,7 @@ $(document).ready(function() {
                 '                       <div class="col-md-6 line">\n' +
                 '                           <div class="form-group">\n' +
                 '                               <h4>Monto USD</h4>\n' +
-                '                               <h4>$ '+ monto_pagos +' '+ document.getElementById("monto_pagos").value +'</h4>\n' +
+                '                               <h4>$ '+ monto_pagos +''+tipo_cambio_monto+''+bfcv+''+total_pagado+''+ document.getElementById("monto_pagos").value +'</h4>\n' +
                 '                           </div>\n' +
                 '                       </div>\n' +
                 '                       <div class="col-md-5 line">\n' +
@@ -346,7 +347,7 @@ $(document).ready(function() {
                 '                       </div>\n' +
                 '                       <div class="col-md-1 line">\n' +
                 '                           <div class="form-group">\n' +
-                '                               <button type="button" name="remove-monto" id="'+ contadorDiv +'" class="btn btn-danger remove-monto"><i class="fa fa-trash  "></i></button>\n' +
+                '                               <button type="button" name="remove-monto" id="'+ contadorDiv +'" class="close remove-monto"><span aria-hidden="true">×</span></button>\n' +
                 '                           </div>\n' +
                 '                       </div>\n' +
                 '                   </div>\n' +
@@ -367,7 +368,7 @@ $(document).ready(function() {
                 '       </div>';
 
             $('.montoPago').after(monto);
-            contadorDiv++;
+
 
             $(document).on('click', '.remove-monto', function() {
                 var button_id = $(this).attr("id");
@@ -388,15 +389,15 @@ $(document).ready(function() {
                 var cuentaPago = 0;
                 var filas = 0;
                 element.pagosInput.forEach(function(e) {
-                    pagoHTML = '<td><input type="text" class="form-control pull-right " id="pago-pagos" name="pagos['+ cuentaPago +'][pago]" value="'+ e +'"></td>' +
-                        '<td><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_pago['+cuentaPago+']" name="pagos['+ cuentaPago +'][comprobantePago]" ></td>';
+                    pagoHTML = '<td>'+e+'<input type="hidden" class="form-control pull-right " id="pago-pagos" name="monto['+ cuentaPago +'][pagoP  ]pagos[]pago[]" value="'+ e +'"></td>' +
+                        '<td><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_pago['+cuentaPago+']" name="monto['+ cuentaPago +'][pagos['+cuentaPago+'][comprobantePago]]" ></td>';
 
                     fila = fila.concat(pagoHTML);
                     cuentaPago++;
                 });
                 var cuentaTipoCam = 0;
                 element.tipoCambioInput.forEach(function(f) {
-                    cambioHTML = '<input type="hidden" class="form-control pull-right " id="pago-pagos" name="pagos['+ cuentaTipoCam +'][tipo_cambio_pago]" value="'+ f +'">'
+                    cambioHTML = '<input type="hidden" class="form-control pull-right " id="pago-pagos" name="monto['+ contadorDiv +']pagos['+contadorDiv+'][tipo_cambio_pago]" value="'+ f +'">'
                     fila = fila.concat(cambioHTML);
                     cuentaTipoCam++;
                 });
@@ -415,8 +416,7 @@ $(document).ready(function() {
                 filas++;
 
             }
-
-
+            contadorDiv++;
             var pagosIn = [{
                 'pagosInput': pagos,
                 'tipoCambioInput': tipoCambioPago
@@ -432,6 +432,15 @@ $(document).ready(function() {
                 dataType: 'script'
             });
 
+
+            //Limpia inputs
+            document.getElementById("monto_pagos").value = "";
+            document.getElementById("tipo_cambio_monto_pagos").value= "";
+            document.getElementById("pago_pagos").value = "";
+            document.getElementById("bfcvu_pagos").value = "";
+            document.getElementById("tipo_cambio_pago_pagos").value = "";
+            $('.pagoAgregado').remove();
+
             $("#pagos").modal('hide');//oculto el modal
         }
     });
@@ -441,9 +450,9 @@ $(document).ready(function() {
 $(document).ready(function() {
     var contador = 1;
     $('#otropago').click(function() {
-        var pago = '<div id="remove-pago'+contador+'"><div class="col-md-6 line pagos-inputs"><div class="form-group"><label>Pago</label><input type="text" class="form-control" placeholder="Pago" id="pago_pagos-'+contador+'" name="pago_pagos" onkeypress="return filterFloat(event,this);"></div></div>' +
-            '<div class="col-md-5 line pagos-inputs"><div class="form-group"><label>Tipo de cambio de pago</label><input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-'+contador+'" name="tipo_cambio_pago_pagos"></div></div>' +
-            '<div class="col-md-1 line pagos-inputs"><div class="form-group"><label><br><br></label><button type="button" name="remove-p" id="' + contador + '" class="btn btn-danger remove-p" style="margin-top: 18px;"><i class="fa fa-trash  "></i></button></div></div></div>';
+        var pago = '<div id="remove-pago'+contador+'"><div class="col-md-6 line pagos-inputs pagoAgregado"><div class="form-group"><label>Pago</label><input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos-'+contador+'" name="pago_pagos" onkeypress="return filterFloat(event,this);" onkeyup="sumar();"></div></div>' +
+            '<div class="col-md-5 line pagos-inputs"><div class="form-group pagoAgregado"><label>Tipo de cambio de pago</label><input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-'+contador+'" name="tipo_cambio_pago_pagos"></div></div>' +
+            '<div class="col-md-1 line pagos-inputs"><div class="form-group pagoAgregado"><label><br><br></label><button type="button" name="remove-p" id="' + contador + '" class="btn btn-danger remove-p" style="margin-top: 18px;"><i class="fa fa-trash  "></i></button></div></div></div>';
         $('.pago1').after(pago);
         contador++;
     });
@@ -456,4 +465,186 @@ $(document).ready(function() {
     });
 });
 
+function sumar() {
+    var total = 0;
+    $(".monto").each(function() {
+        if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+        } else {
+            total += parseFloat($(this).val());
+        }
+    });
+    document.getElementById('total_pagado').value = total;
 
+}
+
+
+// Llenado de Transito
+$(document).ready(function() {
+    var countTransito = 0;
+    $('#transito-form').validate({
+        event: "blur",rules: {
+            'metodo_transito' : "required",
+            'guia_transito' : "required",
+            'forwarder_transito' : "required",
+            'fecha_embarque_transito' : "required",
+            'fecha_tentativa_llegada_transito' : "required",
+            'comercial_invoce_transito' : "required",
+            'cbm_transito' : "required",
+            'peso_transito' : "required"
+        },
+        messages: {
+            'metodo_transito' : "El metodo es requerido",
+            'guia_transito' : "La es Guia es requerida",
+            'forwarder_transito' : "El es Forwarder es requerido",
+            'fecha_embarque_transito' : "La es Fecha de embarque es requerida",
+            'fecha_tentativa_llegada_transito' : "La Fecha tentativa de llegada es requerida",
+            'comercial_invoce_transito' : "El Comercial invoce es requerido",
+            'cajas_transito' : "Las Cajas son requeridas",
+            'peso_transito' : "El es Paso es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var metodo_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][metodo_transito]" value="'+ $('#metodo_transito').val() +'"></div>';
+            var guia_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][guia_transito]" value="'+ document.getElementById("guia_transito").value +'"></div>';
+            var forwarder_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="forwarder_transito" name="transito['+ countTransito +'][forwarder_transito]" value="'+ $('#forwarder_transito').val() +'"></div>';
+            var fecha_embarque_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][fecha_embarque_transito]" value="'+ document.getElementById("fecha_embarque_transito").value +'"></div>';
+            var fecha_tentativa_llegada_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="fecha_tentativa_llegada_transito" name="transito['+ countTransito +'][fecha_tentativa_llegada_transito]" value="'+ document.getElementById("fecha_tentativa_llegada_transito").value +'"></div>';
+            var comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comercial_invoce_transito" name="transito['+ countTransito +'][comercial_invoce_transito]" value="'+ document.getElementById("comercial_invoce_transito").value +'"></div>';
+            var cajas_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cajas_transito" name="transito['+ countTransito +'][cajas_transito]" value="'+ document.getElementById("cajas_transito").value +'"></div>';
+            var cbm_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][cbm_transito]" value="'+ document.getElementById("cbm_transito").value +'"></div>';
+            var peso_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][peso_transito]" value="'+ document.getElementById("peso_transito").value +'"></div>';
+            var archivo_comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="archivo_comercial_invoce_transito" name="transito['+ countTransito +'][archivo_comercial_invoce_transito]"></div>';
+            var i = 1; //contador para asignar id al boton que borrara la fila
+
+            var fila = '<tr id="rowTransito' + i + '">' +
+                '<td>' + metodo_transito +''+cajas_transito+''+ $("select[name='metodo_transito'] option:selected").text() +'</td>' +
+                '<td>' + guia_transito +''+cbm_transito+''+ document.getElementById("guia_transito").value +'</td>' +
+                '<td>' + comercial_invoce_transito +''+peso_transito+''+ document.getElementById("comercial_invoce_transito").value +'</td>' +
+                '<td>' + archivo_comercial_invoce_transito +''+forwarder_transito+'</td>' +
+                '<td>' + fecha_embarque_transito +' '+ document.getElementById("fecha_embarque_transito").value +'</td>' +
+                '<td>' + fecha_tentativa_llegada_transito +' '+ document.getElementById("fecha_tentativa_llegada_transito").value +'</td>' +
+                '<td><button type="button" name="remove_transito" id="' + i + '" class="btn btn-danger remove_transito"><i class="fa fa-trash  "></i></button></td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.transito tr:first').after(fila);
+            countTransito++;
+
+            var nFilas = $(".transito tr").length;
+            //le resto 1 para no contar la fila del header
+            document.getElementById("guia_transito").value = "";
+            document.getElementById("metodo_transito").value ="";
+            document.getElementById("forwarder_transito").value = "";
+            document.getElementById("fecha_embarque_transito").value = "";
+            document.getElementById("fecha_tentativa_llegada_transito").value = "";
+            document.getElementById("comercial_invoce_transito").value = "";
+            document.getElementById("cajas_transito").value = "";
+            document.getElementById("cbm_transito").value = "";
+            document.getElementById("peso_transito").value = "";
+
+            // recargo el filestyle
+            $.ajax({
+                url: '/dist/js/filestyle.js',
+                dataType: 'script'
+            });
+
+            $("#transito").modal('hide');//oculto el modal
+
+            $(document).on('click', '.remove_transito', function() {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#rowTransito' + button_id).remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                var nFilas = $(".transito tr").length;
+            });
+        }
+    });
+});
+
+// Llenado de Pedimento
+$(document).ready(function() {
+    var countPedimento = 0;
+    $('#pedimento-form').validate({
+        event: "blur",rules: {
+            'numero_pedimento' : "required",
+            'aduana_pedimento' : "required",
+            'agente_aduanal_pedimento' : "required",
+            'tipo_cambio_pedimento_pedimento' : "required",
+            'dta_pedimento' : "required",
+            'cnt_pedimento' : "required",
+            'igi_pedimento' : "required",
+            'prv_pedimento' : "required",
+            'iva_pedimento' : "required"
+        },
+        messages: {
+            'numero_pedimento' : "El Numero de pedimento es requerido",
+            'aduana_pedimento' : "Aduana es requerido",
+            'agente_aduanal_pedimento' : "El Agente Aduanal es requerido",
+            'tipo_cambio_pedimento_pedimento' : "El Tipo de Cambio de Pedimento es requerido",
+            'dta_pedimento' : "El DTA es requerido",
+            'cnt_pedimento' : "El CNT es requerido",
+            'igi_pedimento' : "El IGI es requerido",
+            'prv_pedimento' : "El PRV es requerido",
+            'iva_pedimento' : "El IVA es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var numero_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="numero_pedimento" name="pedimento['+ countPedimento +'][numero_pedimento]" value="'+ document.getElementById("numero_pedimento").value +'"></div>';
+            var aduana_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="aduana_pedimento" name="pedimento['+ countPedimento +'][aduana_pedimento]" value="'+ $('#aduana_pedimento').val() +'"></div>';
+            var agente_aduanal_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="agente_aduanal_pedimento" name="pedimento['+ countPedimento +'][agente_aduanal_pedimento]" value="'+ $('#agente_aduanal_pedimento').val() +'"></div>';
+            var tipo_cambio_pedimento_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pedimento_pedimento" name="pedimento['+ countPedimento +'][tipo_cambio_pedimento_pedimento]" value="'+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'"></div>';
+            var dta_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="dta_pedimento" name="pedimento['+ countPedimento +'][dta_pedimento]" value="'+ document.getElementById("dta_pedimento").value +'"></div>';
+            var cnt_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cnt_pedimento" name="pedimento['+ countPedimento +'][cnt_pedimento]" value="'+ document.getElementById("cnt_pedimento").value +'"></div>';
+            var igi_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="igi_pedimento" name="pedimento['+ countPedimento +'][igi_pedimento]" value="'+ document.getElementById("igi_pedimento").value +'"></div>';
+            var prv_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="prv_pedimento" name="pedimento['+ countPedimento +'][prv_pedimento]" value="'+ document.getElementById("prv_pedimento").value +'"></div>';
+            var iva_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="iva_pedimento" name="pedimento['+ countPedimento +'][iva_pedimento]" value="'+ document.getElementById("iva_pedimento").value +'"></div>';
+            var pedimento_digital = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital" name="pedimento['+ countPedimento +'][pedimento_digital]"></div>';
+
+            var i = 1; //contador para asignar id al boton que borrara la fila
+
+            var fila = '<tr id="rowPedimento' + i + '">' +
+                '<td>' + numero_pedimento +''+dta_pedimento+''+ document.getElementById("numero_pedimento").value +'</td>' +
+                '<td>' + pedimento_digital +''+cnt_pedimento+'</td>' +
+                '<td>' + aduana_pedimento +''+igi_pedimento+''+ $("select[name='aduana_pedimento'] option:selected").text() +'</td>' +
+                '<td>' + agente_aduanal_pedimento +''+prv_pedimento+''+ $("select[name='agente_aduanal_pedimento'] option:selected").text() +'</td>' +
+                '<td>' + tipo_cambio_pedimento_pedimento +''+iva_pedimento+ ''+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'</td>' +
+                '<td><button type="button" name="remove_pedimento" id="' + i + '" class="btn btn-danger remove_pedimento"><i class="fa fa-trash  "></i></button></td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.pedimento tr:first').after(fila);
+            countPedimento++;
+
+            var nFilas = $(".transito tr").length;
+            //le resto 1 para no contar la fila del header
+            document.getElementById("numero_pedimento").value = "";
+            document.getElementById("aduana_pedimento").value ="";
+            document.getElementById("agente_aduanal_pedimento").value = "";
+            document.getElementById("tipo_cambio_pedimento_pedimento").value = "";
+            document.getElementById("dta_pedimento").value = "";
+            document.getElementById("cnt_pedimento").value = "";
+            document.getElementById("igi_pedimento").value = "";
+            document.getElementById("prv_pedimento").value = "";
+            document.getElementById("iva_pedimento").value = "";
+
+            // recargo el filestyle
+            $.ajax({
+                url: '/dist/js/filestyle.js',
+                dataType: 'script'
+            });
+
+            $("#pedimento").modal('hide');//oculto el modal
+
+            $(document).on('click', '.remove_pedimento', function() {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#rowPedimento' + button_id).remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                var nFilas = $(".pedimento tr").length;
+            });
+        }
+    });
+});

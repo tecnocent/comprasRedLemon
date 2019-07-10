@@ -38,6 +38,9 @@
         .invisible {
             visibility: hidden;
         }
+        .diseno-bajo {
+            margin-top: 30px;
+        }
     </style>
     <!-- Content Wrapper. Contains page content -->
     <div class="content" style="margin-top:0px"><br>
@@ -152,7 +155,7 @@
                                     <input type="hidden" class="form-control" id="status" name="status">
                                     <br>
                                     <div id="exTab3" class="form-group col-sm-12">
-                                        <ul  class="nav nav-pills">
+                                        <ul  class="nav nav-tabs">
                                             <li class="active">
                                                 <a  href="#1b" data-toggle="tab">Productos</a>
                                             </li>
@@ -168,6 +171,12 @@
                                             <li>
                                                 <a href="#5b" data-toggle="tab">Pagos</a>
                                             </li>
+                                            <li>
+                                                <a href="#6b" data-toggle="tab">Transito</a>
+                                            </li>
+                                            <li>
+                                                <a href="#7b" data-toggle="tab">Pedimento</a>
+                                            </li>
                                         </ul>
 
                                         <div class="tab-content clearfix">
@@ -175,76 +184,92 @@
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal2" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar producto</button>
                                                 <div class="row" id="table2">
-                                                    <table id="" class="table table-striped table-bordered productos" cellspacing="0" width="100%">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>SKU</th>
-                                                            <th>Producto</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Costo</th>
-                                                            <th>Total</th>
-                                                            <th>Incoterm</th>
-                                                            <th>Lead Time</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                    </table>
+                                                    <div class="panel panel-default monto-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="" class="table table-striped table-bordered productos" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>SKU</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Cantidad</th>
+                                                                    <th>Costo</th>
+                                                                    <th>Total</th>
+                                                                    <th>Incoterm</th>
+                                                                    <th>Lead Time</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="2b">
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal3" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Nuevo gasto de origen</button>
                                                 <div class="row" id="table2">
-                                                    <table id="gastosOrigen" class="table table-striped table-bordered gastosOrigen" cellspacing="0" width="100%">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Tipo de gasto</th>
-                                                            <th>Costo (USD)</th>
-                                                            <th>Notas</th>
-                                                            <th>Archivos</th>
-                                                            <th></th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                    </table>
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="gastosOrigen" class="table table-striped table-bordered gastosOrigen" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Tipo de gasto</th>
+                                                                    <th>Costo (USD)</th>
+                                                                    <th>Notas</th>
+                                                                    <th>Archivos</th>
+                                                                    <th></th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="3b">
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal4" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Nuevo gasto de destino</button>
                                                 <div class="row" id="table3">
-                                                    <table id="gastosDestino" class="table table-striped table-bordered gastosDestino" cellspacing="0" width="100%">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>Tipo de gasto</th>
-                                                            <th>Costo</th>
-                                                            <th>Moneda</th>
-                                                            <th>Notas</th>
-                                                            <th>Comprobante</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                    </table>
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="gastosDestino" class="table table-striped table-bordered gastosDestino" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Tipo de gasto</th>
+                                                                    <th>Costo</th>
+                                                                    <th>Moneda</th>
+                                                                    <th>Notas</th>
+                                                                    <th>Comprobante</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="4b">
                                                 <div class="row" id="table4">
-                                                    <table id="diseno" class="table table-striped table-bordered diseno" cellspacing="0" width="100%">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>SKU</th>
-                                                            <th>Producto</th>
-                                                            <th>Descripción</th>
-                                                            <th>¿Logo en producto?</th>
-                                                            <th>¿OEM BOX?</th>
-                                                            <th>¿Instructivo?</th>
-                                                            <th>Archivos Die-Cut Fabricante</th>
-                                                            <th>Archivos autorizados Diseño</th>
-                                                            <th>Tipo</th>
-                                                            <th>Fecha requerida</th>
-                                                        </tr>
-                                                        </thead>
-                                                    </table>
+                                                    <div class="panel panel-default diseno-bajo" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="diseno" class="table table-striped table-bordered diseno" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>SKU</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Descripción</th>
+                                                                    <th>¿Logo en producto?</th>
+                                                                    <th>¿OEM BOX?</th>
+                                                                    <th>¿Instructivo?</th>
+                                                                    <th>Archivos Die-Cut Fabricante</th>
+                                                                    <th>Archivos autorizados Diseño</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Fecha requerida</th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="5b">
@@ -272,6 +297,52 @@
                                                                 <tr>
                                                                     <th>Pago $</th>
                                                                     <th>Comprobante pago</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="6b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#transito"><i class="fa fa-plus"></i> Agregar transito</button>
+                                                <div class="row" id="table4"><br>
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="transito" class="table table-striped table-bordered transito" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Metodo</th>
+                                                                    <th>Guia</th>
+                                                                    <th>Comercial Invoce</th>
+                                                                    <th>Archivo Comercial Invoce</th>
+                                                                    <th>Fecha embarque</th>
+                                                                    <th>Fecha tentativa llegada</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="7b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pedimento"><i class="fa fa-plus"></i> Agregar pedimento</button>
+                                                <div class="row" id="pedimento"><br>
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="pedimento" class="table table-striped table-bordered pedimento" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Pedimento</th>
+                                                                    <th>Pedimento Digital</th>
+                                                                    <th>Aduana</th>
+                                                                    <th>Agente Aduanal</th>
+                                                                    <th>Tipo de Cambio Pedimento</th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>

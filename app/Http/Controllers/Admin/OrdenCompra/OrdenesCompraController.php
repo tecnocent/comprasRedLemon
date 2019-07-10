@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin\OrdenCompra;
 
 use App\Http\Requests\OrdenCompraRequest;
+use App\Models\MontoPagoOrdenCompra;
+use App\Models\PagoMontoOrdenCompra;
+use App\Models\Pedimento;
+use App\Models\Transito;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Almacen;
 use App\Models\CostoDestino;
@@ -34,13 +38,30 @@ class OrdenesCompraController extends Controller
     protected $mProductoOrdenCompra;
     protected $mGastosOrigenOrdenCompra;
     protected $mGastosDestinoOrdenCompra;
+    protected $mMontoPagoOrden;
+    protected $mPagoMontoPagoOrden;
+    protected $mTransito;
+    protected $mPedimento;
 
 
     /**
-     * OrdenesConpraController constructor.
+     * OrdenesCompraController constructor.
+     * @param OrdenCompra $ordenCompra
+     * @param Pedimento $pedimento
+     * @param Transito $transito
+     * @param MontoPagoOrdenCompra $monto
+     * @param PagoMontoOrdenCompra $pago
      * @param Proveedor $proveedor
+     * @param User $usuario
+     * @param Almacen $almacen
+     * @param Producto $producto
+     * @param CostoDestino $costoDestino
+     * @param CostoOrigen $costoOrigen
+     * @param ProductoOrdenCompra $productoOrdenCompra
+     * @param GastosOrigenOrdenCompra $gastosOrigenOrden
+     * @param GastosDestinoOrdenCompra $gastosDestinoOrden
      */
-    public function __construct(OrdenCompra $ordenCompra, Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, Pedimento $pedimento, Transito $transito, MontoPagoOrdenCompra $monto, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -52,6 +73,10 @@ class OrdenesCompraController extends Controller
         $this->mProductoOrdenCompra = $productoOrdenCompra;
         $this->mGastosOrigenOrdenCompra = $gastosOrigenOrden;
         $this->mGastosDestinoOrdenCompra = $gastosDestinoOrden;
+        $this->mPagoMontoPagoOrden = $pago;
+        $this->mMontoPagoOrden = $monto;
+        $this->mTransito = $transito;
+        $this->mPedimento = $pedimento;
 
     }
 
@@ -91,6 +116,25 @@ class OrdenesCompraController extends Controller
     public function store(OrdenCompraRequest $oRequest)
     {
         try {
+            // Pagos
+           ////if ($oRequest->has('monto')) {
+
+           //    dd($oRequest->all());
+           //    // Guardado de archivos producto
+           //    $archivos = [];
+           //    $comprobantesMonto = $oRequest->file('pagos');
+           //    foreach ($oRequest->pagos as $pago) {
+           //        $montoPago = $this->mMontoPagoOrden->create([
+           //            'monto'             => $pago['monto_pagos'],
+           //            'tipo_cambio'       => $pago['tipo_cambio_monto'],
+           //            'comprobante_monto' => null,
+           //            'bfcv'              => $pago['bfcv'],
+           //            'total_pagado'      => $pago['total_pagado'],
+           //            'restante'          => $pago['monto_pagos'] - $pago['total_pagado'],
+           //            'orden_compra_id'   => 1,
+           //        ]);
+           //    }
+           //}
             // Orden de compra
             $ordenCompra = $this->mOrdenCompra->create([
                 'status'            => $oRequest->status,
@@ -103,7 +147,7 @@ class OrdenesCompraController extends Controller
                 'proveedor_id'      => $oRequest->proveedor,
                 'almacen_id'        => $oRequest->almacen_llegada,
             ]);
-            $identificador = $ordenCompra->identificador;
+            $identificador = $ordenCompra->id;
             // Productos
             if ($oRequest->has('productos')) {
                 // Guardado de archivos producto
@@ -192,9 +236,41 @@ class OrdenesCompraController extends Controller
                     ]);
                 }
             }
-            // Pagos
-            if ($oRequest->has('pagos')) {
-                dd($oRequest->pagos);
+            // Transito
+            if ($oRequest->has('transito')) {
+                foreach ($oRequest->get('transito') as $transito ) {
+                    $transito = $this->mTransito->create([
+                        'guia' => $transito['guia_transito'],
+                        'fecha_embarque' => $transito['fecha_embarque_transito'],
+                        'fecha_tentativa' => $transito['fecha_tentativa_llegada_transito'],
+                        'comercual_invoce' => $transito['comercial_invoce_transito'],
+                        'comercial_invoce_file' => null,
+                        'cajas' => $transito['cajas_transito'],
+                        'cbm' => $transito['cbm_transito'],
+                        'peso' => $transito['peso_transito'],
+                        'metodo_id' => $transito['metodo_transito'],
+                        'forwarder_id' => $transito['forwarder_transito'],
+                        'orden_compra_id' => $identificador
+                    ]);
+                }
+            }
+            // Pedimento
+            if ($oRequest->has('pedimento')) {
+                foreach ($oRequest->get('pedimento') as $pedimento ) {
+                    $pedimento = $this->mPedimento->create([
+                        'pedimento' => $pedimento['numero_pedimento'],
+                        'pedimento_digital' => null,
+                        'tipo_cambio_pedimento' => $pedimento['tipo_cambio_pedimento_pedimento'],
+                        'dta' => $pedimento['dta_pedimento'],
+                        'cnt' => $pedimento['cnt_pedimento'],
+                        'igi' => $pedimento['igi_pedimento'],
+                        'prv' => $pedimento['prv_pedimento'],
+                        'iva' => $pedimento['iva_pedimento'],
+                        'orden_compra_id' => $identificador,
+                        'aduana_id' => $pedimento['aduana_pedimento'],
+                        'agente_aduanal_id' => $pedimento['agente_aduanal_pedimento']
+                    ]);
+                }
             }
             // Alerta
             $notification = array(
