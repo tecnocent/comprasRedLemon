@@ -82,6 +82,22 @@ function multi(){
     document.getElementById('subtotal_producto').value = subtotal;
 }
 
+// Valuda valor unico para #OC
+function checkUniq(name, valor) {
+    $.ajax({
+        type: 'GET',
+        url: "/api/ordenes",
+        dataType: 'json',
+        data: {
+            'identificador': valor,
+        },
+        success: function(data){
+            var error = '<label for="identificador" generated="true" class="error">EL #OC esta en uso</label>';
+            console.log('se encontro');
+            $('#id_orden').after(error);
+        }
+    });
+}
 // Ajax trae descrupcion y id de productos
 $('#productosSelect').on('select2:select', function (evt) {
     var producto_sku = $("#productosSelect").val();

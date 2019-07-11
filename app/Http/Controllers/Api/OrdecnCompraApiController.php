@@ -147,7 +147,7 @@ class OrdecnCompraApiController extends Controller
                         }
                     }
                 )
-                ->orderBy($oRequest->input('order', 'id'), $oRequest->input('sort', 'asc'))
+                ->orderBy($oRequest->input('order', 'created_at'), $oRequest->input('sort', 'desc'))
                 ->paginate((int) $oRequest->input('per_page', 25));
             //dd($sPoCreada);
             // Envía datos paginados
