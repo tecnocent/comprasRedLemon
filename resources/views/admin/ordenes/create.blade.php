@@ -53,7 +53,7 @@
                         <!-- Formulario -->
                         <form role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <div class="box box-primary">
+                            <div class="box box-primary" style="line-height: 2em;">
                                 <meta name="csrf-token" content="{{ csrf_token() }}" />
                                 <div class="box-header with-border">
                                     <h3 class="box-title">Ingresa los datos para crear una orden de compra</h3>
@@ -184,7 +184,7 @@
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal2" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar producto</button>
                                                 <div class="row" id="table2">
-                                                    <div class="panel panel-default monto-default" id="table-monto-default">
+                                                    <div class="panel panel-default monto-default" id="aaa">
                                                         <div class="panel-body">
                                                             <table id="" class="table table-striped table-bordered productos" cellspacing="0" width="100%">
                                                                 <thead>
@@ -276,7 +276,7 @@
                                                 <br>
                                                 <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
                                                 <div class="row montoPago" id="montoPago">
-                                                    <div class="panel panel-default" id="table-monto-default">
+                                                    <div class="panel panel-default monto-ssss" id="table-monto-default">
                                                         <div class="panel-heading">
                                                             <div class="row">
                                                                 <div class="col-md-6 line">

@@ -146,8 +146,8 @@ $(document).ready(function() {
         var logo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][logo]" id="logo"/> <span></span></label></div>';
         var oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>';
         var instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>';
-        var archivosFrbricante = '<div class="form-group col-sm-12"><label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></span></label></div>';
-        var archivosDiseno = '<div class="form-group col-sm-12"><label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" multiple name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></span></label></div>';
+        var archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>';
+        var archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>';
         var tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>';
         var fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
@@ -194,6 +194,12 @@ $(document).ready(function() {
         document.getElementById("costo_producto").value = "";
         document.getElementById("cantidad_producto").value = "";
         document.getElementById("subtotal_producto").value = "";
+
+        // recargo el filestyle
+        $.ajax({
+            url: '/dist/js/filestyle.js',
+            dataType: 'script'
+        });
 
         $("#myModal2").modal('hide');//oculto el modal
 
@@ -320,9 +326,6 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var div = document.getElementById("table-monto-default");
-            div.style.display = "none";
-
             var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="monto['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
             var tipo_cambio_monto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][tipo_cambio_monto]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>';
             var bfcv = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][bfcv]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>';
@@ -440,7 +443,7 @@ $(document).ready(function() {
             document.getElementById("bfcvu_pagos").value = "";
             document.getElementById("tipo_cambio_pago_pagos").value = "";
             $('.pagoAgregado').remove();
-
+            $('.monto-ssss').css("display","none");
             $("#pagos").modal('hide');//oculto el modal
         }
     });
