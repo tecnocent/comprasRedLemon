@@ -4,73 +4,68 @@
 <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel2">Agregar productos</h4>
-            </div>
+            <form id="productos-form" method="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Agregar productos</h4>
+                </div>
 
-            <div class="modal-body" style="width: 98%; margin-left: 10px;">
-                <div class="row" id="table3">
-                    <table id="datatable" class="table table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Incoterm</th>
-                            <th>Lead Time</th>
-                            <th>Costo (USD)</th>
-                            <th>Cantidad</th>
-                            <th>Subtotal (USD)</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="form-group extras">
-                                    <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
-                                        <option value="">Selecciona</option>
-                                        @foreach($productos as $producto)
-                                            <option value="{{$producto->sku}}">{{$producto->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <select class="form-control" name="icoterm_productoM" id="icoterm_producto">
-                                        <option value="">Selecciona</option>
-                                        <option value="FOM">FOM</option>
-                                        <option value="EXW">EXW</option>
-                                    </select>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="leadtime_producto" name="leadtime_productoM" placeholder="Lead Time" onKeyPress="return soloNumeros(event)">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control monto" id="costo_producto" name="costo_productoM" placeholder="Costo" onkeyup="multi();" onkeypress="return filterFloat(event,this);">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Producto</label>
+                                <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
+                                    <option value="">Selecciona</option>
+                                    @foreach($productos as $producto)
+                                        <option value="{{$producto->sku}}">{{$producto->name}}</option>
+                                    @endforeach
+                                </select>
+                                <div class="extras"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Incoterm</label>
+                                <select class="form-control" name="icoterm_productoM" id="icoterm_producto">
+                                    <option value="">Selecciona</option>
+                                    <option value="FOM">FOM</option>
+                                    <option value="EXW">EXW</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Lead Time</label>
+                                <input type="text" class="form-control" id="leadtime_producto" name="leadtime_productoM" placeholder="Lead Time" onKeyPress="return soloNumeros(event)">
+                            </div>
+                        </div>
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Costo USD</label>
+                                <input type="text" class="form-control monto" id="costo_producto" name="costo_productoM" placeholder="Costo" onkeyup="multi();" onkeypress="return filterFloat(event,this);">
+                            </div>
+                        </div>
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Cantidad</label>
+                                <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
+                            </div>
+                        </div>
+                        <div class="col-md-6 line pagos-inputs">
+                            <div class="form-group">
+                                <label>Subtotal</label>
+                                <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="adicionar">Agregar</button>
+                    <button type="submit" class="btn btn-success" >Agregar</button>
                 </div>
-            </div><!-- modal-content -->
+            </form>
         </div><!-- modal-dialog -->
     </div>
 </div><!-- modal -->

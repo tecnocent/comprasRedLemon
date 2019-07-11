@@ -51,7 +51,7 @@
                 <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
                         <!-- Formulario -->
-                        <form role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
+                        <form id="form-orden" role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="box box-primary" style="line-height: 2em;">
                                 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Encargado interno</label>
-                                        <select class="form-control" name="encargado">
+                                        <select class="form-control" name="encargado" id="encargado">
                                             <option value="">Selecciona</option>
                                             @foreach ($usuarios as $usuaio)
                                                 <option value="{{ $usuaio->name }}">{{ $usuaio->name }}</option>
@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Almacen de llegada</label>
-                                        <select class="form-control" name="almacen_llegada">
+                                        <select class="form-control" name="almacen_llegada" id="almacen_llegada">
                                             <option value="">Selecciona</option>
                                             @foreach ($almacenes as $almacen)
                                                 <option value="{{ $almacen->id }}">{{ $almacen->name }}</option>
@@ -131,7 +131,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Requerimiento</label>
-                                        <select class="form-control" name="requerimiento">
+                                        <select class="form-control" name="requerimiento" id="requerimiento">
                                             <option value="">Selecciona</option>
                                             <option value="normal"> Normal</option>
                                             <option value="urgente">Urgente</option>
@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <label for="">Descripción</label>
-                                        <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc" id="descripcion_oc"></textarea>
                                         @if ($errors->has('descripcion_oc'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
                                                 {{ $errors->first('descripcion_oc') }}
@@ -373,6 +373,35 @@
     <!-- Scripts -->
     @section('javascript')
         <script>
+
+            // Validacion form orden
+            $(document).ready(function() {
+                var countPedimento = 0;
+                $('#form-orden').validate({
+                    event: "blur",rules: {
+                        'id_orden' : "required",
+                        'encargado' : "required",
+                        'proveedor' : "required",
+                        'fecha_inicio' : "required",
+                        'almacen_llegada' : "required",
+                        'tipoCompraSelect' : "required"
+                    },
+                    messages: {
+                        'id_orden' : "El #OC es requerido",
+                        'encargado' : "El Encargado es requerido",
+                        'proveedor' : "El proveedor es requerido",
+                        'fecha_inicio' : "La Fecha de inicio es requerida",
+                        'almacen_llegada' : "El Almacen de llegada es requerido",
+                        'tipoCompraSelect' : "Tipo de compra requerido"
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        // do other things for a valid form
+                        form.submit();
+                    }
+                });
+            });
+
             // Llenado de select proveedores
             $(document).ready(function() {
                 $.ajax({

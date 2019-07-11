@@ -4,6 +4,15 @@ function soloNumeros(e){
     return (key >= 48 && key <= 57)
 }
 
+function filestyle() {
+    // recargo el filestyle
+    $.ajax({
+        url: '/dist/js/filestyle.js',
+        dataType: 'script'
+    });
+
+}
+
 // Solo numeros decimales
 function filterFloat(evt,input){
     // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
@@ -59,29 +68,6 @@ $(document).ready(function() {
     });
 });
 
-// Script de boton file para seleccionar el arcivo a subir
-$(function() {
-    // We can attach the `fileselect` event to all file inputs on the page
-    $(document).on('change', ':file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    // We can watch for our custom `fileselect` event like this
-    $(document).ready( function() {
-        $(':file').on('fileselect', function(event, numFiles, label) {
-            var input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
-            if( input.length ) {
-                input.val(log);
-            } else {
-                if( log ) alert(log);
-            }
-        });
-    });
-});
-
 // Funcion para subtotal
 function multi(){
     var subtotal = 1;
@@ -127,93 +113,106 @@ $('#productosSelect').on('select2:select', function (evt) {
 // Llenado de tabla productos
 $(document).ready(function() {
     var cont = 0;
-    //obtenemos el valor de los input
-    $('#adicionar').click(function() {
-        var i = 1; //contador para asignar id al boton que borrara la fila
-        var f = 1; //contador para asignar id al boton que borrara la fila
+    $('#productos-form').validate({
+        event: "blur",rules: {
+            'nombre_productoM' : "required",
+            'icoterm_productoM': "required",
+            'leadtime_productoM': "required",
+            'costo_productoM': "required",
+            'cantidad_productoM': "required"
+        },
+        messages: {
+            'nombre_producto' : " Selecciona un producto",
+            'icoterm_producto' : "Icoterm requerido",
+            'leadtime_producto' : "Lead Time requerido",
+            'costo_producto' : "Costo requerido",
+            'cantidad_producto' : "Cantidad requerida"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            console.log("paso");
+            var i = 1; //contador para asignar id al boton que borrara la fila
+            var f = 1; //contador para asignar id al boton que borrara la fila
 
-        var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">'
-        var descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">'
-        var sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>';
-        var skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>';
-        var nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
-        var nombre_productoDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
-        var icoterm_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="icoterm_producto" name="productos['+ cont +'][icoterm_producto]" value="'+ document.getElementById("icoterm_producto").value +'"></div>';
-        var leadtime_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="leadtime_producto" name="productos['+ cont +'][leadtime_producto]" value="'+ document.getElementById("leadtime_producto").value +'"></div>';
-        var costo_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="costo_producto" name="productos['+ cont +'][costo_producto]" value="'+ document.getElementById("costo_producto").value +'"></div>';
-        var cantidad_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="cantidad_producto" name="productos['+ cont +'][cantidad_producto]" value="'+ document.getElementById("cantidad_producto").value +'"></div>';
-        var total = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="subtotal_producto" name="productos['+ cont +'][subtotal_producto]" value="'+ document.getElementById("subtotal_producto").value +'"></div>';
-        var logo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][logo]" id="logo"/> <span></span></label></div>';
-        var oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>';
-        var instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>';
-        var archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>';
-        var archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>';
-        var tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>';
-        var fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
+            var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">'
+            var descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">'
+            var sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>';
+            var skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>';
+            var nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
+            var nombre_productoDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
+            var icoterm_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="icoterm_producto" name="productos['+ cont +'][icoterm_producto]" value="'+ document.getElementById("icoterm_producto").value +'"></div>';
+            var leadtime_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="leadtime_producto" name="productos['+ cont +'][leadtime_producto]" value="'+ document.getElementById("leadtime_producto").value +'"></div>';
+            var costo_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="costo_producto" name="productos['+ cont +'][costo_producto]" value="'+ document.getElementById("costo_producto").value +'"></div>';
+            var cantidad_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="cantidad_producto" name="productos['+ cont +'][cantidad_producto]" value="'+ document.getElementById("cantidad_producto").value +'"></div>';
+            var total = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="subtotal_producto" name="productos['+ cont +'][subtotal_producto]" value="'+ document.getElementById("subtotal_producto").value +'"></div>';
+            var logo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][logo]" id="logo"/> <span></span></label></div>';
+            var oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>';
+            var instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>';
+            var archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>';
+            var archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>';
+            var tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>';
+            var fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
-        var fila = '<tr id="row'+ i +'">' +
-            '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
-            '<td>' + nombre_producto +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
-            '<td>' + cantidad_producto +' '+ document.getElementById("cantidad_producto").value +'</td>' +
-            '<td>' + costo_producto +' '+ document.getElementById("costo_producto").value +'</td>' +
-            '<td>' + total +' '+ document.getElementById("subtotal_producto").value +'</td>' +
-            '<td>' + icoterm_producto +' '+ document.getElementById("icoterm_producto").value +'</td>' +
-            '<td>' + leadtime_producto +' '+ document.getElementById("leadtime_producto").value +'</td>' +
-            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-trash  "></i></button></td>' +
-            '</tr>'; //esto seria lo que contendria la fila
-        var filaD = '<tr id="rowD' + f + '">' +
-            '<td>' + skuDis +' '+ $("select[name='nombre_productoM'] option:selected").val() +'</td>' +
-            '<td>' + nombre_productoDis +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
-            '<td>' + document.getElementById("producto_descripcion").value + '</td>' +
-            '<td>' + logo + '</td>' +
-            '<td>' + oem + '</td>' +
-            '<td>' + instructivo + '</td>' +
-            '<td>' + archivosFrbricante + '</td>' +
-            '<td>' + archivosDiseno + '</td>' +
-            '<td>' + tipo + '</td>' +
-            '<td>' + fechaRequerida + '</td>' +
-            '</tr>'; //esto seria lo que contendria la fila
+            var fila = '<tr id="row'+ i +'">' +
+                '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
+                '<td>' + nombre_producto +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
+                '<td>' + cantidad_producto +' '+ document.getElementById("cantidad_producto").value +'</td>' +
+                '<td>' + costo_producto +' '+ document.getElementById("costo_producto").value +'</td>' +
+                '<td>' + total +' '+ document.getElementById("subtotal_producto").value +'</td>' +
+                '<td>' + icoterm_producto +' '+ document.getElementById("icoterm_producto").value +'</td>' +
+                '<td>' + leadtime_producto +' '+ document.getElementById("leadtime_producto").value +'</td>' +
+                '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-trash  "></i></button></td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+            var filaD = '<tr id="rowD' + f + '">' +
+                '<td>' + skuDis +' '+ $("select[name='nombre_productoM'] option:selected").val() +'</td>' +
+                '<td>' + nombre_productoDis +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
+                '<td>' + document.getElementById("producto_descripcion").value + '</td>' +
+                '<td>' + logo + '</td>' +
+                '<td>' + oem + '</td>' +
+                '<td>' + instructivo + '</td>' +
+                '<td>' + archivosFrbricante + '</td>' +
+                '<td>' + archivosDiseno + '</td>' +
+                '<td>' + tipo + '</td>' +
+                '<td>' + fechaRequerida + '</td>' +
+                '</tr>'; //esto seria lo que contendria la fila
 
 
 
-        $('.productos tr:first').after(fila);
-        $('.diseno tr:first').after(filaD);
+            $('.productos tr:first').after(fila);
+            $('.diseno tr:first').after(filaD);
 
-        cont++;
-        console.log(cont);
-        i++;
-        f++;
+            cont++;
+            console.log(cont);
+            i++;
+            f++;
 
-        $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-        var nFilas = $(".productos tr").length;
-        $("#adicionados").append(nFilas - 1);
-        //le resto 1 para no contar la fila del header
-        $('#nombre_producto').val(null);
-        document.getElementById("icoterm_producto").value ="1";
-        document.getElementById("leadtime_producto").value ="";
-        document.getElementById("costo_producto").value = "";
-        document.getElementById("cantidad_producto").value = "";
-        document.getElementById("subtotal_producto").value = "";
+            $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+            var nFilas = $(".productos tr").length;
+            $("#adicionados").append(nFilas - 1);
+            //le resto 1 para no contar la fila del header
+            $('#nombre_producto').val(null);
+            document.getElementById("icoterm_producto").value ="1";
+            document.getElementById("leadtime_producto").value ="";
+            document.getElementById("costo_producto").value = "";
+            document.getElementById("cantidad_producto").value = "";
+            document.getElementById("subtotal_producto").value = "";
 
-        // recargo el filestyle
-        $.ajax({
-            url: '/dist/js/filestyle.js',
-            dataType: 'script'
-        });
+            // recargo el filestyle
+            filestyle();
 
-        $("#myModal2").modal('hide');//oculto el modal
+            $("#myModal2").modal('hide');//oculto el modal
 
-    });
-
-    $(document).on('click', '.btn_remove', function() {
-        var button_id = $(this).attr("id");
-        //cuando da click obtenemos el id del boton
-        $('#row' + button_id).remove(); //borra la fila
-        $('#rowD' + button_id).remove(); //borra la fila
-        //limpia el para que vuelva a contar las filas de la tabla
-        $("#adicionados").text("");
-        var nFilas = $(".productos tr").length;
-        $("#adicionados").append(nFilas - 1);
+            $(document).on('click', '.btn_remove', function() {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#row' + button_id).remove(); //borra la fila
+                $('#rowD' + button_id).remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                $("#adicionados").text("");
+                var nFilas = $(".productos tr").length;
+                $("#adicionados").append(nFilas - 1);
+            });
+        }
     });
 });
 // Llenado de Gasto origen
@@ -224,7 +223,7 @@ $(document).ready(function() {
         var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
         var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
         var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
-        var arcivo_gastos_origen = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" multiple name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></span></label>';
+        var arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
 
         var i = 1; //contador para asignar id al boton que borrara la fila
 
@@ -245,6 +244,9 @@ $(document).ready(function() {
         document.getElementById("tipo_gasto_origen").value ="a";
         document.getElementById("costo_gastos_origen").value = "";
         document.getElementById("nota_gastos_origen").value = "";
+
+        // Recargo el filestyle
+        filestyle();
 
         $("#myModal3").modal('hide');//oculto el modal
     });
@@ -268,7 +270,7 @@ $(document).ready(function() {
         var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
         var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
         var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
-        var comporbante_gastos_destino = '<label class="input-group-btn"><span class="btn btn-primary"><i class="fa fa-file"></i> Buscar&hellip; <input type="file" style="display: none;" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" multiple></span></label>';
+        var comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
 
         var i = 1; //contador para asignar id al boton que borrara la fila
 
@@ -292,6 +294,9 @@ $(document).ready(function() {
         document.getElementById("costo_gastos_destino").value = "";
         document.getElementById("moneda_gastos_destino").value ="a";
         document.getElementById("nota_gastos_destino").value = "";
+
+        // Recargo filestyle
+        filestyle();
 
         $("#myModal4").modal('hide');//oculto el modal
     });
@@ -430,11 +435,7 @@ $(document).ready(function() {
             pagosIn.forEach(logArrayElements);
 
             // recargo el filestyle
-            $.ajax({
-                url: '/dist/js/filestyle.js',
-                dataType: 'script'
-            });
-
+            filestyle();
 
             //Limpia inputs
             document.getElementById("monto_pagos").value = "";
@@ -548,10 +549,7 @@ $(document).ready(function() {
             document.getElementById("peso_transito").value = "";
 
             // recargo el filestyle
-            $.ajax({
-                url: '/dist/js/filestyle.js',
-                dataType: 'script'
-            });
+            filestyle();
 
             $("#transito").modal('hide');//oculto el modal
 
@@ -634,10 +632,7 @@ $(document).ready(function() {
             document.getElementById("iva_pedimento").value = "";
 
             // recargo el filestyle
-            $.ajax({
-                url: '/dist/js/filestyle.js',
-                dataType: 'script'
-            });
+            filestyle();
 
             $("#pedimento").modal('hide');//oculto el modal
 
