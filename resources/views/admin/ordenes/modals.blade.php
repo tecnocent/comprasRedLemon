@@ -9,7 +9,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Agregar productos</h4>
                 </div>
-
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 line pagos-inputs">
@@ -49,7 +48,7 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Cantidad</label>
-                                <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
+                                    <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
@@ -69,38 +68,47 @@
         </div><!-- modal-dialog -->
     </div>
 </div><!-- modal -->
+
+
 <!--Modal 2-->
 <div class="modal right1 fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form role="form" method="POST" action="">
-                {{ csrf_field() }}
+            <form id="gastos-origen-form">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Nuevo Gasto de Origen (USD)</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Tipo de gasto</label>
-                        <select class="form-control" name="tipo_gasto_origenM" id="tipo_gasto_origen">
-                            <option value="a">Selecciona</option>
-                            @foreach($gastosOrigen as $gastoOrigen)
-                                <option value="{{$gastoOrigen->id}}">{{$gastoOrigen->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Costo $ (USD)</label>
-                        <input type="text" class="form-control" id="costo_gastos_origen" name="costo_gastos_origenM" placeholder="Costo" onkeypress="return filterFloat(event,this);">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Notas</label>
-                        <textarea class="form-control" rows="3" placeholder="Nota ..." name="nota_gastos_origenM" id="nota_gastos_origen"></textarea>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Tipo de gasto</label>
+                                <select class="form-control" name="tipo_gasto_origenM" id="tipo_gasto_origen">
+                                    <option value="">Selecciona</option>
+                                    @foreach($gastosOrigen as $gastoOrigen)
+                                        <option value="{{$gastoOrigen->id}}">{{$gastoOrigen->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Costo $ (USD)</label>
+                                <input type="text" class="form-control" id="costo_gastos_origen" name="costo_gastos_origenM" placeholder="Costo" onkeypress="return filterFloat(event,this);">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="">Notas</label>
+                                <textarea class="form-control" rows="3" placeholder="Nota ..." name="nota_gastos_origenM" id="nota_gastos_origen"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="adicionarGastoOrigen">Agregar</button>
+                    <button type="submit" class="btn btn-success" id="adicionarGastoOrigen">Agregar</button>
                 </div>
             </form><!-- /. Formulario -->
         </div><!-- modal-content -->
@@ -111,41 +119,51 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form role="form" method="POST" action="">
-                {{ csrf_field() }}
+            <form id="gastos-destino-form">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Nuevo Gasto de Destino</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Tipo de gasto</label>
-                        <select class="form-control" name="tipo_gasto_gastos_destinoM" id="tipo_gasto_gastos_destino">
-                            <option value="1">Selecciona</option>
-                            @foreach($gastosDestino as $gastoDestino)
-                                <option value="{{$gastoDestino->id}}">{{$gastoDestino->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Costo $</label>
-                        <input type="text" class="form-control" id="costo_gastos_destino" name="costo_gastos_destinoM" placeholder="Costo" onkeypress="return filterFloat(event,this);">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Moneda</label>
-                        <select class="form-control" name="moneda_gastos_destinoM" id="moneda_gastos_destino">
-                            <option value="a">Selecciona</option>
-                            <option value="MXN">MXN</option>
-                            <option value="USD">USD</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Notas</label>
-                        <textarea class="form-control" rows="3" placeholder="Nota ..." name="nota_gastos_destinoM" id="nota_gastos_destino"></textarea>
+                    <div class="row">
+                        <div class="col-md-6 line">
+                            <div class="form-group">
+                                <label for="">Tipo de gasto</label>
+                                <select class="form-control" name="tipo_gasto_gastos_destinoM" id="tipo_gasto_gastos_destino">
+                                    <option value="">Selecciona</option>
+                                    @foreach($gastosDestino as $gastoDestino)
+                                        <option value="{{$gastoDestino->id}}">{{$gastoDestino->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 line">
+                            <div class="form-group">
+                                <label for="">Costo $</label>
+                                <input type="text" class="form-control" id="costo_gastos_destino" name="costo_gastos_destinoM" placeholder="Costo" onkeypress="return filterFloat(event,this);">
+                            </div>
+                        </div>
+                        <div class="col-md-6 line">
+                            <div class="form-group">
+                                <label for="">Moneda</label>
+                                <select class="form-control" name="moneda_gastos_destinoM" id="moneda_gastos_destino">
+                                    <option value="">Selecciona</option>
+                                    <option value="MXN">MXN</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 line">
+                            <div class="form-group">
+                                <label for="">Notas</label>
+                                <textarea class="form-control" rows="3" placeholder="Nota ..." name="nota_gastos_destinoM" id="nota_gastos_destino"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="adicionarGastoDestino">Agregar</button>
+                    <button type="submit" class="btn btn-success" id="adicionarGastoDestino">Agregar</button>
                 </div>
             </form><!-- /. Formulario -->
         </div><!-- modal-content -->

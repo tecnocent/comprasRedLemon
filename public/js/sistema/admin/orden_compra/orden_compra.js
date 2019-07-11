@@ -113,6 +113,8 @@ $('#productosSelect').on('select2:select', function (evt) {
 // Llenado de tabla productos
 $(document).ready(function() {
     var cont = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    var f = 1; //contador para asignar id al boton que borrara la fila
     $('#productos-form').validate({
         event: "blur",rules: {
             'nombre_productoM' : "required",
@@ -131,8 +133,6 @@ $(document).ready(function() {
         debug: true,errorElement: "label",
         submitHandler: function(form){
             console.log("paso");
-            var i = 1; //contador para asignar id al boton que borrara la fila
-            var f = 1; //contador para asignar id al boton que borrara la fila
 
             var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">'
             var descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">'
@@ -176,8 +176,6 @@ $(document).ready(function() {
                 '<td>' + fechaRequerida + '</td>' +
                 '</tr>'; //esto seria lo que contendria la fila
 
-
-
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
 
@@ -218,95 +216,113 @@ $(document).ready(function() {
 // Llenado de Gasto origen
 $(document).ready(function() {
     var countGastosO = 0;
-    //obtenemos el valor de los input
-    $('#adicionarGastoOrigen').click(function() {
-        var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
-        var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
-        var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
-        var arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#gastos-origen-form').validate({
+        event: "blur",rules: {
+            'tipo_gasto_origenM' : "required",
+            'costo_gastos_origenM' : "required"
+        },
+        messages: {
+            'tipo_gasto_origenM' : "Selecciona un tipo de gasto",
+            'costo_gastos_origenM' : "Costo requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
+            var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
+            var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
+            var arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
 
-        var i = 1; //contador para asignar id al boton que borrara la fila
+            var fila = '<tr id="rowGatsoOrigen'+ i +'">' +
+                '<td>'+ tipo_gasto_origen +' '+ $("select[name='tipo_gasto_origenM'] option:selected").text() +'</td>' +
+                '<td>'+ costo_gastos_origen +' '+ document.getElementById("costo_gastos_origen").value +'</td>' +
+                '<td>'+ nota_gastos_origen +' '+ document.getElementById("nota_gastos_origen").value +'</td>' +
+                '<td>'+ arcivo_gastos_origen +'</td>' +
+                '<td><button type="button" name="remove" id="'+ i +'" class="btn btn-danger remove_gastos_origen"><i class="fa fa-trash  "></i></button></td>' +
+                '</tr>'; //esto seria lo que contendria la fila
 
-        var fila = '<tr id="rowGatsoOrigen'+ i +'">' +
-            '<td>'+ tipo_gasto_origen +' '+ document.getElementById("tipo_gasto_origen").value +'</td>' +
-            '<td>'+ costo_gastos_origen +' '+ document.getElementById("costo_gastos_origen").value +'</td>' +
-            '<td>'+ nota_gastos_origen +' '+ document.getElementById("nota_gastos_origen").value +'</td>' +
-            '<td>'+ arcivo_gastos_origen +'</td>' +
-            '<td><button type="button" name="remove" id="'+ i +'" class="btn btn-danger remove_gastos_origen"><i class="fa fa-trash  "></i></button></td>' +
-            '</tr>'; //esto seria lo que contendria la fila
+            i++;
+            countGastosO++;
+            $('.gastosOrigen tr:first').after(fila);
 
-        i++;
-        countGastosO++;
-        $('.gastosOrigen tr:first').after(fila);
+            var nFilas = $(".gastosOrigen tr").length;
+            //le resto 1 para no contar la fila del header
+            document.getElementById("tipo_gasto_origen").value ="";
+            document.getElementById("costo_gastos_origen").value = "";
+            document.getElementById("nota_gastos_origen").value = "";
 
-        var nFilas = $(".gastosOrigen tr").length;
-        //le resto 1 para no contar la fila del header
-        document.getElementById("tipo_gasto_origen").value ="a";
-        document.getElementById("costo_gastos_origen").value = "";
-        document.getElementById("nota_gastos_origen").value = "";
+            // Recargo el filestyle
+            filestyle();
 
-        // Recargo el filestyle
-        filestyle();
-
-        $("#myModal3").modal('hide');//oculto el modal
-    });
-
-    $(document).on('click', '.remove_gastos_origen', function() {
-        var button_id = $(this).attr("id");
-        //cuando da click obtenemos el id del boton
-        $('#rowGatsoOrigen' + button_id).remove(); //borra la fila
-        //limpia el para que vuelva a contar las filas de la tabla
-        var nFilas = $(".gastosOrigen tr").length;
+            $("#myModal3").modal('hide');//oculto el modal
+            $(document).on('click', '.remove_gastos_origen', function() {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#rowGatsoOrigen' + button_id).remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                var nFilas = $(".gastosOrigen tr").length;
+            });
+        }
     });
 });
 
 // Llenado de Gasto destino
 $(document).ready(function() {
     var countGD = 0;
-    //obtenemos el valor de los input
-    $('#adicionarGastoDestino').click(function() {
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#gastos-destino-form').validate({
+        event: "blur",rules: {
+            'tipo_gasto_gastos_destinoM' : "required",
+            'costo_gastos_destinoM' : "required",
+            'moneda_gastos_destinoM' : "required"
+        },
+        messages: {
+            'tipo_gasto_gastos_destinoM' : "Selecciona un tipo de gasto",
+            'costo_gastos_destinoM' : "Costo requerido",
+            'moneda_gastos_destinoM' : "Moneda requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>';
+            var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
+            var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
+            var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
+            var comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
 
-        var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>';
-        var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
-        var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
-        var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
-        var comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
+            var fila = '<tr id="rowGastosDestino' + i + '">' +
+                '<td>' + tipo_gasto_gastos_destino +' '+ $("select[name='tipo_gasto_gastos_destinoM'] option:selected").text() +'</td>' +
+                '<td>' + costo_gastos_destino +' '+ document.getElementById("costo_gastos_destino").value +'</td>' +
+                '<td>' + moneda_gastos_destino +' '+ document.getElementById("moneda_gastos_destino").value +'</td>' +
+                '<td>' + nota_gastos_destino +' '+ document.getElementById("nota_gastos_destino").value +'</td>' +
+                '<td>' + comporbante_gastos_destino + '</td>' +
+                '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger remove_gastos_destino"><i class="fa fa-trash  "></i></button></td>' +
+                '</tr>'; //esto seria lo que contendria la fila
 
-        var i = 1; //contador para asignar id al boton que borrara la fila
+            i++;
 
-        var fila = '<tr id="rowGastosDestino' + i + '">' +
-            '<td>' + tipo_gasto_gastos_destino +' '+ document.getElementById("tipo_gasto_gastos_destino").value +'</td>' +
-            '<td>' + costo_gastos_destino +' '+ document.getElementById("costo_gastos_destino").value +'</td>' +
-            '<td>' + moneda_gastos_destino +' '+ document.getElementById("moneda_gastos_destino").value +'</td>' +
-            '<td>' + nota_gastos_destino +' '+ document.getElementById("nota_gastos_destino").value +'</td>' +
-            '<td>' + comporbante_gastos_destino + '</td>' +
-            '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger remove_gastos_destino"><i class="fa fa-trash  "></i></button></td>' +
-            '</tr>'; //esto seria lo que contendria la fila
+            $('.gastosDestino tr:first').after(fila);
+            countGD++;
 
-        i++;
+            var nFilas = $(".gastosDestino tr").length;
+            //le resto 1 para no contar la fila del header
+            document.getElementById("tipo_gasto_gastos_destino").value ="";
+            document.getElementById("costo_gastos_destino").value = "";
+            document.getElementById("moneda_gastos_destino").value ="";
+            document.getElementById("nota_gastos_destino").value = "";
 
-        $('.gastosDestino tr:first').after(fila);
-        countGD++;
+            // Recargo filestyle
+            filestyle();
 
-        var nFilas = $(".gastosDestino tr").length;
-        //le resto 1 para no contar la fila del header
-        document.getElementById("tipo_gasto_gastos_destino").value ="1";
-        document.getElementById("costo_gastos_destino").value = "";
-        document.getElementById("moneda_gastos_destino").value ="a";
-        document.getElementById("nota_gastos_destino").value = "";
+            $("#myModal4").modal('hide');//oculto el modal
 
-        // Recargo filestyle
-        filestyle();
-
-        $("#myModal4").modal('hide');//oculto el modal
-    });
-
-    $(document).on('click', '.remove_gastos_destino', function() {
-        var button_id = $(this).attr("id");
-        //cuando da click obtenemos el id del boton
-        $('#rowGastosDestino' + button_id).remove(); //borra la fila
-        //limpia el para que vuelva a contar las filas de la tabla
-        var nFilas = $(".gastosDestino tr").length;
+            $(document).on('click', '.remove_gastos_destino', function() {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#rowGastosDestino' + button_id).remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                var nFilas = $(".gastosDestino tr").length;
+            });
+        }
     });
 });
 
@@ -377,14 +393,12 @@ $(document).ready(function() {
 
             $('.montoPago').after(monto);
 
-
             $(document).on('click', '.remove-monto', function() {
                 var button_id = $(this).attr("id");
                 console.log(button_id);
                 $('#remove-div-monto' + button_id).remove();
                 var nFilas = $(".montoPago").length;
             });
-
             var pagos = [];
             $('input[name^="pago_pagos"]').each(function() {
                 pagos = pagos.concat($(this).val());
@@ -486,6 +500,7 @@ function sumar() {
 // Llenado de Transito
 $(document).ready(function() {
     var countTransito = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
     $('#transito-form').validate({
         event: "blur",rules: {
             'metodo_transito' : "required",
@@ -519,7 +534,6 @@ $(document).ready(function() {
             var cbm_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][cbm_transito]" value="'+ document.getElementById("cbm_transito").value +'"></div>';
             var peso_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][peso_transito]" value="'+ document.getElementById("peso_transito").value +'"></div>';
             var archivo_comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="archivo_comercial_invoce_transito" name="transito['+ countTransito +'][archivo_comercial_invoce_transito]"></div>';
-            var i = 1; //contador para asignar id al boton que borrara la fila
 
             var fila = '<tr id="rowTransito' + i + '">' +
                 '<td>' + metodo_transito +''+cajas_transito+''+ $("select[name='metodo_transito'] option:selected").text() +'</td>' +
@@ -567,6 +581,7 @@ $(document).ready(function() {
 // Llenado de Pedimento
 $(document).ready(function() {
     var countPedimento = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
     $('#pedimento-form').validate({
         event: "blur",rules: {
             'numero_pedimento' : "required",
@@ -602,8 +617,6 @@ $(document).ready(function() {
             var prv_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="prv_pedimento" name="pedimento['+ countPedimento +'][prv_pedimento]" value="'+ document.getElementById("prv_pedimento").value +'"></div>';
             var iva_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="iva_pedimento" name="pedimento['+ countPedimento +'][iva_pedimento]" value="'+ document.getElementById("iva_pedimento").value +'"></div>';
             var pedimento_digital = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital" name="pedimento['+ countPedimento +'][pedimento_digital]"></div>';
-
-            var i = 1; //contador para asignar id al boton que borrara la fila
 
             var fila = '<tr id="rowPedimento' + i + '">' +
                 '<td>' + numero_pedimento +''+dta_pedimento+''+ document.getElementById("numero_pedimento").value +'</td>' +
