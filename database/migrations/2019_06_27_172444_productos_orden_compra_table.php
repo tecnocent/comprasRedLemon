@@ -25,7 +25,8 @@ class ProductosOrdenCompraTable extends Migration
             $table->boolean('logo')->nullable();
             $table->boolean('box')->nullable();
             $table->boolean('instructivo')->nullable();
-            $table->json('archivos')->nullable()->nullable();
+            $table->json('archivo_fabricante')->nullable();
+            $table->json('archivo_diseno')->nullable();
             $table->string('tipo')->nullable();
             $table->date('fecha_requerida')->nullable();
             $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');

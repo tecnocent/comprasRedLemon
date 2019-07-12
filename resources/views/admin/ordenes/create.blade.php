@@ -62,7 +62,7 @@
                                 <div class="box-body">
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for=""># OC</label>
-                                        <input type="text" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa el ID de OC" onchange="checkUniq(this.name, this.value);">
+                                        <input type="text" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa el ID de OC">
                                         @if ($errors->has('id_orden'))
                                             <span class="invalid-feedback" role="alert" style="color: red">
                                                 {{ $errors->first('id_orden') }}

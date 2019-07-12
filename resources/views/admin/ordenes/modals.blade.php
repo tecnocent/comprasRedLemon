@@ -48,7 +48,7 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Cantidad</label>
-                                    <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
+                                <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
@@ -99,6 +99,12 @@
                                 <input type="text" class="form-control" id="costo_gastos_origen" name="costo_gastos_origenM" placeholder="Costo" onkeypress="return filterFloat(event,this);">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="">Comprobante</label>
+                                <input type="file" class="filestyle" name="comprobante_gastos_origen" id="comprobante_gastos_origen">
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">Notas</label>
@@ -114,6 +120,8 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
+
 <!--Modal 3-->
 <div class="modal right1 fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
     <div class="modal-dialog" role="document">
@@ -152,6 +160,12 @@
                                     <option value="MXN">MXN</option>
                                     <option value="USD">USD</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 line">
+                            <div class="form-group">
+                                <label for="">Comprobante</label>
+                                <input type="file" class="filestyle" name="comporbante_gastos_destino" id="comporbante_gastos_destino" >
                             </div>
                         </div>
                         <div class="col-md-12 line">
@@ -430,6 +444,12 @@
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
+                                        <label>Comercial invoce (archivo)</label>
+                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="archivo_comercial_invoce_file" name="archivo_comercial_invoce_file">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line pagos-inputs">
+                                    <div class="form-group">
                                         <label>Cajas #</label>
                                         <input type="text" class="form-control" placeholder="Cajas #" id="cajas_transito" name="cajas_transito" onKeyPress="return soloNumeros(event)">
                                     </div>
@@ -469,7 +489,7 @@
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel2">Registrar Transito</h4>
+                    <h4 class="modal-title" id="myModalLabel2">Registrar Pedimento</h4>
                 </div>
                 <div class="modal-body">
                     <div class="">
@@ -534,6 +554,12 @@
                                     <div class="form-group">
                                         <label>IVA</label>
                                         <input type="text" class="form-control" placeholder="IVA" id="iva_pedimento" name="iva_pedimento" onKeyPress="return soloNumeros(event)">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label for="">Pedimento Digital</label>
+                                        <input type="file" class="filestyle" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital" name="pedimento_digital">
                                     </div>
                                 </div>
 

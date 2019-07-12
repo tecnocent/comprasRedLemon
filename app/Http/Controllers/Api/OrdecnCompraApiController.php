@@ -49,13 +49,14 @@ class OrdecnCompraApiController extends Controller
             $sRecepcion =  $oRequest->input('recepcion', false);
             $sCancelado = $oRequest->input('cancelado', false);
             $sAlmacen = $oRequest->input('almacen', false);
+            $sIdentificador = $oRequest->input('identificador', false);
             $aOrdenes = $this->mOrdenCompra
                 ->with('proveedor')
                 ->where(
-                    function ($q) use ($sFiltro) {
-                        if ($sFiltro !== false) {
+                    function ($q) use ($sIdentificador) {
+                        if ($sIdentificador !== false) {
                             return $q
-                                ->orWhere('identificador', '=', "%$sFiltro%");
+                                ->orWhere('identificador', '=', "%$sIdentificador%");
                         }
                     }
                 )

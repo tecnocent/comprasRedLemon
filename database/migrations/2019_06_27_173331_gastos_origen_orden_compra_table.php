@@ -19,7 +19,7 @@ class GastosOrigenOrdenCompraTable extends Migration
             $table->unsignedInteger('tipo_gasto_id')->nullable();
             $table->float('costo')->nullable();
             $table->string('notas')->nullable();
-            $table->json('comprobante')->nullable();
+            $table->string('comprobante')->nullable();
             $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
             $table->foreign('tipo_gasto_id')->references('id')->on('cost_origin')->onDelete('cascade');
             $table->timestamps();

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Admin\OrdenCompra;
 
+use App\Http\Controllers\Admin\GastosDestino\GastosDestinoController;
+use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
+use App\Http\Controllers\Admin\Pedimento\PedimentoController;
+use App\Http\Controllers\Admin\Producto\ProductoController;
+use App\Http\Controllers\Admin\Transito\TransitoController;
 use App\Http\Requests\OrdenCompraRequest;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
@@ -22,8 +27,10 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Log;
+use Symfony\Component\Console\Helper\TableRows;
 use Validator;
 use File;
+use Uuid;
 
 class OrdenesCompraController extends Controller
 {
@@ -116,25 +123,6 @@ class OrdenesCompraController extends Controller
     public function store(OrdenCompraRequest $oRequest)
     {
         try {
-            // Pagos
-           ////if ($oRequest->has('monto')) {
-
-           //    dd($oRequest->all());
-           //    // Guardado de archivos producto
-           //    $archivos = [];
-           //    $comprobantesMonto = $oRequest->file('pagos');
-           //    foreach ($oRequest->pagos as $pago) {
-           //        $montoPago = $this->mMontoPagoOrden->create([
-           //            'monto'             => $pago['monto_pagos'],
-           //            'tipo_cambio'       => $pago['tipo_cambio_monto'],
-           //            'comprobante_monto' => null,
-           //            'bfcv'              => $pago['bfcv'],
-           //            'total_pagado'      => $pago['total_pagado'],
-           //            'restante'          => $pago['monto_pagos'] - $pago['total_pagado'],
-           //            'orden_compra_id'   => 1,
-           //        ]);
-           //    }
-           //}
             // Orden de compra
             $ordenCompra = $this->mOrdenCompra->create([
                 'status'            => $oRequest->status,
@@ -147,136 +135,44 @@ class OrdenesCompraController extends Controller
                 'proveedor_id'      => $oRequest->proveedor,
                 'almacen_id'        => $oRequest->almacen_llegada,
             ]);
-            $identificador = $ordenCompra->id;
-            // Productos
-            if ($oRequest->has('productos')) {
-                // Guardado de archivos producto
-                $archivos = [];
-                $archivosProductos = $oRequest->file('productos');
-                if (isset($archivosProductos)) {
-                    for ($i = 0; $i < count($archivosProductos); $i++) {
-                        $fabricante = $archivosProductos[$i]['archivosFabricante'];
-                        $design = $archivosProductos[$i]['archivosDiseno'];
-                        if ($fabricante) {
-                            $archivoFab = $this->guardaArchivo($identificador, $fabricante, 'archivo-fabricante-');
-                            $archivos[] = $archivoFab;
-                        }
-                        if ($design) {
-                            $archivoDis = $this->guardaArchivo($identificador, $design, 'archivo-design-');
-                            $archivos[] = $archivoDis;
-                        }
-                    }
-                }
-                foreach ($oRequest->get('productos') as $prod ) {
-                    $logo = (in_array('logo', $prod)) ? true : false;
-                    $oem = (in_array('oem', $prod)) ? true : false;
-                    $instructivo = (in_array('instructivo', $prod)) ? true : false;
 
-                    $productoOrden = $this->mProductoOrdenCompra->create([
-                        'cantidad' => $prod['cantidad_producto'],
-                        'costo' => $prod['costo_producto'],
-                        'total' => $prod['subtotal_producto'],
-                        'incoterm' => $prod['icoterm_producto'],
-                        'leadtime' => $prod['leadtime_producto'],
-                        'logo' => $logo,
-                        'box' => $oem,
-                        'instructivo' => $instructivo,
-                        'archivos' => json_encode($archivos),
-                        'tipo' => $prod['tipo'],
-                        'fecha_requerida' => $prod['fechaRequerida'],
-                        'orden_compra_id' => $ordenCompra->id,
-                        'producto_id' => $prod['producto_id'],
-                    ]);
-                }
-            }
-            // Gastos origen
-            if ($oRequest->has('gastosOr')) {
-                $archivosG = [];
-                $archivosGastosOrigen = $oRequest->file('gastosOr');
-                if (isset($archivosGastosOrigen)) {
-                    for ($i = 0; $i < count($archivosGastosOrigen); $i++) {
-                        $gastos = $archivosGastosOrigen[$i]['comprobante_gastos_origen'];
-                        if ($gastos) {
-                            $archivoGastosOr = $this->guardaArchivo($identificador, $gastos, 'archivo-gastosO-');
-                            $archivosG[] = $archivoGastosOr;
-                        }
-                    }
-                }
-                foreach ($oRequest->get('gastosOr') as $gast ) {
-                    $gOrigen = $this->mGastosOrigenOrdenCompra->create([
-                        'costo' => $gast['costo_gastos_origen'],
-                        'notas' => $gast['nota_gastos_origen'],
-                        'comprobante' => json_encode($archivosG),
-                        'orden_compra_id' => $ordenCompra->id,
-                        'tipo_gasto_id' => $gast['tipo_gasto_origen'],
-                    ]);
-                }
-            }
-            // Gastos destino
-            if ($oRequest->has('gastosDe')) {
-                $archivosD = [];
-                $archivosGastosDestino = $oRequest->file('gastosDe');
-                if (isset($archivosGastosDestino)) {
-                    for ($i = 0; $i < count($archivosGastosDestino); $i++) {
-                        $gastosDestino = $archivosGastosDestino[$i]['comporbante_gastos_destino'];
-                        if ($gastosDestino) {
-                            $archivoDestino = $this->guardaArchivo($identificador, $gastosDestino, 'archivo-gastosD-');
-                            $archivosD[] = $archivoDestino;
-                        }
-                    }
-                }
-                foreach ($oRequest->get('gastosDe') as $gast ) {
-                    $gOrigen = $this->mGastosDestinoOrdenCompra->create([
-                        'moneda' => $gast['moneda_gastos_destino'],
-                        'costo' => $gast['costo_gastos_destino'],
-                        'notas' => $gast['nota_gastos_destino'],
-                        'comprobante' => json_encode($archivosD),
-                        'orden_compra_id' => $ordenCompra->id,
-                        'tipo_gasto_destino_id' => $gast['tipo_gasto_gastos_destino'],
-                    ]);
-                }
-            }
-            // Transito
-            if ($oRequest->has('transito')) {
-                foreach ($oRequest->get('transito') as $transito ) {
-                    $transito = $this->mTransito->create([
-                        'guia' => $transito['guia_transito'],
-                        'fecha_embarque' => $transito['fecha_embarque_transito'],
-                        'fecha_tentativa' => $transito['fecha_tentativa_llegada_transito'],
-                        'comercual_invoce' => $transito['comercial_invoce_transito'],
-                        'comercial_invoce_file' => null,
-                        'cajas' => $transito['cajas_transito'],
-                        'cbm' => $transito['cbm_transito'],
-                        'peso' => $transito['peso_transito'],
-                        'metodo_id' => $transito['metodo_transito'],
-                        'forwarder_id' => $transito['forwarder_transito'],
-                        'orden_compra_id' => $identificador
-                    ]);
-                }
-            }
             // Pedimento
             if ($oRequest->has('pedimento')) {
-                foreach ($oRequest->get('pedimento') as $pedimento ) {
-                    $pedimento = $this->mPedimento->create([
-                        'pedimento' => $pedimento['numero_pedimento'],
-                        'pedimento_digital' => null,
-                        'tipo_cambio_pedimento' => $pedimento['tipo_cambio_pedimento_pedimento'],
-                        'dta' => $pedimento['dta_pedimento'],
-                        'cnt' => $pedimento['cnt_pedimento'],
-                        'igi' => $pedimento['igi_pedimento'],
-                        'prv' => $pedimento['prv_pedimento'],
-                        'iva' => $pedimento['iva_pedimento'],
-                        'orden_compra_id' => $identificador,
-                        'aduana_id' => $pedimento['aduana_pedimento'],
-                        'agente_aduanal_id' => $pedimento['agente_aduanal_pedimento']
-                    ]);
-                }
+                $pedimento = new PedimentoController($this->mPedimento);
+                $pedimento->store($oRequest, $ordenCompra);
             }
+
+            // Transito
+            if ($oRequest->has('transito')) {
+                $transito = new TransitoController($this->mTransito);
+                $transito->store($oRequest, $ordenCompra);
+            }
+
+            // Gastos destino
+            if ($oRequest->has('gastosDe')) {
+                $gastosDestino = new GastosDestinoController($this->mGastosDestinoOrdenCompra);
+                $gastosDestino->store($oRequest, $ordenCompra);
+            }
+
+            // Productos
+            if ($oRequest->has('productos')) {
+                $producto = new ProductoController($this->mProductoOrdenCompra);
+                $producto->store($oRequest, $ordenCompra);
+            }
+
+            // Gastos origen
+            if ($oRequest->has('gastosOr')) {
+                $gastosOrigen  = new GastosOrigenController($this->mGastosOrigenOrdenCompra);
+                $gastosDestino->store($oRequest, $ordenCompra);
+            }
+
+
             // Alerta
             $notification = array(
                 'message' => 'Orden de compra ceada exitosamente.',
                 'alert-type' => 'success'
             );
+
             return redirect()->route('home')->with($notification);
 
         } catch (\Exception $e) {

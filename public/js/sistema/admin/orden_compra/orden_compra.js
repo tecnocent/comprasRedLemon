@@ -12,6 +12,19 @@ function filestyle() {
     });
 
 }
+//Suma
+function sumar() {
+    var total = 0;
+    $(".monto").each(function() {
+        if (isNaN(parseFloat($(this).val()))) {
+            total += 0;
+        } else {
+            total += parseFloat($(this).val());
+        }
+    });
+    document.getElementById('total_pagado').value = total;
+
+}
 
 // Solo numeros decimales
 function filterFloat(evt,input){
@@ -92,8 +105,23 @@ function checkUniq(name, valor) {
             'identificador': valor,
         },
         success: function(data){
+
+            var resultados = [];
+            $.each(data.data.ordenes.data, function(i, o) {
+                var registro = {};
+                registro.id = o.id;
+                registro.description =  o.description;
+                resultados.push(registro);
+            });
+            var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id" name="producto_id" value="'+resultados[0].id+'">'
+            var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="producto_descripcion" value="'+resultados[0].description+'">'
+
+            $('.extras').after(producto_id);
+            $('.extras').after(producto_descripcion);
+
+
+            console.log(data);
             var error = '<label for="identificador" generated="true" class="error">EL #OC esta en uso</label>';
-            console.log('se encontro');
             $('#id_orden').after(error);
         }
     });
@@ -126,6 +154,8 @@ $('#productosSelect').on('select2:select', function (evt) {
     });
 });
 
+
+
 // Llenado de tabla productos
 $(document).ready(function() {
     var cont = 0;
@@ -150,24 +180,24 @@ $(document).ready(function() {
         submitHandler: function(form){
             console.log("paso");
 
-            var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">'
-            var descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">'
-            var sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>';
-            var skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>';
-            var nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
-            var nombre_productoDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>';
-            var icoterm_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="icoterm_producto" name="productos['+ cont +'][icoterm_producto]" value="'+ document.getElementById("icoterm_producto").value +'"></div>';
-            var leadtime_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="leadtime_producto" name="productos['+ cont +'][leadtime_producto]" value="'+ document.getElementById("leadtime_producto").value +'"></div>';
-            var costo_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="costo_producto" name="productos['+ cont +'][costo_producto]" value="'+ document.getElementById("costo_producto").value +'"></div>';
-            var cantidad_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="cantidad_producto" name="productos['+ cont +'][cantidad_producto]" value="'+ document.getElementById("cantidad_producto").value +'"></div>';
-            var total = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="subtotal_producto" name="productos['+ cont +'][subtotal_producto]" value="'+ document.getElementById("subtotal_producto").value +'"></div>';
-            var logo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][logo]" id="logo"/> <span></span></label></div>';
-            var oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>';
-            var instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>';
-            var archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>';
-            var archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>';
-            var tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>';
-            var fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
+            var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">',
+                descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">',
+                sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>',
+                skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>',
+                nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
+                nombre_productoDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
+                icoterm_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="icoterm_producto" name="productos['+ cont +'][icoterm_producto]" value="'+ document.getElementById("icoterm_producto").value +'"></div>',
+                leadtime_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="leadtime_producto" name="productos['+ cont +'][leadtime_producto]" value="'+ document.getElementById("leadtime_producto").value +'"></div>',
+                costo_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="costo_producto" name="productos['+ cont +'][costo_producto]" value="'+ document.getElementById("costo_producto").value +'"></div>',
+                cantidad_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="cantidad_producto" name="productos['+ cont +'][cantidad_producto]" value="'+ document.getElementById("cantidad_producto").value +'"></div>',
+                total = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="subtotal_producto" name="productos['+ cont +'][subtotal_producto]" value="'+ document.getElementById("subtotal_producto").value +'"></div>',
+                logo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][logo]" id="logo"/> <span></span></label></div>',
+                oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>',
+                instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>',
+                archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>',
+                archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>',
+                tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
+                fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -204,12 +234,9 @@ $(document).ready(function() {
             var nFilas = $(".productos tr").length;
             $("#adicionados").append(nFilas - 1);
             //le resto 1 para no contar la fila del header
-            $('#nombre_producto').val(null);
-            document.getElementById("icoterm_producto").value ="1";
-            document.getElementById("leadtime_producto").value ="";
-            document.getElementById("costo_producto").value = "";
-            document.getElementById("cantidad_producto").value = "";
-            document.getElementById("subtotal_producto").value = "";
+
+            // Limpia formulario
+            $("#productos-form")[0].reset();
 
             // recargo el filestyle
             filestyle();
@@ -229,6 +256,9 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
 // Llenado de Gasto origen
 $(document).ready(function() {
     var countGastosO = 0;
@@ -244,28 +274,39 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>';
-            var costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>';
-            var nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
-            var arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
+            var file = $('#comprobante_gastos_origen'),
+                arcivo_gastos_origen = file.clone();
+            var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>',
+                costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>',
+                div = '<div class="form-group col-sm-12" id="file"></div>',
+                nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
+                //arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
 
             var fila = '<tr id="rowGatsoOrigen'+ i +'">' +
                 '<td>'+ tipo_gasto_origen +' '+ $("select[name='tipo_gasto_origenM'] option:selected").text() +'</td>' +
                 '<td>'+ costo_gastos_origen +' '+ document.getElementById("costo_gastos_origen").value +'</td>' +
                 '<td>'+ nota_gastos_origen +' '+ document.getElementById("nota_gastos_origen").value +'</td>' +
-                '<td>'+ arcivo_gastos_origen +'</td>' +
+                '<td>'+ div +'</td>' +
                 '<td><button type="button" name="remove" id="'+ i +'" class="btn btn-danger remove_gastos_origen"><i class="fa fa-trash  "></i></button></td>' +
                 '</tr>'; //esto seria lo que contendria la fila
 
             i++;
-            countGastosO++;
+
             $('.gastosOrigen tr:first').after(fila);
 
+
+            arcivo_gastos_origen.attr('name', 'gastosOr['+ countGastosO +'][comprobante_gastos_origen]');
+            var filename = arcivo_gastos_origen.val();
+            $('#file').after(filename.split('\\').pop());
+            arcivo_gastos_origen.removeClass('filestyle');
+            $('#file').after(arcivo_gastos_origen);
+            countGastosO++;
+
+
             var nFilas = $(".gastosOrigen tr").length;
-            //le resto 1 para no contar la fila del header
-            document.getElementById("tipo_gasto_origen").value ="";
-            document.getElementById("costo_gastos_origen").value = "";
-            document.getElementById("nota_gastos_origen").value = "";
+
+            // Limpia formulario
+            $("#gastos-origen-form")[0].reset();
 
             // Recargo el filestyle
             filestyle();
@@ -281,6 +322,10 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+
 
 // Llenado de Gasto destino
 $(document).ready(function() {
@@ -299,32 +344,39 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>';
-            var costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>';
-            var moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>';
-            var nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
-            var comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
+            var file = $('#comporbante_gastos_destino'),
+                arcivo_gastos_destino = file.clone();
+            var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>',
+                costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>',
+                moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>',
+                div = '<div class="form-group col-sm-12" id="file"></div>',
+                nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
+                //comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
 
             var fila = '<tr id="rowGastosDestino' + i + '">' +
                 '<td>' + tipo_gasto_gastos_destino +' '+ $("select[name='tipo_gasto_gastos_destinoM'] option:selected").text() +'</td>' +
                 '<td>' + costo_gastos_destino +' '+ document.getElementById("costo_gastos_destino").value +'</td>' +
                 '<td>' + moneda_gastos_destino +' '+ document.getElementById("moneda_gastos_destino").value +'</td>' +
                 '<td>' + nota_gastos_destino +' '+ document.getElementById("nota_gastos_destino").value +'</td>' +
-                '<td>' + comporbante_gastos_destino + '</td>' +
+                '<td>' + div + '</td>' +
                 '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger remove_gastos_destino"><i class="fa fa-trash  "></i></button></td>' +
                 '</tr>'; //esto seria lo que contendria la fila
 
             i++;
 
             $('.gastosDestino tr:first').after(fila);
+            arcivo_gastos_destino.attr('name', 'gastosDe['+ countGD +'][comporbante_gastos_destino]');
+            var filename = arcivo_gastos_destino.val();
+            $('#file').after(filename.split('\\').pop());
+            arcivo_gastos_destino.removeClass('filestyle');
+            $('#file').after(arcivo_gastos_destino);
+
             countGD++;
 
             var nFilas = $(".gastosDestino tr").length;
-            //le resto 1 para no contar la fila del header
-            document.getElementById("tipo_gasto_gastos_destino").value ="";
-            document.getElementById("costo_gastos_destino").value = "";
-            document.getElementById("moneda_gastos_destino").value ="";
-            document.getElementById("nota_gastos_destino").value = "";
+
+            // Limpia formulario
+            $("#gastos-destino-form")[0].reset();
 
             // Recargo filestyle
             filestyle();
@@ -341,6 +393,10 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+
 
 // Llenado de Pagos
 $(document).ready(function() {
@@ -363,11 +419,11 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="monto['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>';
-            var tipo_cambio_monto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][tipo_cambio_monto]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>';
-            var bfcv = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][bfcv]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>';
-            var total_pagado = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado" name="monto['+ contadorDiv +'][total_pagado]" value="'+ document.getElementById("total_pagado").value +'"></div>';
-            var buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="monto['+ contadorDiv +'][comprobanteMonto]" >';
+            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="monto['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>',
+                tipo_cambio_monto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][tipo_cambio_monto]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>',
+                bfcv = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][bfcv]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>',
+                total_pagado = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado" name="monto['+ contadorDiv +'][total_pagado]" value="'+ document.getElementById("total_pagado").value +'"></div>',
+                buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="monto['+ contadorDiv +'][comprobanteMonto]" >';
 
             var monto = '<div class="row" id="remove-div-monto'+contadorDiv+'" class="remove-div-monto">\n' +
                 '           <div class="panel panel-default">\n' +
@@ -467,18 +523,19 @@ $(document).ready(function() {
             // recargo el filestyle
             filestyle();
 
-            //Limpia inputs
-            document.getElementById("monto_pagos").value = "";
-            document.getElementById("tipo_cambio_monto_pagos").value= "";
-            document.getElementById("pago_pagos").value = "";
-            document.getElementById("bfcvu_pagos").value = "";
-            document.getElementById("tipo_cambio_pago_pagos").value = "";
+            // Limpia formulario
+            $("#pagos-form")[0].reset();
+
             $('.pagoAgregado').remove();
             $('.monto-ssss').css("display","none");
             $("#pagos").modal('hide');//oculto el modal
         }
     });
 });
+
+
+
+
 
 
 $(document).ready(function() {
@@ -499,18 +556,9 @@ $(document).ready(function() {
     });
 });
 
-function sumar() {
-    var total = 0;
-    $(".monto").each(function() {
-        if (isNaN(parseFloat($(this).val()))) {
-            total += 0;
-        } else {
-            total += parseFloat($(this).val());
-        }
-    });
-    document.getElementById('total_pagado').value = total;
 
-}
+
+
 
 
 // Llenado de Transito
@@ -540,49 +588,42 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var metodo_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][metodo_transito]" value="'+ $('#metodo_transito').val() +'"></div>';
-            var guia_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][guia_transito]" value="'+ document.getElementById("guia_transito").value +'"></div>';
-            var forwarder_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="forwarder_transito" name="transito['+ countTransito +'][forwarder_transito]" value="'+ $('#forwarder_transito').val() +'"></div>';
-            var fecha_embarque_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][fecha_embarque_transito]" value="'+ document.getElementById("fecha_embarque_transito").value +'"></div>';
-            var fecha_tentativa_llegada_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="fecha_tentativa_llegada_transito" name="transito['+ countTransito +'][fecha_tentativa_llegada_transito]" value="'+ document.getElementById("fecha_tentativa_llegada_transito").value +'"></div>';
-            var comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comercial_invoce_transito" name="transito['+ countTransito +'][comercial_invoce_transito]" value="'+ document.getElementById("comercial_invoce_transito").value +'"></div>';
-            var cajas_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cajas_transito" name="transito['+ countTransito +'][cajas_transito]" value="'+ document.getElementById("cajas_transito").value +'"></div>';
-            var cbm_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][cbm_transito]" value="'+ document.getElementById("cbm_transito").value +'"></div>';
-            var peso_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][peso_transito]" value="'+ document.getElementById("peso_transito").value +'"></div>';
-            var archivo_comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="archivo_comercial_invoce_transito" name="transito['+ countTransito +'][archivo_comercial_invoce_transito]"></div>';
-
+            var file = $('#archivo_comercial_invoce_file'),
+                archivo_comercial_invoce_transito = file.clone();
+            var metodo_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][metodo_transito]" value="'+ $('#metodo_transito').val() +'"></div>',
+                guia_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][guia_transito]" value="'+ document.getElementById("guia_transito").value +'"></div>',
+                forwarder_transito = '<div class="form-group col-sm-12" id="fileTransito"><input type="hidden" class="form-control pull-right " id="forwarder_transito" name="transito['+ countTransito +'][forwarder_transito]" value="'+ $('#forwarder_transito').val() +'"></div>',
+                fecha_embarque_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][fecha_embarque_transito]" value="'+ document.getElementById("fecha_embarque_transito").value +'"></div>',
+                fecha_tentativa_llegada_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="fecha_tentativa_llegada_transito" name="transito['+ countTransito +'][fecha_tentativa_llegada_transito]" value="'+ document.getElementById("fecha_tentativa_llegada_transito").value +'"></div>',
+                comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comercial_invoce_transito" name="transito['+ countTransito +'][comercial_invoce_transito]" value="'+ document.getElementById("comercial_invoce_transito").value +'"></div>',
+                cajas_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cajas_transito" name="transito['+ countTransito +'][cajas_transito]" value="'+ document.getElementById("cajas_transito").value +'"></div>',
+                cbm_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][cbm_transito]" value="'+ document.getElementById("cbm_transito").value +'"></div>',
+                peso_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cbm_transito" name="transito['+ countTransito +'][peso_transito]" value="'+ document.getElementById("peso_transito").value +'"></div>';
             var fila = '<tr id="rowTransito' + i + '">' +
                 '<td>' + metodo_transito +''+cajas_transito+''+ $("select[name='metodo_transito'] option:selected").text() +'</td>' +
                 '<td>' + guia_transito +''+cbm_transito+''+ document.getElementById("guia_transito").value +'</td>' +
                 '<td>' + comercial_invoce_transito +''+peso_transito+''+ document.getElementById("comercial_invoce_transito").value +'</td>' +
-                '<td>' + archivo_comercial_invoce_transito +''+forwarder_transito+'</td>' +
+                '<td>' + forwarder_transito +'</td>' +
                 '<td>' + fecha_embarque_transito +' '+ document.getElementById("fecha_embarque_transito").value +'</td>' +
                 '<td>' + fecha_tentativa_llegada_transito +' '+ document.getElementById("fecha_tentativa_llegada_transito").value +'</td>' +
                 '<td><button type="button" name="remove_transito" id="' + i + '" class="btn btn-danger remove_transito"><i class="fa fa-trash  "></i></button></td>' +
                 '</tr>'; //esto seria lo que contendria la fila
-
             i++;
-
             $('.transito tr:first').after(fila);
+
+            archivo_comercial_invoce_transito.attr('name', 'transito['+ countTransito +'][archivo_comercial_invoce_file]');
+            var filename = archivo_comercial_invoce_transito.val();
+            $('#fileTransito').after(filename.split('\\').pop());
+            archivo_comercial_invoce_transito.removeClass('filestyle');
+            $('#fileTransito').after(archivo_comercial_invoce_transito);
             countTransito++;
-
             var nFilas = $(".transito tr").length;
-            //le resto 1 para no contar la fila del header
-            document.getElementById("guia_transito").value = "";
-            document.getElementById("metodo_transito").value ="";
-            document.getElementById("forwarder_transito").value = "";
-            document.getElementById("fecha_embarque_transito").value = "";
-            document.getElementById("fecha_tentativa_llegada_transito").value = "";
-            document.getElementById("comercial_invoce_transito").value = "";
-            document.getElementById("cajas_transito").value = "";
-            document.getElementById("cbm_transito").value = "";
-            document.getElementById("peso_transito").value = "";
-
-            // recargo el filestyle
+            // Limpia formulario
+            $("#transito-form")[0].reset();
+            // Recargo el filestyle
             filestyle();
-
-            $("#transito").modal('hide');//oculto el modal
-
+            // Oculta modal
+            $("#transito").modal('hide');
             $(document).on('click', '.remove_transito', function() {
                 var button_id = $(this).attr("id");
                 //cuando da click obtenemos el id del boton
@@ -593,6 +634,9 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
 
 // Llenado de Pedimento
 $(document).ready(function() {
@@ -608,7 +652,8 @@ $(document).ready(function() {
             'cnt_pedimento' : "required",
             'igi_pedimento' : "required",
             'prv_pedimento' : "required",
-            'iva_pedimento' : "required"
+            'iva_pedimento' : "required",
+            'pedimento_digital' : "required"
         },
         messages: {
             'numero_pedimento' : "El Numero de pedimento es requerido",
@@ -619,52 +664,47 @@ $(document).ready(function() {
             'cnt_pedimento' : "El CNT es requerido",
             'igi_pedimento' : "El IGI es requerido",
             'prv_pedimento' : "El PRV es requerido",
-            'iva_pedimento' : "El IVA es requerido"
+            'iva_pedimento' : "El IVA es requerido",
+            'pedimento_digital' : "El Pedimento Digital es requerido"
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            var numero_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="numero_pedimento" name="pedimento['+ countPedimento +'][numero_pedimento]" value="'+ document.getElementById("numero_pedimento").value +'"></div>';
-            var aduana_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="aduana_pedimento" name="pedimento['+ countPedimento +'][aduana_pedimento]" value="'+ $('#aduana_pedimento').val() +'"></div>';
-            var agente_aduanal_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="agente_aduanal_pedimento" name="pedimento['+ countPedimento +'][agente_aduanal_pedimento]" value="'+ $('#agente_aduanal_pedimento').val() +'"></div>';
-            var tipo_cambio_pedimento_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pedimento_pedimento" name="pedimento['+ countPedimento +'][tipo_cambio_pedimento_pedimento]" value="'+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'"></div>';
-            var dta_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="dta_pedimento" name="pedimento['+ countPedimento +'][dta_pedimento]" value="'+ document.getElementById("dta_pedimento").value +'"></div>';
-            var cnt_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="cnt_pedimento" name="pedimento['+ countPedimento +'][cnt_pedimento]" value="'+ document.getElementById("cnt_pedimento").value +'"></div>';
-            var igi_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="igi_pedimento" name="pedimento['+ countPedimento +'][igi_pedimento]" value="'+ document.getElementById("igi_pedimento").value +'"></div>';
-            var prv_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="prv_pedimento" name="pedimento['+ countPedimento +'][prv_pedimento]" value="'+ document.getElementById("prv_pedimento").value +'"></div>';
-            var iva_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="iva_pedimento" name="pedimento['+ countPedimento +'][iva_pedimento]" value="'+ document.getElementById("iva_pedimento").value +'"></div>';
-            var pedimento_digital = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital" name="pedimento['+ countPedimento +'][pedimento_digital]"></div>';
-
+            var file = $('#pedimento_digital'),
+                pedimento_digital = file.clone();
+            var numero_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="numero_pedimento" name="pedimento['+ countPedimento +'][numero_pedimento]" value="'+ document.getElementById("numero_pedimento").value +'"></div>',
+                aduana_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="aduana_pedimento" name="pedimento['+ countPedimento +'][aduana_pedimento]" value="'+ $('#aduana_pedimento').val() +'"></div>',
+                agente_aduanal_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="agente_aduanal_pedimento" name="pedimento['+ countPedimento +'][agente_aduanal_pedimento]" value="'+ $('#agente_aduanal_pedimento').val() +'"></div>',
+                tipo_cambio_pedimento_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pedimento_pedimento" name="pedimento['+ countPedimento +'][tipo_cambio_pedimento_pedimento]" value="'+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'"></div>',
+                dta_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="dta_pedimento" name="pedimento['+ countPedimento +'][dta_pedimento]" value="'+ document.getElementById("dta_pedimento").value +'"></div>',
+                cnt_pedimento = '<div class="form-group col-sm-12" id="file"><input type="hidden" class="form-control pull-right " id="cnt_pedimento" name="pedimento['+ countPedimento +'][cnt_pedimento]" value="'+ document.getElementById("cnt_pedimento").value +'"></div>',
+                igi_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="igi_pedimento" name="pedimento['+ countPedimento +'][igi_pedimento]" value="'+ document.getElementById("igi_pedimento").value +'"></div>',
+                prv_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="prv_pedimento" name="pedimento['+ countPedimento +'][prv_pedimento]" value="'+ document.getElementById("prv_pedimento").value +'"></div>',
+                iva_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="iva_pedimento" name="pedimento['+ countPedimento +'][iva_pedimento]" value="'+ document.getElementById("iva_pedimento").value +'"></div>';
+            //le resto 1 para no contar la fila del header
             var fila = '<tr id="rowPedimento' + i + '">' +
                 '<td>' + numero_pedimento +''+dta_pedimento+''+ document.getElementById("numero_pedimento").value +'</td>' +
-                '<td>' + pedimento_digital +''+cnt_pedimento+'</td>' +
+                '<td >'+ cnt_pedimento +'</td>' +
                 '<td>' + aduana_pedimento +''+igi_pedimento+''+ $("select[name='aduana_pedimento'] option:selected").text() +'</td>' +
                 '<td>' + agente_aduanal_pedimento +''+prv_pedimento+''+ $("select[name='agente_aduanal_pedimento'] option:selected").text() +'</td>' +
                 '<td>' + tipo_cambio_pedimento_pedimento +''+iva_pedimento+ ''+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'</td>' +
                 '<td><button type="button" name="remove_pedimento" id="' + i + '" class="btn btn-danger remove_pedimento"><i class="fa fa-trash  "></i></button></td>' +
                 '</tr>'; //esto seria lo que contendria la fila
-
             i++;
-
             $('.pedimento tr:first').after(fila);
+            pedimento_digital.attr('name', 'pedimento['+ countPedimento +'][pedimento_digital]');
+            var filename = pedimento_digital.val();
+            $('#file').after(filename.split('\\').pop());
+            pedimento_digital.removeClass('filestyle');
+            $('#file').after(pedimento_digital);
             countPedimento++;
-
-            var nFilas = $(".transito tr").length;
-            //le resto 1 para no contar la fila del header
-            document.getElementById("numero_pedimento").value = "";
-            document.getElementById("aduana_pedimento").value ="";
-            document.getElementById("agente_aduanal_pedimento").value = "";
-            document.getElementById("tipo_cambio_pedimento_pedimento").value = "";
-            document.getElementById("dta_pedimento").value = "";
-            document.getElementById("cnt_pedimento").value = "";
-            document.getElementById("igi_pedimento").value = "";
-            document.getElementById("prv_pedimento").value = "";
-            document.getElementById("iva_pedimento").value = "";
-
+            var nFilas = $(".pedimento tr").length;
+            // Limpia formulario
+            $("#pedimento-form")[0].reset();
             // recargo el filestyle
             filestyle();
-
-            $("#pedimento").modal('hide');//oculto el modal
-
+            //Oculta  modal
+            $("#pedimento").modal('hide');
+            // Reueve ultima fila
             $(document).on('click', '.remove_pedimento', function() {
                 var button_id = $(this).attr("id");
                 //cuando da click obtenemos el id del boton

@@ -11,6 +11,7 @@
         "laravel/tinker": "~1.0",
         "laraveles/spanish": "^1.2",
         "prologue/alerts": "^0.4.3",
+        "webpatser/laravel-uuid": "^3.0",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
