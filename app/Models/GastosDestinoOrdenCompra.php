@@ -20,6 +20,7 @@ class GastosDestinoOrdenCompra extends Model
      */
     protected $fillable = [
         'moneda',
+        'costo',
         'notas',
         'comprobante',
         // Llaves foraneas

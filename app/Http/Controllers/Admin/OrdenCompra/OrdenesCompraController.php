@@ -166,13 +166,7 @@ class OrdenesCompraController extends Controller
                 $producto->store($oRequest, $ordenCompra);
             }
 
-            // Alerta
-            $notification = array(
-                'message' => 'Orden de compra ceada exitosamente.',
-                'alert-type' => 'success'
-            );
-
-            return redirect()->route('orden.show', ['id' =>  $ordenCompra->id]);
+            return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);
 
         } catch (\Exception $e) {
             // Alerta
@@ -267,6 +261,40 @@ class OrdenesCompraController extends Controller
             Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
             return redirect()->back()->with($notification);
         }
+    }
+
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function resumen($id)
+    {
+        $orden = $this->mOrdenCompra->find($id);
+        $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+        $gastosDestino = $this->mGastosDestinoOrdenCompra->where('orden_compra_id', $orden->id)->get();
+        $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
+        $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
+        $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
+
+        return view('admin.ordenes.resumen')->with([
+            'orden' => $orden,
+            'productos' => $productos,
+            'gastosDestino' => $gastosDestino,
+            'gastosOrigen' => $gastosOrigen,
+            'transitos' => $transitos,
+            'pedimentos' => $pedimentos
+        ]);
+    }
+
+
+    /**
+     * @param $archivo
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function descarga($archivo)
+    {
+        $pathtoFile = public_path().'/documents/orden_compra/'.$archivo;
+        return response()->download($pathtoFile);
     }
 
 

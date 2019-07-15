@@ -60,4 +60,12 @@ class OrdenCompra extends Model
     {
         return $this->belongsTo('App\Models\Almacen', 'almacen_id');
     }
+
+    /**
+     *  Relacion tipo de compra (tipo_compra)
+     */
+    public function tipoCompra()
+    {
+        return $this->belongsTo('App\Models\TipoCompra', 'tipo_compra');
+    }
 }
