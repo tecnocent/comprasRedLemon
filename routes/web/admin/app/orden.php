@@ -5,6 +5,7 @@
 Route::get('/nueva_orden', 'OrdenCompra\OrdenesCompraController@create')->name('orden.create');
 Route::post('/guarda_orden', 'OrdenCompra\OrdenesCompraController@store')->name('orden.save');
 Route::get('/muestra_orden/{id}', 'OrdenCompra\OrdenesCompraController@show')->name('orden.show');
+Route::post('/actualiza_orden/{id}', 'OrdenCompra\OrdenesCompraController@update')->name('orden.update');
 Route::get('/elimina_orden/{id}', 'OrdenCompra\OrdenesCompraController@destroy')->name('orden.delete');
 Route::get('/resumen/{id}', 'OrdenCompra\OrdenesCompraController@resumen')->name('orden.resumen');
 Route::get('/orden/descarga/{archivo}', 'OrdenCompra\OrdenesCompraController@descarga')->name('orden.descarga');

@@ -51,7 +51,7 @@
                 <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
                         <!-- Formulario -->
-                        <form id="form-orden" role="form" method="POST" action="{{route('orden.save')}}" enctype="multipart/form-data">
+                        <form id="form-orden" role="form" method="POST" action="{{route('orden.update', ['id' => $orden->id])}}" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="box box-primary" style="line-height: 2em;">
                                 <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -138,8 +138,6 @@
                                         <label for="">Descripción</label>
                                         <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc" id="descripcion_oc">{{ $orden->descripcion ?? null }}</textarea>
                                     </div>
-
-                                    <input type="hidden" class="form-control" id="status" name="status">
                                     <br>
                                     <div id="exTab3" class="form-group col-sm-12">
                                         <ul  class="nav nav-tabs">
@@ -412,7 +410,7 @@
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <br>
-                                    <a href="{{ route('home') }}" class="btn btn-success pull-right">Actualizar</a>
+                                    <button type="submit" class="btn btn-success pull-right">Actualizar</button>
                                 </div>
                             </div>
                         </form>
@@ -514,7 +512,7 @@
             </div>
         </div>
     </div>
-    @extends('admin.ordenes.modals')
+    @extends('admin.ordenes.modals_act')
     <!-- Scripts -->
 @section('javascript')
     <script>

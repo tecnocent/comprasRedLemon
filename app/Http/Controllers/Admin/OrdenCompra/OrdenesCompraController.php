@@ -228,9 +228,38 @@ class OrdenesCompraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest, $id)
     {
-        //
+        try {
+            $orden = $this->mOrdenCompra->find($id);
+            $orden->update([
+                'status'            => $oRequest->estatus,
+                'identificador'     => $oRequest->id_orden,
+                'encargdo_interno'  => $oRequest->encargado,
+                'descripcion'       => $oRequest->descripcion,
+                'fecha_inicio'      => $oRequest->fecha_inicio,
+                'tipo_compra'       => $oRequest->tipo_compra,
+                'requerimiento'     => $oRequest->requerimiento,
+                'proveedor_id'      => $oRequest->proveedor,
+                'almacen_id'        => $oRequest->almacen_llegada,
+            ]);
+
+            // Alerta
+            $notification = array(
+                'message' => 'Orden de actualizada correctamente',
+                'alert-type' => 'success'
+            );
+
+            return redirect()->route('home')->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Ocurrio algun error',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
