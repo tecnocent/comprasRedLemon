@@ -15,3 +15,18 @@ Route::post('/guarda_proveedor', 'Proveedor\ProveedorController@store')->name('p
 //Tipo de compra
 Route::get('/tipo_compra', 'Catalogo\TipoCompraController@index')->name('tipo_compra.index');
 Route::post('/guarda_tipo_compra', 'Catalogo\TipoCompraController@store')->name('tipo_compra.save');
+
+// Productos
+Route::get('/elimina_producto/{id}', 'Producto\ProductoController@destroy')->name('producto.delete');
+
+// Gastos Origen
+Route::get('/elimina_gasto_origen/{id}', 'GastosOrigen\GastosOrigenController@destroy')->name('gasto_origen.delete');
+
+// Gastos Destino
+Route::get('/elimina_gasto_destino/{id}', 'GastosDestino\GastosDestinoController@destroy')->name('gasto_destino.delete');
+
+// Transito
+Route::get('/elimina_transito/{id}', 'Transito\TransitoController@destroy')->name('transito.delete');
+
+//Pedimento
+Route::get('/elimina_pedimento/{id}', 'Pedimento\PedimentoController@destroy')->name('pedimento.delete');

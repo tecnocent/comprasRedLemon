@@ -189,9 +189,19 @@ class OrdenesCompraController extends Controller
     {
         $tiposCompra = \App\Models\TipoCompra::all();
         $orden = $this->mOrdenCompra->find($id);
+        $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+        $gastosDestino = $this->mGastosDestinoOrdenCompra->where('orden_compra_id', $orden->id)->get();
+        $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
+        $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
+        $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
         return view('admin.ordenes.show')->with([
             'orden' => $orden,
             'proveedores' => $this->mProveedor->all(),
+            'productosOrden' => $productos,
+            'gastosDestinoOrden' => $gastosDestino,
+            'gastosOrigenOrden' => $gastosOrigen,
+            'transitosOrden' => $transitos,
+            'pedimentosOrden' => $pedimentos,
             'usuarios' => $this->mUser->all(),
             'almacenes' => $this->mAlmacen->all(),
             'productos' => $this->mProducto->all(),

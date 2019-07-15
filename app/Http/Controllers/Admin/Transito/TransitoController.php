@@ -118,7 +118,24 @@ class TransitoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $transito = $this->mTransito->find($id);
+            $transito->delete();
+            // Alerta
+            $notification = array(
+                'message' => 'Transito eliminado de la orden',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            $notification = array(
+                'message' => 'Algo salio mal',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**

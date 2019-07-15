@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Producto;
 use App\Models\ProductoOrdenCompra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Log;
 
 class ProductoController extends Controller
 {
@@ -129,7 +130,24 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $producto = $this->mProducto->find($id);
+            $producto->delete();
+            // Alerta
+            $notification = array(
+                'message' => 'Producto eliminado de la orden',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            $notification = array(
+                'message' => 'Algo salio mal',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**

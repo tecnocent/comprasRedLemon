@@ -46,7 +46,7 @@
     <div class="content" style="margin-top:0px"><br>
         <!-- Content Header (Page header) -->
         <section class="content content-create-orden">
-            <h1 style="margin-top:-20px"> Nueva Orden de Compra<small> Creación</small> </h1>
+            <h1 style="margin-top:-20px"> Orden de Compra<small> Edición</small> </h1>
             <div class="row">
                 <section class="col-lg-12 connectedSortable ui-sortable compra-create">
                     <div class="">
@@ -56,18 +56,28 @@
                             <div class="box box-primary" style="line-height: 2em;">
                                 <meta name="csrf-token" content="{{ csrf_token() }}" />
                                 <div class="box-header with-border">
-                                    <h3 class="box-title">Ingresa los datos para crear una orden de compra</h3>
+                                    <h3 class="box-title">Ingresa los datos para la edición</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for=""># OC</label>
                                         <input type="text" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa el ID de OC" value="{{$orden->identificador}}">
-                                        @if ($errors->has('id_orden'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('id_orden') }}
-                                            </span>
-                                        @endif
+                                    </div>
+                                    <div class="form-group col-sm-6 formPrincipal">
+                                        <label for="">Estatus</label>
+                                        <select class="form-control" name="estatus" id="estatus">
+                                            <option value="">Selecciona</option>
+                                            <option value="borrador" {{ ( $orden->status == "borrador") ? 'selected' : '' }}>Borrador</option>
+                                            <option value="po creada" {{ ( $orden->status == "po creada") ? 'selected' : '' }}>Po Creada</option>
+                                            <option value="pi pedido" {{ ( $orden->status == "pi pedido") ? 'selected' : '' }}>Pi Pedido</option>
+                                            <option value="por autorizar" {{ ( $orden->status == "por autoriza") ? 'selected' : '' }}>Por Autorizar</option>
+                                            <option value="produccion" {{ ( $orden->status == "produccion") ? 'selected' : '' }}>Produccion</option>
+                                            <option value="enviado" {{ ( $orden->status == "enviado") ? 'selected' : '' }}>Enviado</option>
+                                            <option value="aduana" {{ ( $orden->status == "aduana") ? 'selected' : '' }}>Aduana</option>
+                                            <option value="recepcion" {{ ( $orden->status == "recepcion") ? 'selected' : '' }}>Recepcion</option>
+                                            <option value="cancelado" {{ ( $orden->status == "cancelado") ? 'selected' : '' }}>Cancelado</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Encargado interno</label>
@@ -77,11 +87,6 @@
                                                 <option value="{{ $usuaio->name }}" {{ ( $usuaio->name == $orden->encargdo_interno) ? 'selected' : '' }}>{{ $usuaio->name }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('encargado'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('encargado') }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Proveedor</label>
@@ -91,11 +96,6 @@
                                                 <option value="{{ $proveedor->id }}" {{ ( $proveedor->id == $orden->proveedor_id) ? 'selected' : '' }}>{{ $proveedor->name }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('proveedor'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('proveedor') }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="form-group col-sm-1 formPrincipal">
                                         <label for="">&nbsp;</label>
@@ -113,11 +113,6 @@
                                                 <option value="{{ $almacen->id }}" {{ ( $almacen->id == $orden->almacen_id) ? 'selected' : '' }}>{{ $almacen->name }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('almacen_llegada'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('almacen_llegada') }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="form-group col-sm-5 formPrincipal">
                                         <label for="">Tipo de compra</label>
@@ -126,11 +121,6 @@
                                                 <option value="{{ $tipoCompra->id }}" {{ ( $tipoCompra->id == $orden->tipo_compra) ? 'selected' : '' }}>{{ $tipoCompra->nombre }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('tipo_compra'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('tipo_compra') }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="form-group col-sm-1 formPrincipal">
                                         <label for="">&nbsp;</label>
@@ -143,22 +133,10 @@
                                             <option value="normal" {{ ( "normal" == $orden->requerimiento) ? 'selected' : '' }}> Normal</option>
                                             <option value="urgente" {{ ( "irgente" == $orden->requerimiento) ? 'selected' : '' }}>Urgente</option>
                                         </select>
-                                        @if ($errors->has('requerimiento'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('requerimiento') }}
-                                            </span>
-                                        @endif
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <label for="">Descripción</label>
-                                        <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc" id="descripcion_oc">
-                                            {{ $orden->descripcion }}
-                                        </textarea>
-                                        @if ($errors->has('descripcion_oc'))
-                                            <span class="invalid-feedback" role="alert" style="color: red">
-                                                {{ $errors->first('descripcion_oc') }}
-                                            </span>
-                                        @endif
+                                        <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc" id="descripcion_oc">{{ $orden->descripcion ?? null }}</textarea>
                                     </div>
 
                                     <input type="hidden" class="form-control" id="status" name="status">
@@ -205,9 +183,26 @@
                                                                     <th>Total</th>
                                                                     <th>Incoterm</th>
                                                                     <th>Lead Time</th>
-                                                                    <th></th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                <tbody>
+                                                                @foreach($productosOrden as $productoOrden)
+                                                                    <tr>
+                                                                        <td>{{ $productoOrden->producto->sku }}</td>
+                                                                        <td>{{ $productoOrden->producto->name }}</td>
+                                                                        <td>{{ $productoOrden->cantidad }}</td>
+                                                                        <td>{{ $productoOrden->costo }}</td>
+                                                                        <td>{{ $productoOrden->total }}</td>
+                                                                        <td>{{ $productoOrden->incoterm }}</td>
+                                                                        <td>{{ $productoOrden->leadtime }}</td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-productos" data-id="{{ $productoOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-productos" data-id="{{ $productoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
@@ -226,10 +221,19 @@
                                                                     <th>Costo (USD)</th>
                                                                     <th>Notas</th>
                                                                     <th>Archivos</th>
-                                                                    <th></th>
-                                                                    <th></th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                @foreach($gastosOrigenOrden as $gastoOrigenOrden)
+                                                                    <td>{{ $gastoOrigenOrden->tipoGasto->name }}</td>
+                                                                    <td>{{ $gastoOrigenOrden->costo }}</td>
+                                                                    <td>{{ $gastoOrigenOrden->notas ?? 'Sin registro' }}</td>
+                                                                    <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoOrigenOrden->comprobante}}" class="btn btn-link">Descargar</a></td>
+                                                                    <td>
+                                                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-gastos-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-gastos-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                    </td>
+                                                                @endforeach
                                                             </table>
                                                         </div>
                                                     </div>
@@ -249,9 +253,24 @@
                                                                     <th>Moneda</th>
                                                                     <th>Notas</th>
                                                                     <th>Comprobante</th>
-                                                                    <th></th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                @if(count($gastosDestino) > 0)
+                                                                    @foreach($gastosDestinoOrden as $gastoDestinoOrden)
+                                                                        <tr>
+                                                                            <td>{{ $gastoDestinoOrden->tipoGasto->name }}</td>
+                                                                            <td>{{ $gastoDestinoOrden->costo }}</td>
+                                                                            <td>{{ $gastoDestinoOrden->moneda }}</td>
+                                                                            <td>{{ $gastoDestinoOrden->notas ?? 'Sin registro' }}</td>
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoDestinoOrden->comprobante}}" class="btn btn-link">Descargar</a></td>
+                                                                            <td>
+                                                                                <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-gastos-destino" data-id="{{ $gastoDestinoOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                                <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-gastos-destino" data-id="{{ $gastoDestinoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @endif
                                                             </table>
                                                         </div>
                                                     </div>
@@ -329,9 +348,23 @@
                                                                     <th>Archivo Comercial Invoce</th>
                                                                     <th>Fecha embarque</th>
                                                                     <th>Fecha tentativa llegada</th>
-                                                                    <th></th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                @foreach($transitosOrden as $transitoOrden)
+                                                                    <tr>
+                                                                        <td>{{ $transitoOrden->metodoTransito->nombre }}</td>
+                                                                        <td>{{ $transitoOrden->guia }}</td>
+                                                                        <td>{{ $transitoOrden->comercual_invoce }}</td>
+                                                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{$transitoOrden->comercial_invoce_file}}" class="btn btn-link">Descargar</a></td>
+                                                                        <td>{{ $transitoOrden->fecha_embarque }}</td>
+                                                                        <td>{{ $transitoOrden->fecha_tentativa }}</td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-transito" data-id="{{ $transitoOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-transito" data-id="{{ $transitoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </table>
                                                         </div>
                                                     </div>
@@ -352,9 +385,22 @@
                                                                     <th>Aduana</th>
                                                                     <th>Agente Aduanal</th>
                                                                     <th>Tipo de Cambio Pedimento</th>
-                                                                    <th></th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                @foreach($pedimentosOrden as $pedimentoOrden)
+                                                                    <tr>
+                                                                        <td>{{ $pedimentoOrden->pedimento }}</td>
+                                                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{$pedimentoOrden->pedimento_digital}}" class="btn btn-link">Descargar</a></td>
+                                                                        <td>{{ $pedimentoOrden->aduana->nombre }}</td>
+                                                                        <td>{{ $pedimentoOrden->agenteAduanal->nombre }}</td>
+                                                                        <td>{{ $pedimentoOrden->tipo_cambio_pedimento }}</td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </table>
                                                         </div>
                                                     </div>
@@ -366,8 +412,7 @@
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <br>
-                                    <a href="{{ route('home') }}" class="btn btn-success pull-right">Aceptar</a>
-                                    <a href="" class="btn btn-primary pull-right" style="margin-right: 10px;">Editar</a>
+                                    <a href="{{ route('home') }}" class="btn btn-success pull-right">Actualizar</a>
                                 </div>
                             </div>
                         </form>
@@ -377,12 +422,102 @@
             </div>
         </section>
     </div>
+
     <!-- Modals-->
+    <div class="modal modal-danger fade" id="modal-danger-productos" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Advertencia</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de borrar el producto de la orden #OC: {{ $orden->identificador }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                    <a id="deleteProducto" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-danger fade" id="modal-danger-gastos-origen" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Advertencia</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de borrar el gasto origen de la orden #OC: {{ $orden->identificador }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                    <a id="deleteGastoOrigen" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-danger fade" id="modal-gastos-destino" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Advertencia</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de borrar el gasto destino de la orden #OC: {{ $orden->identificador }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                    <a id="deleteGastoDestino" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-danger fade" id="modal-danger-transito" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Advertencia</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de borrar el transito de la orden #OC: {{ $orden->identificador }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                    <a id="deleteTransito" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal modal-danger fade" id="modal-danger-pedimento" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Advertencia</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estas seguro de borrar el pedimento de la orden #OC: {{ $orden->identificador }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                    <a id="deletePedimento" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+                </div>
+            </div>
+        </div>
+    </div>
     @extends('admin.ordenes.modals')
     <!-- Scripts -->
 @section('javascript')
     <script>
-
         // Validacion form orden
         $(document).ready(function() {
             var countPedimento = 0;
@@ -513,6 +648,41 @@
                         }
                     });
                 }
+            });
+        });
+        //Elimina producto
+        $(document).ready(function() {
+            $('#modal-danger-productos').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteProducto').attr("href", "{{ url('/admin/elimina_producto') }}" + "/" + id);
+            });
+        });
+        // Elimina gastos de origen
+        $(document).ready(function() {
+            $('#modal-danger-gastos-origen').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteGastoOrigen').attr("href", "{{ url('/admin/elimina_gasto_origen') }}" + "/" + id);
+            });
+        });
+        // Elimina gastos destino
+        $(document).ready(function() {
+            $('#modal-gastos-destino').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteGastoDestino').attr("href", "{{ url('/admin/elimina_gasto_destino') }}" + "/" + id);
+            });
+        });
+        // Elimina transito
+        $(document).ready(function() {
+            $('#modal-danger-transito').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteTransito').attr("href", "{{ url('/admin/elimina_transito') }}" + "/" + id);
+            });
+        });
+        // Elimina pedimento
+        $(document).ready(function() {
+            $('#modal-danger-pedimento').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deletePedimento').attr("href", "{{ url('/admin/elimina_pedimento') }}" + "/" + id);
             });
         });
 

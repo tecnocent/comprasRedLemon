@@ -113,7 +113,24 @@ class GastosOrigenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $gasto = $this->mGastosOrigen->find($id);
+            $gasto->delete();
+            // Alerta
+            $notification = array(
+                'message' => 'Gasto de Origen eliminado de la orden',
+                'alert-type' => 'error'
+            );
+
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            $notification = array(
+                'message' => 'Algo salio mal',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
