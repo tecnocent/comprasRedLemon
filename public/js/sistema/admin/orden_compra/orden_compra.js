@@ -195,7 +195,7 @@ $(document).ready(function() {
                 oem = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][oem]" id="oem"/> <span></span></label></div>',
                 instructivo = '<div class="form-group col-sm-12"><label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="productos['+ cont +'][instructivo]", id="instructivo"/> <span></span></label></div>',
                 archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>',
-                archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>',
+                archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-dragdrop="true" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>',
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
@@ -278,7 +278,7 @@ $(document).ready(function() {
                 arcivo_gastos_origen = file.clone();
             var tipo_gasto_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_origen" name="gastosOr['+ countGastosO +'][tipo_gasto_origen]" value="'+ document.getElementById("tipo_gasto_origen").value +'"></div>',
                 costo_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_origen" name="gastosOr['+ countGastosO +'][costo_gastos_origen]" value="'+ document.getElementById("costo_gastos_origen").value +'"></div>',
-                div = '<div class="form-group col-sm-12" id="file"></div>',
+                div = '<div class="form-group col-sm-12" id="file-gastos"></div>',
                 nota_gastos_origen = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_origen" name="gastosOr['+ countGastosO +'][nota_gastos_origen]" value="'+ document.getElementById("nota_gastos_origen").value +'"></div>';
                 //arcivo_gastos_origen = '<div class="form-group col-sm-12"><input type="file" class="filestyle" name="gastosOr['+ countGastosO +'][comprobante_gastos_origen]"></div>';
 
@@ -297,9 +297,9 @@ $(document).ready(function() {
 
             arcivo_gastos_origen.attr('name', 'gastosOr['+ countGastosO +'][comprobante_gastos_origen]');
             var filename = arcivo_gastos_origen.val();
-            $('#file').after(filename.split('\\').pop());
+            $('#file-gastos').after(filename.split('\\').pop());
             arcivo_gastos_origen.removeClass('filestyle');
-            $('#file').after(arcivo_gastos_origen);
+            $('#file-gastos').after(arcivo_gastos_origen);
             countGastosO++;
 
 
@@ -349,7 +349,7 @@ $(document).ready(function() {
             var tipo_gasto_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_gasto_gastos_destino" name="gastosDe['+ countGD +'][tipo_gasto_gastos_destino]" value="'+ document.getElementById("tipo_gasto_gastos_destino").value +'"></div>',
                 costo_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="costo_gastos_destino" name="gastosDe['+ countGD +'][costo_gastos_destino]" value="'+ document.getElementById("costo_gastos_destino").value +'"></div>',
                 moneda_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="moneda_gastos_destino" name="gastosDe['+ countGD +'][moneda_gastos_destino]" value="'+ document.getElementById("moneda_gastos_destino").value +'"></div>',
-                div = '<div class="form-group col-sm-12" id="file"></div>',
+                div = '<div class="form-group col-sm-12" id="gastos-destino-file"></div>',
                 nota_gastos_destino = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="nota_gastos_destino" name="gastosDe['+ countGD +'][nota_gastos_destino]" value="'+ document.getElementById("nota_gastos_destino").value +'"></div>';
                 //comporbante_gastos_destino = '<input type="file" class="filestyle" name="gastosDe['+ countGD +'][comporbante_gastos_destino]" >';
 
@@ -367,9 +367,9 @@ $(document).ready(function() {
             $('.gastosDestino tr:first').after(fila);
             arcivo_gastos_destino.attr('name', 'gastosDe['+ countGD +'][comporbante_gastos_destino]');
             var filename = arcivo_gastos_destino.val();
-            $('#file').after(filename.split('\\').pop());
+            $('#gastos-destino-file').after(filename.split('\\').pop());
             arcivo_gastos_destino.removeClass('filestyle');
-            $('#file').after(arcivo_gastos_destino);
+            $('#gastos-destino-file').after(arcivo_gastos_destino);
 
             countGD++;
 
@@ -592,7 +592,7 @@ $(document).ready(function() {
                 archivo_comercial_invoce_transito = file.clone();
             var metodo_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][metodo_transito]" value="'+ $('#metodo_transito').val() +'"></div>',
                 guia_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][guia_transito]" value="'+ document.getElementById("guia_transito").value +'"></div>',
-                forwarder_transito = '<div class="form-group col-sm-12" id="fileTransito"><input type="hidden" class="form-control pull-right " id="forwarder_transito" name="transito['+ countTransito +'][forwarder_transito]" value="'+ $('#forwarder_transito').val() +'"></div>',
+                forwarder_transito = '<div class="form-group col-sm-12" id="transito-file"><input type="hidden" class="form-control pull-right " id="forwarder_transito" name="transito['+ countTransito +'][forwarder_transito]" value="'+ $('#forwarder_transito').val() +'"></div>',
                 fecha_embarque_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="metodo_transito" name="transito['+ countTransito +'][fecha_embarque_transito]" value="'+ document.getElementById("fecha_embarque_transito").value +'"></div>',
                 fecha_tentativa_llegada_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="fecha_tentativa_llegada_transito" name="transito['+ countTransito +'][fecha_tentativa_llegada_transito]" value="'+ document.getElementById("fecha_tentativa_llegada_transito").value +'"></div>',
                 comercial_invoce_transito = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="comercial_invoce_transito" name="transito['+ countTransito +'][comercial_invoce_transito]" value="'+ document.getElementById("comercial_invoce_transito").value +'"></div>',
@@ -613,9 +613,9 @@ $(document).ready(function() {
 
             archivo_comercial_invoce_transito.attr('name', 'transito['+ countTransito +'][archivo_comercial_invoce_file]');
             var filename = archivo_comercial_invoce_transito.val();
-            $('#fileTransito').after(filename.split('\\').pop());
+            $('#transito-file').after(filename.split('\\').pop());
             archivo_comercial_invoce_transito.removeClass('filestyle');
-            $('#fileTransito').after(archivo_comercial_invoce_transito);
+            $('#transito-file').after(archivo_comercial_invoce_transito);
             countTransito++;
             var nFilas = $(".transito tr").length;
             // Limpia formulario
@@ -676,7 +676,7 @@ $(document).ready(function() {
                 agente_aduanal_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="agente_aduanal_pedimento" name="pedimento['+ countPedimento +'][agente_aduanal_pedimento]" value="'+ $('#agente_aduanal_pedimento').val() +'"></div>',
                 tipo_cambio_pedimento_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_pedimento_pedimento" name="pedimento['+ countPedimento +'][tipo_cambio_pedimento_pedimento]" value="'+ document.getElementById("tipo_cambio_pedimento_pedimento").value +'"></div>',
                 dta_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="dta_pedimento" name="pedimento['+ countPedimento +'][dta_pedimento]" value="'+ document.getElementById("dta_pedimento").value +'"></div>',
-                cnt_pedimento = '<div class="form-group col-sm-12" id="file"><input type="hidden" class="form-control pull-right " id="cnt_pedimento" name="pedimento['+ countPedimento +'][cnt_pedimento]" value="'+ document.getElementById("cnt_pedimento").value +'"></div>',
+                cnt_pedimento = '<div class="form-group col-sm-12" id="pedimento-file"><input type="hidden" class="form-control pull-right " id="cnt_pedimento" name="pedimento['+ countPedimento +'][cnt_pedimento]" value="'+ document.getElementById("cnt_pedimento").value +'"></div>',
                 igi_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="igi_pedimento" name="pedimento['+ countPedimento +'][igi_pedimento]" value="'+ document.getElementById("igi_pedimento").value +'"></div>',
                 prv_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="prv_pedimento" name="pedimento['+ countPedimento +'][prv_pedimento]" value="'+ document.getElementById("prv_pedimento").value +'"></div>',
                 iva_pedimento = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="iva_pedimento" name="pedimento['+ countPedimento +'][iva_pedimento]" value="'+ document.getElementById("iva_pedimento").value +'"></div>';
@@ -693,9 +693,9 @@ $(document).ready(function() {
             $('.pedimento tr:first').after(fila);
             pedimento_digital.attr('name', 'pedimento['+ countPedimento +'][pedimento_digital]');
             var filename = pedimento_digital.val();
-            $('#file').after(filename.split('\\').pop());
+            $('#pedimento-file').after(filename.split('\\').pop());
             pedimento_digital.removeClass('filestyle');
-            $('#file').after(pedimento_digital);
+            $('#pedimento-file').after(pedimento_digital);
             countPedimento++;
             var nFilas = $(".pedimento tr").length;
             // Limpia formulario

@@ -116,7 +116,6 @@
                                     <th>Pagado</th>
                                     <th>Restante</th>
                                     <th data-priority="3"></th>
-                                    <th data-priority="4"></th>
                                     <th data-priority="5"></th>
                                 </tr>
                                 </thead>
@@ -231,8 +230,7 @@
                             return restante;
                         }
                     },
-                    {data: null, orderable: false, render: function (d) { return '<a  class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
-                    {data: null, orderable: false, render: function (d) { return '<button type="button" id="buscaOrden" class="btn btn-primary btn-xs" data-id="'+ d.id +'" role="button"><i class="fa fa-eye"></i></button>'; } },
+                    {data: null, orderable: false, render: function (d) { return '<a href="{{ url('/admin/muestra_orden') }}/' + d.id + '" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
                     {data: null, orderable: false, render: function (d) { return '<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger" data-id="'+ d.id +'"><i class="fa fa-remove"></i></button>'; } },
                 ],
                 // Opciones iguales en todas las tablas.

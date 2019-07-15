@@ -154,18 +154,17 @@ class OrdenesCompraController extends Controller
                 $gastosDestino->store($oRequest, $ordenCompra);
             }
 
+            // Gastos origen
+            if ($oRequest->has('gastosOr')) {
+                $gastosOrigen  = new GastosOrigenController($this->mGastosOrigenOrdenCompra);
+                $gastosOrigen->store($oRequest, $ordenCompra);
+            }
+
             // Productos
             if ($oRequest->has('productos')) {
                 $producto = new ProductoController($this->mProductoOrdenCompra);
                 $producto->store($oRequest, $ordenCompra);
             }
-
-            // Gastos origen
-            if ($oRequest->has('gastosOr')) {
-                $gastosOrigen  = new GastosOrigenController($this->mGastosOrigenOrdenCompra);
-                $gastosDestino->store($oRequest, $ordenCompra);
-            }
-
 
             // Alerta
             $notification = array(
@@ -173,7 +172,7 @@ class OrdenesCompraController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('home')->with($notification);
+            return redirect()->route('orden.show', ['id' =>  $ordenCompra->id]);
 
         } catch (\Exception $e) {
             // Alerta
@@ -194,7 +193,17 @@ class OrdenesCompraController extends Controller
      */
     public function show($id)
     {
-        //
+        $tiposCompra = \App\Models\TipoCompra::all();
+        $orden = $this->mOrdenCompra->find($id);
+        return view('admin.ordenes.show')->with([
+            'orden' => $orden,
+            'proveedores' => $this->mProveedor->all(),
+            'usuarios' => $this->mUser->all(),
+            'almacenes' => $this->mAlmacen->all(),
+            'productos' => $this->mProducto->all(),
+            'gastosDestino' => $this->mCostoDestino->all(),
+            'tiposCompra' => $tiposCompra,
+            'gastosOrigen' => $this->mCostoOrigen->all()]);
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\GastosOrigen;
 use App\Models\GastosOrigenOrdenCompra;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Log;
+use Webpatser\Uuid\Uuid;
 
 class GastosOrigenController extends Controller
 {
@@ -45,7 +47,6 @@ class GastosOrigenController extends Controller
     {
         try {
             foreach ($oRequest->gastosOr as $aGastosOrigen) {
-
                 $comprobanteGastosOrigen = $aGastosOrigen['comprobante_gastos_origen'];
                 $archivo = $comprobanteGastosOrigen;
                 $comprobanteGastosOrigen = $this->guardaArchivo($archivo);
