@@ -234,11 +234,11 @@
                                 <tbody>
                                 @foreach($pedimentos as $pedimento)
                                     <tr>
-                                        <th>{{ $pedimento->pedimento }}</th>
+                                        <td>{{ $pedimento->pedimento }}</td>
                                         <td><a href="{{ url('/admin/orden/descarga') }}/{{$pedimento->pedimento_digital}}" class="btn btn-link">Descargar</a></td>
-                                        <th>{{ $pedimento->aduana->nombre }}</th>
-                                        <th>{{ $pedimento->agenteAduanal->nombre }}</th>
-                                        <th>{{ $pedimento->tipo_cambio_pedimento }}</th>
+                                        <td>{{ $pedimento->aduana->nombre }}</td>
+                                        <td>{{ $pedimento->agenteAduanal->nombre }}</td>
+                                        <td>{{ $pedimento->tipo_cambio_pedimento }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

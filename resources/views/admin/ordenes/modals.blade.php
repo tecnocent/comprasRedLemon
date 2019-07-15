@@ -328,7 +328,7 @@
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Tipo de cambio</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_monto_pagos" name="tipo_cambio_monto_pagos">
+                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_monto_pagos" name="tipo_cambio_monto_pagos" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">
@@ -366,7 +366,7 @@
                                 <div class="col-md-6 line pagos-inputs pago1">
                                     <div class="form-group">
                                         <label>Tipo de cambio de pago</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos" name="tipo_cambio_pago_pagos">
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos" name="tipo_cambio_pago_pagos" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <!-- /.col -->
@@ -523,7 +523,7 @@
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>Tipo de cambio de pedimento</label>
-                                        <input type="text" class="form-control" placeholder="Tipo de cambio de pedimento" id="tipo_cambio_pedimento_pedimento" name="tipo_cambio_pedimento_pedimento" onKeyPress="return soloNumeros(event)">
+                                        <input type="text" class="form-control" placeholder="Tipo de cambio de pedimento" id="tipo_cambio_pedimento_pedimento" name="tipo_cambio_pedimento_pedimento" onkeypress="return filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">

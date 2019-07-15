@@ -17,10 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/creada', function(){
-    return view('admin.ordenes.resumen');
-});
-
 Route::get('/admin/ordenes', 'Admin\Dashboard\HomeController@index')->name('home');
 
 // Admin
