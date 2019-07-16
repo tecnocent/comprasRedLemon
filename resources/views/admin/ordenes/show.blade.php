@@ -62,7 +62,7 @@
                                 <div class="box-body">
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for=""># OC</label>
-                                        <input type="text" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa el ID de OC" value="{{$orden->identificador}}">
+                                        <input type="text" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa el ID de OC" value="{{ $orden->identificador }}">
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
                                         <label for="">Estatus</label>
@@ -154,13 +154,13 @@
                                                 <a href="#2b" data-toggle="tab">Gastos Origen</a>
                                             </li>
                                             <li>
-                                                <a href="#5b" data-toggle="tab">Pagos</a>
-                                            </li>
-                                            <li>
                                                 <a href="#6b" data-toggle="tab">Transito</a>
                                             </li>
                                             <li>
                                                 <a href="#7b" data-toggle="tab">Pedimento</a>
+                                            </li>
+                                            <li>
+                                                <a href="#5b" data-toggle="tab">Pagos</a>
                                             </li>
                                         </ul>
 
@@ -196,7 +196,7 @@
                                                                         <td>{{ $productoOrden->leadtime }}</td>
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-productos" data-id="{{ $productoOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-productos" data-id="{{ $productoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs productoActualiza" data-toggle="modal" data-target="#modal-actualiza-producto" data-id="{{ $productoOrden->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -223,14 +223,16 @@
                                                                 </tr>
                                                                 </thead>
                                                                 @foreach($gastosOrigenOrden as $gastoOrigenOrden)
-                                                                    <td>{{ $gastoOrigenOrden->tipoGasto->name }}</td>
-                                                                    <td>{{ $gastoOrigenOrden->costo }}</td>
-                                                                    <td>{{ $gastoOrigenOrden->notas ?? 'Sin registro' }}</td>
-                                                                    <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoOrigenOrden->comprobante}}" class="btn btn-link">Descargar</a></td>
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-gastos-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                        <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-gastos-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-pencil"></i></button>
-                                                                    </td>
+                                                                    <tr>
+                                                                        <td>{{ $gastoOrigenOrden->tipoGasto->name }}</td>
+                                                                        <td>{{ $gastoOrigenOrden->costo }}</td>
+                                                                        <td>{{ $gastoOrigenOrden->notas ?? 'Sin registro' }}</td>
+                                                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoOrigenOrden->comprobante}}" class="btn btn-link">Descargar</a></td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-gastos-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaGastoOrigen" data-toggle="modal" data-target="#modal-actualiza-gasto-origen" data-id="{{ $gastoOrigenOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
                                                                 @endforeach
                                                             </table>
                                                         </div>
@@ -264,7 +266,7 @@
                                                                             <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoDestinoOrden->comprobante}}" class="btn btn-link">Descargar</a></td>
                                                                             <td>
                                                                                 <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-gastos-destino" data-id="{{ $gastoDestinoOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                                <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-gastos-destino" data-id="{{ $gastoDestinoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                                <button type="button" class="btn btn-warning btn-xs actualizaGastoDestino" data-toggle="modal" data-target="#modal-actualiza-gasto-destino" data-id="{{ $gastoDestinoOrden->id }}"><i class="fa fa-pencil"></i></button>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -359,7 +361,7 @@
                                                                         <td>{{ $transitoOrden->fecha_tentativa }}</td>
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-transito" data-id="{{ $transitoOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-transito" data-id="{{ $transitoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaTransito" data-toggle="modal" data-target="#modal-actualiza-transito" data-id="{{ $transitoOrden->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -389,13 +391,17 @@
                                                                 @foreach($pedimentosOrden as $pedimentoOrden)
                                                                     <tr>
                                                                         <td>{{ $pedimentoOrden->pedimento }}</td>
-                                                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{$pedimentoOrden->pedimento_digital}}" class="btn btn-link">Descargar</a></td>
+                                                                        @if($pedimentoOrden->pedimento_digital)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $pedimentoOrden->pedimento_digital }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
                                                                         <td>{{ $pedimentoOrden->aduana->nombre }}</td>
                                                                         <td>{{ $pedimentoOrden->agenteAduanal->nombre }}</td>
                                                                         <td>{{ $pedimentoOrden->tipo_cambio_pedimento }}</td>
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-danger-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaPedimento" data-toggle="modal" data-target="#modal-actualiza-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -420,99 +426,10 @@
             </div>
         </section>
     </div>
-
-    <!-- Modals-->
-    <div class="modal modal-danger fade" id="modal-danger-productos" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Advertencia</h4>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estas seguro de borrar el producto de la orden #OC: {{ $orden->identificador }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                    <a id="deleteProducto" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal modal-danger fade" id="modal-danger-gastos-origen" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Advertencia</h4>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estas seguro de borrar el gasto origen de la orden #OC: {{ $orden->identificador }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                    <a id="deleteGastoOrigen" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal modal-danger fade" id="modal-gastos-destino" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Advertencia</h4>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estas seguro de borrar el gasto destino de la orden #OC: {{ $orden->identificador }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                    <a id="deleteGastoDestino" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal modal-danger fade" id="modal-danger-transito" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Advertencia</h4>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estas seguro de borrar el transito de la orden #OC: {{ $orden->identificador }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                    <a id="deleteTransito" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal modal-danger fade" id="modal-danger-pedimento" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title">Advertencia</h4>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estas seguro de borrar el pedimento de la orden #OC: {{ $orden->identificador }}?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
-                    <a id="deletePedimento" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    @extends('admin.ordenes.modals_act')
+    <!-- Modals -->
+    @extends('admin.ordenes.modals.modal_guarda')
+    @extends('admin.ordenes.modals.modal_eliminacion')
+    @extends('admin.ordenes.modals.modal_actualiza')
     <!-- Scripts -->
 @section('javascript')
     <script>
@@ -684,7 +601,121 @@
             });
         });
 
+        // Actualiza pedimento
+        $('.actualizaPedimento').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "/admin/pedimento_consulta/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    document.getElementById("numero_pedimento_actualiza").value = data.pedimento;
+                    document.getElementById("tipo_cambio_pedimento_pedimento_actualiza").value = data.tipo_cambio_pedimento;
+                    document.getElementById("dta_pedimento_actualiza").value = data.dta;
+                    document.getElementById("cnt_pedimento_actualiza").value = data.cnt;
+                    document.getElementById("igi_pedimento_actualiza").value = data.igi;
+                    document.getElementById("prv_pedimento_actualiza").value = data.prv;
+                    document.getElementById("iva_pedimento_actualiza").value = data.iva;
+                    document.getElementById("pedimento_id").value = data.id;
+                    $("#aduana_pedimento_actualiza").val(data.aduana_id);
+                    $("#agente_aduanal_pedimento_actualiza").val(data.agente_aduanal_id);
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
+        // Actualiza transito
+        $('.actualizaTransito').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "/admin/transito_consulta/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#metodo_transito_actualiza").val(data.metodo_id);
+                    document.getElementById("guia_transito_actualiza").value = data.guia;
+                    $("#forwarder_transito_actualiza").val(data.forwarder_id);
+                    document.getElementById("fecha_embarque_transito_actualiza").value = data.fecha_embarque;
+                    document.getElementById("fecha_tentativa_llegada_transito_atualiza").value = data.fecha_tentativa;
+                    document.getElementById("comercial_invoce_transito_actualiza").value = data.comercual_invoce;
+                    document.getElementById("cajas_transito_actualiza").value = data.cajas;
+                    document.getElementById("cbm_transito_actualiza").value = data.cbm;
+                    document.getElementById("peso_transito_actualiza").value = data.peso;
+                    document.getElementById("transito_id").value = data.id;
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
+        // Actualiza gasto de origen
+        $('.actualizaGastoOrigen').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "/admin/gasto_origen_consulta/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#tipo_gasto_origen_actualiza").val(data.tipo_gasto_id);
+                    document.getElementById("costo_gastos_origen_actualiza").value = data.costo;
+                    document.getElementById("nota_gastos_origen_actualiza").value = data.notas;
+                    document.getElementById("gasto_origen_id").value = data.id;
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
+        // Actualiza gasto destino
+        $('.actualizaGastoDestino').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "/admin/gasto_destino_consulta/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#tipo_gasto_gastos_destino_actualiza").val(data.tipo_gasto_destino_id);
+                    document.getElementById("costo_gastos_destino_actualiza").value = data.costo;
+                    document.getElementById("moneda_gastos_destino_actualiza").value = data.moneda;
+                    document.getElementById("nota_gastos_destino_actualiza").value = data.notas;
+                    document.getElementById("gasto_destino_id").value = data.id;
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
+        // Actualiza producto
+        $('.productoActualiza').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "/admin/consulta_producto/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#tipo_gasto_gastos_destino_actualiza").val(data.tipo_gasto_destino_id);
+                    document.getElementById("costo_gastos_destino_actualiza").value = data.costo;
+                    document.getElementById("moneda_gastos_destino_actualiza").value = data.moneda;
+                    document.getElementById("nota_gastos_destino_actualiza").value = data.notas;
+                    document.getElementById("gasto_destino_id").value = data.id;
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
     </script>
-    <script src="{{asset('js/sistema/admin/orden_compra/orden_compra.js')}}"></script>
+    <script src="{{asset('js/sistema/admin/orden_compra/orden_compra_actualiza.js')}}"></script>
 @stop
 @endsection

@@ -107,9 +107,44 @@ class PedimentoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try {
+            $pedimento = $this->mPedimento->find($oRequest->pedimento_id);
+            $pedimento->update([
+                'pedimento' => $oRequest->numero_pedimento,
+                'tipo_cambio_pedimento' => $oRequest->tipo_cambio_pedimento_pedimento,
+                'dta' => $oRequest->dta_pedimento,
+                'cnt' => $oRequest->cnt_pedimento,
+                'igi' => $oRequest->igi_pedimento,
+                'prv' => $oRequest->prv_pedimento,
+                'iva' => $oRequest->iva_pedimento,
+                'aduana_id' => $oRequest->aduana_pedimento,
+                'agente_aduanal_id' => $oRequest->agente_aduanal_pedimento,
+            ]);
+            if ($oRequest->file('pedimento_digital')) {
+                $pedimentoDigital = $oRequest->file('pedimento_digital');
+                $archivo = $pedimentoDigital;
+                $pedimentoDigital = $this->guardaArchivo($archivo);
+                $pedimento->update([
+                    'pedimento_digital' => $pedimentoDigital,
+                ]);
+            }
+            // Alerta
+            $notification = array(
+                'message' => 'Pedimento actualizado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -158,6 +193,56 @@ class PedimentoController extends Controller
         } else {
             return $nombre = '';
         }
+    }
 
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaPedimento(Request $oRequest, $orden)
+    {
+        try {
+            $pedimentoDigital = $oRequest->file('pedimento_digital_guarda');
+            $archivo = $pedimentoDigital;
+            $pedimentoDigital = $this->guardaArchivo($archivo);
+            $pedimento = $this->mPedimento->create([
+                'pedimento' => $oRequest->numero_pedimento,
+                'pedimento_digital' => $pedimentoDigital,
+                'tipo_cambio_pedimento' => $oRequest->tipo_cambio_pedimento_pedimento,
+                'dta' => $oRequest->dta_pedimento,
+                'cnt' => $oRequest->cnt_pedimento,
+                'igi' => $oRequest->igi_pedimento,
+                'prv' => $oRequest->prv_pedimento,
+                'iva' => $oRequest->iva_pedimento,
+                'orden_compra_id' => $orden,
+                'aduana_id' => $oRequest->aduana_pedimento,
+                'agente_aduanal_id' => $oRequest->agente_aduanal_pedimento,
+            ]);
+            // Alerta
+            $notification = array(
+                'message' => 'Pedimento agregado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaPedimento($id)
+    {
+        $pedimento = $this->mPedimento->find($id);
+        return response()->json($pedimento);
     }
 }

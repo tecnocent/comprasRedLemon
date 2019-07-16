@@ -4,7 +4,8 @@
 <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="productos-form" method="">
+            <form id="productos-form" action="{{ route('producto.save', ['id' => $orden->id]) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Agregar productos</h4>
@@ -14,13 +15,13 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Producto</label>
-                                <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
+                                <select id="productosSelectCrea" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
                                     <option value="">Selecciona</option>
                                     @foreach($productos as $producto)
                                         <option value="{{$producto->sku}}">{{$producto->name}}</option>
                                     @endforeach
                                 </select>
-                                <div class="extras"></div>
+                                <div class="extras_crea"></div>
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
@@ -54,7 +55,7 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Subtotal</label>
-                                <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
+                                <input type="text" class="form-control" id="subtotal_producto_guarda" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
                             </div>
                         </div>
                         <!-- /.col -->
@@ -75,7 +76,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form id="gastos-origen-form">
+            <form id="gastos-origen-form" action="{{ route('gasto_origen.save', ['id' => $orden->id]) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Nuevo Gasto de Origen (USD)</h4>
@@ -127,7 +129,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form id="gastos-destino-form">
+            <form id="gastos-destino-form" action="{{ route('gasto_destino.save', ['id' => $orden->id]) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel2">Nuevo Gasto de Destino</h4>
@@ -250,9 +253,6 @@
                             <!-- /.row -->
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
@@ -388,7 +388,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form id="transito-form" method="">
+            <form id="transito-form" action="{{ route('transito.save', ['id' => $orden->id]) }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -404,7 +404,9 @@
                                         <label>Metodo</label>
                                         <select class="form-control" name="metodo_transito" id="metodo_transito">
                                             <option value="">Selecciona</option>
-                                            <option value="1">uno</option>
+                                            @foreach($metodosTransito as $metodo)
+                                                <option value="{{ $metodo->id }}">{{ $metodo->nombre }}</option>
+                                            @endforeach
                                         </select>
 
                                     </div>
@@ -485,7 +487,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form id="pedimento-form" method="">
+            <form id="pedimento-form" action="{{ route('pedimento.save', ['id'=> $orden->id]) }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -507,7 +509,9 @@
                                         <label>Aduana</label>
                                         <select class="form-control" name="aduana_pedimento" id="aduana_pedimento">
                                             <option value="">Selecciona</option>
-                                            <option value="1">aduana 1</option>
+                                            @foreach($aduanas as $aduana)
+                                                <option value="{{ $aduana->id }}">{{ $aduana->nombre }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -516,7 +520,9 @@
                                         <label>Agente Aduanal</label>
                                         <select class="form-control" name="agente_aduanal_pedimento" id="agente_aduanal_pedimento">
                                             <option value="">Selecciona</option>
-                                            <option value="1">agente 1</option>
+                                            @foreach( $agentesAduanales as $agenteAduanal)
+                                                <option value="{{ $agenteAduanal->id }}">{{ $agenteAduanal->nombre }}{{ $agenteAduanal->apellidos }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -559,7 +565,7 @@
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label for="">Pedimento Digital</label>
-                                        <input type="file" class="filestyle" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital" name="pedimento_digital">
+                                        <input type="file" class="filestyle" data-text="Buscar..." data-btnClass="btn-primary" id="pedimento_digital_guarda" name="pedimento_digital_guarda">
                                     </div>
                                 </div>
 
@@ -570,7 +576,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="adicionarTansito">Agregar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
             </form>
         </div><!-- modal-content -->

@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\Pedimento\PedimentoController;
 use App\Http\Controllers\Admin\Producto\ProductoController;
 use App\Http\Controllers\Admin\Transito\TransitoController;
 use App\Http\Requests\OrdenCompraRequest;
+use App\Models\Aduana;
+use App\Models\AgenteAduanal;
+use App\Models\MetodoTransito;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
 use App\Models\Pedimento;
@@ -49,26 +52,12 @@ class OrdenesCompraController extends Controller
     protected $mPagoMontoPagoOrden;
     protected $mTransito;
     protected $mPedimento;
+    protected $mAduana;
+    protected $mAgenteAduanal;
+    protected $mMetodoTransito;
 
 
-    /**
-     * OrdenesCompraController constructor.
-     * @param OrdenCompra $ordenCompra
-     * @param Pedimento $pedimento
-     * @param Transito $transito
-     * @param MontoPagoOrdenCompra $monto
-     * @param PagoMontoOrdenCompra $pago
-     * @param Proveedor $proveedor
-     * @param User $usuario
-     * @param Almacen $almacen
-     * @param Producto $producto
-     * @param CostoDestino $costoDestino
-     * @param CostoOrigen $costoOrigen
-     * @param ProductoOrdenCompra $productoOrdenCompra
-     * @param GastosOrigenOrdenCompra $gastosOrigenOrden
-     * @param GastosDestinoOrdenCompra $gastosDestinoOrden
-     */
-    public function __construct(OrdenCompra $ordenCompra, Pedimento $pedimento, Transito $transito, MontoPagoOrdenCompra $monto, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, MontoPagoOrdenCompra $monto, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -84,6 +73,9 @@ class OrdenesCompraController extends Controller
         $this->mMontoPagoOrden = $monto;
         $this->mTransito = $transito;
         $this->mPedimento = $pedimento;
+        $this->mAduana = $aduana;
+        $this->mAgenteAduanal = $agenteAduanal;
+        $this->mMetodoTransito = $metodoTransito;
 
     }
 
@@ -111,7 +103,11 @@ class OrdenesCompraController extends Controller
             'almacenes' => $this->mAlmacen->all(),
             'productos' => $this->mProducto->all(),
             'gastosDestino' => $this->mCostoDestino->all(),
-            'gastosOrigen' => $this->mCostoOrigen->all()]);
+            'gastosOrigen' => $this->mCostoOrigen->all(),
+            'aduanas' => $this->mAduana->all(),
+            'agentesAduanales' => $this->mAgenteAduanal->all(),
+            'metodosTransito' => $this->mMetodoTransito->all()
+        ]);
     }
 
     /**
@@ -207,7 +203,11 @@ class OrdenesCompraController extends Controller
             'productos' => $this->mProducto->all(),
             'gastosDestino' => $this->mCostoDestino->all(),
             'tiposCompra' => $tiposCompra,
-            'gastosOrigen' => $this->mCostoOrigen->all()]);
+            'gastosOrigen' => $this->mCostoOrigen->all(),
+            'aduanas' => $this->mAduana->all(),
+            'agentesAduanales' => $this->mAgenteAduanal->all(),
+            'metodosTransito' => $this->mMetodoTransito->all()
+        ]);
     }
 
     /**
@@ -357,5 +357,4 @@ class OrdenesCompraController extends Controller
 
         return $nombre;
     }
-
 }

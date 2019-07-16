@@ -97,12 +97,41 @@ class GastosDestinoController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try {
+            $gastoDe = $this->mGastosDestino->find($oRequest->gasto_destino_id);
+            $gastoDe->update([
+                'moneda' => $oRequest->moneda_gastos_destinoM,
+                'costo' => $oRequest->costo_gastos_destinoM,
+                'notas' => $oRequest->nota_gastos_destinoM,
+                'tipo_gasto_destino_id' => $oRequest->tipo_gasto_gastos_destinoM,
+            ]);
+            if ($oRequest->file('comporbante_gastos_destino')) {
+                $comprobanteFile = $oRequest->file('comporbante_gastos_destino');
+                $archivo = $comprobanteFile;
+                $comprobanteFile = $this->guardaArchivo($archivo);
+                $gastoDe->update([
+                    'comprobante' => $comprobanteFile
+                ]);
+            }
+            // Alerta
+            $notification = array(
+                'message' => 'Gasto destino actualizado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -152,5 +181,52 @@ class GastosDestinoController extends Controller
             return $nombre = '';
         }
 
+    }
+
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaGastoDestino(Request $oRequest, $orden)
+    {
+        try {
+            $comprobanteFile = $oRequest->file('comporbante_gastos_destino');
+            $archivo = $comprobanteFile;
+            $comprobanteFile = $this->guardaArchivo($archivo);
+            $gastoDe = $this->mGastosDestino->create([
+                'moneda' => $oRequest->moneda_gastos_destinoM,
+                'costo' => $oRequest->costo_gastos_destinoM,
+                'notas' => $oRequest->nota_gastos_destinoM,
+                'comprobante' => $comprobanteFile,
+                'orden_compra_id' => $orden,
+                'tipo_gasto_destino_id' => $oRequest->tipo_gasto_gastos_destinoM,
+            ]);
+
+            // Alerta
+            $notification = array(
+                'message' => 'Gasto destino agregado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaGastoDestino($id)
+    {
+        $gastoDestino = $this->mGastosDestino->find($id);
+        return response()->json($gastoDestino);
     }
 }

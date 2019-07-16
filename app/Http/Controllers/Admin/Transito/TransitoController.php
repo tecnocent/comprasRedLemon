@@ -99,15 +99,48 @@ class TransitoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $oRequest
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try {
+
+            $transito = $this->mTransito->find($oRequest->transito_id);
+            $transito->update([
+                'guia' => $oRequest->guia_transito,
+                'fecha_embarque' => $oRequest->fecha_embarque_transito,
+                'fecha_tentativa' => $oRequest->fecha_tentativa_llegada_transito,
+                'comercual_invoce' => $oRequest->comercial_invoce_transito,
+                'cajas' => $oRequest->cajas_transito,
+                'cbm' => $oRequest->cbm_transito,
+                'peso' => $oRequest->peso_transito,
+                'metodo_id' => $oRequest->metodo_transito,
+                'forwarder_id' => $oRequest->forwarder_transito
+            ]);
+            if ($oRequest->file('archivo_comercial_invoce_file')){
+                $comerialInvoiceFile = $oRequest->file('archivo_comercial_invoce_file');
+                $archivo = $comerialInvoiceFile;
+                $comerialInvoiceFile = $this->guardaArchivo($archivo);
+                $transito->update([
+                    'comercial_invoce_file' => $comerialInvoiceFile
+                ]);
+            }
+            // Alerta
+            $notification = array(
+                'message' => 'Transito agrgado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -157,5 +190,57 @@ class TransitoController extends Controller
             return $nombre = '';
         }
 
+    }
+
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaTransito(Request $oRequest, $orden)
+    {
+        try {
+            $comerialInvoiceFile = $oRequest->file('archivo_comercial_invoce_file');
+            $archivo = $comerialInvoiceFile;
+            $comerialInvoiceFile = $this->guardaArchivo($archivo);
+            $transito = $this->mTransito->create([
+                'guia' => $oRequest->guia_transito,
+                'fecha_embarque' => $oRequest->fecha_embarque_transito,
+                'fecha_tentativa' => $oRequest->fecha_tentativa_llegada_transito,
+                'comercual_invoce' => $oRequest->comercial_invoce_transito,
+                'comercial_invoce_file' => $comerialInvoiceFile,
+                'cajas' => $oRequest->cajas_transito,
+                'cbm' => $oRequest->cbm_transito,
+                'peso' => $oRequest->peso_transito,
+                'metodo_id' => $oRequest->metodo_transito,
+                'forwarder_id' => $oRequest->forwarder_transito,
+                'orden_compra_id' => $orden
+            ]);
+
+            // Alerta
+            $notification = array(
+                'message' => 'Transito agrgado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaTransito($id)
+    {
+        $transito = $this->mTransito->find($id);
+        return response()->json($transito);
     }
 }

@@ -100,9 +100,38 @@ class GastosOrigenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try{
+            $gastoOrigen = $this->mGastosOrigen->find($oRequest->gasto_origen_id);
+            $gastoOrigen->update([
+                'costo' => $oRequest->costo_gastos_origenM,
+                'notas' => $oRequest->nota_gastos_origenM,
+                'tipo_gasto_id' => $oRequest->tipo_gasto_origenM
+            ]);
+
+            if ($oRequest->file('comprobante_gastos_origen')) {
+                $comprobanteGastosOrigen = $oRequest->file('comprobante_gastos_origen');
+                $archivo = $comprobanteGastosOrigen;
+                $comprobanteGastosOrigen = $this->guardaArchivo($archivo);
+                $gastoOrigen->update([
+                    'comprobante' => $comprobanteGastosOrigen
+                ]);
+            }
+            $notification = array(
+                'message' => 'Gasto de Origen actualizado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -152,5 +181,51 @@ class GastosOrigenController extends Controller
             return $nombre = '';
         }
 
+    }
+
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaGastosOrigen(Request $oRequest, $orden)
+    {
+        try{
+            $comprobanteGastosOrigen = $oRequest->file('comprobante_gastos_origen');
+            $archivo = $comprobanteGastosOrigen;
+            $comprobanteGastosOrigen = $this->guardaArchivo($archivo);
+
+            $gastoOrigen = $this->mGastosOrigen->create([
+                'costo' => $oRequest->costo_gastos_origenM,
+                'notas' => $oRequest->nota_gastos_origenM,
+                'comprobante' => $comprobanteGastosOrigen,
+                'orden_compra_id' => $orden,
+                'tipo_gasto_id' => $oRequest->tipo_gasto_origenM
+            ]);
+
+            $notification = array(
+                'message' => 'Gasto de Origen creado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaGastoOrigen($id)
+    {
+        $gastoOrigen = $this->mGastosOrigen->find($id);
+        return response()->json($gastoOrigen);
     }
 }

@@ -162,10 +162,12 @@
                                 </thead>
                                 <tbody>
                                 @foreach($gastosOrigen as $gastoOrigen)
-                                    <td>{{ $gastoOrigen->tipoGasto->name }}</td>
-                                    <td>{{ $gastoOrigen->costo }}</td>
-                                    <td>{{ $gastoOrigen->notas ?? 'Sin registro' }}</td>
-                                    <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoOrigen->comprobante}}" class="btn btn-link">Descargar</a></td>
+                                    <tr>
+                                        <td>{{ $gastoOrigen->tipoGasto->name }}</td>
+                                        <td>{{ $gastoOrigen->costo }}</td>
+                                        <td>{{ $gastoOrigen->notas ?? 'Sin registro' }}</td>
+                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{$gastoOrigen->comprobante}}" class="btn btn-link">Descargar</a></td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>

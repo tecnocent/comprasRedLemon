@@ -369,7 +369,7 @@
         </section>
     </div>
     <!-- Modals-->
-    @extends('admin.ordenes.modals')
+    @extends('admin.ordenes.modals.modal_crea')
     <!-- Scripts -->
     @section('javascript')
         <script>

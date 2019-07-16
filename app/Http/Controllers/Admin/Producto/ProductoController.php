@@ -117,9 +117,50 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try {
+            $logo = ($oRequest->logo) ? true : false;
+            $oem = ($oRequest->oem) ? true : false;
+            $instructivo = ($oRequest->instructivo) ? true : false;
+            // @todo:: Hacer la logica para guardar json de archivos**
+            //$archivoFabricante = $aProductos['archivosFabricante'];
+            //$archivoDesign = $aProductos['archivosDiseno'];
+            //$archivoFabricanteProducto = $archivoFabricante;
+            //$archivoDesignProducto = $archivoDesign;
+            //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
+            //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
+
+            $producto = $this->mProducto->find($oRequest->producto_id);
+            $producto->update([
+                'cantidad' => $oRequest->cantidad_productoM,
+                'costo' => $oRequest->costo_productoM,
+                'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
+                'incoterm' => $oRequest->icoterm_productoM,
+                'leadtime' => $oRequest->leadtime_productoM,
+                'logo' => $logo,
+                'box' => $oem,
+                'instructivo' => $instructivo,
+                'tipo' => $oRequest->tipo,
+                'fecha_requerida' => $oRequest->fechaRequerida,
+                'producto_id' => $oRequest->producto_id
+            ]);
+
+            // Alerta
+            $notification = array(
+                'message' => 'Producto actualizado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -168,6 +209,68 @@ class ProductoController extends Controller
         } else {
             return $nombre = '';
         }
+    }
 
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaProducto(Request $oRequest, $orden)
+    {
+        try {
+            $logo = ($oRequest->logo) ? true : false;
+            $oem = ($oRequest->oem) ? true : false;
+            $instructivo = ($oRequest->instructivo) ? true : false;
+            // @todo:: Hacer la logica para guardar json de archivos**
+            //$archivoFabricante = $aProductos['archivosFabricante'];
+            //$archivoDesign = $aProductos['archivosDiseno'];
+            //$archivoFabricanteProducto = $archivoFabricante;
+            //$archivoDesignProducto = $archivoDesign;
+            //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
+            //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
+
+            $producto = $this->mProducto->create([
+                'cantidad' => $oRequest->cantidad_productoM,
+                'costo' => $oRequest->costo_productoM,
+                'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
+                'incoterm' => $oRequest->icoterm_productoM,
+                'leadtime' => $oRequest->leadtime_productoM,
+                'logo' => $logo,
+                'box' => $oem,
+                'instructivo' => $instructivo,
+                'archivo_fabricante' => null, //$archivoFabricanteProducto,
+                'archivo_diseno' => null, //$archivoDesignProducto,
+                'tipo' => $oRequest->tipo,
+                'fecha_requerida' => $oRequest->fechaRequerida,
+                'orden_compra_id' => $orden,
+                'producto_id' => $oRequest->producto_id
+            ]);
+
+            // Alerta
+            $notification = array(
+                'message' => 'Producto agregado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaProducto($id)
+    {
+        $producto = $this->mProducto->find($id);
+        return response()->json($producto);
     }
 }
