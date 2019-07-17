@@ -131,18 +131,13 @@ class ProductoController extends Controller
             //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
             //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
 
-            $producto = $this->mProducto->find($oRequest->producto_id);
+            $producto = $this->mProducto->find($oRequest->producto_orden_id);
             $producto->update([
                 'cantidad' => $oRequest->cantidad_productoM,
                 'costo' => $oRequest->costo_productoM,
                 'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
                 'incoterm' => $oRequest->icoterm_productoM,
                 'leadtime' => $oRequest->leadtime_productoM,
-                'logo' => $logo,
-                'box' => $oem,
-                'instructivo' => $instructivo,
-                'tipo' => $oRequest->tipo,
-                'fecha_requerida' => $oRequest->fechaRequerida,
                 'producto_id' => $oRequest->producto_id
             ]);
 
@@ -270,7 +265,8 @@ class ProductoController extends Controller
      */
     public function consultaProducto($id)
     {
-        $producto = $this->mProducto->find($id);
+        $producto = $this->mProducto->where('productos_orden_compra.id', $id)->join('products', 'productos_orden_compra.producto_id', '=', 'products.id')
+            ->select('productos_orden_compra.*', 'products.sku')->get();
         return response()->json($producto);
     }
 }

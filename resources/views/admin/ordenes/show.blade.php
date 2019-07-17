@@ -702,12 +702,15 @@
                 dataType: "json",
                 type:"GET",
                 success: function(data){
-                    console.log(data);
-                    $("#tipo_gasto_gastos_destino_actualiza").val(data.tipo_gasto_destino_id);
-                    document.getElementById("costo_gastos_destino_actualiza").value = data.costo;
-                    document.getElementById("moneda_gastos_destino_actualiza").value = data.moneda;
-                    document.getElementById("nota_gastos_destino_actualiza").value = data.notas;
-                    document.getElementById("gasto_destino_id").value = data.id;
+                    $('#productosSelectActualiza').val(data[0].sku);
+                    $('#productosSelectActualiza').select2().trigger('change');
+                    document.getElementById("producto_id_actualiza").value = data[0].producto_id;
+                    $("#icoterm_producto_acualiza").val(data[0].incoterm);
+                    document.getElementById("leadtime_producto_actualiza").value = data[0].leadtime;
+                    document.getElementById("costo_producto_actualiza").value = data[0].costo;
+                    document.getElementById("cantidad_producto_actualiza").value = data[0].cantidad;
+                    document.getElementById("subtotal_producto_actualiza").value = data[0].total;
+                    document.getElementById("producto_orden_id").value = data[0].id;
                 },
                 error: function(data) {
                     alert('error');

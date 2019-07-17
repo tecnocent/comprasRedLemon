@@ -4,7 +4,7 @@
 <div class="modal right fade" id="modal-actualiza-producto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="productos-form" action="{{ route('producto.save', ['id' => $orden->id]) }}" method="POST" enctype="multipart/form-data">
+            <form id="productos-form" action="{{ route('producto.update') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -15,20 +15,22 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Producto</label>
-                                <select id="productosSelectActualiza" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto_actualiza" style=" display: block; width: 100%">
+                                <select id="productosSelectActualiza" class="form-control selectProductos" name="nombre_productoM" style=" display: block; width: 100%">
                                     <option value="">Selecciona</option>
                                     @foreach($productos as $producto)
                                         <option value="{{$producto->sku}}">{{$producto->name}}</option>
                                     @endforeach
-                                    <input type="hidden" class="form-control pull-right " id="producto_id_actualiza" name="producto_id_actualiza" value="'+resultados[0].id+'">
                                 </select>
-                                <div class="extras"></div>
+                                <div class="extras_actualiza">
+                                    <input type="hidden" class="form-control pull-right" id="producto_id_actualiza" name="producto_id">
+                                    <input type="hidden" class="form-control pull-right" id="producto_orden_id" name="producto_orden_id">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Incoterm</label>
-                                <select class="form-control" name="icoterm_productoM" id="icoterm_producto">
+                                <select class="form-control" name="icoterm_productoM" id="icoterm_producto_acualiza">
                                     <option value="">Selecciona</option>
                                     <option value="FOM">FOM</option>
                                     <option value="EXW">EXW</option>
@@ -38,25 +40,25 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Lead Time</label>
-                                <input type="text" class="form-control" id="leadtime_producto" name="leadtime_productoM" placeholder="Lead Time" onKeyPress="return soloNumeros(event)">
+                                <input type="text" class="form-control" id="leadtime_producto_actualiza" name="leadtime_productoM" placeholder="Lead Time" onKeyPress="return soloNumeros(event)">
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Costo USD</label>
-                                <input type="text" class="form-control monto" id="costo_producto" name="costo_productoM" placeholder="Costo" onkeyup="multi();" onkeypress="return filterFloat(event,this);">
+                                <input type="text" class="form-control monto_actualiza" id="costo_producto_actualiza" name="costo_productoM" placeholder="Costo" onkeyup="multi_actauliza();" onkeypress="return filterFloat(event,this);">
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Cantidad</label>
-                                <input type="text" class="form-control monto" id="cantidad_producto" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi();" onKeyPress="return soloNumeros(event)">
+                                <input type="text" class="form-control monto_actualiza" id="cantidad_producto_actualiza" name="cantidad_productoM" placeholder="Cantidad" onkeyup="multi_actauliza();" onKeyPress="return soloNumeros(event)">
                             </div>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Subtotal</label>
-                                <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
+                                <input type="text" class="form-control" id="subtotal_producto_actualiza" name="subtotal_productoM" placeholder="Subtotal" disabled onkeypress="return filterFloat(event,this);">
                             </div>
                         </div>
                         <!-- /.col -->

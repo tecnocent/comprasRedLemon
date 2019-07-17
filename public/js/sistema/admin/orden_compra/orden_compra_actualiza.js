@@ -107,6 +107,29 @@ $('#productosSelectActualiza').on('select2:select', function (evt) {
                 registro.description =  o.description;
                 resultados.push(registro);
             });
+            document.getElementById('producto_id_actualiza').value = resultados[0].id;
+        }
+    });
+});
+// Ajax trae descrupcion y id de productos
+$('#productosSelectCrea').on('select2:select', function (evt) {
+    var producto_sku = $("#productosSelectCrea").val();
+    $.ajax({
+        type: 'GET',
+        url: "/api/productos",
+        dataType: 'json',
+        data: {
+            'sku': producto_sku,
+            'per_page':100
+        },
+        success: function(data){
+            var resultados = [];
+            $.each(data.data.productos.data, function(i, o) {
+                var registro = {};
+                registro.id = o.id;
+                registro.description =  o.description;
+                resultados.push(registro);
+            });
             var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id_crea" name="producto_id" value="'+resultados[0].id+'">'
             var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion_crea" name="producto_descripcion" value="'+resultados[0].description+'">'
 
@@ -115,7 +138,6 @@ $('#productosSelectActualiza').on('select2:select', function (evt) {
         }
     });
 });
-
 // Funcion para subtotal
 function multi(){
     var subtotal = 1;
@@ -129,7 +151,18 @@ function multi(){
     subtotal = (change)? subtotal:0;
     document.getElementById('subtotal_producto_guarda').value = subtotal;
 }
-
+function multi_actauliza(){
+    var subtotal = 1;
+    var change= false;
+    $(".monto_actualiza").each(function(){
+        if (!isNaN(parseFloat($(this).val()))) {
+            change= true;
+            subtotal *= parseFloat($(this).val());
+        }
+    });
+    subtotal = (change)? subtotal:0;
+    document.getElementById('subtotal_producto_actualiza').value = subtotal;
+}
 // Valuda valor unico para #OC
 function checkUniq(name, valor) {
     $.ajax({
