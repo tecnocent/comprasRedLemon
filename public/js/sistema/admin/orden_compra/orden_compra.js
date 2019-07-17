@@ -623,7 +623,7 @@ $(document).ready(function() {
             // Recargo el filestyle
             filestyle();
             // Oculta modal
-            $("#transito").modal('hide');
+            $("#transito-modal").modal('hide');
             $(document).on('click', '.remove_transito', function() {
                 var button_id = $(this).attr("id");
                 //cuando da click obtenemos el id del boton
@@ -703,7 +703,7 @@ $(document).ready(function() {
             // recargo el filestyle
             filestyle();
             //Oculta  modal
-            $("#pedimento").modal('hide');
+            $("#pedimento-modal").modal('hide');
             // Reueve ultima fila
             $(document).on('click', '.remove_pedimento', function() {
                 var button_id = $(this).attr("id");

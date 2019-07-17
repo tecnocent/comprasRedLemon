@@ -335,7 +335,7 @@
                                             </div>
                                             <div class="tab-pane" id="6b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#transito"><i class="fa fa-plus"></i> Agregar transito</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#transito-modal"><i class="fa fa-plus"></i> Agregar transito</button>
                                                 <div class="row" id="table4"><br>
                                                     <div class="panel panel-default" id="table-monto-default">
                                                         <div class="panel-body">
@@ -373,7 +373,7 @@
                                             </div>
                                             <div class="tab-pane" id="7b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pedimento"><i class="fa fa-plus"></i> Agregar pedimento</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pedimento-modal"><i class="fa fa-plus"></i> Agregar pedimento</button>
                                                 <div class="row" id="pedimento"><br>
                                                     <div class="panel panel-default" id="table-monto-default">
                                                         <div class="panel-body">

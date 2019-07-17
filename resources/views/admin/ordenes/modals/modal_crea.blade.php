@@ -388,7 +388,7 @@
 </div><!-- modal -->
 
 <!--Modal Transito-->
-<div class="modal right1 fade" id="transito" tabindex="-1" role="dialog" aria-labelledby="pagos">
+<div class="modal right1 fade" id="transito-modal" tabindex="-1" role="dialog" aria-labelledby="pagos">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
@@ -487,7 +487,7 @@
 </div><!-- modal -->
 
 <!--Modal Pedimento-->
-<div class="modal right1 fade" id="pedimento" tabindex="-1" role="dialog" aria-labelledby="pedimento">
+<div class="modal right1 fade" id="pedimento-modal" tabindex="-1" role="dialog" aria-labelledby="pedimento">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
