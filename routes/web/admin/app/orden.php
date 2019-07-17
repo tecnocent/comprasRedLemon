@@ -17,7 +17,7 @@ Route::post('/guarda_proveedor', 'Proveedor\ProveedorController@store')->name('p
 Route::get('/tipo_compra', 'Catalogo\TipoCompraController@index')->name('tipo_compra.index');
 Route::post('/guarda_tipo_compra', 'Catalogo\TipoCompraController@store')->name('tipo_compra.save');
 
-// Productos
+// Productos de orden
 Route::get('/elimina_producto/{id}', 'Producto\ProductoController@destroy')->name('producto.delete');
 Route::post('/guarda_producto/{id}', 'Producto\ProductoController@guardaProducto')->name('producto.save');
 Route::post('/actualiza_producto/', 'Producto\ProductoController@update')->name('producto.update');
@@ -46,3 +46,6 @@ Route::get('/elimina_pedimento/{id}', 'Pedimento\PedimentoController@destroy')->
 Route::post('/guarda_pedimento/{id}', 'Pedimento\PedimentoController@guardaPedimento')->name('pedimento.save');
 Route::post('/actualiza_pedimento/', 'Pedimento\PedimentoController@update')->name('pedimento.update');
 Route::get('/pedimento_consulta/{id}', 'Pedimento\PedimentoController@consultaPedimento')->name('pedimento.consulta');
+
+// Productos
+Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

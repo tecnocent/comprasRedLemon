@@ -64,11 +64,6 @@ class ProductoApiController extends Controller
         } catch (\Exception $e) {
             // Registra error
             Log::error('Error en '.__METHOD__.' línea '.$e->getLine().':'.$e->getMessage());
-            return ejsend_error([
-                'code' => 500,
-                'type' => 'Orden',
-                'message' => 'Error al obtener el recurso: '.$e->getMessage(),
-            ]);
         }
     }
 
@@ -136,5 +131,15 @@ class ProductoApiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function muestraProducto()
+    {
+        try {
+            $productos = $this->mProduto->all();
+            return response()->json($productos);
+        }catch (\Exception $e) {
+            Log::error('Error en '.__METHOD__.' línea '.$e->getLine().':'.$e->getMessage());
+        }
     }
 }

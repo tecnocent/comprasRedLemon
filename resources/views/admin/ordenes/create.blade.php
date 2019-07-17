@@ -370,6 +370,7 @@
     </div>
     <!-- Modals-->
     @include('admin.ordenes.modals.modal_crea')
+    @include('admin.ordenes.modals.modal_crea_nuevo_prducto')
     <!-- Scripts -->
     @section('javascript')
         <script>
@@ -532,6 +533,68 @@
                                         $.each(data,function(key, registro) {
                                             $("#tipoCompraSelect").append('<option value='+registro.id+'>'+registro.nombre+'</option>');
                                         });
+                                    },
+                                    error: function(data) {
+                                        alert('error');
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+
+            // Guardado nuevo producto
+            $(document).ready(function(){
+                $("#nuevo-producto-form").validate({
+                    event: "blur",rules: {
+                        'sku_producto_nuevo' : "required",
+                        'nombre_producto_nuevo' : "required",
+                        'costo_producto_nuevo' : "required",
+                        'precio_menudeo_producto_nuevo' : "required",
+                        'sat_producto_nuevo' : "required",
+                        'tipo_producto_nuevo' : "required"
+                    },
+                    messages: {
+                        'sku_producto_nuevo' : "El SKU es requerido",
+                        'nombre_producto_nuevo' : "El Nombre de producto es requerido",
+                        'costo_producto_nuevo' : "El Costo de producto es requerido",
+                        'precio_menudeo_producto_nuevo' : "El Precio venta al por menor es requerido",
+                        'sat_producto_nuevo' : "EL Codigo SAT es requerido",
+                        'tipo_producto_nuevo' : "El Tipo de producto es requerido"
+                    },
+                    debug: true,errorElement: "label",
+                    submitHandler: function(form){
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("producto_base.save")}}',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                sku_producto_nuevo : document.getElementById('sku_producto_nuevo').value,
+                                nombre_producto_nuevo : document.getElementById('nombre_producto_nuevo').value,
+                                costo_producto_nuevo : document.getElementById('costo_producto_nuevo').value,
+                                precio_menudeo_producto_nuevo : document.getElementById('precio_menudeo_producto_nuevo').value,
+                                sat_producto_nuevo : document.getElementById('sat_producto_nuevo').value,
+                                tipo_producto_nuevo : $('#tipo_producto_nuevo').val(),
+                                descripcion_producto_nuevo : document.getElementById('descripcion_producto_nuevo').value
+                            },
+                            success: function(data){
+                                console.log(data);
+                                $('#productosSelect option').remove();
+                                $('#nuevo-producto-modal').modal('hide');
+                                $.ajax({
+                                    url: "{{route('productos.select')}}",
+                                    dataType: "json",
+                                    type:"GET",
+                                    success: function(data){
+                                        $("#productosSelect").append('<option value="">Selecciona</option>');
+                                        $.each(data,function(key, registro) {
+                                            $("#productosSelect").append('<option value='+registro.sku+'>'+registro.name+'</option>');
+                                        });
+                                        $("#nuevo-producto-form")[0].reset();
                                     },
                                     error: function(data) {
                                         alert('error');

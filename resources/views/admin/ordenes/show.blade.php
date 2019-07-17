@@ -605,7 +605,7 @@
         $('.actualizaPedimento').on('click',function(){
             var id = $(this).data("id");
             $.ajax({
-                url: "/admin/pedimento_consulta/"+id,
+                url: "{{ url('/admin/pedimento_consulta') }}/"+id,
                 dataType: "json",
                 type:"GET",
                 success: function(data){
@@ -631,7 +631,7 @@
         $('.actualizaTransito').on('click',function(){
             var id = $(this).data("id");
             $.ajax({
-                url: "/admin/transito_consulta/"+id,
+                url: "{{ url('/admin/transito_consulta') }}/"+id,
                 dataType: "json",
                 type:"GET",
                 success: function(data){
@@ -657,7 +657,7 @@
         $('.actualizaGastoOrigen').on('click',function(){
             var id = $(this).data("id");
             $.ajax({
-                url: "/admin/gasto_origen_consulta/"+id,
+                url: "{{ url('/admin/gasto_origen_consulta') }}/"+id,
                 dataType: "json",
                 type:"GET",
                 success: function(data){
@@ -677,7 +677,7 @@
         $('.actualizaGastoDestino').on('click',function(){
             var id = $(this).data("id");
             $.ajax({
-                url: "/admin/gasto_destino_consulta/"+id,
+                url: "{{ url('/admin/gasto_destino_consulta') }}/"+id,
                 dataType: "json",
                 type:"GET",
                 success: function(data){
@@ -698,7 +698,7 @@
         $('.productoActualiza').on('click',function(){
             var id = $(this).data("id");
             $.ajax({
-                url: "/admin/consulta_producto/"+id,
+                url: "{{ url('/admin/consulta_producto') }}/"+id,
                 dataType: "json",
                 type:"GET",
                 success: function(data){
@@ -714,6 +714,127 @@
                 },
                 error: function(data) {
                     alert('error');
+                }
+            });
+        });
+
+
+        // Guardado nuevo producto en actualiza
+        $(document).ready(function(){
+            $("#nuevo-producto-actualiza-form").validate({
+                event: "blur",rules: {
+                    'sku_producto_nuevo' : "required",
+                    'nombre_producto_nuevo' : "required",
+                    'costo_producto_nuevo' : "required",
+                    'precio_menudeo_producto_nuevo' : "required",
+                    'sat_producto_nuevo' : "required",
+                    'tipo_producto_nuevo' : "required"
+                },
+                messages: {
+                    'sku_producto_nuevo' : "El SKU es requerido",
+                    'nombre_producto_nuevo' : "El Nombre de producto es requerido",
+                    'costo_producto_nuevo' : "El Costo de producto es requerido",
+                    'precio_menudeo_producto_nuevo' : "El Precio venta al por menor es requerido",
+                    'sat_producto_nuevo' : "EL Codigo SAT es requerido",
+                    'tipo_producto_nuevo' : "El Tipo de producto es requerido"
+                },
+                debug: true,errorElement: "label",
+                submitHandler: function(form){
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route("producto_base.save")}}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            sku_producto_nuevo : document.getElementById('sku_producto_nuevo').value,
+                            nombre_producto_nuevo : document.getElementById('nombre_producto_nuevo').value,
+                            costo_producto_nuevo : document.getElementById('costo_producto_nuevo').value,
+                            precio_menudeo_producto_nuevo : document.getElementById('precio_menudeo_producto_nuevo').value,
+                            sat_producto_nuevo : document.getElementById('sat_producto_nuevo').value,
+                            tipo_producto_nuevo : $('#tipo_producto_nuevo').val(),
+                            descripcion_producto_nuevo : document.getElementById('descripcion_producto_nuevo').value
+                        },
+                        success: function(data){
+                            $('#productosSelectActualiza option').remove();
+                            $('#nuevo-producto-actualiza-modal').modal('hide');
+                            $.ajax({
+                                url: "{{route('productos.select')}}",
+                                dataType: "json",
+                                type:"GET",
+                                success: function(data){
+                                    $("#productosSelectActualiza").append('<option value="">Selecciona</option>');
+                                    $.each(data,function(key, registro) {
+                                        $("#productosSelectActualiza").append('<option value='+registro.sku+'>'+registro.name+'</option>');
+                                    });
+                                    $("#nuevo-producto-actualiza-form")[0].reset();
+                                },
+                                error: function(data) {
+                                    alert('error');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        // Guardado nuevo producto en guarda
+        $(document).ready(function(){
+            $("#nuevo-producto-guarda-form").validate({
+                event: "blur",rules: {
+                    'sku_producto_nuevo' : "required",
+                    'nombre_producto_nuevo' : "required",
+                    'costo_producto_nuevo' : "required",
+                    'precio_menudeo_producto_nuevo' : "required",
+                    'sat_producto_nuevo' : "required",
+                    'tipo_producto_nuevo' : "required"
+                },
+                messages: {
+                    'sku_producto_nuevo' : "El SKU es requerido",
+                    'nombre_producto_nuevo' : "El Nombre de producto es requerido",
+                    'costo_producto_nuevo' : "El Costo de producto es requerido",
+                    'precio_menudeo_producto_nuevo' : "El Precio venta al por menor es requerido",
+                    'sat_producto_nuevo' : "EL Codigo SAT es requerido",
+                    'tipo_producto_nuevo' : "El Tipo de producto es requerido"
+                },
+                debug: true,errorElement: "label",
+                submitHandler: function(form){
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route("producto_base.save")}}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            sku_producto_nuevo : document.getElementById('sku_producto_nuevo').value,
+                            nombre_producto_nuevo : document.getElementById('nombre_producto_nuevo').value,
+                            costo_producto_nuevo : document.getElementById('costo_producto_nuevo').value,
+                            precio_menudeo_producto_nuevo : document.getElementById('precio_menudeo_producto_nuevo').value,
+                            sat_producto_nuevo : document.getElementById('sat_producto_nuevo').value,
+                            tipo_producto_nuevo : $('#tipo_producto_nuevo').val(),
+                            descripcion_producto_nuevo : document.getElementById('descripcion_producto_nuevo').value
+                        },
+                        success: function(data){
+                            $('#productosSelectCrea option').remove();
+                            $('#nuevo-producto-guarda-modal ').modal('hide');
+                            $.ajax({
+                                url: "{{route('productos.select')}}",
+                                dataType: "json",
+                                type:"GET",
+                                success: function(data){
+                                    $("#productosSelectCrea").append('<option value="">Selecciona</option>');
+                                    $.each(data,function(key, registro) {
+                                        $("#productosSelectCrea").append('<option value='+registro.sku+'>'+registro.name+'</option>');
+                                    });
+                                    $("#nuevo-producto-guarda-form")[0].reset();
+                                },
+                                error: function(data) {
+                                    alert('error');
+                                }
+                            });
+                        }
+                    });
                 }
             });
         });

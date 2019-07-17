@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-6 line pagos-inputs">
+                        <div class="col-md-5 line pagos-inputs">
                             <div class="form-group">
                                 <label>Producto</label>
                                 <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
@@ -22,6 +22,10 @@
                                 </select>
                                 <div class="extras"></div>
                             </div>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="">&nbsp;</label>
+                            <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-producto-modal" id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i> </button>
                         </div>
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
@@ -582,3 +586,4 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
