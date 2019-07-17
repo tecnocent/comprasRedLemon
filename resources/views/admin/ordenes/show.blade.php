@@ -427,9 +427,9 @@
         </section>
     </div>
     <!-- Modals -->
-    @extends('admin.ordenes.modals.modal_guarda')
-    @extends('admin.ordenes.modals.modal_eliminacion')
-    @extends('admin.ordenes.modals.modal_actualiza')
+    @include('admin.ordenes.modals.modal_guarda')
+    @include('admin.ordenes.modals.modal_eliminacion')
+    @include('admin.ordenes.modals.modal_actualiza')
     <!-- Scripts -->
 @section('javascript')
     <script>

@@ -176,7 +176,9 @@
 <!-- cargando pagina -->
 <script type="text/javascript">
     $(window).on('load', function() {
-        $(".loader").fadeOut("xslow ");
+        setTimeout(function () {
+            $(".loader").css({visibility:"hidden",opacity:"0"})
+        }, 1000);
     });
 </script>
 <!-- Select2 -->
