@@ -21,6 +21,9 @@
                                     @endforeach
                                 </select>
                                 <div class="extras">
+                                    <label id="o"></label>
+                                    <input type="hidden" class="form-control pull-right " id="producto_id">
+                                    <input type="hidden" class="form-control pull-right " id="producto_descripcion">
                                 </div>
                             </div>
                         </div>
@@ -59,7 +62,7 @@
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label id="subototalProducto">Subtotal</label>
-                                <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal">
+                                <input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled>
                             </div>
                         </div>
                         <!-- /.col -->

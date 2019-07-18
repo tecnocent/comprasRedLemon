@@ -79,7 +79,6 @@ function multi(){
         }
     });
     subtotal = (change)? subtotal:0;
-    alert(subtotal);
     document.getElementById('subtotal_producto').value = subtotal;
 }
 
@@ -101,13 +100,6 @@ function checkUniq(name, valor) {
                 registro.description =  o.description;
                 resultados.push(registro);
             });
-            var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id" name="producto_id" value="'+resultados[0].id+'">'
-            var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="producto_descripcion" value="'+resultados[0].description+'">'
-
-            $('.extras').after(producto_id);
-            $('.extras').after(producto_descripcion);
-
-
             console.log(data);
             var error = '<label for="identificador" generated="true" class="error">EL #OC esta en uso</label>';
             $('#id_orden').after(error);
@@ -133,13 +125,15 @@ $('#productosSelect').on('select2:select', function (evt) {
                 registro.description =  o.description;
                 resultados.push(registro);
             });
+            console.log(resultados[0].id);
+            document.getElementById('producto_id').value = resultados[0].id;
+            document.getElementById('producto_descripcion').value = resultados[0].id;
 
+            //var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id" name="producto_id" value="'+resultados[0].id+'">'
+            //var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="producto_descripcion" value="'+resultados[0].description+'">'
 
-            var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id" name="producto_id" value="'+resultados[0].id+'">'
-            var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="producto_descripcion" value="'+resultados[0].description+'">'
-
-            $('.extras').after(producto_id);
-            $('.extras').after(producto_descripcion);
+            //$('.extras').after(producto_id);
+            //$('.extras').after(producto_descripcion);
         }
     });
 });
@@ -168,10 +162,8 @@ $(document).ready(function() {
         },
         debug: true,errorElement: "label",
         submitHandler: function(form){
-            console.log("paso");
-
-            var id_producto = '<input type="hidden" class="form-control pull-right " id="producto_id" name="productos['+ cont +'][producto_id]" value="'+ document.getElementById("producto_id").value +'">',
-                descripcion_producto = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">',
+            var id_producto = '<input type="hidden" class="form-control pull-right " name="productos['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
+                descripcion_producto = '<input type="hidden" class="form-control pull-right" name="productos['+ cont +'][producto_descripcion]" value="'+ document.getElementById("producto_descripcion").value +'">',
                 sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>',
                 skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>',
                 nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
@@ -215,22 +207,23 @@ $(document).ready(function() {
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
 
-            cont++;
-            console.log(cont);
-            i++;
-            f++;
+
 
             $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
             var nFilas = $(".productos tr").length;
             $("#adicionados").append(nFilas - 1);
-            //le resto 1 para no contar la fila del header
 
             // Limpia formulario
             $("#productos-form")[0].reset();
-            var subtotal = '<input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal">';
+            var subtotal = '<input type="text" class="form-control" id="subtotal_producto" name="subtotal_productoM" placeholder="Subtotal" disabled>';
             $('#subtotal_producto').remove();
             $('#subtotalProducto').after(subtotal);
-
+            $('#producto_id').remove();
+            var prod = '<input type="hidden" class="form-control pull-right " id="producto_id">';
+            $('#o').after(prod);
+            cont++;
+            i++;
+            f++;
             // recargo el filestyle
             filestyle();
 

@@ -169,13 +169,13 @@
                                                 <a href="#2b" data-toggle="tab">Gastos Origen</a>
                                             </li>
                                             <li>
-                                                <a href="#5b" data-toggle="tab">Pagos</a>
-                                            </li>
-                                            <li>
                                                 <a href="#6b" data-toggle="tab">Transito</a>
                                             </li>
                                             <li>
                                                 <a href="#7b" data-toggle="tab">Pedimento</a>
+                                            </li>
+                                            <li>
+                                                <a href="#5b" data-toggle="tab">Pagos</a>
                                             </li>
                                         </ul>
 
