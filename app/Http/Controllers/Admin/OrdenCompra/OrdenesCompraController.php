@@ -48,7 +48,6 @@ class OrdenesCompraController extends Controller
     protected $mProductoOrdenCompra;
     protected $mGastosOrigenOrdenCompra;
     protected $mGastosDestinoOrdenCompra;
-    protected $mMontoPagoOrden;
     protected $mPagoMontoPagoOrden;
     protected $mTransito;
     protected $mPedimento;
@@ -57,7 +56,7 @@ class OrdenesCompraController extends Controller
     protected $mMetodoTransito;
 
 
-    public function __construct(OrdenCompra $ordenCompra, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, MontoPagoOrdenCompra $monto, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -70,7 +69,6 @@ class OrdenesCompraController extends Controller
         $this->mGastosOrigenOrdenCompra = $gastosOrigenOrden;
         $this->mGastosDestinoOrdenCompra = $gastosDestinoOrden;
         $this->mPagoMontoPagoOrden = $pago;
-        $this->mMontoPagoOrden = $monto;
         $this->mTransito = $transito;
         $this->mPedimento = $pedimento;
         $this->mAduana = $aduana;
@@ -96,7 +94,6 @@ class OrdenesCompraController extends Controller
      */
     public function create()
     {
-
         return view('admin.ordenes.create')->with([
             'proveedores' => $this->mProveedor->all(),
             'usuarios' => $this->mUser->all(),

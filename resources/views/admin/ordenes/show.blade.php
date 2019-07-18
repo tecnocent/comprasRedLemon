@@ -717,8 +717,7 @@
                 }
             });
         });
-
-
+        
         // Guardado nuevo producto en actualiza
         $(document).ready(function(){
             $("#nuevo-producto-actualiza-form").validate({

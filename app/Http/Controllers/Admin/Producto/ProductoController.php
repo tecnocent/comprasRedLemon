@@ -46,7 +46,6 @@ class ProductoController extends Controller
     {
         try {
             foreach ($oRequest->productos as $aProductos) {
-
                 $logo = (in_array('logo', $aProductos)) ? true : false;
                 $oem = (in_array('oem', $aProductos)) ? true : false;
                 $instructivo = (in_array('instructivo', $aProductos)) ? true : false;
@@ -62,7 +61,7 @@ class ProductoController extends Controller
                 $producto = $this->mProducto->create([
                     'cantidad' => $aProductos['cantidad_producto'],
                     'costo' => $aProductos['costo_producto'],
-                    'total' => $aProductos['subtotal_producto'],
+                    'total' => $aProductos['cantidad_producto'] * $aProductos['costo_producto'],
                     'incoterm' => $aProductos['icoterm_producto'],
                     'leadtime' => $aProductos['leadtime_producto'],
                     'logo' => $logo,

@@ -274,23 +274,9 @@
                                             </div>
                                             <div class="tab-pane" id="5b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
                                                 <div class="row montoPago" id="montoPago">
                                                     <div class="panel panel-default monto-ssss" id="table-monto-default">
-                                                        <div class="panel-heading">
-                                                            <div class="row">
-                                                                <div class="col-md-6 line">
-                                                                    <div class="form-group">
-                                                                        <h4>Monto USD</h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 line">
-                                                                    <div class="form-group">
-                                                                        <h4>Comprobante</h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="panel-body">
                                                             <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
                                                                 <thead>

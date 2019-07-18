@@ -18,8 +18,8 @@ class CreatePagoMontoOrdenComprasTable extends Migration
             $table->float('pago')->nullable();
             $table->float('tipo_cambio_pago')->nullable();
             $table->string('comrpobante')->nullable();
-            $table->unsignedInteger('monto_pago_id')->nullable();
-            $table->foreign('monto_pago_id')->references('id')->on('monto_pago_orden_compra')->onDelete('cascade');
+            $table->unsignedInteger('orden_compra_id');
+            $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
             $table->timestamps();
         });
     }

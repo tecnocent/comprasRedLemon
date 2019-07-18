@@ -23,7 +23,7 @@ class PagoMontoOrdenCompra extends Model
         'tipo_cambio_pago',
         'comrpobante',
         // Llaves foraneas
-        'monto_pago_id',
+        'orden_compra_id',
     ];
 
     /**
@@ -38,10 +38,10 @@ class PagoMontoOrdenCompra extends Model
      */
 
     /**
-     * Monto al que pertenece el pago (monto_pago_id)
+     * Orden de compra (orden_compra_id)
      */
-    public function montoOrden()
+    public function ordenCompra()
     {
-        return $this->belongsTo('App\Models\MontoPagoOrdenCompra', 'monto_pago_id');
+        return $this->belongsTo('App\Models\OrdenCompra', 'monto_pago_orden_compra_idid');
     }
 }
