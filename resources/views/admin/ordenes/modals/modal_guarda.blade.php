@@ -521,14 +521,14 @@
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Pago</label>
-                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos_actualiza" name="pago_pagos" onkeypress="return filterFloat(event,this);" required>
+                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);" required>
                                         <input type="hidden" class="form-control monto" placeholder="Pago" id="pago_pagos_id" name="pago_id" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Tipo de cambio de pago</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_orden_actualiza" name="tipo_cambio_pago_orden" onkeypress="return filterFloat(event,this);" required>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_orden" name="tipo_cambio_pago_orden" onkeypress="return filterFloat(event,this);" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
