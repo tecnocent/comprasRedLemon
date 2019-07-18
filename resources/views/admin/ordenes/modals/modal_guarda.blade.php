@@ -293,94 +293,9 @@
                             <!-- /.row -->
                         </div>
                     </div>
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success" id="guardarProveedor">Guardar</button>
-                </div>
-            </form>
-        </div><!-- modal-content -->
-    </div>
-</div><!-- modal -->
-
-<!--Modal Pagos-->
-<div class="modal right1 fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="pagos">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <!-- Formulario -->
-            <form id="pagos-form" method="">
-                {{ csrf_field() }}
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel2">Registrar Pago</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="">
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-6 line pagos-inputs">
-                                    <div class="form-group">
-                                        <label>Monto USD</label>
-                                        <input type="text" class="form-control" placeholder="Monto" id="monto_pagos" name="monto_pagos" onkeypress="return filterFloat(event,this);">
-                                        <input type="hidden" class="form-control" id="total_pagado" name="total_pagado">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line pagos-inputs">
-                                    <div class="form-group">
-                                        <label>Tipo de cambio</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio" id="tipo_cambio_monto_pagos" name="tipo_cambio_monto_pagos" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line pagos-inputs">
-                                    <div class="form-group">
-                                        <label>BFCV</label>
-                                        <input type="text" class="form-control" placeholder="BFCV" id="bfcvu_pagos" name="bfcvu_pagos">
-                                    </div>
-                                </div>
-                                <div class="col-md-12 line pagos-inputs" style="height: 13px;">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col-md-1 line">
-                                    <div class="form-group">
-                                        <h4 class="modal-title" id="">Pagos</h4><br>
-                                    </div>
-                                </div>
-                                <div class="col-md-9 line">
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary pull-left" id="otropago" data-toggle="tooltip" data-placement="right" title="Agregar pago">
-                                            <i class="fa fa-plus">&nbsp;</i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 line pagos" style="height: 0px;">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line pagos-inputs">
-                                    <div class="form-group">
-                                        <label>Pago</label>
-                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);" onkeyup="sumar();">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 line pagos-inputs pago1">
-                                    <div class="form-group">
-                                        <label>Tipo de cambio de pago</label>
-                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos" name="tipo_cambio_pago_pagos" onkeypress="return filterFloat(event,this);">
-                                    </div>
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="adicionarPago">Agregar</button>
                 </div>
             </form>
         </div><!-- modal-content -->
@@ -586,6 +501,56 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
+<!--Modal Pagos-->
+<div class="modal right1 fade" id="nuevo-pago-guarda-modal" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('pago.save', ['id'=> $orden->id]) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo Pago</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Pago</label>
+                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos_actualiza" name="pago_pagos" onkeypress="return filterFloat(event,this);" required>
+                                        <input type="hidden" class="form-control monto" placeholder="Pago" id="pago_pagos_id" name="pago_id" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio de pago</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_orden_actualiza" name="tipo_cambio_pago_orden" onkeypress="return filterFloat(event,this);" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label id="input-pago">Comprobante</label>
+                                        <input type="file" class="filestyle" data-input="false" data-badge="true" data-text="Buscar..." data-btnClass="btn-primary" id="pago_comprobante" name="pago_comprobante">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guarda</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
 
 <!-- Producto Nuevo -->
 <div class="modal right1 fade" id="nuevo-producto-guarda-modal" tabindex="-1" role="dialog" aria-labelledby="">

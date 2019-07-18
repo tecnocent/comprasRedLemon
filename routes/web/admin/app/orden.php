@@ -47,5 +47,11 @@ Route::post('/guarda_pedimento/{id}', 'Pedimento\PedimentoController@guardaPedim
 Route::post('/actualiza_pedimento/', 'Pedimento\PedimentoController@update')->name('pedimento.update');
 Route::get('/pedimento_consulta/{id}', 'Pedimento\PedimentoController@consultaPedimento')->name('pedimento.consulta');
 
+//Pago
+Route::get('/elimina_pago/{id}', 'Pago\PagoOrdenController@destroy')->name('pago.delete');
+Route::post('/guarda_pago/{id}', 'Pago\PagoOrdenController@guardaPago')->name('pago.save');
+Route::post('/actualiza_pago/', 'Pago\PagoOrdenController@update')->name('pago.update');
+Route::get('/pago_consulta/{id}', 'Pago\PagoOrdenController@consultaPago')->name('pago.consulta');
+
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

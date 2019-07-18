@@ -302,32 +302,34 @@
                                             </div>
                                             <div class="tab-pane" id="5b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo-pago-guarda-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar pago</button>
                                                 <div class="row montoPago" id="montoPago">
                                                     <div class="panel panel-default monto-ssss" id="table-monto-default">
-                                                        <div class="panel-heading">
-                                                            <div class="row">
-                                                                <div class="col-md-6 line">
-                                                                    <div class="form-group">
-                                                                        <h4>Monto USD</h4>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6 line">
-                                                                    <div class="form-group">
-                                                                        <h4>Comprobante</h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                         <div class="panel-body">
                                                             <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>Pago $</th>
-                                                                    <th>Comprobante pago</th>
-                                                                    <th></th>
+                                                                    <th>Tipo de cambio</th>
+                                                                    <th>Comprobante</th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                @foreach($pagos as $pago)
+                                                                    <tr>
+                                                                        <td>{{ $pago->pago }}</td>
+                                                                        <td>{{ $pago->tipo_cambio_pago }}</td>
+                                                                        @if($pago->comrpobante)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $pago->comrpobante }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay documento</td>
+                                                                        @endif
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-pago" data-id="{{ $pago->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaPago" data-toggle="modal" data-target="#modal-actualiza-pago" data-id="{{ $pago->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
                                                             </table>
                                                         </div>
                                                     </div>
@@ -401,7 +403,7 @@
                                                                         <td>{{ $pedimentoOrden->tipo_cambio_pedimento }}</td>
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-remove"></i></button>
-                                                                            <button type="button" class="btn btn-warning btn-xs actualizaPedimento" data-toggle="modal" data-target="#modal-actualiza-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaPago" data-toggle="modal" data-target="#modal-actualiza-pedimento" data-id="{{ $pedimentoOrden->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -600,6 +602,13 @@
                 $('#deletePedimento').attr("href", "{{ url('/admin/elimina_pedimento') }}" + "/" + id);
             });
         });
+        // Elimina pago
+        $(document).ready(function() {
+            $('#modal-danger-pago').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deletePago').attr("href", "{{ url('/admin/elimina_pago') }}" + "/" + id);
+            });
+        });
 
         // Actualiza pedimento
         $('.actualizaPedimento').on('click',function(){
@@ -711,6 +720,24 @@
                     document.getElementById("cantidad_producto_actualiza").value = data[0].cantidad;
                     document.getElementById("subtotal_producto_actualiza").value = data[0].total;
                     document.getElementById("producto_orden_id").value = data[0].id;
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
+        // Actualiza pago
+        $('.actualizaPago').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "{{ url('/admin/pago_consulta') }}/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    document.getElementById('pago_pagos_actualiza').value = data.pago;
+                    document.getElementById('tipo_cambio_pago_orden_actualiza').value = data.tipo_cambio_pago;
+                    document.getElementById('pago_pagos_id').value = data.id;
                 },
                 error: function(data) {
                     alert('error');

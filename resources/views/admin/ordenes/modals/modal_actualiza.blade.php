@@ -482,6 +482,55 @@
     </div>
 </div><!-- modal -->
 
+<!--Modal Pagos-->
+<div class="modal right1 fade" id="modal-actualiza-pago" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form id="pago-form" action="{{ route('pago.update') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Actualizar Pago</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Pago</label>
+                                        <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos_actualiza" name="pago_pagos" onkeypress="return filterFloat(event,this);" required>
+                                        <input type="hidden" class="form-control monto" placeholder="Pago" id="pago_pagos_id" name="pago_id" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Tipo de cambio de pago</label>
+                                        <input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_orden_actualiza" name="tipo_cambio_pago_orden" onkeypress="return filterFloat(event,this);" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label id="input-pago">Comprobante</label>
+                                        <input type="file" class="filestyle" data-input="false" data-badge="true" data-text="Buscar..." data-btnClass="btn-primary" id="pago_comprobante" name="pago_comprobante">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
 
 <!-- Producto Nuevo -->
 <div class="modal right1 fade" id="nuevo-producto-actualiza-modal" tabindex="-1" role="dialog" aria-labelledby="">

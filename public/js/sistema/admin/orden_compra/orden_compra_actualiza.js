@@ -291,165 +291,6 @@ $(document).ready(function() {
     });
 });
 
-// Llenado de Pagos
-$(document).ready(function() {
-    var contadorDiv = 0;
-    //obtenemos el valor de los input
-    $('#pagos-form').validate({
-        event: "blur",rules: {
-            'monto_pagos': "required",
-            'tipo_cambio_monto_pagos': 'required',
-            'bfcvu_pagos': 'required',
-            'pago_pagos': 'required',
-            'tipo_cambio_pago_pagos': 'required'
-        },
-        messages: {
-            'monto_pagos': "El monto es requerido",
-            'pago_pagos': "El pago es requerido",
-            'bfcvu_pagos': "BFCV requerido",
-            'tipo_cambio_pago_pagos': "Tipo de cambio es requerido",
-            'tipo_cambio_monto_pagos': 'Tipo de cambio es requerido'
-        },
-        debug: true,errorElement: "label",
-        submitHandler: function(form){
-            var monto_pagos = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="monto_pagos" name="monto['+ contadorDiv +'][monto_pagos]" value="'+ document.getElementById("monto_pagos").value +'"></div>',
-                tipo_cambio_monto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][tipo_cambio_monto]" value="'+ document.getElementById("tipo_cambio_monto_pagos").value +'"></div>',
-                bfcv = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="tipo_cambio_monto" name="monto['+ contadorDiv +'][bfcv]" value="'+ document.getElementById("bfcvu_pagos").value +'"></div>',
-                total_pagado = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="total_pagado" name="monto['+ contadorDiv +'][total_pagado]" value="'+ document.getElementById("total_pagado").value +'"></div>',
-                buscaComprobante = '<input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_monto" name="monto['+ contadorDiv +'][comprobanteMonto]" >';
-
-            var monto = '<div class="row" id="remove-div-monto'+contadorDiv+'" class="remove-div-monto">\n' +
-                '           <div class="panel panel-default">\n' +
-                '               <div class="panel-heading">\n' +
-                '                   <div class="row">\n' +
-                '                       <div class="col-md-6 line">\n' +
-                '                           <div class="form-group">\n' +
-                '                               <h4>Monto USD</h4>\n' +
-                '                               <h4>$ '+ monto_pagos +''+tipo_cambio_monto+''+bfcv+''+total_pagado+''+ document.getElementById("monto_pagos").value +'</h4>\n' +
-                '                           </div>\n' +
-                '                       </div>\n' +
-                '                       <div class="col-md-5 line">\n' +
-                '                           <div class="form-group">\n' +
-                '                               <h4>Comprobante</h4>\n' +
-                '                               '+ buscaComprobante +'\n' +
-                '                           </div>\n' +
-                '                       </div>\n' +
-                '                       <div class="col-md-1 line">\n' +
-                '                           <div class="form-group">\n' +
-                '                               <button type="button" name="remove-monto" id="'+ contadorDiv +'" class="close remove-monto"><span aria-hidden="true">×</span></button>\n' +
-                '                           </div>\n' +
-                '                       </div>\n' +
-                '                   </div>\n' +
-                '               </div>\n' +
-                '               <div class="panel-body">\n' +
-                '                   <table id="pagos_a_guardar" class="table table-striped table-bordered pagos_a_guardar" cellspacing="0" width="100%">\n' +
-                '                       <thead>\n' +
-                '                           <tr>\n' +
-                '                               <th>Pago $</th>\n' +
-                '                               <th>Comprobante pago</th>\n' +
-                '                           </tr>\n' +
-                '                           <tbody id="forPagos">\n' +
-                '                           </tbody>\n' +
-                '                       </thead>\n' +
-                '                   </table>\n' +
-                '               </div>\n' +
-                '           </div>\n' +
-                '       </div>';
-
-            $('.montoPago').after(monto);
-
-            $(document).on('click', '.remove-monto', function() {
-                var button_id = $(this).attr("id");
-                console.log(button_id);
-                $('#remove-div-monto' + button_id).remove();
-                var nFilas = $(".montoPago").length;
-            });
-            var pagos = [];
-            $('input[name^="pago_pagos"]').each(function() {
-                pagos = pagos.concat($(this).val());
-            });
-            var tipoCambioPago = [];
-            $('input[name^="tipo_cambio_pago_pagos"]').each(function() {
-                tipoCambioPago = tipoCambioPago.concat($(this).val());
-            });
-            function logArrayElements(element, index, array) {
-                var cuentaPago = 0;
-                var filas = 0;
-                element.pagosInput.forEach(function(e) {
-                    pagoHTML = '<td>'+e+'<input type="hidden" class="form-control pull-right " id="pago-pagos" name="monto['+ cuentaPago +'][pagoP  ]pagos[]pago[]" value="'+ e +'"></td>' +
-                        '<td><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" id="comprobante_pago['+cuentaPago+']" name="monto['+ cuentaPago +'][pagos['+cuentaPago+'][comprobantePago]]" ></td>';
-
-                    fila = fila.concat(pagoHTML);
-                    cuentaPago++;
-                });
-                var cuentaTipoCam = 0;
-                element.tipoCambioInput.forEach(function(f) {
-                    cambioHTML = '<input type="hidden" class="form-control pull-right " id="pago-pagos" name="monto['+ contadorDiv +']pagos['+contadorDiv+'][tipo_cambio_pago]" value="'+ f +'">'
-                    fila = fila.concat(cambioHTML);
-                    cuentaTipoCam++;
-                });
-
-                var html = '<tr id="removePago'+filas+'">';
-
-                // Loop through array and add table cells
-                for (var i=0; i < fila.length; i++) {
-                    html += fila[i];
-                    // Break into next row
-                    var next = i;
-                    html += "</tr>";
-                }
-                html += "</tr>";
-                document.getElementById("forPagos").innerHTML = html;
-                filas++;
-
-            }
-            contadorDiv++;
-            var pagosIn = [{
-                'pagosInput': pagos,
-                'tipoCambioInput': tipoCambioPago
-            }];
-            var pagoHTML = null;
-            var cambioHTML = null;
-            var fila = [];
-            pagosIn.forEach(logArrayElements);
-
-            // recargo el filestyle
-            filestyle();
-
-            // Limpia formulario
-            $("#pagos-form")[0].reset();
-
-            $('.pagoAgregado').remove();
-            $('.monto-ssss').css("display","none");
-            $("#pagos").modal('hide');//oculto el modal
-        }
-    });
-});
-
-
-
-
-
-
-$(document).ready(function() {
-    var contador = 1;
-    $('#otropago').click(function() {
-        var pago = '<div id="remove-pago'+contador+'"><div class="col-md-6 line pagos-inputs pagoAgregado"><div class="form-group"><label>Pago</label><input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos-'+contador+'" name="pago_pagos" onkeypress="return filterFloat(event,this);" onkeyup="sumar();"></div></div>' +
-            '<div class="col-md-5 line pagos-inputs"><div class="form-group pagoAgregado"><label>Tipo de cambio de pago</label><input type="text" class="form-control" placeholder="Tipo cambio de pago" id="tipo_cambio_pago_pagos-'+contador+'" name="tipo_cambio_pago_pagos"></div></div>' +
-            '<div class="col-md-1 line pagos-inputs"><div class="form-group pagoAgregado"><label><br><br></label><button type="button" name="remove-p" id="' + contador + '" class="btn btn-danger remove-p" style="margin-top: 18px;"><i class="fa fa-trash  "></i></button></div></div></div>';
-        $('.pago1').after(pago);
-        contador++;
-    });
-    $(document).on('click', '.remove-p', function() {
-        var button_id = $(this).attr("id");
-        //cuando da click obtenemos el id del boton
-        $('#remove-pago' + button_id).remove(); //borra la fila
-        //limpia el para que vuelva a contar las filas de la tabla
-        var nFilas = $(".pago1").length;
-    });
-});
-
-
 // Guardado de Transito
 $(document).ready(function() {
     $('#transito-form').validate({
@@ -511,5 +352,25 @@ $(document).ready(function() {
         submitHandler: function(form){
                 form.submit();
             }
+    });
+});
+
+// Guarda Pagos
+$(document).ready(function() {
+    $('#pagos-form').validate({
+        event: "blur",rules: {
+            'pago_pagos': "required",
+            'tipo_cambio_pago_orden': "required",
+            'pago_comprobante' : "required"
+        },
+        messages: {
+            'pago_pagos': "El pago es requerido",
+            'tipo_cambio_pago_orden': "Tipo de cambio es requerido",
+            'pago_comprobante' : "El comprobante es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            form.submit();
+        }
     });
 });

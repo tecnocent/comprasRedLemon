@@ -250,6 +250,38 @@
                 </div>
             </div>
         @endif
+        <!-- Pagos -->
+        @if(count($pagos) > 0)
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="">Pagos</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row" id="table2">
+                        <div class="panel-body">
+                            <table id="pagos" class="table table-striped table-bordered pagos" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Pago</th>
+                                    <th>Tipo de cambio</th>
+                                    <th>Comprobante</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($pagos as $pago)
+                                    <tr>
+                                        <td>{{ $pago->pago }}</td>
+                                        <td>{{ $pago->tipo_cambio_pago }}</td>
+                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{ $pago->comrpobante }}" class="btn btn-link">Descargar</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    @endif
         <!-- Aceptar -->
         <div class="panel panel-info">
             <div class="panel-body">

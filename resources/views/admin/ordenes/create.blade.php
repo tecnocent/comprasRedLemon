@@ -175,7 +175,7 @@
                                                 <a href="#7b" data-toggle="tab">Pedimento</a>
                                             </li>
                                             <li>
-                                                <a href="#5b" data-toggle="tab">Pagos</a>
+                                                <a href="#5b" data-toggle="tab">Pago</a>
                                             </li>
                                         </ul>
 
@@ -274,7 +274,7 @@
                                             </div>
                                             <div class="tab-pane" id="5b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar monto y pagos</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#pagos-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar pago</button>
                                                 <div class="row montoPago" id="montoPago">
                                                     <div class="panel panel-default monto-ssss" id="table-monto-default">
                                                         <div class="panel-body">

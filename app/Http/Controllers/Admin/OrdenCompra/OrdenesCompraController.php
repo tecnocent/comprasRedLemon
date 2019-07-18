@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\OrdenCompra;
 
 use App\Http\Controllers\Admin\GastosDestino\GastosDestinoController;
 use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
+use App\Http\Controllers\Admin\Pago\PagoOrdenController;
 use App\Http\Controllers\Admin\Pedimento\PedimentoController;
 use App\Http\Controllers\Admin\Producto\ProductoController;
 use App\Http\Controllers\Admin\Transito\TransitoController;
@@ -159,6 +160,12 @@ class OrdenesCompraController extends Controller
                 $producto->store($oRequest, $ordenCompra);
             }
 
+            // Pagos
+            if ($oRequest->has('pago')) {
+                $pago = new PagoOrdenController($this->mPagoMontoPagoOrden);
+                $pago->store($oRequest, $ordenCompra);
+            }
+
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);
 
         } catch (\Exception $e) {
@@ -187,6 +194,7 @@ class OrdenesCompraController extends Controller
         $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
         $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
+        $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
         return view('admin.ordenes.show')->with([
             'orden' => $orden,
             'proveedores' => $this->mProveedor->all(),
@@ -195,6 +203,7 @@ class OrdenesCompraController extends Controller
             'gastosOrigenOrden' => $gastosOrigen,
             'transitosOrden' => $transitos,
             'pedimentosOrden' => $pedimentos,
+            'pagos' => $pagos,
             'usuarios' => $this->mUser->all(),
             'almacenes' => $this->mAlmacen->all(),
             'productos' => $this->mProducto->all(),
@@ -311,6 +320,7 @@ class OrdenesCompraController extends Controller
         $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
         $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
+        $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
             'orden' => $orden,
@@ -318,7 +328,8 @@ class OrdenesCompraController extends Controller
             'gastosDestino' => $gastosDestino,
             'gastosOrigen' => $gastosOrigen,
             'transitos' => $transitos,
-            'pedimentos' => $pedimentos
+            'pedimentos' => $pedimentos,
+            'pagos' => $pagos
         ]);
     }
 
