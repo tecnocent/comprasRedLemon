@@ -737,7 +737,7 @@
                 success: function(data){
                     document.getElementById('pago_pagos_actualiza').value = data.pago;
                     document.getElementById('tipo_cambio_pago_orden_actualiza').value = data.tipo_cambio_pago;
-                    document.getElementById('pago_pagos_id').value = data.id;
+                    document.getElementById('pago_pagos_id_actualiza').value = data.id;
                 },
                 error: function(data) {
                     alert('error');

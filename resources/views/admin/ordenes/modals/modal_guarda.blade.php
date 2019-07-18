@@ -522,7 +522,6 @@
                                     <div class="form-group">
                                         <label>Pago</label>
                                         <input type="text" class="form-control monto" placeholder="Pago" id="pago_pagos" name="pago_pagos" onkeypress="return filterFloat(event,this);" required>
-                                        <input type="hidden" class="form-control monto" placeholder="Pago" id="pago_pagos_id" name="pago_id" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
