@@ -107,3 +107,21 @@
         </div>
     </div>
 </div>
+<div class="modal modal-danger fade" id="modal-danger-seguimiento" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Advertencia</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estas seguro de borrar el seguimiento de la orden #OC: {{ $orden->identificador }}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+                <a id="deleteSeguimiento" role="button" class="btn btn-outline"><i class="fa fa-trash"></i> Borrar</a>
+            </div>
+        </div>
+    </div>
+</div>

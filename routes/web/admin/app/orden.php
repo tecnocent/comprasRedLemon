@@ -17,25 +17,25 @@ Route::post('/guarda_proveedor', 'Proveedor\ProveedorController@store')->name('p
 Route::get('/tipo_compra', 'Catalogo\TipoCompraController@index')->name('tipo_compra.index');
 Route::post('/guarda_tipo_compra', 'Catalogo\TipoCompraController@store')->name('tipo_compra.save');
 
-// Productos de orden
+//Productos de orden
 Route::get('/elimina_producto/{id}', 'Producto\ProductoController@destroy')->name('producto.delete');
 Route::post('/guarda_producto/{id}', 'Producto\ProductoController@guardaProducto')->name('producto.save');
 Route::post('/actualiza_producto/', 'Producto\ProductoController@update')->name('producto.update');
 Route::get('/consulta_producto/{id}', 'Producto\ProductoController@consultaProducto')->name('producto.consulta');
 
-// Gastos Origen
+//Gastos Origen
 Route::get('/elimina_gasto_origen/{id}', 'GastosOrigen\GastosOrigenController@destroy')->name('gasto_origen.delete');
 Route::post('/guarda_gasto_origen/{id}', 'GastosOrigen\GastosOrigenController@guardaGastosOrigen')->name('gasto_origen.save');
 Route::post('/actualiza_gasto_origen/', 'GastosOrigen\GastosOrigenController@update')->name('gasto_origen.update');
 Route::get('/gasto_origen_consulta/{id}', 'GastosOrigen\GastosOrigenController@consultaGastoOrigen')->name('gasto_origen.consulta');
 
-// Gastos Destino
+//Gastos Destino
 Route::get('/elimina_gasto_destino/{id}', 'GastosDestino\GastosDestinoController@destroy')->name('gasto_destino.delete');
 Route::post('/guarda_gasto_destino/{id}', 'GastosDestino\GastosDestinoController@guardaGastoDestino')->name('gasto_destino.save');
 Route::post('/actualiza_gasto_destino/', 'GastosDestino\GastosDestinoController@update')->name('gasto_destino.update');
 Route::get('/gasto_destino_consulta/{id}', 'GastosDestino\GastosDestinoController@consultaGastoDestino')->name('gasto_destino.consulta');
 
-// Transito
+//Transito
 Route::get('/elimina_transito/{id}', 'Transito\TransitoController@destroy')->name('transito.delete');
 Route::post('/guarda_transito/{id}', 'Transito\TransitoController@guardaTransito')->name('transito.save');
 Route::post('/actualiza_transito/', 'Transito\TransitoController@update')->name('transito.update');
@@ -52,6 +52,12 @@ Route::get('/elimina_pago/{id}', 'Pago\PagoOrdenController@destroy')->name('pago
 Route::post('/guarda_pago/{id}', 'Pago\PagoOrdenController@guardaPago')->name('pago.save');
 Route::post('/actualiza_pago/', 'Pago\PagoOrdenController@update')->name('pago.update');
 Route::get('/pago_consulta/{id}', 'Pago\PagoOrdenController@consultaPago')->name('pago.consulta');
+
+//Seguimiento
+Route::get('/elimina_seguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@destroy')->name('seguimiento.delete');
+Route::post('/guarda_sguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@guardaSeguimiento')->name('seguimiento.save');
+Route::post('/actualiza_seguimiento/', 'SeguimientoProducto\SeguimientoProductoController@update')->name('seguimiento.update');
+Route::get('/consulta_seguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@consultaSeguimiento')->name('seguimiento.consulta');
 
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

@@ -238,6 +238,10 @@
 <script src="{{asset('dist/js/jquery.validate.min.js')}}"></script>
 <script src="{{asset('dist/js/bootstrap-filestyle.js')}}"></script>
 <script src="{{asset('dist/js/filestyle.js')}}"></script>
+<!-- Zoom Image -->
+<script src="{{asset('dist/js/popImg.js')}}"></script>
+<script>$(function(){ $(".imgZoom").popImg(); })</script>
+
 @yield('javascript')
 </body>
 </html>

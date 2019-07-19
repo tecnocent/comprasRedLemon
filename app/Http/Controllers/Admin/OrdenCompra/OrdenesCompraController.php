@@ -15,6 +15,7 @@ use App\Models\MetodoTransito;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
 use App\Models\Pedimento;
+use App\Models\SeguimientoProducto;
 use App\Models\Transito;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Almacen;
@@ -55,9 +56,10 @@ class OrdenesCompraController extends Controller
     protected $mAduana;
     protected $mAgenteAduanal;
     protected $mMetodoTransito;
+    protected $mSeguimiento;
 
 
-    public function __construct(OrdenCompra $ordenCompra, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
@@ -75,7 +77,7 @@ class OrdenesCompraController extends Controller
         $this->mAduana = $aduana;
         $this->mAgenteAduanal = $agenteAduanal;
         $this->mMetodoTransito = $metodoTransito;
-
+        $this->mSeguimiento = $seguimiento;
     }
 
     /**
@@ -195,24 +197,26 @@ class OrdenesCompraController extends Controller
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
         $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
+        $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
         return view('admin.ordenes.show')->with([
-            'orden' => $orden,
-            'proveedores' => $this->mProveedor->all(),
-            'productosOrden' => $productos,
-            'gastosDestinoOrden' => $gastosDestino,
+            'orden'             => $orden,
+            'proveedores'       => $this->mProveedor->all(),
+            'productosOrden'    => $productos,
+            'gastosDestinoOrden'=> $gastosDestino,
             'gastosOrigenOrden' => $gastosOrigen,
-            'transitosOrden' => $transitos,
-            'pedimentosOrden' => $pedimentos,
-            'pagos' => $pagos,
-            'usuarios' => $this->mUser->all(),
-            'almacenes' => $this->mAlmacen->all(),
-            'productos' => $this->mProducto->all(),
-            'gastosDestino' => $this->mCostoDestino->all(),
-            'tiposCompra' => $tiposCompra,
-            'gastosOrigen' => $this->mCostoOrigen->all(),
-            'aduanas' => $this->mAduana->all(),
-            'agentesAduanales' => $this->mAgenteAduanal->all(),
-            'metodosTransito' => $this->mMetodoTransito->all()
+            'transitosOrden'    => $transitos,
+            'pedimentosOrden'   => $pedimentos,
+            'pagos'             => $pagos,
+            'seguimientos'      => $seguimientos,
+            'usuarios'          => $this->mUser->all(),
+            'almacenes'         => $this->mAlmacen->all(),
+            'productos'         => $this->mProducto->all(),
+            'gastosDestino'     => $this->mCostoDestino->all(),
+            'tiposCompra'       => $tiposCompra,
+            'gastosOrigen'      => $this->mCostoOrigen->all(),
+            'aduanas'           => $this->mAduana->all(),
+            'agentesAduanales'  => $this->mAgenteAduanal->all(),
+            'metodosTransito'   => $this->mMetodoTransito->all()
         ]);
     }
 
@@ -240,7 +244,6 @@ class OrdenesCompraController extends Controller
             $orden = $this->mOrdenCompra->find($id);
             $orden->update([
                 'status'            => $oRequest->estatus,
-                'identificador'     => $oRequest->id_orden,
                 'encargdo_interno'  => $oRequest->encargado,
                 'descripcion'       => $oRequest->descripcion,
                 'fecha_inicio'      => $oRequest->fecha_inicio,
@@ -323,13 +326,13 @@ class OrdenesCompraController extends Controller
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
-            'orden' => $orden,
-            'productos' => $productos,
+            'orden'         => $orden,
+            'productos'     => $productos,
             'gastosDestino' => $gastosDestino,
-            'gastosOrigen' => $gastosOrigen,
-            'transitos' => $transitos,
-            'pedimentos' => $pedimentos,
-            'pagos' => $pagos
+            'gastosOrigen'  => $gastosOrigen,
+            'transitos'     => $transitos,
+            'pedimentos'    => $pedimentos,
+            'pagos'         => $pagos
         ]);
     }
 

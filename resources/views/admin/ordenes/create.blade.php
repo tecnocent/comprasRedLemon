@@ -177,6 +177,9 @@
                                             <li>
                                                 <a href="#5b" data-toggle="tab">Pago</a>
                                             </li>
+                                            <li>
+                                                <a href="#8b" data-toggle="tab">Seguimiento Producto</a>
+                                            </li>
                                         </ul>
 
                                         <div class="tab-content clearfix">
@@ -329,6 +332,30 @@
                                                                     <th>Aduana</th>
                                                                     <th>Agente Aduanal</th>
                                                                     <th>Tipo de Cambio Pedimento</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="8b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#seguimiento-producto-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar seguimiento</button>
+                                                <div class="row" id="table2">
+                                                    <div class="panel panel-default monto-default" id="aaa">
+                                                        <div class="panel-body">
+                                                            <table id="" class="table table-striped table-bordered productos" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>SKU</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Cantidad</th>
+                                                                    <th>Costo</th>
+                                                                    <th>Total</th>
+                                                                    <th>Incoterm</th>
+                                                                    <th>Lead Time</th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>
