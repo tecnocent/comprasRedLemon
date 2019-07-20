@@ -14,6 +14,7 @@ class TransitoController extends Controller
 
     public function __construct(Transito $transito)
     {
+        $this->middleware('auth');
         $this->mTransito = $transito;
     }
 

@@ -14,6 +14,7 @@ class PagoOrdenController extends Controller
 
     public function __construct(PagoMontoOrdenCompra $pago)
     {
+        $this->middleware('auth');
         $this->mPago = $pago;
     }
 

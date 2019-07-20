@@ -1,3 +1,59 @@
+// Muestra imagen seleccionada
+$("#input-preproduccion-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-preproduccion-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-produccion-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-produccion-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_uno-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_uno-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_dos-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_dos-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_tres-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_tres-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-empaquetado-crea").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-empaquetado-seleccionada-crea').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+
 // Solo numeros
 function soloNumeros(e){
     var key = window.Event ? e.which : e.keyCode
@@ -181,6 +237,20 @@ $(document).ready(function() {
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
+                var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">' +
+                    '<img class="imgZoom" id="foto-preproduccion-seleccionada-crea['+ cont +']" width="70" height="70">',
+                    id_producto_seg = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
+                    produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">' +
+                        '<img class="imgZoom" id="foto-produccion-seleccionada-crea['+ cont +']" width="70" height="70">',
+                    oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">' +
+                        '<img class="imgZoom" id="foto-oem_uno-seleccionada-crea['+ cont +']" width="70" height="70">',
+                    oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">' +
+                        '<img class="imgZoom" id="foto-oem_dos-seleccionada-crea['+ cont +']" width="70" height="70">',
+                    oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">' +
+                        '<img class="imgZoom" id="foto-oem_tres-seleccionada-crea['+ cont +']" width="70" height="70">',
+                    empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">' +
+                        '<img class="imgZoom" id="foto-empaquetado-seleccionada-crea['+ cont +']" width="70" height="70">';
+
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
                 '<td>' + nombre_producto +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
@@ -204,8 +274,21 @@ $(document).ready(function() {
                 '<td>' + fechaRequerida + '</td>' +
                 '</tr>'; //esto seria lo que contendria la fila
 
+            var filaSeg = '<tr id="rowSeg' + f + '">' +
+                '<td>' + skuDis +' '+ $("select[name='nombre_productoM'] option:selected").val() +'</td>' +
+                '<td>' + nombre_productoDis +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
+                '<td>' + preproduccion + '</td>' +
+                '<td>' + produccion + '</td>' +
+                '<td>' + oemUno + '</td>' +
+                '<td>' + oemDos + '</td>' +
+                '<td>' + oemTres + '</td>' +
+                '<td>' + empaquetado + ''+id_producto_seg+'</td>' +
+                '</tr>';
+
+
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
+            $('.seguimiento tr:first').after(filaSeg);
 
 
 

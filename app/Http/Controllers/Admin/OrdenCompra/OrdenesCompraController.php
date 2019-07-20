@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
 use App\Http\Controllers\Admin\Pago\PagoOrdenController;
 use App\Http\Controllers\Admin\Pedimento\PedimentoController;
 use App\Http\Controllers\Admin\Producto\ProductoController;
+use App\Http\Controllers\Admin\SeguimientoProducto\SeguimientoProductoController;
 use App\Http\Controllers\Admin\Transito\TransitoController;
 use App\Http\Requests\OrdenCompraRequest;
 use App\Models\Aduana;
@@ -61,6 +62,7 @@ class OrdenesCompraController extends Controller
 
     public function __construct(OrdenCompra $ordenCompra, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
+        $this->middleware('auth');
         $this->mProveedor = $proveedor;
         $this->mUser = $usuario;
         $this->mAlmacen = $almacen;
@@ -119,6 +121,7 @@ class OrdenesCompraController extends Controller
     public function store(OrdenCompraRequest $oRequest)
     {
         try {
+
             // Orden de compra
             $ordenCompra = $this->mOrdenCompra->create([
                 'status'            => $oRequest->status,
@@ -166,6 +169,12 @@ class OrdenesCompraController extends Controller
             if ($oRequest->has('pago')) {
                 $pago = new PagoOrdenController($this->mPagoMontoPagoOrden);
                 $pago->store($oRequest, $ordenCompra);
+            }
+
+            //Seguimiento producto
+            if ($oRequest->has('seguimiento')) {
+                $seguimiento = new SeguimientoProductoController($this->mSeguimiento);
+                $seguimiento->store($oRequest, 2);
             }
 
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);

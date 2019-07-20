@@ -342,20 +342,21 @@
                                             </div>
                                             <div class="tab-pane" id="8b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#seguimiento-producto-modal" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar seguimiento</button>
+
                                                 <div class="row" id="table2">
-                                                    <div class="panel panel-default monto-default" id="aaa">
+                                                    <div class="panel panel-default monto-default">
                                                         <div class="panel-body">
-                                                            <table id="" class="table table-striped table-bordered productos" cellspacing="0" width="100%">
+                                                            <table id="seguimiento" class="table table-striped table-bordered seguimiento" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>SKU</th>
+                                                                    <th>Sku</th>
                                                                     <th>Producto</th>
-                                                                    <th>Cantidad</th>
-                                                                    <th>Costo</th>
-                                                                    <th>Total</th>
-                                                                    <th>Incoterm</th>
-                                                                    <th>Lead Time</th>
+                                                                    <th>Preproducción</th>
+                                                                    <th>Producción</th>
+                                                                    <th>OEM 1</th>
+                                                                    <th>OEM 2</th>
+                                                                    <th>OEM 3</th>
+                                                                    <th>Empaquetado</th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>

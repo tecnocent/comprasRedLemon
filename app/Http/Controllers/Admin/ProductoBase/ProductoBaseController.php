@@ -13,6 +13,7 @@ class ProductoBaseController extends Controller
 
     public function __construct(Producto $producto)
     {
+        $this->middleware('auth');
         $this->mProductoBase = $producto;
     }
 

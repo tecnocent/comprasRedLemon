@@ -612,3 +612,135 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
+<!--Modal Seguimiento-->
+<div class="modal right1 fade" id="modal-actualiza-seguimiento" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('seguimiento.update') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo Seguimiento</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Producto de orden</label>
+                                        <select class="form-control" id="producto_seguimiento_id" name="producto_seguimiento_id" required disabled>
+                                            <option value="">Selecciona</option>
+                                            @foreach($productosOrden as $producto)
+                                                <option value="{{ $producto->id }}">{{ $producto->producto->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto preproducción</label>
+                                        <input type="file" id="input-preproduccion" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="preproduccion_seguimiento">
+                                        <input type="hidden" id="seguimiento_id" class="form-cotrol" name="seguimiento_id">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-preproduccion-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-preproduccion" width="70" height="70">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto producción</label>
+                                        <input type="file" id="input-produccion" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="produccion_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-produccion-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-produccion" width="70" height="70">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto OEM 1</label>
+                                        <input type="file" id="input-oem_uno" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_uno_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-oem_uno-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-oem_uno" width="70" height="70">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto OEM 2</label>
+                                        <input type="file" id="input-oem_dos" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_dos_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-oem_dos-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-oem_dos" width="70" height="70">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto OEM 3</label>
+                                        <input type="file" id="input-oem_tres" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_tres_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-oem_tres-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-oem_tres" width="70" height="70">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group col-md-8">
+                                        <label>Foto empaquetado</label>
+                                        <input type="file" id="input-empaquetado" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="empaquetado_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nueva</label>
+                                        <img class="imgZoom" id="foto-empaquetado-seleccionada" width="70" height="70">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Registrada</label>
+                                        <img class="imgZoom" id="foto-empaquetado" width="70" height="70">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guarda</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->

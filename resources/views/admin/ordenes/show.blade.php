@@ -831,7 +831,85 @@
                 }
             });
         });
-        
+
+        // Actualiza seguimiento
+        $('.actualizaSeguimiento').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "{{ url('/admin/consulta_seguimiento') }}/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#producto_seguimiento_id").val(data.producto_orden_id);
+                    $("#seguimiento_id").val(data.id);
+                    $("#foto-preproduccion").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_preproduccion);
+                    $("#input-preproduccion").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-preproduccion-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                    $("#foto-produccion").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_produccion);
+                    $("#input-produccion").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-produccion-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                    $("#foto-oem_uno").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_oem_uno);
+                    $("#input-oem_uno").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-oem_uno-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                    $("#foto-oem_dos").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_oem_dos);
+                    $("#input-oem_dos").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-oem_dos-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                    $("#foto-oem_tres").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_oem_tres);
+                    $("#input-oem_tres").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-oem_tres-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                    $("#foto-empaquetado").attr("src","{{asset('documents/orden_compra/images/')}}/"+ data.foto_empaquetado);
+                    $("#input-empaquetado").change(function() {
+                        if (this.files && this.files[0]) {
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                $('#foto-empaquetado-seleccionada').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(this.files[0]);
+                        }
+                    });
+                },
+                error: function(data) {
+                    alert('error');
+                }
+            });
+        });
+
         // Guardado nuevo producto en actualiza
         $(document).ready(function(){
             $("#nuevo-producto-actualiza-form").validate({

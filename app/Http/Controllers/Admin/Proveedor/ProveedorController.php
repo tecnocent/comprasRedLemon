@@ -16,6 +16,7 @@ class ProveedorController extends Controller
      */
     public function __construct(Proveedor $proveedor)
     {
+        $this->middleware('auth');
         $this->mProveedor = $proveedor;
     }
 

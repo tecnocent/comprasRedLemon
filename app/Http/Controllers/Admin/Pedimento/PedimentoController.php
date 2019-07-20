@@ -16,6 +16,7 @@ class PedimentoController extends Controller
 
     public function __construct(Pedimento $pedimento)
     {
+        $this->middleware('auth');
         $this->mPedimento = $pedimento;
     }
 

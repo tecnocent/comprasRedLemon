@@ -17,6 +17,7 @@ class TipoCompraController extends Controller
     public function __construct(TipoCompra $tipoCompra)
     {
         $this->mTipoCompa = $tipoCompra;
+        $this->middleware('auth');
     }
 
     /**

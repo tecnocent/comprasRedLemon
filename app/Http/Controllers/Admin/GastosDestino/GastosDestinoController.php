@@ -14,6 +14,7 @@ class GastosDestinoController extends Controller
 
     public function __construct(GastosDestinoOrdenCompra $gastosDestino)
     {
+        $this->middleware('auth');
         $this->mGastosDestino = $gastosDestino;
     }
 
