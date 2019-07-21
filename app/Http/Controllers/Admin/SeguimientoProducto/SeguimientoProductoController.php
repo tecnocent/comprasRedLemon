@@ -78,7 +78,7 @@ class SeguimientoProductoController extends Controller
                         'foto_oem_tres'      => $oemTres,
                         'foto_empaquetado'   => $empaquetado,
                         'orden_compra_id'    => $orden,
-                        'producto_orden_id'  => $oRequest->producto_seguimiento_id
+                        'producto_id'  => $seguimientoProducto['producto_id']
                     ]);
                 }
             }
@@ -233,7 +233,7 @@ class SeguimientoProductoController extends Controller
                 'foto_oem_tres'      => $oemTres,
                 'foto_empaquetado'   => $empaquetado,
                 'orden_compra_id'    => $orden,
-                'producto_orden_id'  => $oRequest->producto_seguimiento_id
+                'producto_id'  => $oRequest->producto_seguimiento_id
             ]);
 
             // Alerta

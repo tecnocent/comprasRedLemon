@@ -635,7 +635,7 @@
                                         <select class="form-control" id="producto_seguimiento_id" name="producto_seguimiento_id" required disabled>
                                             <option value="">Selecciona</option>
                                             @foreach($productosOrden as $producto)
-                                                <option value="{{ $producto->id }}">{{ $producto->producto->name }}</option>
+                                                <option value="{{ $producto->producto->id }}" {{ ( $producto->producto_id == $producto->producto->id) ? 'selected' : '' }}>{{ $producto->producto->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

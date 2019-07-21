@@ -437,8 +437,8 @@
                                                                 </thead>
                                                                 @foreach($seguimientos as $seguimiento)
                                                                     <tr>
-                                                                        <td>{{ $seguimiento->productoOrden->producto->sku }}</td>
-                                                                        <td>{{ $seguimiento->productoOrden->producto->name }}</td>
+                                                                        <td>{{ $seguimiento->productoOrden->sku }}</td>
+                                                                        <td>{{ $seguimiento->productoOrden->name }}</td>
                                                                         @if($seguimiento->foto_preproduccion)
                                                                             <td>
                                                                                 <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_preproduccion}}" alt="produccion" height="70" width="70">

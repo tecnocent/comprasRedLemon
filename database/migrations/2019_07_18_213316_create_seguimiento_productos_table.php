@@ -16,7 +16,7 @@ class CreateSeguimientoProductosTable extends Migration
         Schema::create('seguimiento_productos', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('orden_compra_id')->nullable();
-            $table->unsignedInteger('producto_orden_id')->nullable();
+            $table->integer('producto_id')->nullable();
             $table->string('foto_preproduccion')->nullable();
             $table->string('foto_produccion')->nullable();
             $table->string('foto_oem_uno')->nullable();
@@ -24,7 +24,6 @@ class CreateSeguimientoProductosTable extends Migration
             $table->string('foto_oem_tres')->nullable();
             $table->string('foto_empaquetado')->nullable();
             $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
-            $table->foreign('producto_orden_id')->references('id')->on('productos_orden_compra')->onDelete('cascade');
             $table->timestamps();
         });
     }

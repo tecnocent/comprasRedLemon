@@ -27,7 +27,7 @@ class SeguimientoProducto extends Model
         'foto_empaquetado',
         // Llaves foraneas
         'orden_compra_id',
-        'producto_orden_id',
+        'producto_id',
     ];
 
     /**
@@ -42,11 +42,11 @@ class SeguimientoProducto extends Model
      */
 
     /**
-     * Producto de orden (producto_orden_id).
+     * Producto de orden (producto_id).
      */
     public function productoOrden()
     {
-        return $this->belongsTo('App\Models\ProductoOrdenCompra', 'producto_orden_id');
+        return $this->belongsTo('App\Models\Producto', 'producto_id');
     }
 
     /**
