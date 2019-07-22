@@ -566,7 +566,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-6 line">
+                                <div class="col-md-12 line">
                                     <div class="form-group">
                                         <label>Producto de orden</label>
                                         <select class="form-control" name="producto_seguimiento_id" required>
@@ -578,39 +578,63 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto preproducción</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="preproduccion_seguimiento">
+                                        <input type="file" class="filestyle" id="input-preproduccion-seleccionada-guarda" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="preproduccion_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-preproduccion-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto producción</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="produccion_seguimiento">
+                                        <input type="file" class="filestyle" id="input-produccion-seleccionada-guarda" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="produccion_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-produccion-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto OEM 1</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_uno_seguimiento">
+                                        <input type="file" class="filestyle" id="input-oem_uno_seguimiento-seleccionada-guarda" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_uno_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-oem_uno_seguimiento-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto OEM 2</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_dos_seguimiento">
+                                        <input type="file" class="filestyle" id="input-oem_dos_seguimiento-seleccionada-guarda" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_dos_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-oem_dos_seguimiento-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto OEM 3</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_tres_seguimiento">
+                                        <input type="file" class="filestyle" id="input-oem_tres_seguimiento-seleccionada-guarda" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_tres_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-oem_tres_seguimiento-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">
-                                    <div class="form-group">
+                                    <div class="form-group col-md-10">
                                         <label>Foto empaquetado</label>
-                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="empaquetado_seguimiento">
+                                        <input type="file" class="filestyle" data-badge="true" id="input-empaquetado_seguimiento-seleccionada-guarda" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="empaquetado_seguimiento">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Seleccionada</label>
+                                        <img class="imgZoom" id="foto-empaquetado_seguimiento-seleccionada-guarda" width="70" height="70">
                                     </div>
                                 </div>
                                 <!-- /.col -->

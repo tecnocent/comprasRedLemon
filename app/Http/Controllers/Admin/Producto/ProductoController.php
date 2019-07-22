@@ -73,7 +73,7 @@ class ProductoController extends Controller
                     'tipo' => $aProductos['tipo'],
                     'fecha_requerida' => $aProductos['fechaRequerida'],
                     'orden_compra_id' => $orden->id,
-                    'producto_id' => $aProductos['product_id']
+                    'producto_id' => $aProductos['producto_id']
                 ]);
             }
 

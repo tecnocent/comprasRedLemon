@@ -357,7 +357,6 @@
                                                                     <th>OEM 2</th>
                                                                     <th>OEM 3</th>
                                                                     <th>Empaquetado</th>
-                                                                    <th></th>
                                                                 </tr>
                                                                 </thead>
                                                             </table>

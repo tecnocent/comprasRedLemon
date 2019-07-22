@@ -237,19 +237,13 @@ $(document).ready(function() {
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
 
-                var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">' +
-                    '<img class="imgZoom" id="foto-preproduccion-seleccionada-crea['+ cont +']" width="70" height="70">',
+                var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">',
                     id_producto_seg = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
-                    produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">' +
-                        '<img class="imgZoom" id="foto-produccion-seleccionada-crea['+ cont +']" width="70" height="70">',
-                    oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">' +
-                        '<img class="imgZoom" id="foto-oem_uno-seleccionada-crea['+ cont +']" width="70" height="70">',
-                    oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">' +
-                        '<img class="imgZoom" id="foto-oem_dos-seleccionada-crea['+ cont +']" width="70" height="70">',
-                    oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">' +
-                        '<img class="imgZoom" id="foto-oem_tres-seleccionada-crea['+ cont +']" width="70" height="70">',
-                    empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">' +
-                        '<img class="imgZoom" id="foto-empaquetado-seleccionada-crea['+ cont +']" width="70" height="70">';
+                    produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">',
+                    oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">',
+                    oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">',
+                    oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">',
+                    empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -285,6 +279,15 @@ $(document).ready(function() {
                 '<td>' + empaquetado + ''+id_producto_seg+'</td>' +
                 '</tr>';
 
+            $('#input-preproduccion-crea['+cont+']').change(function() {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#foto-preproduccion-seleccionada-crea['+cont+']').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
 
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
@@ -317,6 +320,7 @@ $(document).ready(function() {
                 //cuando da click obtenemos el id del boton
                 $('#row' + button_id).remove(); //borra la fila
                 $('#rowD' + button_id).remove(); //borra la fila
+                $('#rowSeg' + button_id).remove(); //borra la fila
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
                 var nFilas = $(".productos tr").length;

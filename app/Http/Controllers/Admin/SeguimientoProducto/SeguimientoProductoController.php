@@ -61,7 +61,7 @@ class SeguimientoProductoController extends Controller
                     $fotoOEMuno = ($seguimientoProducto['oem_uno_seguimiento']) ? $seguimientoProducto['oem_uno_seguimiento'] : null;
                     $fotoOEMdos = ($seguimientoProducto['oem_dos_seguimiento']) ? $seguimientoProducto['oem_dos_seguimiento'] : null;
                     $fotoOEMtres = ($seguimientoProducto['oem_tres_seguimiento']) ? $seguimientoProducto['oem_tres_seguimiento'] : null;
-                    $fotoEmpaquetado = ($seguimientoProducto['empaquetado_seguimiento']) ? $seguimientoProducto['oem_tres_seguimiento'] : null;
+                    $fotoEmpaquetado = ($seguimientoProducto['empaquetado_seguimiento']) ? $seguimientoProducto['empaquetado_seguimiento'] : null;
 
                     $preproduccion = $this->guardaImagen($fotoPreproduccion);
                     $produccion = $this->guardaImagen($fotoProduccion);
@@ -77,7 +77,7 @@ class SeguimientoProductoController extends Controller
                         'foto_oem_dos'       => $oemDos,
                         'foto_oem_tres'      => $oemTres,
                         'foto_empaquetado'   => $empaquetado,
-                        'orden_compra_id'    => $orden,
+                        'orden_compra_id'    => $orden->id,
                         'producto_id'  => $seguimientoProducto['producto_id']
                     ]);
                 }

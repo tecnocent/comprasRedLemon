@@ -281,7 +281,83 @@
                     </div>
                 </div>
             </div>
-    @endif
+        @endif
+        <!-- Seguimiento producto -->
+        @if(count($seguimientos) > 0)
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="">Seguimiento a productos</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row" id="table2">
+                        <div class="panel-body">
+                            <table id="seguimiento" class="table table-striped table-bordered seguimiento" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sku</th>
+                                    <th>Producto</th>
+                                    <th>Preproducción</th>
+                                    <th>Producción</th>
+                                    <th>OEM 1</th>
+                                    <th>OEM 2</th>
+                                    <th>OEM 3</th>
+                                    <th>Empaquetado</th>
+                                </tr>
+                                </thead>
+                                @foreach($seguimientos as $seguimiento)
+                                    <tr>
+                                        <td>{{ $seguimiento->productoOrden->sku }}</td>
+                                        <td>{{ $seguimiento->productoOrden->name }}</td>
+                                        @if($seguimiento->foto_preproduccion)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_preproduccion}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                        @if($seguimiento->foto_produccion)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_produccion}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                        @if($seguimiento->foto_oem_uno)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_oem_uno}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                        @if($seguimiento->foto_oem_dos)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_oem_dos}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                        @if($seguimiento->foto_oem_tres)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_oem_tres}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                        @if($seguimiento->foto_empaquetado)
+                                            <td>
+                                                <img class="imgZoom" src="{{asset('documents/orden_compra/images/')}}/{{$seguimiento->foto_empaquetado}}" alt="produccion" height="70" width="70">
+                                            </td>
+                                        @else
+                                            <td>No hay foto</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <!-- Aceptar -->
         <div class="panel panel-info">
             <div class="panel-body">

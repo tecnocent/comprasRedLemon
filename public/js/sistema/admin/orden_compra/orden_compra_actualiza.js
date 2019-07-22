@@ -1,3 +1,58 @@
+// Muestra imagen seleccionada
+$("#input-preproduccion-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-preproduccion-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_uno_seguimiento-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_uno_seguimiento-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_dos_seguimiento-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_dos_seguimiento-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-oem_tres_seguimiento-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-oem_tres_seguimiento-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-produccion-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-produccion-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
+$("#input-empaquetado_seguimiento-seleccionada-guarda").change(function() {
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#foto-empaquetado_seguimiento-seleccionada-guarda').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+    }
+});
 // Solo numeros
 function soloNumeros(e){
     var key = window.Event ? e.which : e.keyCode

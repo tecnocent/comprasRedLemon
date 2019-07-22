@@ -174,7 +174,7 @@ class OrdenesCompraController extends Controller
             //Seguimiento producto
             if ($oRequest->has('seguimiento')) {
                 $seguimiento = new SeguimientoProductoController($this->mSeguimiento);
-                $seguimiento->store($oRequest, 2);
+                $seguimiento->store($oRequest, $ordenCompra);
             }
 
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);
@@ -333,6 +333,7 @@ class OrdenesCompraController extends Controller
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
         $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
+        $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
             'orden'         => $orden,
@@ -341,7 +342,8 @@ class OrdenesCompraController extends Controller
             'gastosOrigen'  => $gastosOrigen,
             'transitos'     => $transitos,
             'pedimentos'    => $pedimentos,
-            'pagos'         => $pagos
+            'pagos'         => $pagos,
+            'seguimientos'  => $seguimientos
         ]);
     }
 
