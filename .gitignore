@@ -13,3 +13,5 @@ npm-debug.log
 yarn-error.log
 .env
 ../.idea/
+.idea/comprasRedLemon.iml
+.idea/workspace.xml

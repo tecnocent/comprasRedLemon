@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\OrdenCompra;
 
+use App\Http\Controllers\Admin\CaracteristicaProducto\CaracteristicaProductoController;
 use App\Http\Controllers\Admin\GastosDestino\GastosDestinoController;
 use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
 use App\Http\Controllers\Admin\Pago\PagoOrdenController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\Transito\TransitoController;
 use App\Http\Requests\OrdenCompraRequest;
 use App\Models\Aduana;
 use App\Models\AgenteAduanal;
+use App\Models\CaracteristicaProducto;
 use App\Models\MetodoTransito;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
@@ -58,9 +60,10 @@ class OrdenesCompraController extends Controller
     protected $mAgenteAduanal;
     protected $mMetodoTransito;
     protected $mSeguimiento;
+    protected $mCaracteristica;
 
 
-    public function __construct(OrdenCompra $ordenCompra, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, CaracteristicaProducto $caracteristica, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->middleware('auth');
         $this->mProveedor = $proveedor;
@@ -80,6 +83,7 @@ class OrdenesCompraController extends Controller
         $this->mAgenteAduanal = $agenteAduanal;
         $this->mMetodoTransito = $metodoTransito;
         $this->mSeguimiento = $seguimiento;
+        $this->mCaracteristica = $caracteristica;
     }
 
     /**
@@ -175,6 +179,12 @@ class OrdenesCompraController extends Controller
             if ($oRequest->has('seguimiento')) {
                 $seguimiento = new SeguimientoProductoController($this->mSeguimiento);
                 $seguimiento->store($oRequest, $ordenCompra);
+            }
+
+            //Caracteristica producto
+            if ($oRequest->has('caracteristicas')) {
+                $caracteristicaProducto = new CaracteristicaProductoController($this->mCaracteristica);
+                $caracteristicaProducto->store($oRequest, $ordenCompra);
             }
 
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);

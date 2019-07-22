@@ -53,11 +53,17 @@ Route::post('/guarda_pago/{id}', 'Pago\PagoOrdenController@guardaPago')->name('p
 Route::post('/actualiza_pago/', 'Pago\PagoOrdenController@update')->name('pago.update');
 Route::get('/pago_consulta/{id}', 'Pago\PagoOrdenController@consultaPago')->name('pago.consulta');
 
-//Seguimiento
+//Seguimiento producto
 Route::get('/elimina_seguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@destroy')->name('seguimiento.delete');
 Route::post('/guarda_sguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@guardaSeguimiento')->name('seguimiento.save');
 Route::post('/actualiza_seguimiento/', 'SeguimientoProducto\SeguimientoProductoController@update')->name('seguimiento.update');
 Route::get('/consulta_seguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@consultaSeguimiento')->name('seguimiento.consulta');
+
+//Caracteristicas producto
+Route::get('/elimina_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@destroy')->name('caracteristica.delete');
+Route::post('/guarda_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@guardaCaracteristica')->name('caracteristica.save');
+Route::post('/actualiza_caracteristica/', 'CaracteristicaProducto\CaracteristicaProductooController@update')->name('caracteristica.update');
+Route::get('/consulta_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@consultaSeguimiento')->name('caracteristica.consulta');
 
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');
