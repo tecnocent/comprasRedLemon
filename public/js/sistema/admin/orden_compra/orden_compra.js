@@ -471,8 +471,6 @@ $(document).ready(function() {
 
             $('.seguimiento tr:first').after(fila);
 
-
-
             preproduccion.attr('name', 'seguimiento['+ countSeguimiento +'][preproduccion_seguimiento]');
             preproduccion.attr('id', 'preproduccion['+ countSeguimiento +']');
             var namePreroduccion = $('#foto-preproduccion-seleccionada-crea').clone();
@@ -497,7 +495,7 @@ $(document).ready(function() {
             $('#oem-uno-file').after(oemUno);
             $('#input-oem_uno-crea').removeClass('filestyle');
 
-            oemDos.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            oemDos.attr('name', 'seguimiento['+ countSeguimiento +'][oem_dos_seguimiento]');
             oemDos.attr('id', 'oemDos['+ countSeguimiento +']');
             var nameoemDos = $('#foto-oem_dos-seleccionada-crea').clone();
             $('#oem-dos-file').after(nameoemDos);
@@ -505,7 +503,7 @@ $(document).ready(function() {
             $('#oem-dos-file').after(oemDos);
             $('#input-oem_dos-crea').removeClass('filestyle');
 
-            oemTres.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            oemTres.attr('name', 'seguimiento['+ countSeguimiento +'][oem_tres_seguimiento]');
             oemTres.attr('id', 'oemTres['+ countSeguimiento +']');
             var nameoemTres = $('#foto-oem_tres-seleccionada-crea').clone();
             $('#oem-tres-file').after(nameoemTres);
@@ -513,7 +511,7 @@ $(document).ready(function() {
             $('#oem-tres-file').after(oemTres);
             $('#input-oem_tres-crea').removeClass('filestyle');
 
-            empaquetado.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            empaquetado.attr('name', 'seguimiento['+ countSeguimiento +'][empaquetado_seguimiento]');
             empaquetado.attr('id', 'empaquetado['+ countSeguimiento +']');
             var nameempaquetado = $('#foto-empaquetado-seleccionada-crea').clone();
             $('#empaquetado-file').after(nameempaquetado);
