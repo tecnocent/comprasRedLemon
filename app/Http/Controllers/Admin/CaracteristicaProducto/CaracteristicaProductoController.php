@@ -165,7 +165,7 @@ class CaracteristicaProductoController extends Controller
             ]);
             // Alerta
             $notification = array(
-                'message' => 'Pedimento agregado correctamente.',
+                'message' => 'Caracteristica agregada correctamente.',
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notification);
@@ -189,5 +189,4 @@ class CaracteristicaProductoController extends Controller
         $caracteristica = $this->mCaracteristica->find($id);
         return response()->json($caracteristica);
     }
-
 }

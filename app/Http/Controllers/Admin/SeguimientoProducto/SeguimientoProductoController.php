@@ -56,12 +56,12 @@ class SeguimientoProductoController extends Controller
                     $seguimientoProducto['oem_tres_seguimiento'] ||
                     $seguimientoProducto['empaquetado_seguimiento']) {
 
-                    $fotoPreproduccion = ($seguimientoProducto['preproduccion_seguimiento']) ? $seguimientoProducto['preproduccion_seguimiento'] : null;
-                    $fotoProduccion = ($seguimientoProducto['produccion_seguimiento']) ? $seguimientoProducto['produccion_seguimiento'] : null;
-                    $fotoOEMuno = ($seguimientoProducto['oem_uno_seguimiento']) ? $seguimientoProducto['oem_uno_seguimiento'] : null;
-                    $fotoOEMdos = ($seguimientoProducto['oem_dos_seguimiento']) ? $seguimientoProducto['oem_dos_seguimiento'] : null;
-                    $fotoOEMtres = ($seguimientoProducto['oem_tres_seguimiento']) ? $seguimientoProducto['oem_tres_seguimiento'] : null;
-                    $fotoEmpaquetado = ($seguimientoProducto['empaquetado_seguimiento']) ? $seguimientoProducto['empaquetado_seguimiento'] : null;
+                    $fotoPreproduccion = (array_has($seguimientoProducto, 'preproduccion_seguimiento')) ? $seguimientoProducto['preproduccion_seguimiento'] : null;
+                    $fotoProduccion = (array_has($seguimientoProducto, 'produccion_seguimiento')) ? $seguimientoProducto['produccion_seguimiento'] : null;
+                    $fotoOEMuno = (array_has($seguimientoProducto, 'oem_uno_seguimiento')) ? $seguimientoProducto['oem_uno_seguimiento'] : null;
+                    $fotoOEMdos = (array_has($seguimientoProducto,'oem_dos_seguimiento')) ? $seguimientoProducto['oem_dos_seguimiento'] : null;
+                    $fotoOEMtres = (array_has($seguimientoProducto,'oem_tres_seguimiento')) ? $seguimientoProducto['oem_tres_seguimiento'] : null;
+                    $fotoEmpaquetado = (array_has($seguimientoProducto,'empaquetado_seguimiento')) ? $seguimientoProducto['empaquetado_seguimiento'] : null;
 
                     $preproduccion = $this->guardaImagen($fotoPreproduccion);
                     $produccion = $this->guardaImagen($fotoProduccion);

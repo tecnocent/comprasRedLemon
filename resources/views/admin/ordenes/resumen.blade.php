@@ -385,8 +385,20 @@
                                         <td>{{ $caracteristica->producto->name }}</td>
                                         <td>{{ $caracteristica->especificaciones_producto }}</td>
                                         <td>{{ $caracteristica->especificaciones_electricas }}</td>
-                                        <td>{{ $caracteristica->link_amazon }}</td>
-                                        <td>{{ $caracteristica->link_alibaba }}</td>
+                                        <td>
+                                            @if ($caracteristica->link_amazon)
+                                                <a href="{{ $caracteristica->link_amazon }}" class="btn btn-link" target="_blank">Link Amazon</a>
+                                            @else
+                                                No hay link
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($caracteristica->link_alibaba)
+                                                <a href="{{ $caracteristica->link_alibaba }}" class="btn btn-link" target="_blank">Link Alibaba</a>
+                                            @else
+                                                No hay link
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </table>
