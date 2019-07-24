@@ -563,7 +563,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <!-- Formulario -->
-            <form  method="POST" enctype="multipart/form-data">
+            <form id="seguimiento-form"  method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -574,7 +574,14 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Producto de orden</label>
+                                        <select class="form-control" id="producto_seguimiento_id" name="producto_seguimiento_id">
+                                            <option value="" id="option_producto_seguimiento_id">Selecciona</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-6 line">
                                     <div class="form-group col-md-8">
                                         <label>Foto preproducción</label>

@@ -189,7 +189,6 @@ $('#productosSelect').on('select2:select', function (evt) {
 });
 
 
-
 // Llenado de tabla productos
 $(document).ready(function() {
     var cont = 0;
@@ -230,15 +229,8 @@ $(document).ready(function() {
                 archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-dragdrop="true" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>',
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>',
-                optionProducto = '<option id="opcionP'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
-
-            var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">',
-                id_producto_seg = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
-                produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">',
-                oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">',
-                oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">',
-                oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">',
-                empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">';
+                optionProducto = '<option id="opcionP'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
+                optionProductoSeg = '<option id="opcionS'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -263,32 +255,13 @@ $(document).ready(function() {
                 '<td>' + fechaRequerida + '</td>' +
                 '</tr>'; //esto seria lo que contendria la fila
 
-            var filaSeg = '<tr id="rowSeg' + f + '">' +
-                '<td>' + skuDis +' '+ $("select[name='nombre_productoM'] option:selected").val() +'</td>' +
-                '<td>' + nombre_productoDis +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
-                '<td>' + preproduccion + '</td>' +
-                '<td>' + produccion + '</td>' +
-                '<td>' + oemUno + '</td>' +
-                '<td>' + oemDos + '</td>' +
-                '<td>' + oemTres + '</td>' +
-                '<td>' + empaquetado + ''+id_producto_seg+'</td>' +
-                '</tr>';
 
-            $('#input-preproduccion-crea['+cont+']').change(function() {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#foto-preproduccion-seleccionada-crea['+cont+']').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(this.files[0]);
-                }
-            });
 
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
-            $('.seguimiento tr:first').after(filaSeg);
             //Select producto en caracteristica de producto modal
             $('#option_producto_caracteristica').after(optionProducto);
+            $('#option_producto_seguimiento_id').after(optionProductoSeg);
 
             $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
             var nFilas = $(".productos tr").length;
@@ -315,8 +288,8 @@ $(document).ready(function() {
                 //cuando da click obtenemos el id del boton
                 $('#row' + button_id).remove(); //borra la fila
                 $('#rowD' + button_id).remove(); //borra la fila
-                $('#rowSeg' + button_id).remove(); //borra la fila
                 $('#opcionP'+ button_id).remove(); // borra option en modal caracteristica
+                $('#opcionS'+ button_id).remove(); // borra option en modal seguimiento
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
                 var nFilas = $(".productos tr").length;
@@ -448,7 +421,118 @@ $(document).ready(function() {
 });
 
 
+// Llenado de seguimiento producto
+$(document).ready(function() {
+    var countSeguimiento = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#seguimiento-form').validate({
+        event: "blur",rules: {
+            'producto_seguimiento_id' : "required"
+        },
+        messages: {
+            'producto_seguimiento_id' : "El producto es requerido"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var imagenPreproduccion = $('#input-preproduccion-crea'),
+                preproduccion = imagenPreproduccion.clone();
+            var imagenProduccion = $('#input-produccion-crea'),
+                produccion = imagenProduccion.clone();
+            var imagenOemUno = $('#input-oem_uno-crea'),
+                oemUno = imagenOemUno.clone();
+            var imagenOemDos = $('#input-oem_dos-crea'),
+                oemDos = imagenOemDos.clone();
+            var imagenOemTres = $('#input-oem_tres-crea'),
+                oemTres = imagenOemTres.clone();
+            var imagenEmpaquetado = $('#input-empaquetado-crea'),
+                empaquetado = imagenEmpaquetado.clone();
 
+            var id_producto = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ countSeguimiento +'][producto_id]" value="'+ document.getElementById('producto_seguimiento_id').value +'">',
+                divPreproduccion = '<div class="form-group col-sm-12" id="preproduccion-file"></div>',
+                divProduccion = '<div class="form-group col-sm-12" id="produccion-file"></div>',
+                divOem1 = '<div class="form-group col-sm-12" id="oem-uno-file"></div>',
+                divOem2 = '<div class="form-group col-sm-12" id="oem-dos-file"></div>',
+                divOem3 = '<div class="form-group col-sm-12" id="oem-tres-file"></div>',
+                divEmpaquetado = '<div class="form-group col-sm-12" id="empaquetado-file"></div>';
+
+
+
+            var fila = '<tr id="rowSeguimiento'+ i +'">' +
+                '<td>'+ id_producto +' '+ $("select[name='producto_seguimiento_id'] option:selected").text() +'</td>' +
+                '<td>'+ divPreproduccion +'</td>' +
+                '<td>'+ divProduccion +'</td>' +
+                '<td>'+ divOem1 +'</td>' +
+                '<td>'+ divOem2 +'</td>' +
+                '<td>'+ divOem3 +'</td>' +
+                '<td>'+ divEmpaquetado +'</td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.seguimiento tr:first').after(fila);
+
+
+
+            preproduccion.attr('name', 'seguimiento['+ countSeguimiento +'][preproduccion_seguimiento]');
+            preproduccion.attr('id', 'preproduccion['+ countSeguimiento +']');
+            var namePreroduccion = $('#foto-preproduccion-seleccionada-crea').clone();
+            $('#preproduccion-file').after(namePreroduccion);
+            preproduccion.removeClass('filestyle');
+            $('#preproduccion-file').after(preproduccion);
+            $('#input-preproduccion-crea').removeClass('filestyle');
+
+            produccion.attr('name', 'seguimiento['+ countSeguimiento +'][produccion_seguimiento]');
+            produccion.attr('id', 'produccion['+ countSeguimiento +']');
+            var nameProduccion = $('#foto-produccion-seleccionada-crea').clone();
+            $('#produccion-file').after(nameProduccion);
+            produccion.removeClass('filestyle');
+            $('#produccion-file').after(produccion);
+            $('#input-produccion-crea').removeClass('filestyle');
+
+            oemUno.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            oemUno.attr('id', 'oemUno['+ countSeguimiento +']');
+            var nameoemUno = $('#foto-oem_uno-seleccionada-crea').clone();
+            $('#oem-uno-file').after(nameoemUno);
+            oemUno.removeClass('filestyle');
+            $('#oem-uno-file').after(oemUno);
+            $('#input-oem_uno-crea').removeClass('filestyle');
+
+            oemDos.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            oemDos.attr('id', 'oemDos['+ countSeguimiento +']');
+            var nameoemDos = $('#foto-oem_dos-seleccionada-crea').clone();
+            $('#oem-dos-file').after(nameoemDos);
+            oemDos.removeClass('filestyle');
+            $('#oem-dos-file').after(oemDos);
+            $('#input-oem_dos-crea').removeClass('filestyle');
+
+            oemTres.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            oemTres.attr('id', 'oemTres['+ countSeguimiento +']');
+            var nameoemTres = $('#foto-oem_tres-seleccionada-crea').clone();
+            $('#oem-tres-file').after(nameoemTres);
+            oemTres.removeClass('filestyle');
+            $('#oem-tres-file').after(oemTres);
+            $('#input-oem_tres-crea').removeClass('filestyle');
+
+            empaquetado.attr('name', 'seguimiento['+ countSeguimiento +'][oem_uno_seguimiento]');
+            empaquetado.attr('id', 'empaquetado['+ countSeguimiento +']');
+            var nameempaquetado = $('#foto-empaquetado-seleccionada-crea').clone();
+            $('#empaquetado-file').after(nameempaquetado);
+            empaquetado.removeClass('filestyle');
+            $('#empaquetado-file').after(empaquetado);
+            $('#input-empaquetado-crea').removeClass('filestyle');
+
+            countSeguimiento++;
+            var nFilas = $(".caracteristica tr").length;
+
+            // Limpia formulario
+            $('#seguimiento-form')[0].reset();
+
+            filestyle();
+
+            $("#modal-seguimiento").modal('hide');//oculto el modal
+        }
+    });
+});
 
 
 // Llenado de Gasto destino

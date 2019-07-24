@@ -345,14 +345,13 @@
                                             </div>
                                             <div class="tab-pane" id="8b">
                                                 <br>
-
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-seguimiento" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Nuevo seguimiento</button>
                                                 <div class="row" id="table2">
                                                     <div class="panel panel-default monto-default">
                                                         <div class="panel-body">
                                                             <table id="seguimiento" class="table table-striped table-bordered seguimiento" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>Sku</th>
                                                                     <th>Producto</th>
                                                                     <th>Preproducción</th>
                                                                     <th>Producción</th>

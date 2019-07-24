@@ -167,6 +167,18 @@ class OrdenesCompraController extends Controller
             if ($oRequest->has('productos')) {
                 $producto = new ProductoController($this->mProductoOrdenCompra);
                 $producto->store($oRequest, $ordenCompra);
+
+                //Seguimiento producto
+                if ($oRequest->has('seguimiento')) {
+                    $seguimiento = new SeguimientoProductoController($this->mSeguimiento);
+                    $seguimiento->store($oRequest, $ordenCompra);
+                }
+
+                //Caracteristica producto
+                if ($oRequest->has('caracteristicas')) {
+                    $caracteristicaProducto = new CaracteristicaProductoController($this->mCaracteristica);
+                    $caracteristicaProducto->store($oRequest, $ordenCompra);
+                }
             }
 
             // Pagos
@@ -175,17 +187,7 @@ class OrdenesCompraController extends Controller
                 $pago->store($oRequest, $ordenCompra);
             }
 
-            //Seguimiento producto
-            if ($oRequest->has('seguimiento')) {
-                $seguimiento = new SeguimientoProductoController($this->mSeguimiento);
-                $seguimiento->store($oRequest, $ordenCompra);
-            }
 
-            //Caracteristica producto
-            if ($oRequest->has('caracteristicas')) {
-                $caracteristicaProducto = new CaracteristicaProductoController($this->mCaracteristica);
-                $caracteristicaProducto->store($oRequest, $ordenCompra);
-            }
 
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);
 
