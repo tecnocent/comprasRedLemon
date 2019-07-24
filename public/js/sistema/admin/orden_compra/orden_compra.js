@@ -423,7 +423,7 @@ $(document).ready(function() {
                 link_amazon = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][link_amazon]" value="'+  document.getElementById('caracteristica_link_amazon').value +'">',
                 link_alibaba = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][link_alibaba]" value="'+  document.getElementById('caracteristica_link_alibaba').value +'">';
             var link_a_amazon = ($('#caracteristica_link_amazon').length) ? '<a class="btn btn-link" href="'+ document.getElementById('caracteristica_link_amazon').value +'" target="_blank"> Link Amazon</a>' : "No hay link";
-            var link_a_alibaba = ($('#caracteristica_link_libaba').length) ? '<a class="btn btn-link" href="'+ document.getElementById('caracteristica_link_libaba').value +'" target="_blank"> Link Alibaba</a>' : "No hay link";
+            var link_a_alibaba = ($('#caracteristica_link_alibaba').length) ? '<a class="btn btn-link" href="'+ document.getElementById('caracteristica_link_alibaba').value +'" target="_blank"> Link Alibaba</a>' : "No hay link";
 
             var fila = '<tr id="rowCaracteristica'+ i +'">' +
                 '<td>'+ id_producto +' '+ $("select[name='producto_caracteristica_id'] option:selected").text() +'</td>' +
