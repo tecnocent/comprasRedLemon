@@ -65,5 +65,11 @@ Route::post('/guarda_caracteristica/{id}', 'CaracteristicaProducto\Caracteristic
 Route::post('/actualiza_caracteristica/', 'CaracteristicaProducto\CaracteristicaProductoController@update')->name('caracteristica.update');
 Route::get('/consulta_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductoController@consultaCaracteristica')->name('caracteristica.consulta');
 
+//Clasificacion aduanera
+Route::get('/elimina_clasificacion/{id}', 'ClasificacionAduanera\ClasificacionAduaneraController@destroy')->name('clasificacion.delete');
+Route::post('/guarda_clasificacion/{id}', 'ClasificacionAduanera\ClasificacionAduaneraController@guardaClasificacion')->name('clasificacion.save');
+Route::post('/actualiza_clasificacion/', 'ClasificacionAduanera\ClasificacionAduaneraController@update')->name('clasificacion.update');
+Route::get('/consulta_clasificacion/{id}', 'ClasificacionAduanera\ClasificacionAduaneraController@consultaClasificacion')->name('clasificacion.consulta');
+
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\OrdenCompra;
 
 use App\Http\Controllers\Admin\CaracteristicaProducto\CaracteristicaProductoController;
+use App\Http\Controllers\Admin\ClasificacionAduanera\ClasificacionAduaneraController;
 use App\Http\Controllers\Admin\GastosDestino\GastosDestinoController;
 use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
 use App\Http\Controllers\Admin\Pago\PagoOrdenController;
@@ -14,6 +15,7 @@ use App\Http\Requests\OrdenCompraRequest;
 use App\Models\Aduana;
 use App\Models\AgenteAduanal;
 use App\Models\CaracteristicaProducto;
+use App\Models\ClasificacionAduanera;
 use App\Models\MetodoTransito;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
@@ -61,9 +63,10 @@ class OrdenesCompraController extends Controller
     protected $mMetodoTransito;
     protected $mSeguimiento;
     protected $mCaracteristica;
+    protected $mClasificacion;
 
 
-    public function __construct(OrdenCompra $ordenCompra, CaracteristicaProducto $caracteristica, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, ClasificacionAduanera $clasificacion, CaracteristicaProducto $caracteristica, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->middleware('auth');
         $this->mProveedor = $proveedor;
@@ -84,6 +87,7 @@ class OrdenesCompraController extends Controller
         $this->mMetodoTransito = $metodoTransito;
         $this->mSeguimiento = $seguimiento;
         $this->mCaracteristica = $caracteristica;
+        $this->mClasificacion = $clasificacion;
     }
 
     /**
@@ -179,6 +183,12 @@ class OrdenesCompraController extends Controller
                     $caracteristicaProducto = new CaracteristicaProductoController($this->mCaracteristica);
                     $caracteristicaProducto->store($oRequest, $ordenCompra);
                 }
+
+                //Clasificacion aduanera
+                if ($oRequest->has('clasificaciones')) {
+                    $clasificacionAduanera = new ClasificacionAduaneraController($this->mClasificacion);
+                    $clasificacionAduanera->store($oRequest, $ordenCompra);
+                }
             }
 
             // Pagos
@@ -186,8 +196,6 @@ class OrdenesCompraController extends Controller
                 $pago = new PagoOrdenController($this->mPagoMontoPagoOrden);
                 $pago->store($oRequest, $ordenCompra);
             }
-
-
 
             return redirect()->route('orden.resumen',['id' => $ordenCompra->id]);
 
@@ -220,6 +228,7 @@ class OrdenesCompraController extends Controller
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
         $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
         $caracteristicas = $this->mCaracteristica->where('orden_compra_id', $orden->id)->get();
+        $clasificaciones = $this->mClasificacion->where('orden_compra_id', $orden->id)->get();
         return view('admin.ordenes.show')->with([
             'orden'             => $orden,
             'proveedores'       => $this->mProveedor->all(),
@@ -231,6 +240,7 @@ class OrdenesCompraController extends Controller
             'pagos'             => $pagos,
             'seguimientos'      => $seguimientos,
             'caracteristicas'   => $caracteristicas,
+            'clasificaciones'   => $clasificaciones,
             'usuarios'          => $this->mUser->all(),
             'almacenes'         => $this->mAlmacen->all(),
             'productos'         => $this->mProducto->all(),
@@ -349,17 +359,19 @@ class OrdenesCompraController extends Controller
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
         $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
         $caracteristicas = $this->mCaracteristica->where('orden_compra_id', $orden->id)->get();
+        $clasificaciones = $this->mClasificacion->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
-            'orden'         => $orden,
-            'productos'     => $productos,
-            'gastosDestino' => $gastosDestino,
-            'gastosOrigen'  => $gastosOrigen,
-            'transitos'     => $transitos,
-            'pedimentos'    => $pedimentos,
-            'pagos'         => $pagos,
-            'seguimientos'  => $seguimientos,
-            'caracteristicas' => $caracteristicas
+            'orden'             => $orden,
+            'productos'         => $productos,
+            'gastosDestino'     => $gastosDestino,
+            'gastosOrigen'      => $gastosOrigen,
+            'transitos'         => $transitos,
+            'pedimentos'        => $pedimentos,
+            'pagos'             => $pagos,
+            'seguimientos'      => $seguimientos,
+            'caracteristicas'   => $caracteristicas,
+            'clasificaciones'   => $clasificaciones
         ]);
     }
 

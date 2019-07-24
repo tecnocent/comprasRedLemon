@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b008d52-ef93-4138-bc5b-55f4a4fe58b3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="8b008d52-ef93-4138-bc5b-55f4a4fe58b3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,20 +13,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="400" column="45" selection-start-line="400" selection-start-column="45" selection-end-line="400" selection-end-column="45" />
+            <state relative-caret-position="186">
+              <caret line="17" column="40" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="40" />
+              <caret line="18" column="54" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="54" />
+              <caret line="19" column="52" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="52" />
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="33" />
+              <caret line="21" column="33" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="33" />
+              <caret line="22" column="33" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="33" />
+              <caret line="23" column="33" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="534" column="77" lean-forward="true" selection-start-line="521" selection-start-column="72" selection-end-line="534" selection-end-column="77" />
+            <state relative-caret-position="271">
+              <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
+              <folding>
+                <element signature="e#30#69#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,7 +44,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>form</find>
       <find>tran</find>
       <find>ped</find>
       <find>pedime</find>
@@ -68,6 +73,7 @@
       <find>cara</find>
       <find>.aja</find>
       <find>.ajax</find>
+      <find>pedimen</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -76,8 +82,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea_producto.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea_nuevo_prducto.blade.php" />
         <option value="$PROJECT_DIR$/routes/api/admin/productos.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ProductoApiController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_09_205154_create_pago_monto_orden_compras_table.php" />
@@ -114,7 +118,6 @@
         <option value="$PROJECT_DIR$/routes/web/admin/app/orden.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php" />
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" />
@@ -127,6 +130,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php" />
+        <option value="$PROJECT_DIR$/app/Models/ClasificacionAduanera.php" />
       </list>
     </option>
   </component>
@@ -269,121 +275,7 @@
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="OrdenCompra" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Admin" type="462c0819:PsiDirectoryNode" />
-              <item name="SeguimientoProducto" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="sistema" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="sistema" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="sistema" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="orden_compra" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
-              <item name="modals" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="storage" type="462c0819:PsiDirectoryNode" />
-              <item name="logs" type="462c0819:PsiDirectoryNode" />
+              <item name="Models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -446,18 +338,18 @@
       <workItem from="1563801773144" duration="3515000" />
       <workItem from="1563811672916" duration="2920000" />
       <workItem from="1563817134653" duration="10997000" />
-      <workItem from="1563972546353" duration="21658000" />
+      <workItem from="1563972546353" duration="22343000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184079000" />
+    <option name="totallyTimeSpent" value="184764000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22012103" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27912253" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -511,14 +403,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/MontoPagoOrdenCompra.php" />
-    <entry file="file://$PROJECT_DIR$/app/Models/PagoMontoOrdenCompra.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="25" column="26" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="25" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_10_192551_create_pago_monto_orden_compras_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -701,26 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Pedimento.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="68" column="5" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_22_210353_create_caracteristica_productos_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="17" column="40" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="40" />
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="52" />
-          <caret line="19" column="53" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="53" />
-          <caret line="20" column="55" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="55" />
-          <caret line="21" column="39" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="39" />
-          <caret line="22" column="40" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="40" />
-          <caret line="23" column="44" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Pedimento/PedimentoController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3944">
@@ -762,16 +626,6 @@
           <caret line="23" column="20" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="20" />
           <folding>
             <element signature="e#30#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-          <folding>
-            <element signature="e#69#107#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -831,6 +685,13 @@
     <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="400" column="45" selection-start-line="400" selection-start-column="45" selection-end-line="400" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -838,10 +699,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="400" column="45" selection-start-line="400" selection-start-column="45" selection-end-line="400" selection-end-column="45" />
+        <state relative-caret-position="424">
+          <caret line="190" column="5" selection-start-line="190" selection-start-column="5" selection-end-line="190" selection-end-column="5" />
+          <folding>
+            <element signature="e#69#107#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_22_210353_create_caracteristica_productos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="23" column="17" lean-forward="true" selection-start-line="23" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/Pedimento.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="68" column="5" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="68" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="17" column="40" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="40" />
+          <caret line="18" column="54" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="54" />
+          <caret line="19" column="52" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="52" />
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="33" />
+          <caret line="21" column="33" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="33" />
+          <caret line="22" column="33" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="33" />
+          <caret line="23" column="33" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
+          <folding>
+            <element signature="e#30#69#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
