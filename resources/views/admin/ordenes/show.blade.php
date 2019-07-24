@@ -165,6 +165,9 @@
                                             <li>
                                                 <a href="#8b" data-toggle="tab">Seguimiento Producto</a>
                                             </li>
+                                            <li>
+                                                <a href="#9b" data-toggle="tab">Caracteristica Producto</a>
+                                            </li>
                                         </ul>
 
                                         <div class="tab-content clearfix">
@@ -492,6 +495,55 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="tab-pane" id="9b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caracteristica-producto-modal"><i class="fa fa-plus"></i> Agregar caracteristica</button>
+                                                <div class="row" id=""><br>
+                                                    <div class="panel panel-default" id="table-default">
+                                                        <div class="panel-body">
+                                                            <table id="caracteristica" class="table table-striped table-bordered caracteristica" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Sku</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Especificaciones del producto</th>
+                                                                    <th>Especificaciones electricas</th>
+                                                                    <th>Link amazon</th>
+                                                                    <th>Link alibaba</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                                </thead>
+                                                                @foreach($caracteristicas as $caracteristica)
+                                                                    <tr>
+                                                                        <td>{{ $caracteristica->producto->sku }}</td>
+                                                                        <td>{{ $caracteristica->producto->name }}</td>
+                                                                        <td>{{ $caracteristica->especificaciones_producto }}</td>
+                                                                        <td>{{ $caracteristica->especificaciones_electricas }}</td>
+                                                                        <td>
+                                                                            @if ($caracteristica->link_amazon)
+                                                                                <a href="{{ $caracteristica->link_amazon }}" class="btn btn-link" target="_blank">Link Amazon</a>
+                                                                            @else
+                                                                                No hay link
+                                                                            @endif
+                                                                        </td>
+                                                                        <td>
+                                                                            @if ($caracteristica->link_alibaba)
+                                                                                <a href="{{ $caracteristica->link_alibaba }}" class="btn btn-link" target="_blank">Link Alibaba</a>
+                                                                            @else
+                                                                                No hay link
+                                                                            @endif
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-caracteristica" data-id="{{ $caracteristica->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaCaracteristica" data-toggle="modal" data-target="#modal-actualiza-caracteristica" data-id="{{ $caracteristica->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -694,6 +746,13 @@
             $('#modal-danger-seguimiento').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $('#deleteSeguimiento').attr("href", "{{ url('/admin/elimina_seguimiento') }}" + "/" + id);
+            });
+        });
+        // Elimina caracteristica
+        $(document).ready(function() {
+            $('#modal-danger-caracteristica').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteCaracteristica').attr("href", "{{ url('/admin/elimina_caracteristica') }}" + "/" + id);
             });
         });
 
@@ -906,6 +965,29 @@
                 },
                 error: function(data) {
                     alert('error');
+                }
+            });
+        });
+
+        // Actualiza ccaracterisitica
+        $('.actualizaCaracteristica').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "{{ url('/admin/consulta_caracteristica') }}/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $("#producto_caracterisitca_id").val(data.producto_id);
+                    $("#caracteristica_id").val(data.id);
+                    $("#especificacion_producto").val(data.especificaciones_producto);
+                    $("#especificacion_electrica").val(data.especificaciones_electricas);
+                    $("#link_amazon").val(data.link_amazon);
+                    $("#link_alibaba").val(data.link_alibaba);
+
+                },
+                error: function(data) {
+                    alert("error");
                 }
             });
         });

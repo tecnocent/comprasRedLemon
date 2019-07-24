@@ -184,12 +184,6 @@ $('#productosSelect').on('select2:select', function (evt) {
             console.log(resultados[0].id);
             document.getElementById('producto_id').value = resultados[0].id;
             document.getElementById('producto_descripcion').value = resultados[0].id;
-
-            //var producto_id = '<input type="hidden" class="form-control pull-right " id="producto_id" name="producto_id" value="'+resultados[0].id+'">'
-            //var producto_descripcion = '<input type="hidden" class="form-control pull-right " id="producto_descripcion" name="producto_descripcion" value="'+resultados[0].description+'">'
-
-            //$('.extras').after(producto_id);
-            //$('.extras').after(producto_descripcion);
         }
     });
 });
@@ -235,15 +229,16 @@ $(document).ready(function() {
                 archivosFrbricante = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosFabricante]" id="archivosFrbricante" class="file-input"></div>',
                 archivosDiseno = '<div class="form-group col-sm-12"><input type="file" class="filestyle" data-badge="true" data-input="false" data-dragdrop="true" data-text="Buscar..." data-btnClass="btn-primary" name="productos['+ cont +'][archivosDiseno]" id="archivosDiseno"></div>',
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
-                fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>';
+                fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>',
+                optionProducto = '<option id="opcionP'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
 
-                var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">',
-                    id_producto_seg = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
-                    produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">',
-                    oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">',
-                    oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">',
-                    oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">',
-                    empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">';
+            var preproduccion = '<input type="file" id="input-preproduccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][preproduccion_seguimiento]">',
+                id_producto_seg = '<input type="hidden" class="form-control pull-right " name="seguimiento['+ cont +'][producto_id]" value="'+ document.getElementById('producto_id').value +'">',
+                produccion = '<input type="file" id="input-produccion-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][produccion_seguimiento]">',
+                oemUno = '<input type="file" id="input-oem_uno-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_uno_seguimiento]">',
+                oemDos = '<input type="file" id="input-oem_dos-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_dos_seguimiento]">',
+                oemTres = '<input type="file" id="input-oem_tres-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][oem_tres_seguimiento]">',
+                empaquetado = '<input type="file" id="input-empaquetado-crea['+ cont +']" class="filestyle2" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="seguimiento['+ cont +'][empaquetado_seguimiento]">';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -292,8 +287,8 @@ $(document).ready(function() {
             $('.productos tr:first').after(fila);
             $('.diseno tr:first').after(filaD);
             $('.seguimiento tr:first').after(filaSeg);
-
-
+            //Select producto en caracteristica de producto modal
+            $('#option_producto_caracteristica').after(optionProducto);
 
             $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
             var nFilas = $(".productos tr").length;
@@ -321,6 +316,7 @@ $(document).ready(function() {
                 $('#row' + button_id).remove(); //borra la fila
                 $('#rowD' + button_id).remove(); //borra la fila
                 $('#rowSeg' + button_id).remove(); //borra la fila
+                $('#opcionP'+ button_id).remove(); // borra option en modal caracteristica
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
                 var nFilas = $(".productos tr").length;
@@ -394,6 +390,59 @@ $(document).ready(function() {
                 //limpia el para que vuelva a contar las filas de la tabla
                 var nFilas = $(".gastosOrigen tr").length;
             });
+        }
+    });
+});
+
+// Llenado de caracteristica producto
+$(document).ready(function() {
+    var countCaracteristicas = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#caracteristica-form').validate({
+        event: "blur",rules: {
+            'producto_caracteristica_id' : "required",
+            'caracteristica_especificacion_producto' : "required",
+            'caracteristica_especificaion_electrica' : "required",
+            'caracteristica_link_amazon' : "url",
+            'caracteristica_link_alibaba' : "url"
+        },
+        messages: {
+            'producto_caracteristica_id' : "El producto es requerido",
+            'caracteristica_especificacion_producto' : "La especificacion es requerida",
+            'caracteristica_especificaion_electrica' : "La especificacion electrica es requerida",
+            'caracteristica_link_amazon' : "Debe ser una URL",
+            'caracteristica_link_alibaba' : "Debe ser una URL"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+
+            var id_producto = '<input type="hidden" class="form-control pull-right " name="caracteristicas['+ countCaracteristicas +'][producto_id]" value="'+ document.getElementById('producto_caracteristica_id').value +'">',
+                nombre_producto = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][producto_nombre]" value="'+  $("select[name='producto_caracteristica_id'] option:selected").text() +'">',
+                especificacion_producto = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][especificacion_producto]" value="'+  document.getElementById('caracteristica_especificacion_producto').value +'">',
+                especificacion_electrica = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][especificacion_electrica]" value="'+  document.getElementById('caracteristica_especificaion_electrica').value +'">',
+                link_amazon = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][link_amazon]" value="'+  document.getElementById('caracteristica_link_amazon').value +'">',
+                link_alibaba = '<input type="hidden" class="form-control pull-right" name="caracteristicas['+ countCaracteristicas +'][link_alibaba]" value="'+  document.getElementById('caracteristica_link_alibaba').value +'">';
+            var link_a_amazon = ($('#caracteristica_link_amazon').length) ? '<a class="btn btn-link" href="'+ document.getElementById('caracteristica_link_amazon').value +'" target="_blank"> Link Amazon</a>' : "No hay link";
+            var link_a_alibaba = ($('#caracteristica_link_libaba').length) ? '<a class="btn btn-link" href="'+ document.getElementById('caracteristica_link_libaba').value +'" target="_blank"> Link Alibaba</a>' : "No hay link";
+
+            var fila = '<tr id="rowCaracteristica'+ i +'">' +
+                '<td>'+ id_producto +' '+ $("select[name='producto_caracteristica_id'] option:selected").text() +'</td>' +
+                '<td>'+ especificacion_producto +' '+ document.getElementById('caracteristica_especificacion_producto').value +'</td>' +
+                '<td>'+ especificacion_electrica +' '+ document.getElementById('caracteristica_especificaion_electrica').value +'</td>' +
+                '<td>'+ link_amazon +''+ link_a_amazon + '</td>' +
+                '<td>'+ link_alibaba +''+ link_a_alibaba +'</td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.caracteristica tr:first').after(fila);
+            countCaracteristicas++;
+            var nFilas = $(".caracteristica tr").length;
+
+            // Limpia formulario
+            $('#caracteristica-form')[0].reset();
+
+            $("#modal-caracteristica").modal('hide');//oculto el modal
         }
     });
 });

@@ -48,7 +48,7 @@ class CaracteristicaProductoController extends Controller
             foreach ($oRequest->caracteristicas as $aCaracteristica) {
                 $caracteristica = $this->mCaracteristica->create([
                     'especificaciones_producto' => $aCaracteristica['especificacion_producto'],
-                    'especificaciones_electricas' => $aCaracteristica['especificaion_electrica'],
+                    'especificaciones_electricas' => $aCaracteristica['especificacion_electrica'],
                     'link_amazon' => $aCaracteristica['link_amazon'],
                     'link_alibaba' => $aCaracteristica['link_alibaba'],
                     'orden_compra_id' => $orden->id,

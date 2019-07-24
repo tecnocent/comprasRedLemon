@@ -651,6 +651,71 @@
     </div>
 </div><!-- modal -->
 
+<!--Modal Caracteristica-->
+<div class="modal right1 fade" id="caracteristica-producto-modal" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('caracteristica.save', ['id'=> $orden->id]) }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nueva Caracteristica</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Producto de orden</label>
+                                        <select class="form-control" name="producto_id" required>
+                                            <option value="">Selecciona</option>
+                                            @foreach($productosOrden as $producto)
+                                                <option value="{{ $producto->producto->id }}">{{ $producto->producto->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Especificaciones de producto</label>
+                                        <textarea required class="form-control" placeholder="Ingresa las especificaciones" rows="3" name="especificacion_producto"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Especificaciones electricas</label>
+                                        <textarea required class="form-control" placeholder="Ingresa las especificaciones electricas" rows="3" name="especificaion_electrica"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Link amazon</label>
+                                        <input type="url" name="link_amazon" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Link alibaba</label>
+                                        <input type="url" name="link_alibaba" class="form-control">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guarda</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
 
 <!-- Producto Nuevo -->
 <div class="modal right1 fade" id="nuevo-producto-guarda-modal" tabindex="-1" role="dialog" aria-labelledby="">

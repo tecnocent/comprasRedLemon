@@ -180,6 +180,9 @@
                                             <li>
                                                 <a href="#8b" data-toggle="tab">Seguimiento Producto</a>
                                             </li>
+                                            <li>
+                                                <a href="#9b" data-toggle="tab">Caracteristica Producto</a>
+                                            </li>
                                         </ul>
 
                                         <div class="tab-content clearfix">
@@ -357,6 +360,27 @@
                                                                     <th>OEM 2</th>
                                                                     <th>OEM 3</th>
                                                                     <th>Empaquetado</th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="9b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-caracteristica" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Nueva caracteristica</button>
+                                                <div class="row" id="table2">
+                                                    <div class="panel panel-default monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="caracteristica" class="table table-striped table-bordered caracteristica" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Producto</th>
+                                                                    <th>Especificaciones de producto</th>
+                                                                    <th>Especificaciones electricas</th>
+                                                                    <th>Link Amazon</th>
+                                                                    <th>Link Alibaba</th>
                                                                 </tr>
                                                                 </thead>
                                                             </table>

@@ -60,10 +60,10 @@ Route::post('/actualiza_seguimiento/', 'SeguimientoProducto\SeguimientoProductoC
 Route::get('/consulta_seguimiento/{id}', 'SeguimientoProducto\SeguimientoProductoController@consultaSeguimiento')->name('seguimiento.consulta');
 
 //Caracteristicas producto
-Route::get('/elimina_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@destroy')->name('caracteristica.delete');
-Route::post('/guarda_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@guardaCaracteristica')->name('caracteristica.save');
-Route::post('/actualiza_caracteristica/', 'CaracteristicaProducto\CaracteristicaProductooController@update')->name('caracteristica.update');
-Route::get('/consulta_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductooController@consultaSeguimiento')->name('caracteristica.consulta');
+Route::get('/elimina_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductoController@destroy')->name('caracteristica.delete');
+Route::post('/guarda_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductoController@guardaCaracteristica')->name('caracteristica.save');
+Route::post('/actualiza_caracteristica/', 'CaracteristicaProducto\CaracteristicaProductoController@update')->name('caracteristica.update');
+Route::get('/consulta_caracteristica/{id}', 'CaracteristicaProducto\CaracteristicaProductoController@consultaCaracteristica')->name('caracteristica.consulta');
 
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

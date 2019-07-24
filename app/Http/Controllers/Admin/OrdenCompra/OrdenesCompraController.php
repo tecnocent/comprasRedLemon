@@ -346,6 +346,7 @@ class OrdenesCompraController extends Controller
         $pedimentos = $this->mPedimento->where('orden_compra_id', $orden->id)->get();
         $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
         $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
+        $caracteristicas = $this->mCaracteristica->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
             'orden'         => $orden,
@@ -355,7 +356,8 @@ class OrdenesCompraController extends Controller
             'transitos'     => $transitos,
             'pedimentos'    => $pedimentos,
             'pagos'         => $pagos,
-            'seguimientos'  => $seguimientos
+            'seguimientos'  => $seguimientos,
+            'caracteristicas' => $caracteristicas
         ]);
     }
 
