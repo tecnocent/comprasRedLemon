@@ -148,10 +148,10 @@
                                                 <a href="#4b" data-toggle="tab">Diseño</a>
                                             </li>
                                             <li>
-                                                <a href="#3b" data-toggle="tab">Gastos Destino</a>
+                                                <a href="#3b" data-toggle="tab">G. Destino</a>
                                             </li>
                                             <li>
-                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                                <a href="#2b" data-toggle="tab">G. Origen</a>
                                             </li>
                                             <li>
                                                 <a href="#6b" data-toggle="tab">Transito</a>
@@ -160,13 +160,16 @@
                                                 <a href="#7b" data-toggle="tab">Pedimento</a>
                                             </li>
                                             <li>
-                                                <a href="#5b" data-toggle="tab">Pagos</a>
+                                                <a href="#5b" data-toggle="tab">Pago</a>
                                             </li>
                                             <li>
-                                                <a href="#8b" data-toggle="tab">Seguimiento Producto</a>
+                                                <a href="#8b" data-toggle="tab">Seg. Producto</a>
                                             </li>
                                             <li>
-                                                <a href="#9b" data-toggle="tab">Caracteristica Producto</a>
+                                                <a href="#9b" data-toggle="tab">Caract. Producto</a>
+                                            </li>
+                                            <li>
+                                                <a href="#10b" data-toggle="tab">Clasific. Aduanera</a>
                                             </li>
                                         </ul>
 
@@ -536,6 +539,45 @@
                                                                         <td>
                                                                             <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-caracteristica" data-id="{{ $caracteristica->id }}"><i class="fa fa-remove"></i></button>
                                                                             <button type="button" class="btn btn-warning btn-xs actualizaCaracteristica" data-toggle="modal" data-target="#modal-actualiza-caracteristica" data-id="{{ $caracteristica->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="10b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#clasificacion-modal"><i class="fa fa-plus"></i> Agregar clasificaciín</button>
+                                                <div class="row" id=""><br>
+                                                    <div class="panel panel-default" id="table-default">
+                                                        <div class="panel-body">
+                                                            <table id="clasificacion" class="table table-striped table-bordered clasificacion" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Sku</th>
+                                                                    <th>Producto</th>
+                                                                    <th>Clasificación arancelaria</th>
+                                                                    <th>NOM 1</th>
+                                                                    <th>NOM 2</th>
+                                                                    <th>NOM 3</th>
+                                                                    <th>NOM 4</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                                </thead>
+                                                                @foreach($clasificaciones as $clasificacion)
+                                                                    <tr>
+                                                                        <td>{{ $clasificacion->producto->sku }}</td>
+                                                                        <td>{{ $clasificacion->producto->name }}</td>
+                                                                        <td>{{ $clasificacion->clasificacion_arancelaria }}</td>
+                                                                        <td>{{ $clasificacion->nom_1 }}</td>
+                                                                        <td>{{ $clasificacion->nom_2 }}</td>
+                                                                        <td>{{ $clasificacion->nom_3 }}</td>
+                                                                        <td>{{ $clasificacion->nom_4 }}</td>
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-caracteristica" data-id="{{ $clasificacion->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaCaracteristica" data-toggle="modal" data-target="#modal-actualiza-caracteristica" data-id="{{ $clasificacion->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach

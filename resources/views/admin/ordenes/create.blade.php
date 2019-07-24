@@ -163,10 +163,10 @@
                                                 <a href="#4b" data-toggle="tab">Diseño</a>
                                             </li>
                                             <li>
-                                                <a href="#3b" data-toggle="tab">Gastos Destino</a>
+                                                <a href="#3b" data-toggle="tab">G. Destino</a>
                                             </li>
                                             <li>
-                                                <a href="#2b" data-toggle="tab">Gastos Origen</a>
+                                                <a href="#2b" data-toggle="tab">G. Origen</a>
                                             </li>
                                             <li>
                                                 <a href="#6b" data-toggle="tab">Transito</a>
@@ -178,10 +178,13 @@
                                                 <a href="#5b" data-toggle="tab">Pago</a>
                                             </li>
                                             <li>
-                                                <a href="#8b" data-toggle="tab">Seguimiento Producto</a>
+                                                <a href="#8b" data-toggle="tab">Seg. Producto</a>
                                             </li>
                                             <li>
-                                                <a href="#9b" data-toggle="tab">Caracteristica Producto</a>
+                                                <a href="#9b" data-toggle="tab">Caract. Producto</a>
+                                            </li>
+                                            <li>
+                                                <a href="#10b" data-toggle="tab">Clasific. Aduanera</a>
                                             </li>
                                         </ul>
 
@@ -380,6 +383,28 @@
                                                                     <th>Especificaciones electricas</th>
                                                                     <th>Link Amazon</th>
                                                                     <th>Link Alibaba</th>
+                                                                </tr>
+                                                                </thead>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="10b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-clasificacion" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Nueva Clasifiación</button>
+                                                <div class="row" id="table2">
+                                                    <div class="panel panel-default" id="table-monto-default">
+                                                        <div class="panel-body">
+                                                            <table id="clasificacionRow" class="table table-striped table-bordered clasificacion" cellspacing="0" width="100%">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Producto</th>
+                                                                    <th>Clasificación arancelaria</th>
+                                                                    <th>NOM 1</th>
+                                                                    <th>NOM 2</th>
+                                                                    <th>NOM 3</th>
+                                                                    <th>NOM 4</th>
                                                                 </tr>
                                                                 </thead>
                                                             </table>

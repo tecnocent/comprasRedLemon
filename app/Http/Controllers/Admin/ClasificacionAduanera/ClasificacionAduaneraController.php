@@ -53,7 +53,7 @@ class ClasificacionAduaneraController extends Controller
                     'nom_3' => $aClasificacion['nom_3'],
                     'nom_4' => $aClasificacion['nom_4'],
                     'orden_compra_id' => $orden->id,
-                    'producto_id' => $aClasificacion['producto_id '],
+                    'producto_id' => $aClasificacion['producto_id'],
                 ]);
             }
 

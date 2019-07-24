@@ -230,7 +230,8 @@ $(document).ready(function() {
                 tipo = '<div class="form-group col-sm-12"><select class="form-control select-tipo" name="productos['+ cont +'][tipo]"><option value="">Selecciona</option><option value="normal"> Normal</option><option value="urgente">Urgente</option></select></div>',
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>',
                 optionProducto = '<option id="opcionP'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
-                optionProductoSeg = '<option id="opcionS'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
+                optionProductoSeg = '<option id="opcionS'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
+                optionProductoCla = '<option id="opcionC'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -262,6 +263,7 @@ $(document).ready(function() {
             //Select producto en caracteristica de producto modal
             $('#option_producto_caracteristica').after(optionProducto);
             $('#option_producto_seguimiento_id').after(optionProductoSeg);
+            $('#option_producto_clasificacion').after(optionProductoCla);
 
             $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
             var nFilas = $(".productos tr").length;
@@ -290,6 +292,7 @@ $(document).ready(function() {
                 $('#rowD' + button_id).remove(); //borra la fila
                 $('#opcionP'+ button_id).remove(); // borra option en modal caracteristica
                 $('#opcionS'+ button_id).remove(); // borra option en modal seguimiento
+                $('#opcionC'+ button_id).remove(); // borra option en modal clasificacion
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
                 var nFilas = $(".productos tr").length;
@@ -738,9 +741,6 @@ $(document).ready(function() {
     });
 });
 
-
-
-
 // Llenado de Pedimento
 $(document).ready(function() {
     var countPedimento = 0;
@@ -817,6 +817,52 @@ $(document).ready(function() {
                 //limpia el para que vuelva a contar las filas de la tabla
                 var nFilas = $(".pedimento tr").length;
             });
+        }
+    });
+});
+
+// Llenado de Clasificación
+$(document).ready(function() {
+    var countClasificacion = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#clasificacion-form').validate({
+        event: "blur",rules: {
+            'producto_clasificacion_id' : "required",
+            'clasificacion_arancelaria' : "required"
+        },
+        messages: {
+            'producto_clasificacion_id' : "El Producto es requerido",
+            'clasificacion_arancelaria' : "La Clasificción es requerida"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var id_producto = '<input type="hidden" class="form-control pull-right " name="clasificaciones['+ countClasificacion +'][producto_id]" value="'+ document.getElementById('producto_clasificacion_id').value +'">',
+                nombre_producto = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][producto_nombre]" value="'+  $("select[name='producto_clasificacion_id'] option:selected").text() +'">',
+                clasificacion_arancelaria = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][clasificacion_arancelaria]" value="'+  document.getElementById('clasificacion_arancelaria').value +'">',
+                nom_1 = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][nom_1]" value="'+  document.getElementById('nom_1').value +'">',
+                nom_2 = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][nom_2]" value="'+  document.getElementById('nom_2').value +'">',
+                nom_3 = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][nom_3]" value="'+  document.getElementById('nom_3').value +'">',
+                nom_4 = '<input type="hidden" class="form-control pull-right" name="clasificaciones['+ countClasificacion +'][nom_4]" value="'+  document.getElementById('nom_4').value +'">';
+
+            var fila = '<tr id="rowClasificacion'+ i +'">' +
+                '<td>'+ id_producto +' '+ $("select[name='producto_clasificacion_id'] option:selected").text() +'</td>' +
+                '<td>'+ clasificacion_arancelaria +' '+ document.getElementById('clasificacion_arancelaria').value +'</td>' +
+                '<td>'+ nom_1 +' '+ document.getElementById('nom_1').value +'</td>' +
+                '<td>'+ nom_2 +' '+ document.getElementById('nom_2').value +'</td>' +
+                '<td>'+ nom_3 +' '+ document.getElementById('nom_3').value +'</td>' +
+                '<td>'+ nom_4 +' '+ document.getElementById('nom_4').value +'</td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.clasificacion tr:first').after(fila);
+            countClasificacion++;
+            var nFilas = $(".clasificacion tr").length;
+
+            // Limpia formulario
+            $('#clasificacion-form')[0].reset();
+
+            $("#modal-clasificacion").modal('hide');//oculto el modal
         }
     });
 });

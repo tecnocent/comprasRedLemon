@@ -407,6 +407,45 @@
                 </div>
             </div>
         @endif
+
+        <!-- Caracterisrtica producto -->
+        @if(count($clasificaciones) > 0)
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h2 class="">Clasificación Aduanera</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row" id="table2">
+                        <div class="panel-body">
+                            <table id="seguimiento" class="table table-striped table-bordered seguimiento" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Sku</th>
+                                    <th>Producto</th>
+                                    <th>Clasiricacion arancelaria</th>
+                                    <th>NOM 1</th>
+                                    <th>NOM 2</th>
+                                    <th>NOM 3</th>
+                                    <th>NOM 4</th>
+                                </tr>
+                                </thead>
+                                @foreach($clasificaciones as $clasificacion)
+                                    <tr>
+                                        <td>{{ $clasificacion->producto->sku }}</td>
+                                        <td>{{ $clasificacion->producto->name }}</td>
+                                        <td>{{ $clasificacion->clasificacion_arancelaria }}</td>
+                                        <td>{{ $clasificacion->nom_1 }}</td>
+                                        <td>{{ $clasificacion->nom_2 }}</td>
+                                        <td>{{ $clasificacion->nom_3 }}</td>
+                                        <td>{{ $clasificacion->nom_4 }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    @endif
         <!-- Aceptar -->
         <div class="panel panel-info">
             <div class="panel-body">

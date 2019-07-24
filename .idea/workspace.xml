@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8b008d52-ef93-4138-bc5b-55f4a4fe58b3" name="Default" comment="" />
+    <list default="true" id="8b008d52-ef93-4138-bc5b-55f4a4fe58b3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,28 +22,70 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="49" column="93" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="93" />
+              <folding>
+                <element signature="e#68#105#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="428" column="45" selection-start-line="428" selection-start-column="45" selection-end-line="428" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="45" column="28" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="28" />
+              <folding>
+                <element signature="e#30#69#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
-              <caret line="17" column="40" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="40" />
-              <caret line="18" column="54" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="54" />
-              <caret line="19" column="52" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="52" />
-              <caret line="20" column="33" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="33" />
-              <caret line="21" column="33" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="33" />
-              <caret line="22" column="33" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="33" />
-              <caret line="23" column="33" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="33" />
+              <caret line="834" column="72" lean-forward="true" selection-start-line="834" selection-start-column="72" selection-end-line="834" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="771" column="58" selection-start-line="771" selection-start-column="58" selection-end-line="771" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="394" column="154" selection-start-line="394" selection-start-column="154" selection-end-line="394" selection-end-column="154" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
-              <folding>
-                <element signature="e#30#69#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="305">
+              <caret line="573" column="108" selection-start-line="573" selection-start-column="108" selection-end-line="573" selection-end-column="108" />
             </state>
           </provider>
         </entry>
@@ -44,7 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tran</find>
       <find>ped</find>
       <find>pedime</find>
       <find>transito</find>
@@ -74,6 +123,7 @@
       <find>.aja</find>
       <find>.ajax</find>
       <find>pedimen</find>
+      <find>solo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -82,7 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/routes/api/admin/productos.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/ProductoApiController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_09_205154_create_pago_monto_orden_compras_table.php" />
         <option value="$PROJECT_DIR$/app/Models/PagoMontoOrdenCompra.php" />
@@ -115,24 +164,25 @@
         <option value="$PROJECT_DIR$/app/Models/CaracteristicaProducto.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_guarda.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web/admin/app/orden.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" />
-        <option value="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/.env" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/public/js/sistema/admin/orden_compra/orden_compra.js" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php" />
         <option value="$PROJECT_DIR$/app/Models/ClasificacionAduanera.php" />
+        <option value="$PROJECT_DIR$/routes/web/admin/app/orden.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" />
+        <option value="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js" />
+        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" />
       </list>
     </option>
   </component>
@@ -269,13 +319,48 @@
             <path>
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Models" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
+              <item name="modals" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
+              <item name="storage" type="462c0819:PsiDirectoryNode" />
+              <item name="logs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -338,12 +423,12 @@
       <workItem from="1563801773144" duration="3515000" />
       <workItem from="1563811672916" duration="2920000" />
       <workItem from="1563817134653" duration="10997000" />
-      <workItem from="1563972546353" duration="22343000" />
+      <workItem from="1563972546353" duration="28385000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184764000" />
+    <option name="totallyTimeSpent" value="190806000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -403,13 +488,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_10_192551_create_pago_monto_orden_compras_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="21" column="106" lean-forward="true" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/ProductoOrdenCompra.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="562">
@@ -585,24 +663,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Pedimento/PedimentoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3944">
-          <caret line="237" column="5" selection-start-line="203" selection-start-column="4" selection-end-line="237" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="140" column="43" selection-start-line="140" selection-start-column="43" selection-end-line="140" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web/admin/app/orden.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="64" column="136" selection-start-line="64" selection-start-column="115" selection-end-line="64" selection-end-column="136" />
         </state>
       </provider>
     </entry>
@@ -644,58 +708,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-35">
-          <caret line="353" column="68" selection-start-line="353" selection-start-column="68" selection-end-line="353" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="180" column="17" selection-start-line="180" selection-start-column="17" selection-end-line="180" selection-end-column="17" />
-          <folding>
-            <element signature="e#58#145#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="513" column="85" selection-start-line="513" selection-start-column="85" selection-end-line="513" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="582" column="42" lean-forward="true" selection-start-line="582" selection-start-column="42" selection-end-line="582" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="400" column="45" selection-start-line="400" selection-start-column="45" selection-end-line="400" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="534" column="77" lean-forward="true" selection-start-line="521" selection-start-column="72" selection-end-line="534" selection-end-column="77" />
         </state>
       </provider>
     </entry>
@@ -723,6 +739,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web/admin/app/orden.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="71" column="119" selection-start-line="71" selection-start-column="98" selection-end-line="71" selection-end-column="119" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -736,13 +759,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-338">
+          <caret line="364" column="32" selection-start-line="364" selection-start-column="32" selection-end-line="364" selection-end-column="32" />
+          <folding>
+            <element signature="e#58#145#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Pedimento/PedimentoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="246" column="44" lean-forward="true" selection-start-line="245" selection-start-column="8" selection-end-line="246" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="394" column="154" selection-start-line="394" selection-start-column="154" selection-end-line="394" selection-end-column="154" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="771" column="58" selection-start-line="771" selection-start-column="58" selection-end-line="771" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="834" column="72" lean-forward="true" selection-start-line="834" selection-start-column="72" selection-end-line="834" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
+        <state relative-caret-position="237">
+          <caret line="45" column="28" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="28" />
           <folding>
             <element signature="e#30#69#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="49" column="93" selection-start-line="49" selection-start-column="68" selection-end-line="49" selection-end-column="93" />
+          <folding>
+            <element signature="e#68#105#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="428" column="45" selection-start-line="428" selection-start-column="45" selection-end-line="428" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="573" column="108" selection-start-line="573" selection-start-column="108" selection-end-line="573" selection-end-column="108" />
         </state>
       </provider>
     </entry>
