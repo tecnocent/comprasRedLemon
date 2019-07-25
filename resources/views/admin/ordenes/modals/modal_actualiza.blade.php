@@ -810,3 +810,76 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
+
+<!--Modal Clasificacion-->
+<div class="modal right1 fade" id="modal-actualiza-clasificacion" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('clasificacion.update') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nueva Clasificación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Producto de orden</label>
+                                        <select class="form-control" id="producto_id_actualiza_clasificacion"  name="producto_id" disabled>
+                                            <option value="">Selecciona</option>
+                                            @foreach($productosOrden as $producto)
+                                                <option value="{{ $producto->producto->id }}">{{ $producto->producto->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="hidden" id="clasificacion_id" name="clasificacion_id">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Clasificación Arancelaria</label>
+                                        <input type="text" class="form-control" id="actualiza_clasificacion_arancelaria" name="clasificacion_arancelaria" onKeyPress="return soloNumeros(event)" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>NOM 1</label>
+                                        <input type="text" class="form-control" id="actualiza_nom_1" name="nom_1">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>NOM 2</label>
+                                        <input type="text" class="form-control" id="actualiza_nom_2" name="nom_2">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>NOM 3</label>
+                                        <input type="text" class="form-control" id="actualiza_nom_3" name="nom_3">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>NOM 4</label>
+                                        <input type="text" class="form-control" id="actualiza_nom_4" name="nom_4">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->

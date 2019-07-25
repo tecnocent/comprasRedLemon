@@ -549,7 +549,7 @@
                                             </div>
                                             <div class="tab-pane" id="10b">
                                                 <br>
-                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#clasificacion-modal"><i class="fa fa-plus"></i> Agregar clasificaciín</button>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#guarda-clasificacion-modal"><i class="fa fa-plus"></i> Agregar clasificación</button>
                                                 <div class="row" id=""><br>
                                                     <div class="panel panel-default" id="table-default">
                                                         <div class="panel-body">
@@ -576,8 +576,8 @@
                                                                         <td>{{ $clasificacion->nom_3 }}</td>
                                                                         <td>{{ $clasificacion->nom_4 }}</td>
                                                                         <td>
-                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-caracteristica" data-id="{{ $clasificacion->id }}"><i class="fa fa-remove"></i></button>
-                                                                            <button type="button" class="btn btn-warning btn-xs actualizaCaracteristica" data-toggle="modal" data-target="#modal-actualiza-caracteristica" data-id="{{ $clasificacion->id }}"><i class="fa fa-pencil"></i></button>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-clasificacion" data-id="{{ $clasificacion->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaClasificacion" data-toggle="modal" data-target="#modal-actualiza-clasificacion" data-id="{{ $clasificacion->id }}"><i class="fa fa-pencil"></i></button>
                                                                         </td>
                                                                     </tr>
                                                                 @endforeach
@@ -795,6 +795,13 @@
             $('#modal-danger-caracteristica').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $('#deleteCaracteristica').attr("href", "{{ url('/admin/elimina_caracteristica') }}" + "/" + id);
+            });
+        });
+        // Elimina clasificacion
+        $(document).ready(function() {
+            $('#modal-danger-clasificacion').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteClasificacion').attr("href", "{{ url('/admin/elimina_clasificacion') }}" + "/" + id);
             });
         });
 
@@ -1027,6 +1034,29 @@
                     $("#link_amazon").val(data.link_amazon);
                     $("#link_alibaba").val(data.link_alibaba);
 
+                },
+                error: function(data) {
+                    alert("error");
+                }
+            });
+        });
+
+        // Actualiza clasificacion
+        $('.actualizaClasificacion').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "{{ url('/admin/consulta_clasificacion') }}/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $('#producto_id_actualiza_clasificacion').val(data.producto_id);
+                    $('#clasificacion_id').val(data.id);
+                    $('#actualiza_clasificacion_arancelaria').val(data.clasificacion_arancelaria);
+                    $('#actualiza_nom_1').val(data.nom_1);
+                    $('#actualiza_nom_2').val(data.nom_2);
+                    $('#actualiza_nom_3').val(data.nom_3);
+                    $('#actualiza_nom_4').val(data.nom_4);
                 },
                 error: function(data) {
                     alert("error");
