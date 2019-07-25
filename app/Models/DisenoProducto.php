@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class ProductoOrdenCompra extends Model
+class DisenoProducto extends Model
 {
     // Traits
     use Notifiable;
 
     // Nombre de la tabla
-    protected $table = 'productos_orden_compra';
-    public $timestamps = false;
+    protected $table = 'diseno_producto_orden';
 
     /**
      * Atributos modificables
@@ -20,14 +19,16 @@ class ProductoOrdenCompra extends Model
      * @var array
      */
     protected $fillable = [
-        'cantidad',
-        'costo',
-        'total',
-        'incoterm',
-        'leadtime',
-        // Llaves foraneas
+        'logo',
+        'box',
+        'instructivo',
+        'archivo_fabricante',
+        'archivo_diseno',
+        'tipo',
+        'fecha_requerida',
+        // Relaciones
         'orden_compra_id',
-        'producto_id',
+        'producto_id'
     ];
 
     /**
@@ -42,18 +43,18 @@ class ProductoOrdenCompra extends Model
      */
 
     /**
-     * Oden de compra del producto (orden_compra_id)
-     */
-    public function ordenCompra()
-    {
-        return $this->belongsTo('App\Models\OrdenCompra', 'orden_compra_id');
-    }
-
-    /**
-     * Producto asociado (producto_id)
+     * Producto (producto_id).
      */
     public function producto()
     {
         return $this->belongsTo('App\Models\Producto', 'producto_id');
+    }
+
+    /**
+     * Orden compra (orden_compra_id).
+     */
+    public function ordenCompra()
+    {
+        return $this->belongsTo('App\Models\OrdenCompra', 'orden_compra_id');
     }
 }

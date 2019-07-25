@@ -47,31 +47,12 @@ class ProductoController extends Controller
     {
         try {
             foreach ($oRequest->productos as $aProductos) {
-                $logo = (in_array('logo', $aProductos)) ? true : false;
-                $oem = (in_array('oem', $aProductos)) ? true : false;
-                $instructivo = (in_array('instructivo', $aProductos)) ? true : false;
-
-                // @todo:: Hacer la logica para guardar json de archivos**
-                //$archivoFabricante = $aProductos['archivosFabricante'];
-                //$archivoDesign = $aProductos['archivosDiseno'];
-                //$archivoFabricanteProducto = $archivoFabricante;
-                //$archivoDesignProducto = $archivoDesign;
-                //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
-                //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
-
                 $producto = $this->mProducto->create([
                     'cantidad' => $aProductos['cantidad_producto'],
                     'costo' => $aProductos['costo_producto'],
                     'total' => $aProductos['cantidad_producto'] * $aProductos['costo_producto'],
                     'incoterm' => $aProductos['icoterm_producto'],
                     'leadtime' => $aProductos['leadtime_producto'],
-                    'logo' => $logo,
-                    'box' => $oem,
-                    'instructivo' => $instructivo,
-                    'archivo_fabricante' => null, //$archivoFabricanteProducto,
-                    'archivo_diseno' => null, //$archivoDesignProducto,
-                    'tipo' => $aProductos['tipo'],
-                    'fecha_requerida' => $aProductos['fechaRequerida'],
                     'orden_compra_id' => $orden->id,
                     'producto_id' => $aProductos['producto_id']
                 ]);
@@ -120,17 +101,6 @@ class ProductoController extends Controller
     public function update(Request $oRequest)
     {
         try {
-            $logo = ($oRequest->logo) ? true : false;
-            $oem = ($oRequest->oem) ? true : false;
-            $instructivo = ($oRequest->instructivo) ? true : false;
-            // @todo:: Hacer la logica para guardar json de archivos**
-            //$archivoFabricante = $aProductos['archivosFabricante'];
-            //$archivoDesign = $aProductos['archivosDiseno'];
-            //$archivoFabricanteProducto = $archivoFabricante;
-            //$archivoDesignProducto = $archivoDesign;
-            //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
-            //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
-
             $producto = $this->mProducto->find($oRequest->producto_orden_id);
             $producto->update([
                 'cantidad' => $oRequest->cantidad_productoM,
@@ -214,30 +184,12 @@ class ProductoController extends Controller
     public function guardaProducto(Request $oRequest, $orden)
     {
         try {
-            $logo = ($oRequest->logo) ? true : false;
-            $oem = ($oRequest->oem) ? true : false;
-            $instructivo = ($oRequest->instructivo) ? true : false;
-            // @todo:: Hacer la logica para guardar json de archivos**
-            //$archivoFabricante = $aProductos['archivosFabricante'];
-            //$archivoDesign = $aProductos['archivosDiseno'];
-            //$archivoFabricanteProducto = $archivoFabricante;
-            //$archivoDesignProducto = $archivoDesign;
-            //$archivoFabricanteProducto = $this->guardaArchivo($archivoFabricanteProducto);
-            //$archivoDesignProducto = $this->guardaArchivo($archivoDesignProducto);
-
             $producto = $this->mProducto->create([
                 'cantidad' => $oRequest->cantidad_productoM,
                 'costo' => $oRequest->costo_productoM,
                 'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
                 'incoterm' => $oRequest->icoterm_productoM,
                 'leadtime' => $oRequest->leadtime_productoM,
-                'logo' => $logo,
-                'box' => $oem,
-                'instructivo' => $instructivo,
-                'archivo_fabricante' => null, //$archivoFabricanteProducto,
-                'archivo_diseno' => null, //$archivoDesignProducto,
-                'tipo' => $oRequest->tipo,
-                'fecha_requerida' => $oRequest->fechaRequerida,
                 'orden_compra_id' => $orden,
                 'producto_id' => $oRequest->producto_id
             ]);

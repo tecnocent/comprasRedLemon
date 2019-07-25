@@ -71,5 +71,11 @@ Route::post('/guarda_clasificacion/{id}', 'ClasificacionAduanera\ClasificacionAd
 Route::post('/actualiza_clasificacion/', 'ClasificacionAduanera\ClasificacionAduaneraController@update')->name('clasificacion.update');
 Route::get('/consulta_clasificacion/{id}', 'ClasificacionAduanera\ClasificacionAduaneraController@consultaClasificacion')->name('clasificacion.consulta');
 
+//Diseno producto
+Route::get('/elimina_diseno/{id}', 'Diseno\DisenoController@destroy')->name('diseno.delete');
+Route::post('/guarda_diseno/{id}', 'Diseno\DisenoController@guardaDiseno')->name('diseno.save');
+Route::post('/actualiza_diseno/', 'Diseno\DisenoController@update')->name('diseno.update');
+Route::get('/consulta_diseno/{id}', 'Diseno\DisenoController@consultaDiseno')->name('diseno.consulta');
+
 // Productos
 Route::post('/guarda_producto_base', 'ProductoBase\ProductoBaseController@store')->name('producto_base.save');

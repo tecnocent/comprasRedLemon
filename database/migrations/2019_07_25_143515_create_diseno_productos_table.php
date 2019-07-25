@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ProductosOrdenCompraTable extends Migration
+class CreateDisenoProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,19 @@ class ProductosOrdenCompraTable extends Migration
      */
     public function up()
     {
-        Schema::create('productos_orden_compra', function (Blueprint $table) {
+        Schema::create('diseno_producto_orden', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('orden_compra_id')->nullable();
             $table->integer('producto_id')->nullable();
-            $table->integer('cantidad')->nullable();
-            $table->float('costo')->nullable();
-            $table->float('total')->nullable();
-            $table->string('incoterm')->nullable();
-            $table->integer('leadtime')->nullable();
+            $table->boolean('logo')->nullable();
+            $table->boolean('box')->nullable();
+            $table->boolean('instructivo')->nullable();
+            $table->string('archivo_fabricante')->nullable();
+            $table->string('archivo_diseno')->nullable();
+            $table->string('tipo')->nullable();
+            $table->date('fecha_requerida')->nullable();
             $table->foreign('orden_compra_id')->references('id')->on('orden_compra')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -35,6 +36,6 @@ class ProductosOrdenCompraTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productos_orden_compra');
+        Schema::dropIfExists('diseno_producto_orden');
     }
 }

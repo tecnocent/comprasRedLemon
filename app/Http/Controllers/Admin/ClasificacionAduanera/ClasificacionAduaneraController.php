@@ -13,6 +13,7 @@ class ClasificacionAduaneraController extends Controller
 
     public function __construct(ClasificacionAduanera $clasificacion)
     {
+        $this->middleware('auth');
         $this->mClasificacion = $clasificacion;
     }
 
