@@ -5,8 +5,6 @@ $(".filestyle").filestyle({
 });
 
 $(".filestyle2").filestyle({
-    badge: true,
-    input: false,
     dragdrop: true,
     text: "Buscar...",
     btnClass: "btn-primary"

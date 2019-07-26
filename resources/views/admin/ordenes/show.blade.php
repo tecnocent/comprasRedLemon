@@ -286,24 +286,87 @@
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="4b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#nuevo-diseno-producto" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar diseño</button>
                                                 <div class="row" id="table4">
                                                     <div class="panel panel-default diseno-bajo" id="table-monto-default">
-                                                        <div class="panel-body">
-                                                            <table id="diseno" class="table table-striped table-bordered diseno" cellspacing="0" width="100%">
+                                                        <div class="panel-body table-responsive">
+                                                            <table id="diseno" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>SKU</th>
                                                                     <th>Producto</th>
-                                                                    <th>Descripción</th>
-                                                                    <th>¿Logo en producto?</th>
-                                                                    <th>¿OEM BOX?</th>
+                                                                    <th>¿OEM?</th>
                                                                     <th>¿Instructivo?</th>
-                                                                    <th>Archivos Die-Cut Fabricante</th>
-                                                                    <th>Archivos autorizados Diseño</th>
-                                                                    <th>Tipo</th>
-                                                                    <th>Fecha requerida</th>
+                                                                    <th>¿Empaque?</th>
+                                                                    <th>Fecha aviso diseño</th>
+                                                                    <th>Producto listo diseño</th>
+                                                                    <th>Empaque listo diseño</th>
+                                                                    <th>Instructivo listo diseño</th>
+                                                                    <th>OEM autorizado por trafico</th>
+                                                                    <th>Fecha autorizacion trafico</th>
+                                                                    <th>Archivos Diseño</th>
+                                                                    <th>Archivos Fabricante</th>
+                                                                    <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
+                                                                <tbody>
+                                                                @foreach($disenos as $diseno)
+                                                                    <tr>
+                                                                        <td>{{ $diseno->producto->name }}</td>
+                                                                        <td>{{ ($diseno->oem == true) ? 'SI' : 'NO'  }}</td>
+                                                                        <td>{{ ($diseno->instructivo == true) ? 'SI' : 'NO'  }}</td>
+                                                                        <td>{{ ($diseno->empaquetado == true) ? 'SI' : 'NO'  }}</td>
+                                                                        <td>{{ $diseno->fecha_aviso_diseño }}</td>
+                                                                        @if($diseno->producto_diseno)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $diseno->producto_diseno }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        @if($diseno->empaque_diseno)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $diseno->empaque_diseno }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        @if($diseno->instructivo_diseno)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $diseno->instructivo_diseno }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        @if($diseno->oem_autorizado_trafico)
+                                                                            <td><a href="{{ url('/admin/orden/descarga') }}/{{ $diseno->oem_autorizado_trafico }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        <td>{{ $diseno->fecha_autorizacion_trafico }}</td>
+                                                                        @if($diseno->archivos_fabricante)
+                                                                            <td>
+                                                                                <?php
+                                                                                foreach (json_decode($diseno->archivos_fabricante) as $fileFab => $key) {
+                                                                                    echo '<a href="'.url("/admin/orden/descarga").'/'.$key.'" class="btn btn-link">Descargar</a>';
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        @if($diseno->archivos_diseno)
+                                                                            <td>
+                                                                                <?php
+                                                                                foreach (json_decode($diseno->archivos_diseno) as $fileDiseno => $key) {
+                                                                                    echo '<a href="'.url("/admin/orden/descarga").'/'.$key.'" class="btn btn-link">Descargar</a>';
+                                                                                }
+                                                                                ?>
+                                                                            </td>
+                                                                        @else
+                                                                            <td>No hay archivo</td>
+                                                                        @endif
+                                                                        <td>
+                                                                            <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-danger-diseno" data-id="{{ $diseno->id }}"><i class="fa fa-remove"></i></button>
+                                                                            <button type="button" class="btn btn-warning btn-xs actualizaDiseno" data-toggle="modal" data-target="#modal-actualiza-diseno" data-id="{{ $diseno->id }}"><i class="fa fa-pencil"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
@@ -802,6 +865,13 @@
             $('#modal-danger-clasificacion').on('show.bs.modal', function(e) {
                 var id = $(e.relatedTarget).data('id');
                 $('#deleteClasificacion').attr("href", "{{ url('/admin/elimina_clasificacion') }}" + "/" + id);
+            });
+        });
+        // Elimina diseño
+        $(document).ready(function() {
+            $('#modal-danger-diseno').on('show.bs.modal', function(e) {
+                var id = $(e.relatedTarget).data('id');
+                $('#deleteDiseno').attr("href", "{{ url('/admin/elimina_diseno') }}" + "/" + id);
             });
         });
 

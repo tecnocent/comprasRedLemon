@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Diseno;
 use App\Models\DisenoProducto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Webpatser\Uuid\Uuid;
+use Log;
 
 class DisenoController extends Controller
 {
@@ -123,6 +125,117 @@ class DisenoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $diseno = $this->mDiseno->find($id);
+            $diseno->delete();
+            // Alerta
+            $notification = array(
+                'message' => 'Diseño eliminado de la orden',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            $notification = array(
+                'message' => 'Algo salio mal',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param Request $oRequest
+     * @param $orden
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function guardaDiseno(Request $oRequest, $orden)
+    {
+        try {
+            $oem = (array_has($oRequest->all(),'oem')) ? true : false;
+            $empaque = (array_has($oRequest->all(),'empaque')) ? true : false;
+            $instructivo = (array_has($oRequest->all(),'instructivo')) ? true : false;
+            $archivosFabricante = [];
+            $archivosDiseno = [];
+            $contadorFabricante = 0;
+            $contadorDiseno = 0;
+
+            $fileProductoDiseno = $this->guardaArchivo($oRequest->file('producto_diseno'));
+            $fileEmpaque = $this->guardaArchivo($oRequest->file('empaque_diseno'));
+            $fileInstructivo = $this->guardaArchivo($oRequest->file('instructivo_diseno'));
+            $oemAutorizado = $this->guardaArchivo($oRequest->file('instructivo_diseno'));
+
+            foreach ($oRequest->archivos_fabricante as $fileFrabricante) {
+                $fFrabricante = $this->guardaArchivo($fileFrabricante);
+                $archivosFabricante[$contadorFabricante] = $fFrabricante;
+                $contadorFabricante++;
+            }
+
+            foreach ($oRequest->archivos_diseno as $fileDiseno) {
+                $fDiseno = $this->guardaArchivo($fileDiseno);
+                $archivosDiseno[$contadorDiseno] = $fDiseno;
+                $contadorDiseno++;
+            }
+
+            $diseno = $this->mDiseno->create([
+                'oem'                           => $oem,
+                'empaque'                       => $empaque,
+                'instructivo'                   => $instructivo,
+                'fecha_aviso_diseño'            => $oRequest->fecha_aviso_diseño,
+                'producto_diseno'               => $fileProductoDiseno,
+                'empaque_diseno'                => $fileEmpaque,
+                'instructivo_diseno'            => $fileInstructivo,
+                'oem_autorizado_trafico'        => $oemAutorizado,
+                'fecha_autorizacion_trafico'    => $oRequest->fecha_autorizacion_trafico,
+                'archivos_fabricante'           => json_encode($archivosFabricante, JSON_FORCE_OBJECT),
+                'archivos_diseno'               => json_encode($archivosDiseno, JSON_FORCE_OBJECT),
+                'orden_compra_id'               => $orden,
+                'producto_id'                   => $oRequest->producto_id
+            ]);
+            // Alerta
+            $notification = array(
+                'message' => 'Diseño agregado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    /**
+     * @param $archivo
+     * @return string
+     * @throws \Exception
+     */
+    private function guardaArchivo($archivo)
+    {
+        if ($archivo) {
+            ///obtenemos el campo file definido en el formulario
+            $file = $archivo;
+            $nombre = Uuid::generate(1).'.'.$file->getClientOriginalExtension();
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('local')->put($nombre,  \File::get($file));
+
+            return $nombre;
+        } else {
+            return $nombre = '';
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function consultaDiseno($id)
+    {
+        $diseno = $this->mDiseno->find($id);
+        return response()->json($diseno);
     }
 }

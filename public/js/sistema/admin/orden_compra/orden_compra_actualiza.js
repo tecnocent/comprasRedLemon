@@ -53,6 +53,7 @@ $("#input-empaquetado_seguimiento-seleccionada-guarda").change(function() {
         reader.readAsDataURL(this.files[0]);
     }
 });
+
 // Solo numeros
 function soloNumeros(e){
     var key = window.Event ? e.which : e.keyCode

@@ -3,10 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8b008d52-ef93-4138-bc5b-55f4a4fe58b3" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/DisenoProducto.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DisenoProducto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/dist/js/filestyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/dist/js/filestyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_guarda.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_guarda.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +24,15 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="158" column="42" selection-start-line="158" selection-start-column="42" selection-end-line="158" selection-end-column="42" />
+            <state relative-caret-position="352">
+              <caret line="189" column="36" selection-start-line="189" selection-start-column="17" selection-end-line="189" selection-end-column="36" />
+              <folding>
+                <element signature="e#53#83#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -31,23 +40,35 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="1057" column="58" selection-start-line="1057" selection-start-column="58" selection-end-line="1057" selection-end-column="58" />
+            <state relative-caret-position="288">
+              <caret line="354" column="125" selection-start-line="354" selection-start-column="110" selection-end-line="354" selection-end-column="125" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="833" column="94" selection-start-line="833" selection-start-column="73" selection-end-line="833" selection-end-column="94" />
-              <caret line="839" column="81" selection-start-line="839" selection-start-column="65" selection-end-line="839" selection-end-column="81" />
-              <caret line="845" column="119" selection-start-line="845" selection-start-column="84" selection-end-line="845" selection-end-column="119" />
-              <caret line="851" column="99" selection-start-line="851" selection-start-column="84" selection-end-line="851" selection-end-column="99" />
-              <caret line="857" column="99" selection-start-line="857" selection-start-column="84" selection-end-line="857" selection-end-column="99" />
-              <caret line="863" column="99" selection-start-line="863" selection-start-column="84" selection-end-line="863" selection-end-column="99" />
-              <caret line="869" column="99" selection-start-line="869" selection-start-column="84" selection-end-line="869" selection-end-column="99" />
+            <state relative-caret-position="192">
+              <caret line="163" column="60" selection-start-line="163" selection-start-column="41" selection-end-line="163" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2992">
+              <caret line="92" column="33" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web/admin/app/orden.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="393">
+              <caret line="75" column="72" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -56,10 +77,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ped</find>
-      <find>pedime</find>
-      <find>transito</find>
-      <find>transi</find>
       <find>pediment</find>
       <find>filest</find>
       <find>pagos</find>
@@ -82,10 +99,14 @@
       <find>oem</find>
       <find>oem-tres</find>
       <find>cara</find>
-      <find>.ajax</find>
       <find>pedimen</find>
       <find>solo</find>
       <find>.aja</find>
+      <find>.ajax</find>
+      <find>diseno</find>
+      <find>check</find>
+      <find>file</find>
+      <find>checkbox</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -107,13 +128,10 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ProductoBase/ProductoBaseController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Proveedor/ProveedorController.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Transito/TransitoController.php" />
-        <option value="$PROJECT_DIR$/public/dist/js/filestyle.js" />
         <option value="$PROJECT_DIR$/app/Models/SeguimientoProducto.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_18_213316_create_seguimiento_productos_table.php" />
-        <option value="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/public/fonts/font-awesome.min.css" />
         <option value="$PROJECT_DIR$/resources/views/admin/home.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_22_210353_create_caracteristica_productos_table.php" />
@@ -124,26 +142,29 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/CaracteristicaProducto/CaracteristicaProductoController.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_07_24_195945_create_clasificacion_aduaneras_table.php" />
         <option value="$PROJECT_DIR$/app/Models/ClasificacionAduanera.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php" />
         <option value="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js" />
-        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/resumen.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Producto/ProductoController.php" />
         <option value="$PROJECT_DIR$/app/Models/ProductoOrdenCompra.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_06_27_172444_productos_orden_compra_table.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php" />
-        <option value="$PROJECT_DIR$/app/Models/DisenoProducto.php" />
         <option value="$PROJECT_DIR$/routes/web/admin/app/orden.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php" />
-        <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/.env" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/public/js/sistema/admin/orden_compra/orden_compra.js" />
         <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php" />
+        <option value="&lt;5feadafb-059b-4d7a-9869-2fe9bc0dd4c5&gt;/.env" />
+        <option value="$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js" />
+        <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/public/dist/js/filestyle.js" />
+        <option value="$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php" />
+        <option value="$PROJECT_DIR$/app/Models/DisenoProducto.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_guarda.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php" />
+        <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php" />
       </list>
     </option>
@@ -259,8 +280,8 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="14" />
-    <option name="y" value="-8" />
+    <option name="x" value="-21" />
+    <option name="y" value="-14" />
     <option name="width" value="1386" />
     <option name="height" value="788" />
   </component>
@@ -281,37 +302,20 @@
             <path>
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="documents" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
               <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="comprasRedLemon" type="b2602c69:ProjectViewProjectNode" />
-              <item name="comprasRedLemon" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="ordenes" type="462c0819:PsiDirectoryNode" />
-              <item name="modals" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="documents" type="462c0819:PsiDirectoryNode" />
+              <item name="orden_compra" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -320,7 +324,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="remo&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote h&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote &#9;ACTION&#9;WebDeployment.BrowseServers&#10;rem&#9;ACTION&#9;ActivateRemoteHostToolWindow" />
+    <property name="SearchEverywhereHistoryKey" value="remot&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remo&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote h&#9;ACTION&#9;ActivateRemoteHostToolWindow&#10;remote &#9;ACTION&#9;WebDeployment.BrowseServers&#10;rem&#9;ACTION&#9;ActivateRemoteHostToolWindow" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
@@ -375,11 +379,12 @@
       <workItem from="1563811672916" duration="2920000" />
       <workItem from="1563817134653" duration="10997000" />
       <workItem from="1563972546353" duration="28385000" />
+      <workItem from="1564147776104" duration="17240000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="204145000" />
+    <option name="totallyTimeSpent" value="222402000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -400,12 +405,12 @@
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49924356" weight="0.46972176" />
       <window_info anchor="bottom" id="File Transfer" order="9" weight="0.3289689" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.3289689" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.27155825" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.20499243" />
       <window_info anchor="right" id="Database" order="4" />
     </layout>
     <layout-to-restore>
@@ -435,17 +440,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Exceptions/Handler.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
@@ -505,13 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/dist/js/filestyle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/SeguimientoProducto.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
@@ -531,13 +532,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/fonts/fontawesome-webfont.woff">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="15" column="58" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="58" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/fonts/fontawesome-webfont.woff2">
       <provider selected="true" editor-type-id="text-editor" />
@@ -591,13 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="44" selection-start-line="43" selection-start-column="44" selection-end-line="43" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/SeguimientoProducto/SeguimientoProductoController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -639,30 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-338">
-          <caret line="364" column="32" selection-start-line="364" selection-start-column="32" selection-end-line="364" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="394" column="154" selection-start-line="394" selection-start-column="154" selection-end-line="394" selection-end-column="154" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="834" column="72" lean-forward="true" selection-start-line="834" selection-start-column="72" selection-end-line="834" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/ClasificacionAduanera.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="237">
@@ -701,64 +664,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="17" column="52" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="52" />
-          <caret line="18" column="40" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="40" />
-          <caret line="19" column="33" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="33" />
-          <caret line="20" column="32" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="32" />
-          <caret line="21" column="40" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="40" />
-          <caret line="22" column="46" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="46" />
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="42" />
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="32" />
-          <caret line="25" column="41" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ClasificacionAduanera/ClasificacionAduaneraController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-288">
           <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="e#68#105#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Pedimento/PedimentoController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="78" column="9" selection-start-line="50" selection-start-column="8" selection-end-line="78" selection-end-column="9" />
+        <state relative-caret-position="208">
+          <caret line="833" column="138" selection-start-line="833" selection-start-column="138" selection-end-line="833" selection-end-column="138" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/DisenoProducto.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="26" selection-start-line="21" selection-start-column="8" selection-end-line="27" selection-end-column="26" />
-          <folding>
-            <element signature="e#30#69#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="53" column="34" selection-start-line="53" selection-start-column="34" selection-end-line="53" selection-end-column="34" />
-          <folding>
-            <element signature="e#53#83#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web/admin/app/orden.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="77" column="75" selection-start-line="77" selection-start-column="75" selection-end-line="77" selection-end-column="75" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/routes/api/admin/productos.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_crea.blade.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -767,37 +688,125 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="240" column="98" lean-forward="true" selection-start-line="240" selection-start-column="98" selection-end-line="240" selection-end-column="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="394" column="154" selection-start-line="394" selection-start-column="154" selection-end-line="394" selection-end-column="154" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/sistema/admin/orden_compra/orden_compra_actualiza.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="254" column="16" selection-start-line="254" selection-start-column="16" selection-end-line="254" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/dist/js/filestyle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2019_07_25_143515_create_diseno_productos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="17" column="52" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="52" />
+          <caret line="18" column="40" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="40" />
+          <caret line="19" column="32" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="32" />
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="36" />
+          <caret line="21" column="40" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="40" />
+          <caret line="22" column="44" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="44" />
+          <caret line="23" column="43" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="43" />
+          <caret line="24" column="42" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="42" />
+          <caret line="25" column="46" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="46" />
+          <caret line="26" column="50" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="50" />
+          <caret line="27" column="52" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="52" />
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="45" />
+          <caret line="29" column="41" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Models/DisenoProducto.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="34" column="21" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="34" selection-end-column="21" />
+          <folding>
+            <element signature="e#30#69#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_guarda.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="870" column="20" lean-forward="true" selection-start-line="800" selection-end-line="870" selection-end-column="20" />
+        <state relative-caret-position="402">
+          <caret line="962" column="170" selection-start-line="962" selection-start-column="155" selection-end-line="962" selection-end-column="170" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Pedimento/PedimentoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="247" column="5" lean-forward="true" selection-start-line="239" selection-start-column="4" selection-end-line="247" selection-end-column="5" />
+          <folding>
+            <element signature="e#56#102#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/OrdenCompra/OrdenesCompraController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2992">
+          <caret line="92" column="33" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web/admin/app/orden.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="75" column="72" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/Diseno/DisenoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="189" column="36" selection-start-line="189" selection-start-column="17" selection-end-line="189" selection-end-column="36" />
+          <folding>
+            <element signature="e#53#83#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_eliminacion.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="158" column="42" selection-start-line="158" selection-start-column="42" selection-end-line="158" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/modals/modal_actualiza.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="833" column="94" selection-start-line="833" selection-start-column="73" selection-end-line="833" selection-end-column="94" />
-          <caret line="839" column="81" selection-start-line="839" selection-start-column="65" selection-end-line="839" selection-end-column="81" />
-          <caret line="845" column="119" selection-start-line="845" selection-start-column="84" selection-end-line="845" selection-end-column="119" />
-          <caret line="851" column="99" selection-start-line="851" selection-start-column="84" selection-end-line="851" selection-end-column="99" />
-          <caret line="857" column="99" selection-start-line="857" selection-start-column="84" selection-end-line="857" selection-end-column="99" />
-          <caret line="863" column="99" selection-start-line="863" selection-start-column="84" selection-end-line="863" selection-end-column="99" />
-          <caret line="869" column="99" selection-start-line="869" selection-start-column="84" selection-end-line="869" selection-end-column="99" />
+        <state relative-caret-position="192">
+          <caret line="163" column="60" selection-start-line="163" selection-start-column="41" selection-end-line="163" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/ordenes/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="1057" column="58" selection-start-line="1057" selection-start-column="58" selection-end-line="1057" selection-end-column="58" />
+        <state relative-caret-position="288">
+          <caret line="354" column="125" selection-start-line="354" selection-start-column="110" selection-end-line="354" selection-end-column="125" />
         </state>
       </provider>
     </entry>

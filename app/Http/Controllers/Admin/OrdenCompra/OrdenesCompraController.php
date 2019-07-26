@@ -16,6 +16,7 @@ use App\Models\Aduana;
 use App\Models\AgenteAduanal;
 use App\Models\CaracteristicaProducto;
 use App\Models\ClasificacionAduanera;
+use App\Models\DisenoProducto;
 use App\Models\MetodoTransito;
 use App\Models\MontoPagoOrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
@@ -64,9 +65,10 @@ class OrdenesCompraController extends Controller
     protected $mSeguimiento;
     protected $mCaracteristica;
     protected $mClasificacion;
+    protected $mDiseno;
 
 
-    public function __construct(OrdenCompra $ordenCompra, ClasificacionAduanera $clasificacion, CaracteristicaProducto $caracteristica, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
+    public function __construct(OrdenCompra $ordenCompra, DisenoProducto $diseno, ClasificacionAduanera $clasificacion, CaracteristicaProducto $caracteristica, SeguimientoProducto $seguimiento, MetodoTransito $metodoTransito, Aduana $aduana, AgenteAduanal $agenteAduanal, Pedimento $pedimento, Transito $transito, PagoMontoOrdenCompra $pago,Proveedor $proveedor, User $usuario, Almacen $almacen, Producto $producto, CostoDestino $costoDestino, CostoOrigen $costoOrigen, ProductoOrdenCompra $productoOrdenCompra, GastosOrigenOrdenCompra $gastosOrigenOrden, GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
         $this->middleware('auth');
         $this->mProveedor = $proveedor;
@@ -88,6 +90,7 @@ class OrdenesCompraController extends Controller
         $this->mSeguimiento = $seguimiento;
         $this->mCaracteristica = $caracteristica;
         $this->mClasificacion = $clasificacion;
+        $this->mDiseno = $diseno;
     }
 
     /**
@@ -229,6 +232,7 @@ class OrdenesCompraController extends Controller
         $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
         $caracteristicas = $this->mCaracteristica->where('orden_compra_id', $orden->id)->get();
         $clasificaciones = $this->mClasificacion->where('orden_compra_id', $orden->id)->get();
+        $disenos = $this->mDiseno->where('orden_compra_id', $orden->id)->get();
         return view('admin.ordenes.show')->with([
             'orden'             => $orden,
             'proveedores'       => $this->mProveedor->all(),
@@ -241,6 +245,7 @@ class OrdenesCompraController extends Controller
             'seguimientos'      => $seguimientos,
             'caracteristicas'   => $caracteristicas,
             'clasificaciones'   => $clasificaciones,
+            'disenos'           => $disenos,
             'usuarios'          => $this->mUser->all(),
             'almacenes'         => $this->mAlmacen->all(),
             'productos'         => $this->mProducto->all(),

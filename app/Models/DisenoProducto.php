@@ -19,13 +19,17 @@ class DisenoProducto extends Model
      * @var array
      */
     protected $fillable = [
-        'logo',
-        'box',
+        'oem',
+        'empaque',
         'instructivo',
-        'archivo_fabricante',
-        'archivo_diseno',
-        'tipo',
-        'fecha_requerida',
+        'fecha_aviso_diseño',
+        'producto_diseno',
+        'empaque_diseno',
+        'instructivo_diseno',
+        'oem_autorizado_trafico',
+        'fecha_autorizacion_trafico',
+        'archivos_fabricante',
+        'archivos_diseno',
         // Relaciones
         'orden_compra_id',
         'producto_id'
