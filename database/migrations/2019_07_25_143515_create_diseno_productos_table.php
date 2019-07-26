@@ -20,7 +20,7 @@ class CreateDisenoProductosTable extends Migration
             $table->boolean('oem')->nullable();
             $table->boolean('empaque')->nullable();
             $table->boolean('instructivo')->nullable();
-            $table->date('fecha_aviso_diseño')->nullable();
+            $table->date('fecha_aviso_diseno')->nullable();
             $table->string('producto_diseno')->nullable();
             $table->string('empaque_diseno')->nullable();
             $table->string('instructivo_diseno')->nullable();

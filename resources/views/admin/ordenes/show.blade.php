@@ -315,8 +315,8 @@
                                                                         <td>{{ $diseno->producto->name }}</td>
                                                                         <td>{{ ($diseno->oem == true) ? 'SI' : 'NO'  }}</td>
                                                                         <td>{{ ($diseno->instructivo == true) ? 'SI' : 'NO'  }}</td>
-                                                                        <td>{{ ($diseno->empaquetado == true) ? 'SI' : 'NO'  }}</td>
-                                                                        <td>{{ $diseno->fecha_aviso_diseño }}</td>
+                                                                        <td>{{ ($diseno->empaque == true) ? 'SI' : 'NO'  }}</td>
+                                                                        <td>{{ $diseno->fecha_aviso_diseno }}</td>
                                                                         @if($diseno->producto_diseno)
                                                                             <td><a href="{{ url('/admin/orden/descarga') }}/{{ $diseno->producto_diseno }}" class="btn btn-link">Descargar</a></td>
                                                                         @else
@@ -1127,6 +1127,36 @@
                     $('#actualiza_nom_2').val(data.nom_2);
                     $('#actualiza_nom_3').val(data.nom_3);
                     $('#actualiza_nom_4').val(data.nom_4);
+                },
+                error: function(data) {
+                    alert("error");
+                }
+            });
+        });
+
+        // Actualiza diseño
+        $('.actualizaDiseno').on('click',function(){
+            var id = $(this).data("id");
+            $.ajax({
+                url: "{{ url('/admin/consulta_diseno') }}/"+id,
+                dataType: "json",
+                type:"GET",
+                success: function(data){
+                    console.log(data);
+                    $('#produto_diseno_id').val(data.producto_id);
+
+                    $('#diaeno_id').val(data.id);
+                    if (data.empaque === 1){
+                        $('#empaque_diseno_actualiza').prop('checked', true);
+                    }
+                    if (data.oem === 1){
+                        $('#oem_diseno_actualiza').prop('checked', true);
+                    }
+                    if (data.instructivo === 1){
+                        $('#instructivo_diseno_actualiza').prop('checked', true);
+                    }
+                    $('#fecha_diseno_diseno_actualiza').val(data.fecha_aviso_diseno);
+                    $('#fecha_trafico_diseno_actualiza').val(data.fecha_autorizacion_trafico);
                 },
                 error: function(data) {
                     alert("error");

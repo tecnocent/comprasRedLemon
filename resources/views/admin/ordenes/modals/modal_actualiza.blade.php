@@ -883,3 +883,111 @@
         </div><!-- modal-content -->
     </div>
 </div><!-- modal -->
+
+<!--Modal Diseño-->
+<div class="modal right1 fade" id="modal-actualiza-diseno" tabindex="-1" role="dialog" aria-labelledby="pagos">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('diseno.update') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Actualiza Diseño</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12 line">
+                                    <div class="form-group">
+                                        <label>Producto de orden</label>
+                                        <select class="form-control" id="produto_diseno_id"  name="producto_id" disabled>
+                                            <option value="">Selecciona</option>
+                                            @foreach($productosOrden as $producto)
+                                                <option value="{{ $producto->producto->id }}">{{ $producto->producto->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="hidden" id="diaeno_id" name="diseno_id">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 line">
+                                    <div class="form-group">
+                                        <label>¿Requiere OEM?</label><br>
+                                        <label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="oem" id="oem_diseno_actualiza"/> <span></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 line">
+                                    <div class="form-group">
+                                        <label>¿Empaque?</label><br>
+                                        <label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="empaque" id="empaque_diseno_actualiza"/> <span></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 line">
+                                    <div class="form-group">
+                                        <label>¿Instructivo?</label><br>
+                                        <label class="checkbox-inline checbox-switch switch-primary"> <input type="checkbox" name="instructivo" id="instructivo_diseno_actualiza"/> <span></span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Fecha aviso diseño</label>
+                                        <input type="text" class="form-control datepicker" name="fecha_aviso_diseno" id="fecha_diseno_diseno_actualiza">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Producto listo diseño</label>
+                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="producto_diseno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Empaque diseño listo</label>
+                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="empaque_diseno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Instructivo diseño listo</label>
+                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="instructivo_diseno">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>OEM autorizado por trafico</label>
+                                        <input type="file" class="filestyle" data-badge="true" data-input="false" data-text="Buscar..." data-btnClass="btn-primary" name="oem_autorizado_trafico">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Fecha autorizacion trafico</label>
+                                        <input type="text" class="form-control datepicker" name="fecha_autorizacion_trafico" id="fecha_trafico_diseno_actualiza">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Archivos Diec Cut</label>
+                                        <input type="file" class="filestyle2" data-dragdrop="true" data-text="Buscar..." data-btnClass="btn-primary" name="archivos_fabricante[]" multiple>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Archivos Diseño</label>
+                                        <input type="file" class="filestyle2" data-dragdrop="true" data-text="Buscar..." data-btnClass="btn-primary" name="archivos_diseno[]" multiple>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Actualizar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->

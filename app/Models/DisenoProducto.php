@@ -22,7 +22,7 @@ class DisenoProducto extends Model
         'oem',
         'empaque',
         'instructivo',
-        'fecha_aviso_diseño',
+        'fecha_aviso_diseno',
         'producto_diseno',
         'empaque_diseno',
         'instructivo_diseno',

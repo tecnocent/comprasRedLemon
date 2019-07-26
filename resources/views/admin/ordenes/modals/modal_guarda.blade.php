@@ -870,7 +870,7 @@
 </div><!-- modal -->
 
 
-<!--Modal Clasificacion-->
+<!--Modal Diseño-->
 <div class="modal right1 fade" id="nuevo-diseno-producto" tabindex="-1" role="dialog" aria-labelledby="pagos">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -918,7 +918,7 @@
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Fecha aviso diseño</label>
-                                        <input type="text" class="form-control datepicker" name="fecha_aviso_diseño">
+                                        <input type="text" class="form-control datepicker" name="fecha_aviso_diseno">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line">

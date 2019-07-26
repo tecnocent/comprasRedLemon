@@ -106,15 +106,92 @@ class DisenoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $oRequest
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $oRequest)
     {
-        //
+        try {
+            $oem = (array_has($oRequest->all(),'oem')) ? true : false;
+            $empaque = (array_has($oRequest->all(),'empaque')) ? true : false;
+            $instructivo = (array_has($oRequest->all(),'instructivo')) ? true : false;
+            $archivosFabricante = [];
+            $archivosDiseno = [];
+            $contadorFabricante = 0;
+            $contadorDiseno = 0;
+
+            $fileProductoDiseno = $this->guardaArchivo($oRequest->file('producto_diseno'));
+            $fileEmpaque = $this->guardaArchivo($oRequest->file('empaque_diseno'));
+            $fileInstructivo = $this->guardaArchivo($oRequest->file('instructivo_diseno'));
+            $oemAutorizado = $this->guardaArchivo($oRequest->file('instructivo_diseno'));
+
+            if (array_has($oRequest->all, 'archivos_fabricante')){
+                foreach ($oRequest->archivos_fabricante as $fileFrabricante) {
+                    $fFrabricante = $this->guardaArchivo($fileFrabricante);
+                    $archivosFabricante[$contadorFabricante] = $fFrabricante;
+                    $contadorFabricante++;
+                }
+            }
+            if (array_has($oRequest->all, 'archivos_diseno')) {
+                foreach ($oRequest->archivos_diseno as $fileDiseno) {
+                    $fDiseno = $this->guardaArchivo($fileDiseno);
+                    $archivosDiseno[$contadorDiseno] = $fDiseno;
+                    $contadorDiseno++;
+                }
+            }
+            $diseno = $this->mDiseno->find($oRequest->diseno_id);
+            $diseno->update([
+                'oem'                           => $oem,
+                'empaque'                       => $empaque,
+                'instructivo'                   => $instructivo,
+                'fecha_aviso_diseno'            => $oRequest->fecha_aviso_diseno,
+                'fecha_autorizacion_trafico'    => $oRequest->fecha_autorizacion_trafico,
+            ]);
+            if (!empty($fileProductoDiseno)){
+                $diseno->update([
+                    'producto_diseno' => $fileProductoDiseno,
+                ]);
+            }
+            if (!empty($fileEmpaque)){
+                $diseno->update([
+                    'empaque_diseno' => $fileEmpaque,
+                ]);
+            }
+            if (!empty($fileInstructivo)){
+                $diseno->update([
+                    'instructivo_diseno' => $fileInstructivo,
+                ]);
+            }
+            if (!empty($oemAutorizado)){
+                $diseno->update([
+                    'oem_autorizado_trafico' => $oemAutorizado,
+                ]);
+            }
+            if (count($archivosFabricante) > 0){
+                $diseno->update([
+                    'archivos_fabricante' => json_encode($archivosFabricante, JSON_FORCE_OBJECT),
+                ]);
+            }
+            if (count($archivosDiseno) > 0){
+                $diseno->update([
+                    'archivos_diseno' => json_encode($archivosDiseno, JSON_FORCE_OBJECT)
+                ]);
+            }
+            // Alerta
+            $notification = array(
+                'message' => 'Diseño agregado correctamente.',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        } catch (\Exception $e) {
+            // Alerta
+            $notification = array(
+                'message' => 'Algun error ocurrio.',
+                'alert-type' => 'warning'
+            );
+            Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+            return redirect()->back()->with($notification);
+        }
     }
 
     /**
@@ -181,7 +258,7 @@ class DisenoController extends Controller
                 'oem'                           => $oem,
                 'empaque'                       => $empaque,
                 'instructivo'                   => $instructivo,
-                'fecha_aviso_diseño'            => $oRequest->fecha_aviso_diseño,
+                'fecha_aviso_diseno'            => $oRequest->fecha_aviso_diseno,
                 'producto_diseno'               => $fileProductoDiseno,
                 'empaque_diseno'                => $fileEmpaque,
                 'instructivo_diseno'            => $fileInstructivo,
