@@ -47,29 +47,48 @@ class DisenoController extends Controller
     public function store(Request $oRequest, $orden)
     {
         try {
-            foreach ($oRequest->disenos as $aDiseno) {
-                $logo  = (array_has($aDiseno, 'logo')) ? true : false;
-                $box  = (array_has($aDiseno, 'box')) ? true : false;
-                $instructivo  = (array_has($aDiseno, 'instructivo')) ? true : false;
+            foreach ($oRequest->diseno as $aDiseno) {
 
-                $fileDiseno = $aDiseno['file_diseno'];
-                $archivoDiseno = $fileDiseno;
-                $fileDiseno = $this->guardaArchivo($archivoDiseno);
+                $oem = ($aDiseno['oem'] = 'true') ? true : false;
+                $empaque = ($aDiseno['empaque'] = 'true') ? true : false;
+                $instructivo = ($aDiseno['instructivo'] = 'true') ? true : false;
 
-                $fileFabricante = $aDiseno['file_fabricante'];
-                $archivoFabricante = $fileFabricante;
-                $fileFabricante = $this->guardaArchivo($archivoFabricante);
+                $contadorFabricante = 0;
+                $contadorDiseno = 0;
+                $archivosFabricante = [];
+                $archivosDiseno = [];
 
-                $desing = $this->mDiseno->create([
-                    'logo'                  => $logo,
-                    'box'                   => $box,
-                    'instructivo'           => $instructivo,
-                    'archivo_fabricante'    => $fileFabricante,
-                    'archivo_diseno'        => $fileDiseno,
-                    'tipo'                  => $aDiseno['tipo'],
-                    'fecha_requerida'       => $aDiseno['fecha_requerida'],
-                    'producto_id'           => $aDiseno['producto_id'],
-                    'orden_compra_id'       => $orden->id
+                $fileProductoDiseno = $this->guardaArchivo($aDiseno['producto_diseno']);
+                $fileEmpaque = $this->guardaArchivo($aDiseno['empaque_diseno']);
+                $fileInstructivo = $this->guardaArchivo($aDiseno['instructivo_diseno']);
+                $oemAutorizado = $this->guardaArchivo($aDiseno['instructivo_diseno']);
+
+                foreach ($aDiseno['archivos_fabricante'] as $fileFrabricante) {
+                    $fFrabricante = $this->guardaArchivo($fileFrabricante);
+                    $archivosFabricante[$contadorFabricante] = $fFrabricante;
+                    $contadorFabricante++;
+                }
+
+                foreach ($aDiseno['archivos_diseno'] as $fileDiseno) {
+                    $fDiseno = $this->guardaArchivo($fileDiseno);
+                    $archivosDiseno[$contadorDiseno] = $fDiseno;
+                    $contadorDiseno++;
+                }
+
+                $diseno = $this->mDiseno->create([
+                    'oem'                           => $oem,
+                    'empaque'                       => $empaque,
+                    'instructivo'                   => $instructivo,
+                    'fecha_aviso_diseno'            => $aDiseno['fecha_aviso_diseno'],
+                    'producto_diseno'               => $fileProductoDiseno,
+                    'empaque_diseno'                => $fileEmpaque,
+                    'instructivo_diseno'            => $fileInstructivo,
+                    'oem_autorizado_trafico'        => $oemAutorizado,
+                    'fecha_autorizacion_trafico'    => $aDiseno['fecha_autorizacion_trafico'],
+                    'archivos_fabricante'           => json_encode($archivosFabricante, JSON_FORCE_OBJECT),
+                    'archivos_diseno'               => json_encode($archivosDiseno, JSON_FORCE_OBJECT),
+                    'orden_compra_id'               => $orden->id,
+                    'producto_id'                   => $aDiseno['producto_id']
                 ]);
             }
         } catch (\Exception $e) {

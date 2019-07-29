@@ -258,22 +258,26 @@
                                                 </div>
                                             </div>
                                             <div class="tab-pane" id="4b">
+                                                <br>
+                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-diseno" style="margin-bottom: 7px;"><i class="fa fa-plus"></i> Agregar diseño</button>
                                                 <div class="row" id="table4">
                                                     <div class="panel panel-default diseno-bajo" id="table-monto-default">
-                                                        <div class="panel-body">
-                                                            <table id="diseno" class="table table-striped table-bordered diseno" cellspacing="0" width="100%">
+                                                        <div class="panel-body  table-responsive">
+                                                            <table id="diseno" class="table table-striped table-bordered diseno-table" cellspacing="0" width="100%">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th>SKU</th>
                                                                     <th>Producto</th>
-                                                                    <th>Descripción</th>
-                                                                    <th>¿Logo en producto?</th>
-                                                                    <th>¿OEM BOX?</th>
+                                                                    <th>¿OEM?</th>
                                                                     <th>¿Instructivo?</th>
-                                                                    <th>Archivos Die-Cut Fabricante</th>
-                                                                    <th>Archivos autorizados Diseño</th>
-                                                                    <th>Tipo</th>
-                                                                    <th>Fecha requerida</th>
+                                                                    <th>¿Empaque?</th>
+                                                                    <th>Fecha aviso diseño</th>
+                                                                    <th>Producto listo diseño</th>
+                                                                    <th>Empaque listo diseño</th>
+                                                                    <th>Instructivo listo diseño</th>
+                                                                    <th>OEM autorizado por trafico</th>
+                                                                    <th>Fecha autorizacion trafico</th>
+                                                                    <th>Archivos Diseño</th>
+                                                                    <th>Archivos Fabricante</th>
                                                                 </tr>
                                                                 </thead>
                                                             </table>

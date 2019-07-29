@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\OrdenCompra;
 
 use App\Http\Controllers\Admin\CaracteristicaProducto\CaracteristicaProductoController;
 use App\Http\Controllers\Admin\ClasificacionAduanera\ClasificacionAduaneraController;
+use App\Http\Controllers\Admin\Diseno\DisenoController;
 use App\Http\Controllers\Admin\GastosDestino\GastosDestinoController;
 use App\Http\Controllers\Admin\GastosOrigen\GastosOrigenController;
 use App\Http\Controllers\Admin\Pago\PagoOrdenController;
@@ -192,6 +193,12 @@ class OrdenesCompraController extends Controller
                     $clasificacionAduanera = new ClasificacionAduaneraController($this->mClasificacion);
                     $clasificacionAduanera->store($oRequest, $ordenCompra);
                 }
+
+                // Diseño producto
+                if($oRequest->has('diseno')) {
+                    $design = new DisenoController($this->mDiseno);
+                    $design->store($oRequest, $ordenCompra);
+                }
             }
 
             // Pagos
@@ -365,6 +372,7 @@ class OrdenesCompraController extends Controller
         $seguimientos = $this->mSeguimiento->where('orden_compra_id', $orden->id)->get();
         $caracteristicas = $this->mCaracteristica->where('orden_compra_id', $orden->id)->get();
         $clasificaciones = $this->mClasificacion->where('orden_compra_id', $orden->id)->get();
+        $disenos = $this->mDiseno->where('orden_compra_id', $orden->id)->get();
 
         return view('admin.ordenes.resumen')->with([
             'orden'             => $orden,
@@ -376,7 +384,8 @@ class OrdenesCompraController extends Controller
             'pagos'             => $pagos,
             'seguimientos'      => $seguimientos,
             'caracteristicas'   => $caracteristicas,
-            'clasificaciones'   => $clasificaciones
+            'clasificaciones'   => $clasificaciones,
+            'disenos'           => $disenos
         ]);
     }
 

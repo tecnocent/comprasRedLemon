@@ -231,7 +231,8 @@ $(document).ready(function() {
                 fechaRequerida = '<div class="form-group col-sm-12"><input type="date" class="form-control pull-right fecha-requerida" id="fechaRequerida" name="productos['+ cont +'][fechaRequerida]"></div>',
                 optionProducto = '<option id="opcionP'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
                 optionProductoSeg = '<option id="opcionS'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
-                optionProductoCla = '<option id="opcionC'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
+                optionProductoCla = '<option id="opcionC'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>',
+                optionProductoDis = '<option id="opcionD'+ i +'" value="'+ document.getElementById('producto_id').value +'">'+ $("select[name='nombre_productoM'] option:selected").text() +'</option>';
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
@@ -243,27 +244,13 @@ $(document).ready(function() {
                 '<td>' + leadtime_producto +' '+ document.getElementById("leadtime_producto").value +'</td>' +
                 '<td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove"><i class="fa fa-trash  "></i></button></td>' +
                 '</tr>'; //esto seria lo que contendria la fila
-            var filaD = '<tr id="rowD' + f + '">' +
-                '<td>' + skuDis +' '+ $("select[name='nombre_productoM'] option:selected").val() +'</td>' +
-                '<td>' + nombre_productoDis +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
-                '<td>' + document.getElementById("producto_descripcion").value + '</td>' +
-                '<td>' + logo + '</td>' +
-                '<td>' + oem + '</td>' +
-                '<td>' + instructivo + '</td>' +
-                '<td>' + archivosFrbricante + '</td>' +
-                '<td>' + archivosDiseno + '</td>' +
-                '<td>' + tipo + '</td>' +
-                '<td>' + fechaRequerida + '</td>' +
-                '</tr>'; //esto seria lo que contendria la fila
-
-
 
             $('.productos tr:first').after(fila);
-            $('.diseno tr:first').after(filaD);
             //Select producto en caracteristica de producto modal
             $('#option_producto_caracteristica').after(optionProducto);
             $('#option_producto_seguimiento_id').after(optionProductoSeg);
             $('#option_producto_clasificacion').after(optionProductoCla);
+            $('#option_producto_diseno').after(optionProductoDis);
 
             $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
             var nFilas = $(".productos tr").length;
@@ -289,10 +276,10 @@ $(document).ready(function() {
                 var button_id = $(this).attr("id");
                 //cuando da click obtenemos el id del boton
                 $('#row' + button_id).remove(); //borra la fila
-                $('#rowD' + button_id).remove(); //borra la fila
                 $('#opcionP'+ button_id).remove(); // borra option en modal caracteristica
                 $('#opcionS'+ button_id).remove(); // borra option en modal seguimiento
                 $('#opcionC'+ button_id).remove(); // borra option en modal clasificacion
+                $('#opcionD'+ button_id).remove(); // borra option en modal clasificacion
                 //limpia el para que vuelva a contar las filas de la tabla
                 $("#adicionados").text("");
                 var nFilas = $(".productos tr").length;
@@ -865,4 +852,145 @@ $(document).ready(function() {
             $("#modal-clasificacion").modal('hide');//oculto el modal
         }
     });
+});
+
+
+// Llenado de Diseño
+$(document).ready(function() {
+    var countDis = 0;
+    var i = 1; //contador para asignar id al boton que borrara la fila
+    $('#diseno-form').validate({
+        event: "blur",rules: {
+            'producto_diseno_id' : "required",
+            'fecha_aviso_diseno' : "required"
+        },
+        messages: {
+            'producto_diseno_id' : "El Producto es requerido",
+            'fecha_aviso_diseno' : "La Fecha de aviso de diseño es requerida es requerida"
+        },
+        debug: true,errorElement: "label",
+        submitHandler: function(form){
+            var producto_diseno = $('#producto_diseno'),
+                producto_diseno_file = producto_diseno.clone();
+            var empaque_diseno = $('#empaque_diseno'),
+                empaque_diseno_file = empaque_diseno.clone();
+            var instructivo_diseno = $('#instructivo_diseno'),
+                instructivo_diseno_file = instructivo_diseno.clone();
+            var oem_autorizado_trafico = $('#oem_autorizado_trafico'),
+                oem_autorizado_trafico_file = oem_autorizado_trafico.clone();
+            var archivos_fabricante = $('#archivos_fabricante'),
+                archivos_fabricante_file = archivos_fabricante.clone();
+            var archivos_diseno = $('#archivos_diseno'),
+                archivos_diseno_file = archivos_diseno.clone();
+
+            var id_producto = '<input type="hidden" class="form-control pull-right " name="diseno['+ countDis +'][producto_id]" value="'+ document.getElementById('producto_diseno_id').value +'">',
+                nombre_producto = '<input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][producto_nombre]" value="'+  $("select[name='producto_diseno_id'] option:selected").text() +'">',
+                oem = '<input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][oem]" value="'+  document.getElementById('oem').value +'">',
+                empaque = '<input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][empaque]" value="'+  document.getElementById('empaque').value +'">',
+                instructivo = '<input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][instructivo]" value="'+  document.getElementById('instructivo').value +'">',
+                fecha_aviso_disneo = '</div><input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][fecha_aviso_diseno]" value="'+  document.getElementById('fecha_aviso_diseno').value +'">',
+                div_producto_diseno = '<div id="producto-diseno-div"></div>',
+                div_empaque_diseno = '<div id="empaque_diseno-div"></div>',
+                div_instructivo_diseno = '<div id="instructivo_diseno-div"></div>',
+                div_oem_autorizado_trafico = '<div id="oem_autorizado_trafico-div"></div>',
+                fecha_autorizacion_trafico = '<input type="hidden" class="form-control pull-right" name="diseno['+ countDis +'][fecha_autorizacion_trafico]" value="'+  document.getElementById('fecha_autorizacion_trafico').value +'">',
+                div_archivos_fabricante = '<div id="archivos_fabricante-div"></div>',
+                div_archivos_diseno = '<div id="archivos_diseno-div"></div>';
+
+            if(document.getElementById("oem").value ==="true"){ var oemText = "SI"} else { var oemText = "NO"}
+            if(document.getElementById("empaque").value ==="true"){ var empaqueText = "SI"} else { var empaqueText = "NO"}
+            if(document.getElementById("instructivo").value ==="true"){ var instructivoText = "SI"} else { var instructivoText = "NO"}
+
+            var fila = '<tr id="rowDiseno'+ i +'">' +
+                '<td>'+ id_producto +' '+ $("select[name='producto_diseno_id'] option:selected").text() +'</td>' +
+                '<td>'+ oem +' '+  oemText +'</td>' +
+                '<td>'+ empaque +' '+ empaqueText +'</td>' +
+                '<td>'+ instructivo +' '+ instructivoText +'</td>' +
+                '<td>'+ fecha_aviso_disneo +' '+ document.getElementById('fecha_aviso_diseno').value +'</td>' +
+                '<td>'+ div_producto_diseno +'</td>' +
+                '<td>'+ div_empaque_diseno +'</td>' +
+                '<td>'+ div_instructivo_diseno +'</td>' +
+                '<td>'+ div_oem_autorizado_trafico +'</td>' +
+                '<td>'+ fecha_autorizacion_trafico +''+ document.getElementById('fecha_autorizacion_trafico').value +'</td>' +
+                '<td>'+ div_archivos_diseno +'</td>' +
+                '<td>'+ div_archivos_fabricante +'</td>' +
+                '</tr>'; //esto seria lo que contendria la fila
+
+            i++;
+
+            $('.diseno-table tr:first').after(fila);
+
+            producto_diseno_file.attr('name', 'diseno['+ countDis +'][producto_diseno]');
+            producto_diseno_file.attr('id', 'disenoP['+ countDis +']');
+            var filenamePD = producto_diseno_file.val();
+            $('#producto-diseno-div').after(filenamePD.split('\\').pop());
+            $('#producto-diseno-div').after(producto_diseno_file);
+            producto_diseno_file.removeClass('filestyle');
+
+            empaque_diseno_file.attr('name', 'diseno['+ countDis +'][empaque_diseno]');
+            empaque_diseno_file.attr('id', 'disenoE['+ countDis +']');
+            var filenameED = empaque_diseno_file.val();
+            $('#empaque_diseno-div').after(filenameED.split('\\').pop());
+            $('#empaque_diseno-div').after(empaque_diseno_file);
+            empaque_diseno_file.removeClass('filestyle');
+
+            instructivo_diseno_file.attr('name', 'diseno['+ countDis +'][instructivo_diseno]');
+            instructivo_diseno_file.attr('id', 'disenoI['+ countDis +']');
+            var filenameID = instructivo_diseno_file.val();
+            $('#instructivo_diseno-div').after(filenameID.split('\\').pop());
+            $('#instructivo_diseno-div').after(instructivo_diseno_file);
+            instructivo_diseno_file.removeClass('filestyle');
+
+            oem_autorizado_trafico_file.attr('name', 'diseno['+ countDis +'][oem_autorizado_trafico]');
+            oem_autorizado_trafico_file.attr('id', 'disenoO['+ countDis +']');
+            var filenameOE = oem_autorizado_trafico_file.val();
+            $('#oem_autorizado_trafico-div').after(filenameOE.split('\\').pop());
+            $('#oem_autorizado_trafico-div').after(oem_autorizado_trafico_file);
+            oem_autorizado_trafico_file.removeClass('filestyle');
+
+            archivos_fabricante_file.attr('name', 'diseno['+ countDis +'][archivos_fabricante][]');
+            archivos_fabricante_file.attr('id', 'disenoFA['+ countDis +']');
+            var filenameAF = archivos_fabricante_file.val();
+            $('#archivos_fabricante-div').after('...');
+            $('#archivos_fabricante-div').after(archivos_fabricante_file);
+            archivos_fabricante_file.removeClass('filestyle');
+
+            archivos_diseno_file.attr('name', 'diseno['+ countDis +'][archivos_diseno][]');
+            archivos_diseno_file.attr('id', 'disenoDis['+ countDis +']');
+            var filenameAD = archivos_fabricante_file.val();
+            $('#archivos_diseno-div').after('...');
+            $('#archivos_diseno-div').after(archivos_diseno_file);
+            archivos_diseno_file.removeClass('filestyle');
+
+            countDis++;
+            var nFilas = $(".diseno tr").length;
+
+            // Limpia formulario
+            $('#diseno-form')[0].reset();
+
+            $("#modal-diseno").modal('hide');//oculto el modal
+        }
+    });
+});
+
+$("#oem").on('change', function() {
+    if ($(this).is(':checked')) {
+        $(this).attr('value', 'true');
+    } else {
+        $(this).attr('value', 'false');
+    }
+});
+$("#empaque").on('change', function() {
+    if ($(this).is(':checked')) {
+        $(this).attr('value', 'true');
+    } else {
+        $(this).attr('value', 'false');
+    }
+});
+$("#instructivo").on('change', function() {
+    if ($(this).is(':checked')) {
+        $(this).attr('value', 'true');
+    } else {
+        $(this).attr('value', 'false');
+    }
 });
