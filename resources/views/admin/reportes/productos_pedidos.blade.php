@@ -87,15 +87,14 @@
                                     <th data-priority="2">Producto</th>
                                     <th data-priority="2">Variante</th>
                                     <th data-priority="2">Qty</th>
+                                    <th data-priority="2">Costo</th>
                                     <th data-priority="2">Proveedor</th>
-
-                                    <th data-priority="2">Precio</th>
-                                    <th data-priority="2">Status OEM diseño</th>
-                                    <th data-priority="2">Status Orden </th>
                                     <th data-priority="2">Tipo de envío</th>
                                     <th data-priority="2">Guía</th>
                                     <th data-priority="2">Inicio PO</th>
                                     <th data-priority="2">Orden</th>
+                                    <th data-priority="2">Status OEM diseño</th>
+                                    <th data-priority="2">Status Orden </th>
                                     <th data-priority="2"></th>
                                 </tr>
                                 </thead>
@@ -105,15 +104,15 @@
                                         <td>{{$producto->sku}}</td>
                                         <td>{{$producto->producto}}</td>
                                         <td>{{$producto->variante}}</td>
-                                        <td>{{$producto->proveedor}}</td>
                                         <td>{{$producto->qty}}</td>
                                         <td>{{$producto->price}}</td>
-                                        <td>{{$producto->status_oem_diseno}}</td>
-                                        <td>{{$producto->status_orden}}</td>
+                                        <td>{{$producto->proveedor}}</td>
                                         <td>{{$producto->metodo_envio}}</td>
                                         <td>{{$producto->guia}}</td>
                                         <td>{{$producto->fecha_inicio_po}}</td>
                                         <td>{{$producto->orden_compra_identificador}}</td>
+                                        <td>{{$producto->status_oem_diseno}}</td>
+                                        <td>{{$producto->status_orden}}</td>
                                         <td>
                                             <a href="{{ url('/admin/muestra_orden/'.$producto->orden_compra_id) }}" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>
                                             <a href="{{ url('/admin/reportes/detalle-orden/'.$producto->orden_compra_id) }}" class="btn btn-warning btn-xs" role="button"><i class="fa fa-eye"></i></a>
@@ -139,47 +138,48 @@
         });
 
         $('#todos').on('click', function () {
-            datatable.columns(7).search("").draw();
+            datatable.columns(11).search("").draw();
         });
 
         $('#po_creadaB').on('click', function () {
-            datatable.columns(7).search("po_creada").draw();
+            console.log(datatable ,"po creada");
+            datatable.columns(11).search("po creada").draw();
         });
 
         $('#borradorB').on('click', function () {
-            datatable.columns(7).search("borrador").draw();
+            datatable.columns(11).search("borrador").draw();
         });
 
         $('#pi_pedidoB').on('click', function () {
-            datatable.columns(7).search("pi_pedido").draw();
+            datatable.columns(11).search("pi_pedido").draw();
         });
 
         $('#por_autorizarB').on('click', function () {
-            datatable.columns(7).search("por_autorizar").draw();
+            datatable.columns(11).search("por_autorizar").draw();
         });
 
         $('#produccionB').on('click', function () {
-            datatable.columns(7).search("produccion").draw();
+            datatable.columns(11).search("produccion").draw();
         });
 
         $('#enviadoB').on('click', function () {
-            datatable.columns(7).search("enviado").draw();
+            datatable.columns(11).search("enviado").draw();
         });
 
         $('#aduanaB').on('click', function () {
-            datatable.columns(7).search("aduana").draw();
+            datatable.columns(11).search("aduana").draw();
         });
 
         $('#recepcionB').on('click', function () {
-            datatable.columns(7).search("recepcion").draw();
+            datatable.columns(11).search("recepcion").draw();
         });
 
         $('#canceladoB').on('click', function () {
-            datatable.columns(7).search("cancelado").draw();
+            datatable.columns(11).search("cancelado").draw();
         });
 
         $('#almacenB').on('click', function () {
-            datatable.columns(7).search("almacen").draw();
+            datatable.columns(11).search("almacen").draw();
         });
     </script>
 @endsection
