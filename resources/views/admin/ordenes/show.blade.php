@@ -134,7 +134,7 @@
                                         <label for="">&nbsp;</label>
                                         <button type="button"
                                                 class="form-control btn btn-block btn-default pull-right col-sm-2"
-                                                data-toggle="modal" data-target="#nuevo-proveedor-modal"
+                                                data-toggle="modal" data-target="#nuevo-proveedor-modal" name="nuevo_proveedor"
                                                 id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i></button>
                                     </div>
                                     <div class="form-group col-sm-6 formPrincipal">
@@ -252,7 +252,11 @@
                                                                 @foreach($productosOrden as $productoOrden)
                                                                     <tr>
                                                                         <td>{{ $productoOrden->producto->sku }}</td>
-                                                                        <td>{{ $productoOrden->producto->name }}</td>
+                                                                        <td>{{ $productoOrden->producto->name }}
+                                                                            @if ($productoOrden->variant)
+                                                                                - {{ $productoOrden->variant}}
+                                                                            @endif
+                                                                        </td>
                                                                         <td>{{ $productoOrden->cantidad }}</td>
                                                                         <td>{{ $productoOrden->costo }}</td>
                                                                         <td>{{ $productoOrden->total }}</td>
@@ -1302,15 +1306,17 @@
                 dataType: "json",
                 type: "GET",
                 success: function (data) {
-                    $('#productosSelectActualiza').val(data[0].sku);
-                    $('#productosSelectActualiza').select2().trigger('change');
                     document.getElementById("producto_id_actualiza").value = data[0].producto_id;
                     $("#icoterm_producto_acualiza").val(data[0].incoterm);
+                    $("#product_variant_id_acualiza").val(data[0].product_variant_id);
                     document.getElementById("leadtime_producto_actualiza").value = data[0].leadtime;
                     document.getElementById("costo_producto_actualiza").value = data[0].costo;
                     document.getElementById("cantidad_producto_actualiza").value = data[0].cantidad;
                     document.getElementById("subtotal_producto_actualiza").value = data[0].total;
                     document.getElementById("producto_orden_id").value = data[0].id;
+
+                    $('#productosSelectActualiza').val(data[0].sku);
+                    $('#productosSelectActualiza').select2().trigger('change');
                 },
                 error: function (data) {
                     alert('error');
@@ -1654,6 +1660,45 @@
                 }
             });
         });
+
+        $('#productosSelectCrea').change(function () {
+            var selector = $('#product_variant_id');
+            $('#product_variant_id option').remove();
+            $('#new_variant_product_id').val($(this).val());
+            getVariants($(this).val(), selector)
+
+        });
+
+        $('#productosSelectActualiza').change(function () {
+            var selector = $('#select_variant_id_acualiza');
+            $('#select_variant_id_acualiza option').remove();
+            $('#new_variant_product_id').val($(this).val());
+            var value = $("#product_variant_id_acualiza").val();
+            console.log(value);
+            getVariants($(this).val(), selector ,value)
+
+        });
+
+       function getVariants(id, selector, defaultValue){
+           if(id){
+               $.ajax({
+                   type: 'GET',
+                   url: '../../api/productos/' + id + '/variantes/',
+                   success: function (data) {
+                       selector.append('<option value="">Selecciona</option>');
+                       $.each(data, function (key, data) {
+                           selector.append('<option value=' + data.id + '>' + data.variant + '</option>');
+                       });
+
+                       if(defaultValue){
+                           selector.val(defaultValue);
+                           selector.select2().trigger('change');
+                       }
+                   }
+               });
+           }
+       }
+
 
         $('#producto_id_caracteristicas').change(function () {
             $.ajax({

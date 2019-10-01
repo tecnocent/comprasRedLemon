@@ -179,6 +179,7 @@ $('#productosSelectCrea').on('select2:select', function (evt) {
             'per_page':100
         },
         success: function(data){
+            console.log(data);
             var resultados = [];
             $.each(data.data.productos.data, function(i, o) {
                 var registro = {};

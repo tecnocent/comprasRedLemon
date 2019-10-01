@@ -93,18 +93,12 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{route('reportes.productos_pedidos')}}">Productos pedidos</a></li>
                 <li><a href="{{route('reportes.costos')}}">Costos</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
+                <li class="dropdown-submenu">
+                  <a tabindex="-1" href="#">Pagos</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Reporte de Pagos</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
           </ul>

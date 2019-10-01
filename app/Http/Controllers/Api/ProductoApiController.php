@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\CaracteristicaProducto;
 use App\Models\ClasificacionAduanera;
 use App\Models\Producto;
+use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
@@ -12,11 +13,14 @@ use Validator;
 
 class ProductoApiController extends Controller
 {
+    private $mVariant;
+   
     private $mProduto;
 
-    public function __construct(Producto $producto)
+    public function __construct(Producto $producto, ProductVariant $variant)
     {
-        $this->mProduto = $producto;
+       $this->mProduto = $producto;
+       $this->mVariant = $variant;
     }
 
     /**
@@ -158,4 +162,55 @@ class ProductoApiController extends Controller
             ->first();
         return response()->json($caaracteristicas);
     }
+   
+   public function getVariants($producto_sku)
+   {
+   
+   
+      $Producto = $this->mProduto
+         ->where('sku',$producto_sku)->first();
+         
+      $Variantes = ProductVariant::where('product_id', $Producto->id)
+         ->get();
+      return response()->json($Variantes);
+   }
+   
+   
+   /**
+    * @param Request $oRequest
+    * @param $orden
+    * @return \Illuminate\Http\RedirectResponse
+    */
+   public function guardaVariant(Request $oRequest)
+   {
+      $sVariantName = $oRequest->input('nombre_variant', false);
+      $producto_sku = $oRequest->input('new_variant_product_id', false);
+   
+      $Producto = $this->mProduto
+         ->where('sku',$producto_sku)->first();
+
+      try {
+         $moneda = $this->mVariant->create([
+            'variant' => $sVariantName,
+            'product_id' =>  $Producto->id
+         ]);
+      
+         // Alerta
+         $notification = array(
+            'message' => 'variante agregado correctamente.',
+            'alert-type' => 'success'
+         );
+         return redirect()->back()->with($notification);
+      } catch (\Exception $e) {
+         // Alerta
+         $notification = array(
+            'message' => 'Algún error ocurrió.',
+            'alert-type' => 'warning'
+         );
+         Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+         return redirect()->back()->with($notification);
+      }
+      
+   }
+   
 }

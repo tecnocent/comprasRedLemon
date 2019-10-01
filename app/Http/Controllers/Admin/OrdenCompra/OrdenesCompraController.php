@@ -33,6 +33,7 @@ use App\Models\GastosOrigenOrdenCompra;
 use App\Models\OrdenCompra;
 use App\Models\Producto;
 use App\Models\ProductoOrdenCompra;
+use App\Models\ProductVariant;
 use App\Models\Proveedor;
 use App\Models\Currency;
 use App\User;
@@ -69,6 +70,7 @@ class OrdenesCompraController extends Controller
     protected $mClasificacion;
     protected $mDiseno;
     protected $mCurrency;
+    protected $mProductVariant;
 
 
     public function __construct(OrdenCompra $ordenCompra,
@@ -87,6 +89,7 @@ class OrdenesCompraController extends Controller
                                 User $usuario,
                                 Almacen $almacen,
                                 Producto $producto,
+                                ProductVariant $productVariant,
                                 CostoDestino $costoDestino,
                                 CostoOrigen $costoOrigen,
                                 ProductoOrdenCompra $productoOrdenCompra,
@@ -117,6 +120,7 @@ class OrdenesCompraController extends Controller
         $this->mClasificacion = $clasificacion;
         $this->mDiseno = $diseno;
         $this->mCurrency = $currency;
+        $this->mProductVariant = $productVariant;
     }
 
     /**
@@ -136,6 +140,10 @@ class OrdenesCompraController extends Controller
      */
     public function create()
     {
+       $productos = $this->mProductoOrdenCompra
+          ->leftjoin('product_variant', 'product_variant.id', '=', 'product_variant_id')
+          ->all();
+       
         return view('admin.ordenes.create')->with([
             'proveedores' => $this->mProveedor->all(),
             'usuarios' => $this->mUser->all(),
@@ -255,7 +263,15 @@ class OrdenesCompraController extends Controller
     {
         $tiposCompra = \App\Models\TipoCompra::all();
         $orden = $this->mOrdenCompra->find($id);
-        $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+        
+        $productos = $this->mProductoOrdenCompra
+           ->where('orden_compra_id',$orden->id)
+           ->leftjoin('product_variant', 'product_variant.id', '=', 'product_variant_id')
+           ->select('productos_orden_compra.*', 'product_variant.variant')
+           ->get();
+        
+       // $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+        
         $gastosDestino = $this->mGastosDestinoOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();
@@ -428,7 +444,11 @@ class OrdenesCompraController extends Controller
     public function resumen($id)
     {
         $orden = $this->mOrdenCompra->find($id);
-        $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+       $productos = $this->mProductoOrdenCompra
+          ->where('orden_compra_id',$orden->id)
+          ->leftjoin('product_variant', 'product_variant.id', '=', 'product_variant_id')
+          ->get();
+        //$productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
         $gastosDestino = $this->mGastosDestinoOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
         $transitos = $this->mTransito->where('orden_compra_id', $orden->id)->get();

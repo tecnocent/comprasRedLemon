@@ -43,6 +43,24 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-5 line variant-inputs" >
+                            <label>Variante</label>
+                            <select class="form-control" name="select_variant_id_acualiza" id="select_variant_id_acualiza">
+                                <option value="">Selecciona</option>
+                            </select>
+                            <div class="extras_actualiza">
+                                <input type="hidden" class="form-control pull-right" id="product_variant_id_acualiza" name="product_variant_id_acualiza">
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-1 variant-inputs" >
+                            <label for="">&nbsp;</label>
+                            <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2"
+                                    data-toggle="modal" data-target="#nueva-variante-guarda-modal" id="nueva-variante"><i
+                                        class="fa fa-pencil-square-o"></i></button>
+                        </div>
+                        <div class="col-md-6 line variant-inputs" >
+                        </div>
+
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Lead Time</label>

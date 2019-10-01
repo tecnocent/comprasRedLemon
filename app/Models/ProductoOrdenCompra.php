@@ -28,6 +28,7 @@ class ProductoOrdenCompra extends Model
         // Llaves foraneas
         'orden_compra_id',
         'producto_id',
+        'product_variant_id'
     ];
 
     /**
@@ -55,5 +56,10 @@ class ProductoOrdenCompra extends Model
     public function producto()
     {
         return $this->belongsTo('App\Models\Producto', 'producto_id');
+    }
+
+    public function productVariant()
+    {
+        return $this->belongsTo('App\Models\ProductVariant', 'product_variant_id');
     }
 }

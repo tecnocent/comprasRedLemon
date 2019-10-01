@@ -111,7 +111,8 @@ class ProductoController extends Controller
                 'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
                 'incoterm' => $oRequest->icoterm_productoM,
                 'leadtime' => $oRequest->leadtime_productoM,
-                'producto_id' => $oRequest->producto_id
+                'producto_id' => $oRequest->producto_id,
+                'product_variant_id' => (int)$oRequest->select_variant_id_acualiza,
             ]);
 
             // Alerta
@@ -196,8 +197,8 @@ class ProductoController extends Controller
                 'total' => $oRequest->costo_productoM * $oRequest->cantidad_productoM,
                 'incoterm' => $oRequest->icoterm_productoM,
                 'leadtime' => $oRequest->leadtime_productoM,
+                'product_variant_id' => (int)$oRequest->product_variant_id,
                 'orden_compra_id' => $orden,
-//                'producto_id' => $oRequest->producto_id
                 'producto_id' => $producto->id
             ]);
 
