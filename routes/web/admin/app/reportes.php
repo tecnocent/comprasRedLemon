@@ -1,5 +1,4 @@
 <?php
-
-
 // Ordenes de compra
-Route::get('/resumen_pagos/{id}', 'ReporteController@getResumenPagos');
+Route::get('/reporte_pagos/{id}', 'ReporteController@getReportePagos');
+Route::get('/resumen_pagos', 'ReporteController@getResumenPagos');

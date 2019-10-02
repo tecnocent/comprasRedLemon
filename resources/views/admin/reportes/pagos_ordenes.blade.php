@@ -304,7 +304,7 @@
         $('.resumen_pagos').on('click', function () {
             var id = $(this).data("id");
             $.ajax({
-                url: "{{ url('/reportes/resumen_pagos') }}/" + id,
+                url: "{{ url('/reportes/reporte_pagos') }}/" + id,
                 dataType: "json",
                 type: "GET",
                 success: function (json) {

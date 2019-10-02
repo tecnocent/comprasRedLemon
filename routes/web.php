@@ -28,7 +28,7 @@ Route::get('/admin/reportes/costos/detalle/productos/{sku}', 'Reportes\ReporteCo
 
 //Reportes de pagos
 Route::get('/admin/reportes/pagos/ordenes', 'Reportes\ReporteController@reportePagosOrdenes')->name('reportes.pago-ordenes');
-
+Route::get('/admin/resumen/pagos', 'Reportes\ReporteController@resumenPagosOrdenes')->name('resumen.pagos');
 // reportes
 Route::group(['namespace' => 'Reportes', 'prefix' => 'reportes'], function () {
    require base_path('routes/web/admin/app/reportes.php');

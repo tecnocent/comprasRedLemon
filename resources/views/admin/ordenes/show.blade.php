@@ -544,6 +544,7 @@
                                                                     <th>Moneda</th>
                                                                     <th>Tipo de cambio</th>
                                                                     <th>Cantidad</th>
+                                                                    <th>Comprobante</th>
                                                                     <th>Acciones</th>
                                                                 </tr>
                                                                 </thead>
@@ -568,11 +569,11 @@
                                                                         <td>{{ $pago->currency->code }}</td>
                                                                         <td>{{ $pago->tipo_cambio_pago }}</td>
                                                                         <td>{{ $pago->pago }}</td>
-                                                                        {{--@if($pago->comrpobante)--}}
-                                                                        {{--<td><a href="{{ url('/admin/orden/descarga') }}/{{ $pago->comrpobante }}" class="btn btn-link">Descargar</a></td>--}}
-                                                                        {{--@else--}}
-                                                                        {{--<td>No hay documento</td>--}}
-                                                                        {{--@endif--}}
+                                                                        @if($pago->comrpobante)
+                                                                        <td><a href="{{ url('/admin/orden/descarga') }}/{{ $pago->comrpobante }}" class="btn btn-link">Descargar</a></td>
+                                                                        @else
+                                                                        <td>No hay documento</td>
+                                                                        @endif
                                                                         <td>
                                                                             <button type="button"
                                                                                     class="btn btn-danger btn-xs"

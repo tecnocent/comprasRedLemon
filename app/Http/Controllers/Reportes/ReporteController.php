@@ -144,19 +144,19 @@ class ReporteController extends Controller
     {
         $productos = DB::select(DB::raw("
         SELECT 
-        products.id as producto_id,
-        products.sku as sku,
-products.name as producto,
-productos_orden_compra.cantidad as qty,
-productos_orden_compra.costo as price,
-productos_orden_compra.total as total,
-orden_compra.identificador as orden_compra_identificador,
-orden_compra.id as orden_compra_id,
-orden_compra.fecha_recepcion as fecha_recepcion
-
-from products, productos_orden_compra, orden_compra
-
-where productos_orden_compra.producto_id = products.id
+         products.id as producto_id,
+         products.sku as sku,
+         products.name as producto,
+         productos_orden_compra.cantidad as qty,
+         productos_orden_compra.costo as price,
+         productos_orden_compra.total as total,
+         orden_compra.identificador as orden_compra_identificador,
+         orden_compra.id as orden_compra_id,
+         orden_compra.fecha_recepcion as fecha_recepcion
+         
+         from products, productos_orden_compra, orden_compra
+         
+         where productos_orden_compra.producto_id = products.id
             and productos_orden_compra.orden_compra_id = orden_compra.id
             and orden_compra.fecha_recepcion is not null
             and orden_compra.status = 'recepcion'"));
@@ -194,7 +194,7 @@ where productos_orden_compra.producto_id = products.id
         }
     }
 
-    public function reporteCostoDetalle($sku)
+   public function reporteCostoDetalle($sku)
     {
         Log::info($sku);
 
@@ -223,7 +223,7 @@ where productos_orden_compra.producto_id = products.id
 
     }
     
-    public function reportePagosOrdenes(){
+   public function reportePagosOrdenes(){
        $ordenesCompra = OrdenCompra::with('proveedor', 'almacen')->get();
        
        return view('admin.reportes.pagos_ordenes')
@@ -234,7 +234,7 @@ where productos_orden_compra.producto_id = products.id
    
     }
    
-   public function getResumenPagos($id){
+   public function getReportePagos($id){
    
       $orden = $this->mOrdenCompra->find($id);
    
@@ -279,4 +279,73 @@ where productos_orden_compra.producto_id = products.id
       return response()->json($results);
    }
    
+   public function resumenPagosOrdenes(){
+   
+      return view('admin.reportes.resumen_pagos')
+      ->with([
+         'encargados' => $this->mUser->all()
+      ]);
+      
+   }
+   
+   public function getResumenPagos(){
+   
+      $produccion = $this->mOrdenCompra->whereIn('status',["po creada","pi pedido","por autorizar","produccion"])->get();
+      $transito = $this->mOrdenCompra->whereIn('status',["enviado","aduana"])->get();
+   
+   
+      $totales = [
+         "produccion" => self::getTotals($produccion),
+         "transito" => self::getTotals($transito),
+      ];
+   
+      return response()->json($totales);
+   
+   }
+   
+   private function getTotals($orders){
+      
+      $total_productos_orden = 0;
+      $total_gastos_origen = 0;
+      $total_pagado = 0;
+
+       foreach ($orders as $orden){
+          $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
+          $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+          $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
+   
+          // Suma del total de los productos de la orden
+          foreach ($productos as $producto) {
+             $total_productos_orden += $producto->total;
+          }
+   
+          // Suma del total de los gastos de origen
+          foreach ($gastosOrigen as $gasto) {
+             $total_gastos_origen += $gasto->costo;
+          }
+    
+          // Suma del total pagado
+          foreach ($pagos as $pago) {
+             $total_pagado += $pago->pago;
+          }
+   
+       }
+   
+   
+      // Productos Orden + Gastos de origen
+      $total_orden = $total_productos_orden + $total_gastos_origen;
+   
+      // Total de la Orden – Total Pagado
+      $total_por_pagar = $total_orden - $total_pagado;
+   
+      $results = [
+         "total_productos_orden" => $total_productos_orden,
+         "total_gastos_origen" => $total_gastos_origen,
+         "total_orden" => $total_orden,
+         "total_pagado" => $total_pagado,
+         "total_por_pagar" => $total_por_pagar
+      ];
+   
+      return $results;
+   }
 }

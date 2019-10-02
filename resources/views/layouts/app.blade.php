@@ -99,7 +99,7 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <li><a class="dropdown-item"  href="{{route('reportes.pago-ordenes')}}">Reporte de pagos</a></li>
-                    <li><a class="dropdown-item" href="#">Resumen de pagos</a></li>
+                    <li><a class="dropdown-item" href="{{route('resumen.pagos')}}">Resumen de pagos</a></li>
                   </ul>
                 </li>
               </ul>

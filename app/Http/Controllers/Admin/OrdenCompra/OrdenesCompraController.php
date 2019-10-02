@@ -142,7 +142,7 @@ class OrdenesCompraController extends Controller
     {
        $productos = $this->mProductoOrdenCompra
           ->leftjoin('product_variant', 'product_variant.id', '=', 'product_variant_id')
-          ->all();
+          ->get();
        
         return view('admin.ordenes.create')->with([
             'proveedores' => $this->mProveedor->all(),
