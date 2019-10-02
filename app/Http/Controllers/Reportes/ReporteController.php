@@ -49,26 +49,28 @@ class ReporteController extends Controller
     {
         $productos = DB::select(DB::raw("
         SELECT 
-            products.id as producto_id,
-            products.sku as sku,
-            products.name as producto,
-            products.variante as variante,
-            providers.name as proveedor,
-            productos_orden_compra.cantidad as qty,
-            productos_orden_compra.costo as price,
-            orden_compra.status as status_orden,
-            orden_compra.metodo_envio as metodo_envio,
-            orden_compra.guia as guia,
-            orden_compra.fecha_inicio as fecha_inicio_po,
-            orden_compra.id as orden_compra_id,
-            orden_compra.identificador as orden_compra_identificador
-
-         from products, productos_orden_compra, orden_compra, providers
-         
-         where productos_orden_compra.producto_id = products.id
-                     and productos_orden_compra.orden_compra_id = orden_compra.id
-                     and orden_compra.proveedor_id = providers.id
-                   
+         products.id as producto_id,
+         products.sku as sku,
+         products.name as producto,
+         product_variant.variant as variante,
+         providers.name as proveedor,
+         productos_orden_compra.cantidad as qty,
+         productos_orden_compra.costo as price,
+         orden_compra.status as status_orden,
+         orden_compra.metodo_envio as metodo_envio,
+         orden_compra.guia as guia,
+         orden_compra.fecha_inicio as fecha_inicio_po,
+         orden_compra.id as orden_compra_id,
+         orden_compra.identificador as orden_compra_identificador
+       from products
+       inner join productos_orden_compra
+         on productos_orden_compra.producto_id = products.id
+       inner join orden_compra
+         on productos_orden_compra.orden_compra_id = orden_compra.id
+       inner join providers
+         on orden_compra.proveedor_id = providers.id
+       left join product_variant
+        on productos_orden_compra.product_variant_id = product_variant.id
         "));
 
         foreach ($productos as $producto) {
