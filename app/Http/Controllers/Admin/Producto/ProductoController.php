@@ -57,9 +57,30 @@ class ProductoController extends Controller
                     'incoterm' => $aProductos['icoterm_producto'],
                     'leadtime' => $aProductos['leadtime_producto'],
                     'orden_compra_id' => $orden->id,
-                    'producto_id' => $aProductos['producto_id']
+                    'producto_id' => $aProductos['producto_id'],
+                    'product_variant_id' => (int)$aProductos['variante_producto'],
                 ]);
             }
+   
+           $total = 0;
+   
+           $productos = ProductoOrdenCompra::where('orden_compra_id', $orden->id)
+              ->get();
+   
+           foreach ($productos as $producto) {
+              $total += $producto->total;
+           }
+   
+           $gastos_origen = GastosOrigenOrdenCompra::where('orden_compra_id', $orden->id)
+              ->get();
+   
+           foreach ($gastos_origen as $gasto_origen) {
+              $total += $gasto_origen->costo;
+           }
+   
+           $orden_compra =  OrdenCompra::findOrFail($orden->id);
+           $orden_compra->total = $total;
+           $orden_compra->update();
 
         } catch (\Exception $e) {
             // Alerta
@@ -114,7 +135,28 @@ class ProductoController extends Controller
                 'producto_id' => $oRequest->producto_id,
                 'product_variant_id' => (int)$oRequest->select_variant_id_acualiza,
             ]);
-
+   
+   
+           $total = 0;
+   
+           $productos = ProductoOrdenCompra::where('orden_compra_id', $producto->orden_compra_id)
+              ->get();
+   
+           foreach ($productos as $producto) {
+              $total += $producto->total;
+           }
+   
+           $gastos_origen = GastosOrigenOrdenCompra::where('orden_compra_id', $producto->orden_compra_id)
+              ->get();
+   
+           foreach ($gastos_origen as $gasto_origen) {
+              $total += $gasto_origen->costo;
+           }
+   
+           $orden_compra =  OrdenCompra::findOrFail($producto->orden_compra_id);
+           $orden_compra->total = $total;
+           $orden_compra->update();
+            
             // Alerta
             $notification = array(
                 'message' => 'Producto actualizado correctamente.',

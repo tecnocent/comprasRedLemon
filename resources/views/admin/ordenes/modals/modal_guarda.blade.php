@@ -68,6 +68,7 @@
                         </div>
                         <div class="col-md-6 line variant-inputs" >
                         </div>
+
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Lead Time</label>

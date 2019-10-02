@@ -7,14 +7,14 @@
             <form id="productos-form" method="">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel2">Agregar productos</h4>
+                    <h4 class="modal-title" id="myModalLabel2">Agregar Productos</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-5 line pagos-inputs">
                             <div class="form-group">
                                 <label>Producto</label>
-                                <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" id="nombre_producto" style=" display: block; width: 100%">
+                                <select id="productosSelect" class="form-control selectProductos" name="nombre_productoM" style=" display: block; width: 100%">
                                     <option value="">Selecciona</option>
                                     @foreach($productos as $producto)
                                         <option value="{{$producto->sku}}">{{$producto->name}}</option>
@@ -41,6 +41,23 @@
                                 </select>
                             </div>
                         </div>
+
+                        <!-- Variantes -->
+                        <div class="col-md-5 line variant-inputs" >
+                            <label>Variante</label>
+                            <select class="form-control" name="product_variant_id" id="product_variant_id">
+                                <option value="">Selecciona</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-1 variant-inputs" >
+                            <label for="">&nbsp;</label>
+                            <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2"
+                                    data-toggle="modal" data-target="#nueva-variante-guarda-modal" id="nueva-variante"><i
+                                        class="fa fa-pencil-square-o"></i></button>
+                        </div>
+                        <div class="col-md-6 line variant-inputs" >
+                        </div>
+                        <!----------->
                         <div class="col-md-6 line pagos-inputs">
                             <div class="form-group">
                                 <label>Lead Time</label>
@@ -884,6 +901,45 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success">Agregar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+<!-- Modal nueva variante -->
+<div class="modal right1 fade" id="nueva-variante-guarda-modal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('variant.save') }}" id="nueva-variante-guarda-form" method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nueva variante</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre"
+                                               id="nombre_variant" name="nombre_variant">
+                                        <input type="text" class="form-control" placeholder="product_id"
+                                               id="new_variant_product_id" name="new_variant_product_id">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="">Guardar</button>
                 </div>
             </form>
         </div><!-- modal-content -->

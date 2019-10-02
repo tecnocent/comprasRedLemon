@@ -188,6 +188,33 @@ $('#productosSelect').on('select2:select', function (evt) {
     });
 });
 
+$('#productosSelect').change(function () {
+    var selector = $('#product_variant_id');
+    $('#product_variant_id option').remove();
+    $('#new_variant_product_id').val($(this).val());
+    getVariants($(this).val(), selector)
+
+});
+
+function getVariants(id, selector, defaultValue){
+    if(id){
+        $.ajax({
+            type: 'GET',
+            url: '../api/productos/' + id + '/variantes',
+            success: function (data) {
+                selector.append('<option value="">Selecciona</option>');
+                $.each(data, function (key, data) {
+                    selector.append('<option value=' + data.id + '>' + data.variant + '</option>');
+                });
+
+                if(defaultValue){
+                    selector.val(defaultValue);
+                    selector.select2().trigger('change');
+                }
+            }
+        });
+    }
+}
 
 // Llenado de tabla productos
 $(document).ready(function() {
@@ -216,7 +243,8 @@ $(document).ready(function() {
                 sku = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="sku" name="productos['+ cont +'][sku]" value="'+$("select[name='nombre_productoM'] option:selected").val()+'"></div>',
                 skuDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right " id="skuDis" name="productos['+ cont +'][skuDis]" value="'+ $("select[name='nombre_productoM'] option:selected").val() +'"></div>',
                 nombre_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="nombre_productoDis" name="productos['+ cont +'][nombre_productoDis]" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
-                nombre_productoDis = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
+                nombre_productoDis = '<div><input type="hidden" class="form-control pull-right" value="'+ $("select[name='nombre_productoM'] option:selected").text() +'"></div>',
+                variante_producto = '<div><input type="hidden" class="form-control pull-right" id="variante_producto" name="productos['+ cont +'][variante_producto]" value="'+ $("select[name='product_variant_id'] option:selected").val() +'"></div>',
                 icoterm_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="icoterm_producto" name="productos['+ cont +'][icoterm_producto]" value="'+ document.getElementById("icoterm_producto").value +'"></div>',
                 leadtime_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="leadtime_producto" name="productos['+ cont +'][leadtime_producto]" value="'+ document.getElementById("leadtime_producto").value +'"></div>',
                 costo_producto = '<div class="form-group col-sm-12"><input type="hidden" class="form-control pull-right" id="costo_producto" name="productos['+ cont +'][costo_producto]" value="'+ document.getElementById("costo_producto").value +'"></div>',
@@ -236,7 +264,7 @@ $(document).ready(function() {
 
             var fila = '<tr id="row'+ i +'">' +
                 '<td>' + sku +' '+ $("select[name='nombre_productoM'] option:selected").val() +' '+ id_producto +' '+descripcion_producto+'</td>' +
-                '<td>' + nombre_producto +' '+ $("select[name='nombre_productoM'] option:selected").text() +'</td>' +
+                '<td>' + nombre_producto +' ' + variante_producto +' '+ $("select[name='nombre_productoM'] option:selected").text() +'-'+ $("select[name='product_variant_id'] option:selected").text() +'</td>' +
                 '<td>' + cantidad_producto +' '+ document.getElementById("cantidad_producto").value +'</td>' +
                 '<td>' + costo_producto +' '+ document.getElementById("costo_producto").value +'</td>' +
                 '<td>' + total +' '+ document.getElementById("subtotal_producto").value +'</td>' +
