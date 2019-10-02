@@ -206,12 +206,14 @@ class ProductoController extends Controller
 
             $productos = ProductoOrdenCompra::where('orden_compra_id', $orden)
                 ->get();
+            
             foreach ($productos as $producto) {
                 $total += $producto->total;
             }
 
             $gastos_origen = GastosOrigenOrdenCompra::where('orden_compra_id', $orden)
                 ->get();
+
             foreach ($gastos_origen as $gasto_origen) {
                 $total += $gasto_origen->costo;
             }

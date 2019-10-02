@@ -6,6 +6,8 @@
 "search": "Filtrar:",
 "zeroRecords": "No hay registros",
 "infoFiltered":   "(filtrado de _MAX_ registros en total)",
+"decimal":        ".",
+"thousands":      ",",
 "paginate": {
 "first": "Primera",
 "last": "Última",

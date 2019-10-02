@@ -7,9 +7,6 @@
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$USER_HOME$/src/field-ui/node_modules" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Reportes;
 
 use App\Models\DisenoProducto;
 use App\Models\GastosOrigenOrdenCompra;
+use App\Models\GastosDestinoOrdenCompra;
+use App\Models\ProductoOrdenCompra;
 use App\Models\OrdenCompra;
 use App\Models\PagoMontoOrdenCompra;
 use App\User;
@@ -14,44 +16,59 @@ use Illuminate\Support\Facades\Log;
 
 class ReporteController extends Controller
 {
-    protected $mUser;
-    protected $array_productos = [];
+   protected $mUser;
+   protected $array_productos = [];
+   protected $mProductoOrdenCompra;
+   protected $mGastosOrigenOrdenCompra;
+   protected $mGastosDestinoOrdenCompra;
+   protected $mPagoMontoPagoOrden;
+   protected $mOrdenCompra;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(User $usuario)
+    public function __construct(User $usuario,
+                                OrdenCompra $ordenCompra,
+                                PagoMontoOrdenCompra $pago,
+                                ProductoOrdenCompra $productoOrdenCompra,
+                                GastosOrigenOrdenCompra $gastosOrigenOrden,
+                                GastosDestinoOrdenCompra $gastosDestinoOrden)
     {
-        $this->middleware('auth');
-        $this->mUser = $usuario;
+       $this->middleware('auth');
+       $this->mUser = $usuario;
+       $this->mProductoOrdenCompra = $productoOrdenCompra;
+       $this->mGastosOrigenOrdenCompra = $gastosOrigenOrden;
+       $this->mGastosDestinoOrdenCompra = $gastosDestinoOrden;
+       $this->mPagoMontoPagoOrden = $pago;
+       $this->mOrdenCompra = $ordenCompra;
     }
 
     public function reporteProductosPedidos()
     {
         $productos = DB::select(DB::raw("
         SELECT 
-        products.id as producto_id,
-        products.sku as sku,
-products.name as producto,
-products.variante as variante,
-providers.name as proveedor,
-productos_orden_compra.cantidad as qty,
-productos_orden_compra.costo as price,
-orden_compra.status as status_orden,
-orden_compra.metodo_envio as metodo_envio,
-orden_compra.guia as guia,
-orden_compra.fecha_inicio as fecha_inicio_po,
-orden_compra.id as orden_compra_id,
-orden_compra.identificador as orden_compra_identificador
+            products.id as producto_id,
+            products.sku as sku,
+            products.name as producto,
+            products.variante as variante,
+            providers.name as proveedor,
+            productos_orden_compra.cantidad as qty,
+            productos_orden_compra.costo as price,
+            orden_compra.status as status_orden,
+            orden_compra.metodo_envio as metodo_envio,
+            orden_compra.guia as guia,
+            orden_compra.fecha_inicio as fecha_inicio_po,
+            orden_compra.id as orden_compra_id,
+            orden_compra.identificador as orden_compra_identificador
 
-from products, productos_orden_compra, orden_compra, providers
-
-where productos_orden_compra.producto_id = products.id
-            and productos_orden_compra.orden_compra_id = orden_compra.id
-            and orden_compra.proveedor_id = providers.id
-          
+         from products, productos_orden_compra, orden_compra, providers
+         
+         where productos_orden_compra.producto_id = products.id
+                     and productos_orden_compra.orden_compra_id = orden_compra.id
+                     and orden_compra.proveedor_id = providers.id
+                   
         "));
 
         foreach ($productos as $producto) {
@@ -75,6 +92,7 @@ where productos_orden_compra.producto_id = products.id
     {
         $gastos_origen = GastosOrigenOrdenCompra::where('orden_compra_id', $ordenCompra->id)
             ->get();
+
         $total_gastos_origen = $gastos_origen->sum('costo');
 
         $pagos = PagoMontoOrdenCompra::where('orden_compra_id', $ordenCompra->id)
@@ -82,19 +100,19 @@ where productos_orden_compra.producto_id = products.id
         $total_pagos = $pagos->sum('pago');
 
         $productos = DB::select(DB::raw("
-        SELECT 
-        products.id as producto_id,
-        products.sku as sku,
-products.name as producto,
-products.variante as variante,
-productos_orden_compra.cantidad as qty,
-productos_orden_compra.costo as price,
-productos_orden_compra.total as total
-
-from products, productos_orden_compra
-
-where productos_orden_compra.producto_id = products.id
-            and productos_orden_compra.orden_compra_id = ?
+            SELECT
+            products.id as producto_id,
+            products.sku as sku,
+            products.name as producto,
+            products.variante as variante,
+            productos_orden_compra.cantidad as qty,
+            productos_orden_compra.costo as price,
+            productos_orden_compra.total as total
+            
+            from products, productos_orden_compra
+            
+            where productos_orden_compra.producto_id = products.id
+                        and productos_orden_compra.orden_compra_id = ?
         "), [$ordenCompra->id]);
 
         $total_productos = 0;
@@ -204,4 +222,61 @@ where productos_orden_compra.producto_id = products.id
         ]);
 
     }
+    
+    public function reportePagosOrdenes(){
+       $ordenesCompra = OrdenCompra::with('proveedor', 'almacen')->get();
+       
+       return view('admin.reportes.pagos_ordenes')
+          ->with([
+             'encargados' => $this->mUser->all(),
+             'ordenes' => $ordenesCompra
+          ]);
+   
+    }
+   
+   public function getResumenPagos($id){
+   
+      $orden = $this->mOrdenCompra->find($id);
+   
+      $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
+      $productos = $this->mProductoOrdenCompra->where('orden_compra_id',$orden->id)->get();
+      $gastosDestino = $this->mGastosDestinoOrdenCompra->where('orden_compra_id', $orden->id)->get();
+      $gastosOrigen = $this->mGastosOrigenOrdenCompra->where('orden_compra_id', $orden->id)->get();
+   
+      // Suma del total de los productos de la orden
+      $total_productos_orden = 0;
+      foreach ($productos as $producto) {
+         $total_productos_orden += $producto->total;
+      }
+   
+      // Suma del total de los gastos de origen
+      $total_gastos_origen = 0;
+      foreach ($gastosOrigen as $gasto) {
+         $total_gastos_origen += $gasto->costo;
+      }
+   
+      // Productos Orden + Gastos de origen
+      $total_orden = $total_productos_orden + $total_gastos_origen;
+   
+      // Suma del total pagado
+      $total_pagado = 0;
+      foreach ($pagos as $pago) {
+         $total_pagado += $pago->pago;
+      }
+   
+      // Total de la Orden – Total Pagado
+      $total_por_pagar = $total_orden - $total_pagado;
+      
+      $results = [
+                     "pagos" =>$pagos,
+                     "total_productos_orden" => $total_productos_orden,
+                     "total_gastos_origen" => $total_gastos_origen,
+                     "total_orden" => $total_orden,
+                     "total_pagado" => $total_pagado,
+                     "total_por_pagar" => $total_por_pagar
+                 ];
+      
+      return response()->json($results);
+   }
+   
 }

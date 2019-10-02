@@ -93,10 +93,13 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="{{route('reportes.productos_pedidos')}}">Productos pedidos</a></li>
                 <li><a href="{{route('reportes.costos')}}">Costos</a></li>
-                <li class="dropdown-submenu">
-                  <a tabindex="-1" href="#">Pagos</a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Reporte de Pagos</a></li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Pagos <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item"  href="{{route('reportes.pago-ordenes')}}">Reporte de pagos</a></li>
+                    <li><a class="dropdown-item" href="#">Resumen de pagos</a></li>
                   </ul>
                 </li>
               </ul>
@@ -274,6 +277,22 @@
         });
     });
 
+</script>
+<!-- dropdown-menu -->
+<script>
+  $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+    if (!$(this).next().hasClass('show')) {
+    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+    }
+    var $subMenu = $(this).next(".dropdown-menu");
+    $subMenu.toggleClass('show');
+
+
+    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+    $('.dropdown-submenu .show').removeClass("show");
+    });
+    return false;
+  });
 </script>
 @yield('javascript')
 </body>
