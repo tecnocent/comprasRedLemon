@@ -29,10 +29,12 @@ class OrdenCompra extends Model
         'tipo_compra',
         'requerimiento',
         'fecha_recepcion',
+         'metodo_envio',
         // Relaciones
         'proveedor_id',
         'almacen_id',
         'encargdo_interno',
+        'po'
     ];
 
     /**

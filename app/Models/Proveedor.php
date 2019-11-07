@@ -28,6 +28,9 @@ class Proveedor extends Model
         'wechat',
         'whatsapp',
         'email',
+        'bank_account',
+        'bank_address',
+        'swift'
     ];
 
     /**

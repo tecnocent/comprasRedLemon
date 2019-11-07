@@ -31,15 +31,22 @@
                             <label for="">&nbsp;</label>
                             <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2" data-toggle="modal" data-target="#nuevo-producto-modal" id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i> </button>
                         </div>
-                        <div class="col-md-6 line pagos-inputs">
+                        <div class="col-md-5 line pagos-inputs">
                             <div class="form-group">
                                 <label>Incoterm</label>
                                 <select class="form-control" name="icoterm_productoM" id="icoterm_producto">
                                     <option value="">Selecciona</option>
-                                    <option value="FOM">FOM</option>
-                                    <option value="EXW">EXW</option>
+                                    @foreach($incoterms as $incoterm)
+                                        <option value="{{ $incoterm->nombre }}">{{ $incoterm->nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group col-sm-1">
+                            <label for="">&nbsp;</label>
+                            <button type="button" class="form-control btn btn-block btn-default pull-right col-sm-2"
+                                    data-toggle="modal" data-target="#nuevo-incoterm-guarda-modal" id="nuevo-incot"><i
+                                        class="fa fa-pencil-square-o"></i></button>
                         </div>
 
                         <!-- Variantes -->
@@ -209,6 +216,44 @@
     </div>
 </div><!-- modal -->
 
+<!-- Modal nuevo incoterm -->
+<div class="modal right1 fade" id="nuevo-incoterm-guarda-modal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Formulario -->
+            <form action="{{ route('incoterm.save') }}" id="nuevo-incoterm-guarda-form" method="post">
+                {{ csrf_field() }}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Nuevo incoterm</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" placeholder="Nombre"
+                                               id="nombre_incoterm" name="nombre_incoterm">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" id="">Guardar</button>
+                </div>
+            </form>
+        </div><!-- modal-content -->
+    </div>
+</div><!-- modal -->
+
+
 <!--Modal Nuevo Proveedor-->
 <div class="modal right1 fade" id="nuevo-proveedor-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
     <div class="modal-dialog" role="document">
@@ -268,6 +313,30 @@
                                     <div class="form-group">
                                         <label>Correo</label>
                                         <input type="email" class="form-control" placeholder="Correo" id="correoProveedor" name="correoProveedor">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Cuanta bancaria</label>
+                                        <input type="text" class="form-control" placeholder="Cuanta bancaria" id="bank_account" name="bank_account">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Dirección Banco</label>
+                                        <input type="text" class="form-control" placeholder="Dirección Banco" id="bank_address" name="bank_address">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Código Swift</label>
+                                        <input type="text" class="form-control" placeholder="Swift" id="swift" name="swift">
                                     </div>
                                 </div>
                                 <!-- /.col -->

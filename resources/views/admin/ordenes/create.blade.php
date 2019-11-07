@@ -517,6 +517,9 @@
                                 paisProveedor: $('#paisProveedor').val(),
                                 tlefonoProveedor: $('#tlefonoProveedor').val(),
                                 correoProveedor: $('#correoProveedor').val(),
+                                bank_account: $('#bank_account').val(),
+                                bank_address: $('#bank_address').val(),
+                                swift: $('#swift').val(),
                             },
                             success: function(msg){
                                 document.getElementById("nombreProveedor").value="";
@@ -526,6 +529,9 @@
                                 document.getElementById("paisProveedor").value="";
                                 document.getElementById("tlefonoProveedor").value="";
                                 document.getElementById("correoProveedor").value="";
+                                document.getElementById("bank_account").value="";
+                                document.getElementById("bank_address").value="";
+                                document.getElementById("swift").value="";
                                 $("#nuevo-proveedor-modal").modal('hide');
                                 $('#proveedor option').remove();
                                 $.ajax({

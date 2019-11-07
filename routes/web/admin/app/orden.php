@@ -12,6 +12,9 @@ Route::get('/orden/descarga/{archivo}', 'OrdenCompra\OrdenesCompraController@des
 
 // Proveedor
 Route::post('/guarda_proveedor', 'Proveedor\ProveedorController@store')->name('proveedor.save');
+Route::get('/consulta_proveedor/{id}', 'Proveedor\ProveedorController@consulta')->name('proveedor.consulta');
+Route::post('/actualiza_proveedor', 'Proveedor\ProveedorController@update')->name('proveedor.update');
+Route::get('/elimina_proveedor/{id}', 'Proveedor\ProveedorController@destroy')->name('producto.delete');
 
 //Tipo de compra
 Route::get('/tipo_compra', 'Catalogo\TipoCompraController@index')->name('tipo_compra.index');

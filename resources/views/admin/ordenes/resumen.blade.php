@@ -476,7 +476,7 @@
                                 <tbody>
                                 @foreach($disenos as $diseno)
                                     <tr>
-                                        <td>{{ $diseno->producto->name }}</td>
+                                        <td>{{ $diseno->producto->name }} {{ $diseno->producto->variant }}</td>
                                         <td>{{ ($diseno->oem == true) ? 'SI' : 'NO'  }}</td>
                                         <td>{{ ($diseno->instructivo == true) ? 'SI' : 'NO'  }}</td>
                                         <td>{{ ($diseno->empaque == true) ? 'SI' : 'NO'  }}</td>

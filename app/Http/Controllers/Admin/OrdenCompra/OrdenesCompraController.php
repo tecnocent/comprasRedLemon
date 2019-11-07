@@ -143,17 +143,19 @@ class OrdenesCompraController extends Controller
        $productos = $this->mProductoOrdenCompra
           ->leftjoin('product_variant', 'product_variant.id', '=', 'product_variant_id')
           ->get();
-       
+       $users = $this->mUser->where('type_id', 4)->get();
+       $incoterms = \App\Models\Incoterm::all();
         return view('admin.ordenes.create')->with([
             'proveedores' => $this->mProveedor->all(),
-            'usuarios' => $this->mUser->all(),
+            'usuarios' => $users,
             'almacenes' => $this->mAlmacen->all(),
             'productos' => $this->mProducto->all(),
             'gastosDestino' => $this->mCostoDestino->all(),
             'gastosOrigen' => $this->mCostoOrigen->all(),
             'aduanas' => $this->mAduana->all(),
             'agentesAduanales' => $this->mAgenteAduanal->all(),
-            'metodosTransito' => $this->mMetodoTransito->all()
+            'metodosTransito' => $this->mMetodoTransito->all(),
+           'incoterms'         => $incoterms
         ]);
     }
 
@@ -252,7 +254,7 @@ class OrdenesCompraController extends Controller
             return redirect()->back()->with($notification);
         }
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -304,7 +306,15 @@ class OrdenesCompraController extends Controller
         foreach ($pagos as $pago) {
             $total_pagado += $pago->pago;
         }
-
+   
+       // Suma del total pagado MXN
+       $total_pagado_mxn = 0;
+       foreach ($pagos as $pago) {
+          $total_pagado_mxn += ($pago->pago * $pago->tipo_cambio_pago);
+       }
+       
+       $users = $this->mUser->where('type_id', 4)->get();
+        
         // Total de la Orden – Total Pagado
         $total_por_pagar = $total_orden - $total_pagado;
 
@@ -321,7 +331,7 @@ class OrdenesCompraController extends Controller
             'caracteristicas'   => $caracteristicas,
             'clasificaciones'   => $clasificaciones,
             'disenos'           => $disenos,
-            'usuarios'          => $this->mUser->all(),
+            'usuarios'          => $users,
             'almacenes'         => $this->mAlmacen->all(),
             'productos'         => $this->mProducto->all(),
             'gastosDestino'     => $this->mCostoDestino->all(),
@@ -337,6 +347,7 @@ class OrdenesCompraController extends Controller
             'total_gastos_origen' => $total_gastos_origen,
             'total_orden' => $total_orden,
             'total_pagado' => $total_pagado,
+            'total_pagado_mxn' => $total_pagado_mxn,
             'total_por_pagar' => $total_por_pagar,
         ]);
     }

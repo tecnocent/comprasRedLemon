@@ -321,6 +321,30 @@
                                     </div>
                                 </div>
                                 <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Cuanta bancaria</label>
+                                        <input type="text" class="form-control" placeholder="Cuanta bancaria" id="bank_account" name="bank_account">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Dirección Banco</label>
+                                        <input type="text" class="form-control" placeholder="Dirección Banco" id="bank_address" name="bank_address">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <!-- /.col -->
+                                <div class="col-md-6 line">
+                                    <div class="form-group">
+                                        <label>Código Swift</label>
+                                        <input type="text" class="form-control" placeholder="Swift" id="swift" name="swift">
+                                    </div>
+                                </div>
+                                <!-- /.col -->
                             </div>
                             <!-- /.row -->
                         </div>
@@ -656,7 +680,7 @@
                                                onkeypress="return filterFloat(event,this);" required>
                                     </div>
                                 </div>
-                                <div class="col-md-5 line">
+                                <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label for="">Moneda</label>
                                         <select class="form-control" name="currency" id="currency">
@@ -667,13 +691,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-1">
+                            {{--    <div class="form-group col-sm-1">
                                     <label for="">&nbsp;</label>
                                     <button type="button"
                                             class="form-control btn btn-block btn-default pull-right col-sm-2"
                                             data-toggle="modal" data-target="#nuevo-currency-guarda-modal"
                                             id="nuevo_proveedor"><i class="fa fa-pencil-square-o"></i></button>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Fecha de pago</label>
@@ -960,24 +984,23 @@
                                                id="precio_menudeo_producto_nuevo" name="precio_menudeo_producto_nuevo">
                                     </div>
                                 </div>
-                                <!-- /.col -->
+                                <!-- /.col
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Codigo SAT</label>
                                         <input type="text" class="form-control" placeholder="Codigo SAT"
                                                id="sat_producto_nuevo" name="sat_producto_nuevo">
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Tipo</label>
                                         <select class="form-control" id="tipo_producto_nuevo"
                                                 name="tipo_producto_nuevo">
                                             <option value="">Selecciona</option>
-                                            <option value="1">No Definido</option>
-                                            <option value="2">Normal</option>
-                                            <option value="3">Nuevo</option>
-                                            <option value="4">Descontinuado</option>
+                                            <option value="1">NUEVO</option>
+                                            <option value="2">LINEA</option>
+                                            <option value="3">MAYOREO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -1101,7 +1124,11 @@
                                         <select class="form-control" name="producto_id">
                                             <option value="">Selecciona</option>
                                             @foreach($productosOrden as $producto)
-                                                <option value="{{ $producto->producto->id }}">{{ $producto->producto->name }}</option>
+                                                <option value="{{ $producto->producto->id }}"> {{ $producto->producto->name }}
+                                                    @if ($producto->variant)
+                                                        - {{ $producto->variant}}
+                                                    @endif
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -567,8 +567,8 @@
                                                                         <td>{{ $pago->fecha_pago }}</td>
                                                                         <td>{{ $pago->referencia }}</td>
                                                                         <td>{{ $pago->currency->code }}</td>
-                                                                        <td>{{ $pago->tipo_cambio_pago }}</td>
-                                                                        <td>{{ $pago->pago }}</td>
+                                                                        <td>${{ $pago->tipo_cambio_pago }}</td>
+                                                                        <td>${{ $pago->pago }}</td>
                                                                         @if($pago->comrpobante)
                                                                         <td><a href="{{ url('/admin/orden/descarga') }}/{{ $pago->comrpobante }}" class="btn btn-link">Descargar</a></td>
                                                                         @else
@@ -614,19 +614,23 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Gastos en Origen</th>
-                                                                    <td>{{$total_gastos_origen}}</td>
+                                                                    <td>${{$total_gastos_origen}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Total de la Orden</th>
-                                                                    <td>{{$total_orden}}</td>
+                                                                    <td>${{$total_orden}}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>Total Pagado</th>
-                                                                    <td>{{$total_pagado}}</td>
+                                                                    <th>Total Pagado USD</th>
+                                                                    <td>${{$total_pagado}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Total Pagado MXN</th>
+                                                                    <td>${{$total_pagado_mxn}}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Por Pagar</th>
-                                                                    <td>{{$total_por_pagar}}</td>
+                                                                    <td>${{$total_por_pagar}}</td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -1062,6 +1066,9 @@
                             paisProveedor: $('#paisProveedor').val(),
                             tlefonoProveedor: $('#tlefonoProveedor').val(),
                             correoProveedor: $('#correoProveedor').val(),
+                            bank_account: $('#bank_account').val(),
+                            bank_address: $('#bank_address').val(),
+                            swift: $('#swift').val(),
                         },
                         success: function (msg) {
                             document.getElementById("nombreProveedor").value = "";
@@ -1071,6 +1078,9 @@
                             document.getElementById("paisProveedor").value = "";
                             document.getElementById("tlefonoProveedor").value = "";
                             document.getElementById("correoProveedor").value = "";
+                            document.getElementById("bank_account").value="";
+                            document.getElementById("bank_address").value="";
+                            document.getElementById("swift").value="";
                             $("#nuevo-proveedor-modal").modal('hide');
                             $('#proveedor option').remove();
                             $.ajax({

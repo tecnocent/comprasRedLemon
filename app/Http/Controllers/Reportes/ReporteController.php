@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Reportes;
 
 use App\Models\DisenoProducto;
+use App\Models\Proveedor;
 use App\Models\GastosOrigenOrdenCompra;
 use App\Models\GastosDestinoOrdenCompra;
 use App\Models\ProductoOrdenCompra;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Log;
 class ReporteController extends Controller
 {
    protected $mUser;
+   protected $mProvider;
    protected $array_productos = [];
    protected $mProductoOrdenCompra;
    protected $mGastosOrigenOrdenCompra;
@@ -34,7 +36,8 @@ class ReporteController extends Controller
                                 PagoMontoOrdenCompra $pago,
                                 ProductoOrdenCompra $productoOrdenCompra,
                                 GastosOrigenOrdenCompra $gastosOrigenOrden,
-                                GastosDestinoOrdenCompra $gastosDestinoOrden)
+                                GastosDestinoOrdenCompra $gastosDestinoOrden,
+                                Proveedor $providers)
     {
        $this->middleware('auth');
        $this->mUser = $usuario;
@@ -43,8 +46,17 @@ class ReporteController extends Controller
        $this->mGastosDestinoOrdenCompra = $gastosDestinoOrden;
        $this->mPagoMontoPagoOrden = $pago;
        $this->mOrdenCompra = $ordenCompra;
+       $this->mProvider = $providers;
     }
-
+   
+   public function reporteProveedores()
+   {
+      return view('admin.reportes.proveedores')
+         ->with([
+            'proveedores' => $this->mProvider->all(),
+         ]);
+   }
+   
     public function reporteProductosPedidos()
     {
         $productos = DB::select(DB::raw("
@@ -266,6 +278,13 @@ where productos_orden_compra.producto_id = products.id
          $total_pagado += $pago->pago;
       }
    
+      // Suma del total pagado MXN
+      $total_pagado_mxn = 0;
+      foreach ($pagos as $pago) {
+         $total_pagado_mxn += ($pago->pago * $pago->tipo_cambio_pago);
+      }
+   
+      
       // Total de la Orden – Total Pagado
       $total_por_pagar = $total_orden - $total_pagado;
       
@@ -275,6 +294,7 @@ where productos_orden_compra.producto_id = products.id
                      "total_gastos_origen" => $total_gastos_origen,
                      "total_orden" => $total_orden,
                      "total_pagado" => $total_pagado,
+                     "total_pagado_mxn" => $total_pagado_mxn,
                      "total_por_pagar" => $total_por_pagar
                  ];
       
@@ -330,6 +350,13 @@ where productos_orden_compra.producto_id = products.id
           foreach ($pagos as $pago) {
              $total_pagado += $pago->pago;
           }
+          
+          // Suma del total pagado MXN
+          $total_pagado_mxn = 0;
+          foreach ($pagos as $pago) {
+             $total_pagado_mxn += ($pago->pago * $pago->tipo_cambio_pago);
+          }
+   
    
        }
    
@@ -345,6 +372,7 @@ where productos_orden_compra.producto_id = products.id
          "total_gastos_origen" => $total_gastos_origen,
          "total_orden" => $total_orden,
          "total_pagado" => $total_pagado,
+         "total_pagado_mxn" => $total_pagado_mxn,
          "total_por_pagar" => $total_por_pagar
       ];
    

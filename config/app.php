@@ -148,14 +148,17 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yoeunes\Toastr\ToastrServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-
-        /*
-         * Package Service Providers...
-         */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+   
+   
+       /*
+        * Package Service Providers...
+        */
 
         /*
          * Application Service Providers...
          */
+        Codedge\Fpdf\FpdfServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -163,6 +166,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Prologue\Alerts\AlertsServiceProvider::class,
         Laraveles\Spanish\SpanishServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class
 
     ],
 
@@ -215,6 +219,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Image' => Intervention\Image\ImageManagerStatic::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Fpdf' => Codedge\Fpdf\Facades\Fpdf::class,
+
     ],
 
 ];

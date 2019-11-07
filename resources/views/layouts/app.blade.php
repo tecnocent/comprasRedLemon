@@ -87,7 +87,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{{ route('home') }}">Órdenes de compra <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="{{ route('home') }}">Ordenes de compra <span class="sr-only">(current)</span></a></li>
             <li class="active dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -104,6 +104,7 @@
                 </li>
               </ul>
             </li>
+            <li class="active"><a href="{{ route('reportes.proveedores') }}">Proveedores<span class="sr-only">(current)</span></a></li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->

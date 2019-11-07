@@ -34,6 +34,9 @@
                         <div class="box-header">
                             <a href="{{route('orden.create')}}" class="btn btn-primary btn-xs" role="button" style="height: 27px;"><i class="fa fa-file"></i> Nueva Orden de compra</a>
                         </div>
+                        <div class="box-header">
+                            <a href="{{route('orden.csv')}}" class="btn btn-primary btn-xs" role="button" style="height: 27px;"><i class="fa fa-file"></i> Importar ordenes</a>
+                        </div>
                         <div class="box-body">
                             <small>Filtra status</small><br><br>
                             <div class="form-group formPrincipal">
@@ -222,12 +225,12 @@
                     {data: null, render: function(d){ if(d.fecha_inicio){ return d.fecha_inicio }else{ return 'S/R' }}},
                     {data: null, render: function(d){ if(d.metodo_envio){ return d.metodo_envio }else{ return 'S/R' }}},
                     {data: null, render: function(d){ if(d.guia){ return d.guia }else{ return 'S/R' }}},
-                    {data: null, render: function(d){ if(d.total){ return d.total }else{ return 0 }}},
-                    {data: null, render: function(d){ if(d.pagado){ return d.pagado }else{ return 0 }}},
+                    {data: null, render: function(d){ if(d.total){ return formatCurrency(d.total) }else{ return 0 }}},
+                    {data: null, render: function(d){ if(d.pagado){ return formatCurrency(d.pagado) }else{ return 0 }}},
                     {
                         data: null, orderable: false, render: function(d,t,r) {
                             var restante = d.total - d.pagado;
-                            return restante;
+                            return formatCurrency(restante);
                         }
                     },
                     {data: null, orderable: false, render: function (d) { return '<a href="{{ url('/admin/muestra_orden') }}/' + d.id + '" class="btn btn-warning btn-xs" role="button"><i class="fa fa-edit"></i></a>'; } },
@@ -407,6 +410,13 @@
                 $('#delete_orden').attr("href", "{{ url('/admin/elimina_orden') }}" + "/" + id);
             });
         });
+
+        function formatCurrency (number = 0 , isNum = false ,fixed = 0){
+            var value = parseFloat(number);
+            if(isNum)
+                return  value.toFixed(fixed).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            return '$' +   value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        }
 
     </script>
 @stop

@@ -592,21 +592,20 @@
                                     </div>
                                 </div>
                                 <!-- /.col -->
-                                <div class="col-md-6 line">
+                                {{--<div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Codigo SAT</label>
                                         <input type="text" class="form-control" placeholder="Codigo SAT" id="sat_producto_nuevo" name="sat_producto_nuevo">
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-6 line">
                                     <div class="form-group">
                                         <label>Tipo</label>
                                         <select class="form-control" id="tipo_producto_nuevo" name="tipo_producto_nuevo">
                                             <option value="">Selecciona</option>
-                                            <option value="1">No Definido</option>
-                                            <option value="2">Normal</option>
-                                            <option value="3">Nuevo</option>
-                                            <option value="4">Descontinuado</option>
+                                            <option value="1">NUEVO</option>
+                                            <option value="2">LINEA</option>
+                                            <option value="3">MAYOREO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -924,7 +923,11 @@
                                         <select class="form-control" id="produto_diseno_id"  name="producto_id" disabled>
                                             <option value="">Selecciona</option>
                                             @foreach($productosOrden as $producto)
-                                                <option value="{{ $producto->producto->id }}">{{ $producto->producto->name }}</option>
+                                                <option value="{{ $producto->producto->id }}"> {{ $producto->producto->name }}
+                                                    @if ($producto->variant)
+                                                        - {{ $producto->variant}}
+                                                    @endif
+                                                </option>
                                             @endforeach
                                         </select>
                                         <input type="hidden" id="diaeno_id" name="diseno_id">

@@ -60,14 +60,21 @@ class ProveedorController extends Controller
                 'wechat' => $oRequest->null,
                 'whatsapp' => $oRequest->null,
                 'email' => $oRequest->correoProveedor,
+                'bank_account' => $oRequest->bank_account,
+                'bank_address'=> $oRequest->bank_address,
+                'swift' => $oRequest->swift
             ]);
-
+           $notification = array(
+              'message' => 'Proveedor vreado correctamente.',
+              'alert-type' => 'success'
+           );
+           return redirect()->back()->with($notification);
         } catch(\Exception $e) {
             $notification = [
                 'message' => $e->getMessage(),
                 'alert-type' => 'error'
             ];
-            redirect()->back()->with($notification);
+           return redirect()->back()->with($notification);
         }
     }
 
@@ -100,9 +107,39 @@ class ProveedorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+       try {
+          $proveedor = $this->mProveedor->find($request->idProveedor);
+          // Nuevo proveedor
+          $proveedor->update([
+             'name' => $request->nombreProveedor,
+             'tax' => $request->taxProveedor,
+             'contactname' => $request->nombreContactoProveedor,
+             'direction' => $request->direccionProveedor,
+             'country' => $request->paisProveedor,
+             'phone' => $request->tlefonoProveedor,
+             'wechat' => $request->null,
+             'whatsapp' => $request->null,
+             'email' => $request->correoProveedor,
+             'bank_account' => $request->bank_account,
+             'bank_address'=> $request->bank_address,
+             'swift' => $request->swift
+          ]);
+          
+          // Alerta
+          $notification = array(
+             'message' => 'Proveedor actualizado correctamente.',
+             'alert-type' => 'success'
+          );
+          return redirect()->back()->with($notification);
+       } catch(\Exception $e) {
+          $notification = [
+             'message' => $e->getMessage(),
+             'alert-type' => 'error'
+          ];
+          return redirect()->back()->with($notification);
+       }
     }
 
     /**
@@ -113,6 +150,34 @@ class ProveedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+       try {
+          $proveedor = $this->mProveedor->find($id);
+          $proveedor->delete();
+          // Alerta
+          $notification = array(
+             'message' => 'Producto eliminado de la orden',
+             'alert-type' => 'error'
+          );
+      
+          return redirect()->back()->with($notification);
+       } catch (\Exception $e) {
+          $notification = array(
+             'message' => 'Algo salio mal',
+             'alert-type' => 'warning'
+          );
+          Log::error('Error on ' . __METHOD__ . ' line ' . $e->getLine() . ':' . $e->getMessage());
+          return redirect()->back()->with($notification);
+       }
     }
+   /**
+    * @param $id
+    * @return \Illuminate\Http\JsonResponse
+    */
+   public function consulta($id)
+   {
+      $provvedor = $this->mProveedor->where('id', $id)
+         ->select('*')->get();
+      return response()->json($provvedor);
+   }
+   
 }

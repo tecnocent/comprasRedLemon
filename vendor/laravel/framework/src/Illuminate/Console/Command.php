@@ -2,7 +2,6 @@
 
 namespace Illuminate\Console;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;
 use Symfony\Component\Console\Helper\Table;
@@ -130,8 +129,13 @@ class Command extends SymfonyCommand
         // After parsing the signature we will spin through the arguments and options
         // and set them on this command. These will already be changed into proper
         // instances of these "InputArgument" and "InputOption" Symfony classes.
-        $this->getDefinition()->addArguments($arguments);
-        $this->getDefinition()->addOptions($options);
+        foreach ($arguments as $argument) {
+            $this->getDefinition()->addArgument($argument);
+        }
+
+        foreach ($options as $option) {
+            $this->getDefinition()->addOption($option);
+        }
     }
 
     /**
@@ -241,7 +245,7 @@ class Command extends SymfonyCommand
      * Get the value of a command argument.
      *
      * @param  string|null  $key
-     * @return string|array|null
+     * @return string|array
      */
     public function argument($key = null)
     {
@@ -277,7 +281,7 @@ class Command extends SymfonyCommand
      * Get the value of a command option.
      *
      * @param  string|null  $key
-     * @return string|array|null
+     * @return string|array
      */
     public function option($key = null)
     {
@@ -315,7 +319,7 @@ class Command extends SymfonyCommand
      *
      * @param  string  $question
      * @param  string|null  $default
-     * @return mixed
+     * @return string
      */
     public function ask($question, $default = null)
     {
@@ -328,7 +332,7 @@ class Command extends SymfonyCommand
      * @param  string  $question
      * @param  array   $choices
      * @param  string|null  $default
-     * @return mixed
+     * @return string
      */
     public function anticipate($question, array $choices, $default = null)
     {
@@ -341,7 +345,7 @@ class Command extends SymfonyCommand
      * @param  string  $question
      * @param  array   $choices
      * @param  string|null  $default
-     * @return mixed
+     * @return string
      */
     public function askWithCompletion($question, array $choices, $default = null)
     {
@@ -357,7 +361,7 @@ class Command extends SymfonyCommand
      *
      * @param  string  $question
      * @param  bool    $fallback
-     * @return mixed
+     * @return string
      */
     public function secret($question, $fallback = true)
     {
@@ -417,7 +421,7 @@ class Command extends SymfonyCommand
      * Write a string as information output.
      *
      * @param  string  $string
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function info($string, $verbosity = null)
@@ -430,7 +434,7 @@ class Command extends SymfonyCommand
      *
      * @param  string  $string
      * @param  string  $style
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function line($string, $style = null, $verbosity = null)
@@ -444,7 +448,7 @@ class Command extends SymfonyCommand
      * Write a string as comment output.
      *
      * @param  string  $string
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function comment($string, $verbosity = null)
@@ -456,7 +460,7 @@ class Command extends SymfonyCommand
      * Write a string as question output.
      *
      * @param  string  $string
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function question($string, $verbosity = null)
@@ -468,7 +472,7 @@ class Command extends SymfonyCommand
      * Write a string as error output.
      *
      * @param  string  $string
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function error($string, $verbosity = null)
@@ -480,7 +484,7 @@ class Command extends SymfonyCommand
      * Write a string as warning output.
      *
      * @param  string  $string
-     * @param  int|string|null  $verbosity
+     * @param  null|int|string  $verbosity
      * @return void
      */
     public function warn($string, $verbosity = null)
@@ -502,11 +506,9 @@ class Command extends SymfonyCommand
      */
     public function alert($string)
     {
-        $length = Str::length(strip_tags($string)) + 12;
-
-        $this->comment(str_repeat('*', $length));
+        $this->comment(str_repeat('*', strlen($string) + 12));
         $this->comment('*     '.$string.'     *');
-        $this->comment(str_repeat('*', $length));
+        $this->comment(str_repeat('*', strlen($string) + 12));
 
         $this->output->newLine();
     }
