@@ -163,7 +163,7 @@
         });
 
         $('#enviadoB').on('click', function () {
-            datatable.columns(11).search("enviado").draw();
+            datatable.columns(11).search("transito").draw();
         });
 
         $('#aduanaB').on('click', function () {

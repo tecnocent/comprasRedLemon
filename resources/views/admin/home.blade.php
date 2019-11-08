@@ -63,7 +63,7 @@
                                 <input type="hidden"  id="produccion" name="produccion"/>
                             </div>
                             <div class="form-group formPrincipal">
-                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB" >Enviado</button>
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB" >Transito</button>
                                 <input type="hidden"   id="enviado" name="enviado"/>
                             </div>
                             <div class="form-group formPrincipal">
@@ -297,7 +297,7 @@
                 dtable.search('').draw();
             });
             $('#pi_pedidoB').click(function(){
-                $('#pi_pedido').val('pi pedido');
+                $('#pi_pedido').val('pedido');
                 $('#borrador').val('');
                 $('#po_creada').val('');
                 $('#por_autorizar').val('');
@@ -334,7 +334,7 @@
                 dtable.search('').draw();
             });
             $('#enviadoB').click(function(){
-                $('#enviado').val('enviado');
+                $('#enviado').val('transito');
                 $('#por_autorizar').val('');
                 $('#borrador').val('');
                 $('#po_creada').val('');

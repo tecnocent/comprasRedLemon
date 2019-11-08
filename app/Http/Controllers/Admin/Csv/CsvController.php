@@ -173,7 +173,7 @@ class CsvController extends Controller
              $comercialInvoice = $data[18];
              $montoPrimerPago = $data[31];
              $tipoCambioPrimerPago = $data[32];
-             $fechaPrimerPago =$data[34];
+             $fechaPrimerPago = (empty($data[34]) || is_null($data[34])) ?$data[34] : '';
              $montoSegundoPago = $data[36];
              $tipoCambioSegundoPago = $data[37];
              $fechaSegundoPago = $data[39];

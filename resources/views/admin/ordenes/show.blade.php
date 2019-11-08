@@ -89,7 +89,7 @@
                                             <option value="po creada" {{ ( $orden->status == "po creada") ? 'selected' : '' }}>
                                                 Po Creada
                                             </option>
-                                            <option value="pi pedido" {{ ( $orden->status == "pi pedido") ? 'selected' : '' }}>
+                                            <option value="pedido" {{ ( $orden->status == "pedido") ? 'selected' : '' }}>
                                                 Pi Pedido
                                             </option>
                                             <option value="por autorizar" {{ ( $orden->status == "por autoriza") ? 'selected' : '' }}>
@@ -98,14 +98,17 @@
                                             <option value="produccion" {{ ( $orden->status == "produccion") ? 'selected' : '' }}>
                                                 Produccion
                                             </option>
-                                            <option value="enviado" {{ ( $orden->status == "enviado") ? 'selected' : '' }}>
-                                                Enviado
+                                            <option value="transito" {{ ( $orden->status == "transito") ? 'selected' : '' }}>
+                                                Transito
                                             </option>
                                             <option value="aduana" {{ ( $orden->status == "aduana") ? 'selected' : '' }}>
                                                 Aduana
                                             </option>
                                             <option value="recepcion" {{ ( $orden->status == "recepcion") ? 'selected' : '' }}>
                                                 Recepcion
+                                            </option>
+                                            <option value="almacen" {{ ( $orden->status == "almacen") ? 'selected' : '' }}>
+                                                Almacen
                                             </option>
                                             <option value="cancelado" {{ ( $orden->status == "cancelado") ? 'selected' : '' }}>
                                                 Cancelado

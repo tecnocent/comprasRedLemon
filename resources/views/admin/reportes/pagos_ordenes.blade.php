@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group formPrincipal">
                                 <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="enviadoB">
-                                    Enviado
+                                    Transito
                                 </button>
                                 <input type="hidden" id="enviado" name="enviado"/>
                             </div>
@@ -363,7 +363,7 @@
         });
 
         $('#pi_pedidoB').on('click', function () {
-            datatable.columns(0).search("pi pedido").draw();
+            datatable.columns(0).search("pedido").draw();
         });
 
         $('#por_autorizarB').on('click', function () {
@@ -375,7 +375,7 @@
         });
 
         $('#enviadoB').on('click', function () {
-            datatable.columns(0).search("enviado").draw();
+            datatable.columns(0).search("transito").draw();
         });
 
         $('#aduanaB').on('click', function () {
