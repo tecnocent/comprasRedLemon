@@ -240,7 +240,7 @@
                 "pageLength": 25,
                 "serverSide": true,
                 "searchDelay": 1500,
-                "searching": false,
+                "searching": true,
                 @include('partials/datatables_lang')
             });
 

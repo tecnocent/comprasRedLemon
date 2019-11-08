@@ -173,7 +173,7 @@ class ReporteController extends Controller
          where productos_orden_compra.producto_id = products.id
             and productos_orden_compra.orden_compra_id = orden_compra.id
             and orden_compra.fecha_recepcion is not null
-            and orden_compra.status = 'recepcion'"));
+            and orden_compra.status in ('recepcion', 'Almacen') "));
 
         foreach ($productos as $producto) {
             $this->buscarSkuEnArray($producto);
@@ -226,7 +226,7 @@ from products, productos_orden_compra, orden_compra, providers
 where productos_orden_compra.producto_id = products.id
             and productos_orden_compra.orden_compra_id = orden_compra.id
             and orden_compra.fecha_recepcion is not null
-            and orden_compra.status = 'recepcion'
+            and orden_compra.status in('recepcion','Almacen')
             and orden_compra.proveedor_id = providers.id
             and products.sku = $sku"));
 
@@ -312,8 +312,8 @@ where productos_orden_compra.producto_id = products.id
    
    public function getResumenPagos(){
    
-      $produccion = $this->mOrdenCompra->whereIn('status',["po creada","pi pedido","por autorizar","produccion"])->get();
-      $transito = $this->mOrdenCompra->whereIn('status',["enviado","aduana"])->get();
+      $produccion = $this->mOrdenCompra->whereIn('status',["po creada","pedido","por autorizar","produccion"])->get();
+      $transito = $this->mOrdenCompra->whereIn('status',["enviado","aduana","transito"])->get();
    
    
       $totales = [

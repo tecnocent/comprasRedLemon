@@ -144,15 +144,7 @@
                                         <td>{{$orden->pagado ? $orden->pagado : 0}}</td>
                                         <td>{{$orden->total - $orden->pagado}}</td>
                                         <td></td>
-                                        <td>
-                                            <button type="button"
-                                                    id="resumen_pagos_button"
-                                                    class="btn btn-primary btn-xs resumen_pagos"
-                                                    data-toggle="modal"
-                                                    data-target="#resumen_pagos_modal"
-                                                    data-id="{{ $orden->id }}">
-                                                <i class="fa fa-eye"></i></button>
-                                        </td>
+                                        <td>{{ $orden->id }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -264,6 +256,27 @@
         }
 
         var datatable = $('#ordenes').DataTable({
+            drawCallback: function( settings ) {
+                // Actualiza producto
+                $('.resumen_pagos').on('click', function () {
+                    console.log('click');
+                    var id = $(this).data("id");
+                    console.log(id);
+                    $.ajax({
+                        url: "{{ url('/reportes/reporte_pagos') }}/" + id,
+                        dataType: "json",
+                        type: "GET",
+                        success: function (json) {
+                            pagosDetail = [];
+                            getPagosDetail(json.pagos);
+                            getPagosTotales(json);
+                        },
+                        error: function (data) {
+                            alert('error');
+                        }
+                    });
+                });
+            },
             columnDefs:
                 [
                     {
@@ -273,6 +286,20 @@
                         render: function (cellData, type, row, meta) {
 
                             return "" + formatCurrency(cellData) + "";
+                        }
+                    },
+                    {
+                        targets: [9],
+                        orderable: false,
+                        visible: true,
+                        render: function (cellData, type, row, meta) {
+                           return " <button type=\"button\"\n" +
+                            "id=\"resumen_pagos_button\"\n" +
+                            "class=\"btn btn-primary btn-xs resumen_pagos\"\n" +
+                            "data-toggle=\"modal\"\n" +
+                            "data-target=\"#resumen_pagos_modal\"\n" +
+                            "data-id=\""+ cellData +"\">\n" +
+                            "<i class=\"fa fa-eye\"></i></button>"
                         }
                     }
                 ],
@@ -300,23 +327,6 @@
                 ],
         });
 
-        // Actualiza producto
-        $('.resumen_pagos').on('click', function () {
-            var id = $(this).data("id");
-            $.ajax({
-                url: "{{ url('/reportes/reporte_pagos') }}/" + id,
-                dataType: "json",
-                type: "GET",
-                success: function (json) {
-                    pagosDetail = [];
-                    getPagosDetail(json.pagos);
-                    getPagosTotales(json);
-                },
-                error: function (data) {
-                    alert('error');
-                }
-            });
-        });
 
         function getPagosDetail(data){
             $.each(data, function(index, value) {
