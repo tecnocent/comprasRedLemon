@@ -56,6 +56,18 @@
                         <h4>{{ $orden->requerimiento }}</h4>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="form-group col-sm-6 formPrincipal">
+                        <h3 for="">comercial_invoice</h3>
+                        <h4>{{ $orden->comercial_invoice }}</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group col-sm-6 formPrincipal">
+                        <h3 for="">CBM</h3>
+                        <h4>{{ $orden->CBM }}</h4>
+                    </div>
+                </div>
                 @if($orden->descripcion)
                 <div class="col-sm-6">
                     <div class="form-group col-sm-6 formPrincipal">

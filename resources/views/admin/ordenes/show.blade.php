@@ -89,16 +89,16 @@
                                             <option value="po creada" {{ ( $orden->status == "po creada") ? 'selected' : '' }}>
                                                 Po Creada
                                             </option>
-                                            <option value="pedido" {{ ( $orden->status == "pedido") ? 'selected' : '' }}>
+                                            <option value="Pedido" {{ ( $orden->status == "Pedido") ? 'selected' : '' }}>
                                                 Pi Pedido
                                             </option>
                                             <option value="por autorizar" {{ ( $orden->status == "por autoriza") ? 'selected' : '' }}>
                                                 Por Autorizar
                                             </option>
-                                            <option value="produccion" {{ ( $orden->status == "produccion") ? 'selected' : '' }}>
+                                            <option value="Produccion" {{ ( $orden->status == "Produccion") ? 'selected' : '' }}>
                                                 Produccion
                                             </option>
-                                            <option value="transito" {{ ( $orden->status == "transito") ? 'selected' : '' }}>
+                                            <option value="Transito" {{ ( $orden->status == "Transito") ? 'selected' : '' }}>
                                                 Transito
                                             </option>
                                             <option value="aduana" {{ ( $orden->status == "aduana") ? 'selected' : '' }}>
@@ -107,11 +107,17 @@
                                             <option value="recepcion" {{ ( $orden->status == "recepcion") ? 'selected' : '' }}>
                                                 Recepcion
                                             </option>
-                                            <option value="almacen" {{ ( $orden->status == "almacen") ? 'selected' : '' }}>
+                                            <option value="Almacen" {{ ( $orden->status == "Almacen") ? 'selected' : '' }}>
                                                 Almacen
+                                            </option>
+                                            <option value="Terminado" {{ ( $orden->status == "Terminado") ? 'selected' : '' }}>
+                                                Terminado
                                             </option>
                                             <option value="cancelado" {{ ( $orden->status == "cancelado") ? 'selected' : '' }}>
                                                 Cancelado
+                                            </option>
+                                            <option value="Esperando OEM" {{ ( $orden->status == "Esperando OEM") ? 'selected' : '' }}>
+                                                Esperando OEM
                                             </option>
                                         </select>
                                     </div>
@@ -180,6 +186,16 @@
                                                 Urgente
                                             </option>
                                         </select>
+                                    </div>
+                                    <div class="form-group col-sm-6 formPrincipal">
+                                        <label for=""># CI</label>
+                                        <input type="text" class="form-control" id="comercial_invoice" name="comercial_invoice"
+                                               placeholder="Ingresa el ID de CI" value="{{ $orden->comercial_invoice }}">
+                                    </div>
+                                    <div class="form-group col-sm-6 formPrincipal">
+                                        <label for=""># OC</label>
+                                        <input type="text" class="form-control" id="CBM" name="CBM"
+                                               placeholder="Ingresa el CBM" value="{{ $orden->CBM }}">
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <label for="">Descripción</label>

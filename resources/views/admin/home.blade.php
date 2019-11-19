@@ -82,6 +82,10 @@
                                 <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="almacenB" >Almacen</button>
                                 <input type="hidden" id="almacen" name="almacen"/>
                             </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="terminadoB" >Terminado</button>
+                                <input type="hidden" id="terminado" name="terminado"/>
+                            </div>
 
                             <br>
                             <div class="form-group col-sm-12 formPrincipal">
@@ -112,9 +116,11 @@
                                     <th data-priority="2">Orden de compra</th>
                                     <th>Encargado</th>
                                     <th>Proveedor</th>
-                                    <th>Fecha PI</th>
+                                    <th>Fecha Inicio</th>
                                     <th>Método envio</th>
                                     <th>Guia</th>
+                                    <th>CI</th>
+                                    <th>CBM</th>
                                     <th>Total</th>
                                     <th>Pagado</th>
                                     <th>Por pagar</th>
@@ -186,7 +192,7 @@
         $.fn.dataTable.ext.errMode = 'none';
         jQuery(function($){
             // Inicializa tabla de datos
-            var dtable = $('#example').DataTable({
+            var datatable = $('#example').DataTable({
                 "ajax": {
                     "url": "{{ route('ordenes.index') }}",
                     "dataSrc": "data.ordenes.data",
@@ -208,6 +214,7 @@
                         request_data.recepcion = $('#recepcion').val();
                         request_data.cancelado = $('#cancelado').val();
                         request_data.almacen = $('#almacen').val();
+                        request_data.terminado = $('#terminado').val();
                         return request_data;
                     },
                     "dataFilter": function(response_data){
@@ -225,6 +232,8 @@
                     {data: null, render: function(d){ if(d.fecha_inicio){ return d.fecha_inicio }else{ return 'S/R' }}},
                     {data: null, render: function(d){ if(d.metodo_envio){ return d.metodo_envio }else{ return 'S/R' }}},
                     {data: null, render: function(d){ if(d.guia){ return d.guia }else{ return 'S/R' }}},
+                    {data: null, render: function(d){ if(d.comercial_invoice){ return d.comercial_invoice }else{ return 'S/R' }}},
+                    {data: null, render: function(d){ if(d.CBM){ return d.CBM }else{ return 0 }}},
                     {data: null, render: function(d){ if(d.total){ return formatCurrency(d.total) }else{ return 0 }}},
                     {data: null, render: function(d){ if(d.pagado){ return formatCurrency(d.pagado) }else{ return 0 }}},
                     {
@@ -239,7 +248,7 @@
                 // Opciones iguales en todas las tablas.
                 "pageLength": 25,
                 "serverSide": true,
-                "searchDelay": 1500,
+                "searchDelay": 1000,
                 "searching": true,
                 @include('partials/datatables_lang')
             });
@@ -249,14 +258,15 @@
             $("#table1 div.dataTables_filter input").unbind();
             $("#table1 div.dataTables_filter input").keyup(function (e) {
                 if (e.keyCode == 13) {
-                    dtable.search( this.value ).draw();
+                    datatable.search( this.value ).draw();
                 }
             });
             // Filtros avanzados
             $('#encargado').on('change', function() {
                 $("#encargado").val();
-                dtable.search('').draw();
+                datatable.search('').draw();
             });
+
             $('#todos').click(function(){
                 $('#po_creada').val('');
                 $('#borrador').val('');
@@ -268,7 +278,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#po_creadaB').click(function(){
                 $('#po_creada').val('po creada');
@@ -281,7 +292,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#borradorB').click(function(){
                 $('#borrador').val('borrador');
@@ -294,7 +306,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#pi_pedidoB').click(function(){
                 $('#pi_pedido').val('pedido');
@@ -307,7 +320,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#por_autorizarB').click(function(){
                 $('#por_autorizar').val('por autorizar');
@@ -319,7 +333,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#produccionB').click(function(){
                 $('#produccion').val('produccion');
@@ -331,7 +346,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#enviadoB').click(function(){
                 $('#enviado').val('transito');
@@ -343,7 +359,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#aduanaB').click(function(){
                 $('#aduana').val('aduana');
@@ -355,7 +372,8 @@
                 $('#recepcion').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#recepcionB').click(function(){
                 $('#recepcion').val('recepcion');
@@ -367,10 +385,12 @@
                 $('#aduana').val('');
                 $('#cancelado').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                $('#terminado').val('');
+                datatable.search('').draw();
             });
             $('#canceladoB').click(function(){
                 $('#cancelado').val('cancelado');
+                $('#terminado').val('');
                 $('#por_autorizar').val('');
                 $('#borrador').val('');
                 $('#po_creada').val('');
@@ -379,10 +399,11 @@
                 $('#aduana').val('');
                 $('#recepcion').val('');
                 $('#almacen').val('');
-                dtable.search('').draw();
+                datatable.search('').draw();
             });
             $('#almacenB').click(function(){
                 $('#almacen').val('almacen');
+                $('#terminado').val('');
                 $('#por_autorizar').val('');
                 $('#borrador').val('');
                 $('#po_creada').val('');
@@ -391,12 +412,26 @@
                 $('#aduana').val('');
                 $('#recepcion').val('');
                 $('#cancelado').val('');
-                dtable.search('').draw();
+                datatable.search('').draw();
+            });
+            $('#terminadoB').click(function(){
+                $('#terminado').val('terminado');
+                $('#almacen').val('');
+                $('#por_autorizar').val('');
+                $('#borrador').val('');
+                $('#po_creada').val('');
+                $('#produccion').val('');
+                $('#enviado').val('');
+                $('#aduana').val('');
+                $('#recepcion').val('');
+                $('#cancelado').val('');
+                datatable.search('').draw();
             });
 
 
+
             $('#example').on('click', 'tbody #buscaOrden', function () {
-                var data_row = dtable.row($(this).closest('tr')).data();
+                var data_row = datatable.row($(this).closest('tr')).data();
                 var identificador = $("<label>").text(data_row.identificador);
                 $('#modal-view').modal('show');
                 $('#modal-view').on('shown.bs.modal', function() {

@@ -40,22 +40,6 @@
         <!-- Main content -->
         <div class="row" style="width:100%; margin-top: 10px">
             <section class="col-lg-12 connectedSortable ui-sortable home-section">
-                {{--<section class="col-lg-12 connectedSortable ui-sortable">--}}
-                    {{--<div class="btn-group" role="group" aria-label="...">--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="todos" >Todos</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="po_creadaB" >Po Creada</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="borradorB" >Borrador</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="pi_pedidoB" >Pi Pedido</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="por_autorizarB" >Por Autorizar</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="produccionB" >Produccion</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="enviadoB" >Enviado</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="aduanaB" >Aduana</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="recepcionB" >Recepcion</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="canceladoB" >Cancelado</button>--}}
-                        {{--<button type="button" class="btn btn-success btn-xs filtro" id="almacenB" >Almacen</button>--}}
-                    {{--</div>--}}
-                {{--</section>--}}
-
                 <section class="col-lg-12">
                     <div class="btn-group button-group" role="group">
                         <button type="button" class="btn btn-success filtro" id="todos" >Todos</button>
@@ -69,6 +53,7 @@
                         <button type="button" class="btn btn-success filtro" id="recepcionB" >Recepcion</button>
                         <button type="button" class="btn btn-success filtro" id="canceladoB" >Cancelado</button>
                         <button type="button" class="btn btn-success filtro" id="almacenB" >Almacen</button>
+                        <button type="button" class="btn btn-success filtro" id="terminadoB" >Terminado</button>
                     </div>
                 </section>
 
@@ -180,6 +165,9 @@
 
         $('#almacenB').on('click', function () {
             datatable.columns(11).search("almacen").draw();
+        });
+        $('#terminadoB').on('click', function () {
+            datatable.columns(0).search("terminado").draw();
         });
     </script>
 @endsection

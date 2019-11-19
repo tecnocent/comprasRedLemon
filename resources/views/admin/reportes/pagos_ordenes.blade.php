@@ -103,6 +103,10 @@
                                 </button>
                                 <input type="hidden" id="almacen" name="almacen"/>
                             </div>
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="terminadoB" >Terminado</button>
+                                <input type="hidden" id="terminado" name="terminado"/>
+                            </div>
 
                             <br>
                         </div>
@@ -403,6 +407,8 @@
         $('#almacenB').on('click', function () {
             datatable.columns(0).search("almacen").draw();
         });
-
+        $('#terminadoB').on('click', function () {
+            datatable.columns(0).search("terminado").draw();
+        });
      </script>
 @endsection

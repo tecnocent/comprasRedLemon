@@ -107,7 +107,10 @@
                                 </button>
                                 <input type="hidden" id="almacen" name="almacen"/>
                             </div>
-
+                            <div class="form-group formPrincipal">
+                                <button type="button" class="btn btn-success btn-xs filtro col-sm-12" id="terminadoB" >Terminado</button>
+                                <input type="hidden" id="terminado" name="terminado"/>
+                            </div>
                             <br>
                             {{--<div class="form-group col-sm-12 formPrincipal">--}}
                                 {{--<small>Selecciona encargado</small>--}}
@@ -138,7 +141,7 @@
                                     <th data-priority="2">Orden de compra</th>
                                     <th>Encargado</th>
                                     <th>Proveedor</th>
-                                    <th>Fecha PI</th>
+                                    <th>Fecha Inicio</th>
                                     <th>Método envio</th>
                                     <th>Guia</th>
                                     <th>Total</th>
@@ -287,6 +290,10 @@
 
         $('#almacenB').on('click', function () {
             datatable.columns(0).search("almacen").draw();
+        });
+
+        $('#terminadoB').on('click', function () {
+            datatable.columns(0).search("terminado").draw();
         });
     </script>
 @endsection

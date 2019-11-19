@@ -142,6 +142,16 @@
                                             </span>
                                         @endif
                                     </div>
+                                    <div class="form-group col-sm-6 formPrincipal">
+                                        <label for=""># CI</label>
+                                        <input type="text" class="form-control" id="comercial_invoice" name="comercial_invoice"
+                                               placeholder="Ingresa el ID de CI">
+                                    </div>
+                                    <div class="form-group col-sm-6 formPrincipal">
+                                        <label for=""># OC</label>
+                                        <input type="text" class="form-control" id="CBM" name="CBM"
+                                               placeholder="Ingresa el CBM" >
+                                    </div>
                                     <div class="form-group col-sm-12">
                                         <label for="">Descripción</label>
                                         <textarea class="form-control" rows="3" placeholder="Ingresa la descripción" name="descripcion_oc" id="descripcion_oc"></textarea>

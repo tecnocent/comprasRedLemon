@@ -49,6 +49,7 @@ class OrdecnCompraApiController extends Controller
             $sRecepcion =  $oRequest->input('recepcion', false);
             $sCancelado = $oRequest->input('cancelado', false);
             $sAlmacen = $oRequest->input('almacen', false);
+            $sTerminado = $oRequest->input('terminado', false);
             $sIdentificador = $oRequest->input('identificador', false);
             $aOrdenes = $this->mOrdenCompra
                 ->with('proveedor')
@@ -148,6 +149,14 @@ class OrdecnCompraApiController extends Controller
                         }
                     }
                 )
+               ->where(
+                  function ($q) use ($sTerminado) {
+                     if (!empty($sTerminado) ) {
+                        return $q
+                           ->orWhere('status', 'like', "%$sTerminado%");
+                     }
+                  }
+               )
                 ->orderBy($oRequest->input('order', 'created_at'), $oRequest->input('sort', 'desc'))
                 ->paginate((int) $oRequest->input('per_page', 25));
             Log::error(json_encode($aOrdenes));

@@ -154,11 +154,13 @@ class CsvController extends Controller
       //dd($array);
        for ($i = 1; $i <= count($array); $i++) {
           $data = isset($array[$i])?$array[$i]:null;
+          //dd($data);
           if(isset($data)) {
              $encargadoName = $data[1];
              $proveedorName = $data[19];
              $fechaInicio = $data[2];
              $po = $data[3];
+             $CBM = $data[26];
              $almacenId = 1;
              $tipoDeCompraNombre = (empty($data[0]) || is_null($data[0])) ? 'NUEVO': $data[0];
              $requerimiento = 'normal';
@@ -173,12 +175,12 @@ class CsvController extends Controller
              $comercialInvoice = $data[18];
              $montoPrimerPago = $data[31];
              $tipoCambioPrimerPago = $data[32];
-             $fechaPrimerPago = (empty($data[34]) || is_null($data[34])) ?$data[34] : '';
+             $fechaPrimerPago = (empty($data[34]) || is_null($data[34])) ? null : $data[34];
              $montoSegundoPago = $data[36];
              $tipoCambioSegundoPago = $data[37];
-             $fechaSegundoPago = $data[39];
-             $fechLlegadaPuerto = $data[29];
-             $fechLlegadaAlmacen = $data[30];
+             $fechaSegundoPago = (empty($data[39]) || is_null($data[39])) ? null : $data[39];
+             $fechLlegadaPuerto = ( empty($data[29]) || is_null($data[29])) ? null : $data[29];
+             $fechLlegadaAlmacen =( empty($data[30]) || is_null($data[30])) ? null : $data[30];
    
              $encargado = $this->mUser->where('name', $encargadoName)->first();
              if(is_null($encargado) && isset($encargadoName)){
@@ -228,7 +230,8 @@ class CsvController extends Controller
                    'metodo_envio'      => $envio,
                    'fecha_recepcion'   => $fechLlegadaAlmacen,
                    'guia'              => $guia,
-                   'comercial_invoice' => $comercialInvoice
+                   'comercial_invoice' => $comercialInvoice,
+                   'CBM'               => $CBM
                 ]);
                 $ordenCompraId = $ordenCompra->id;
              } else {
@@ -246,7 +249,8 @@ class CsvController extends Controller
                    'metodo_envio'      => $envio,
                    'fecha_recepcion'   => $fechLlegadaAlmacen,
                    'guia'              => $guia,
-                   'comercial_invoice' => $comercialInvoice
+                   'comercial_invoice' => $comercialInvoice,
+                   'CBM'               => $CBM
                 ]);
              }
    

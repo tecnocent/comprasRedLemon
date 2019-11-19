@@ -173,7 +173,7 @@ class ReporteController extends Controller
          where productos_orden_compra.producto_id = products.id
             and productos_orden_compra.orden_compra_id = orden_compra.id
             and orden_compra.fecha_recepcion is not null
-            and orden_compra.status in ('recepcion', 'Almacen') "));
+            "));
 
         foreach ($productos as $producto) {
             $this->buscarSkuEnArray($producto);

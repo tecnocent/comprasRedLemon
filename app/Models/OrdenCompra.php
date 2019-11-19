@@ -29,7 +29,9 @@ class OrdenCompra extends Model
         'tipo_compra',
         'requerimiento',
         'fecha_recepcion',
-         'metodo_envio',
+        'metodo_envio',
+        'comercial_invoice',
+        'CBM',
         // Relaciones
         'proveedor_id',
         'almacen_id',
