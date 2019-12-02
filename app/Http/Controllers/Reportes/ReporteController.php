@@ -312,8 +312,8 @@ where productos_orden_compra.producto_id = products.id
    
    public function getResumenPagos(){
    
-      $produccion = $this->mOrdenCompra->whereIn('status',["po creada","pedido","por autorizar","produccion"])->get();
-      $transito = $this->mOrdenCompra->whereIn('status',["enviado","aduana","transito"])->get();
+      $produccion = $this->mOrdenCompra->whereIn('status',["Esperando OEM","Problema","po creada","pedido","por autorizar","produccion","terminado"])->get();
+      $transito = $this->mOrdenCompra->whereIn('status',["transito"])->get();
    
    
       $totales = [
@@ -330,6 +330,7 @@ where productos_orden_compra.producto_id = products.id
       $total_productos_orden = 0;
       $total_gastos_origen = 0;
       $total_pagado = 0;
+      $total_pagado_mxn = 0;
 
        foreach ($orders as $orden){
           $pagos = $this->mPagoMontoPagoOrden->where('orden_compra_id', $orden->id)->get();
@@ -352,7 +353,7 @@ where productos_orden_compra.producto_id = products.id
           }
           
           // Suma del total pagado MXN
-          $total_pagado_mxn = 0;
+          
           foreach ($pagos as $pago) {
              $total_pagado_mxn += ($pago->pago * $pago->tipo_cambio_pago);
           }

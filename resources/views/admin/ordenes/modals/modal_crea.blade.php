@@ -519,7 +519,7 @@
                                 <div class="col-md-6 line pagos-inputs">
                                     <div class="form-group">
                                         <label>CBM #</label>
-                                        <input type="text" class="form-control" placeholder="CBM #" id="cbm_transito" name="cbm_transito" onKeyPress="return soloNumeros(event)">
+                                        <input type="text" class="form-control" placeholder="CBM #" id="cbm_transito" name="cbm_transito" onKeyPress="return filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">

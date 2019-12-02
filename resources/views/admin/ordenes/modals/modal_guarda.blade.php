@@ -501,7 +501,7 @@
                                     <div class="form-group">
                                         <label>CBM #</label>
                                         <input type="text" class="form-control" placeholder="CBM #" id="cbm_transito"
-                                               name="cbm_transito" onKeyPress="return soloNumeros(event)">
+                                               name="cbm_transito" onKeyPress="filterFloat(event,this);">
                                     </div>
                                 </div>
                                 <div class="col-md-6 line pagos-inputs">

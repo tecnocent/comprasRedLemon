@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>Status</th>
                                     <th>Pagado</th>
+                                    <th>Pagado MXN</th>
                                     <th>Por Pagar</th>
                                 </tr>
                                 </thead>
@@ -55,16 +56,19 @@
                                 <tr>
                                     <th >Producción:</th>
                                     <th><input disabled type="text" id="total_produccion_pagado"></th>
+                                    <th><input disabled type="text" id="total_pagado_MXN_p"></th>
                                     <th><input disabled type="text" id="total_produccion_porPagar"></th>
                                 </tr>
                                 <tr>
                                     <th >Transito:</th>
                                     <th><input disabled type="text" id="total_transito_pagado"></th>
+                                    <th><input disabled type="text" id="total_pagado_MXN_t"></th>
                                     <th><input disabled type="text" id="total_transito_porPagar"></th>
                                 </tr>
                                 <tr>
                                     <th >Total:</th>
                                     <th><input disabled type="text" id="total_pagado"></th>
+                                    <th><input disabled type="text" id="total_pagadoMXN"></th>
                                     <th><input disabled type="text" id="total_porPagar"></th>
                                 </tr>
                                 </tbody>
@@ -117,8 +121,16 @@
             var totalPagado = value.produccion.total_pagado + value.transito.total_pagado;
             var totalPorPagar = value.produccion.total_por_pagar + value.transito.total_por_pagar;
 
+            var totalPagadoMXNp = value.produccion.total_pagado_mxn;
+            var totalPagadoMXNt = value.transito.total_pagado_mxn;
+            var totalPagadoMXN = value.transito.total_pagado_mxn + value.produccion.total_pagado_mxn;
+
             $('#total_pagado').val(formatCurrency(totalPagado));
             $('#total_porPagar').val(formatCurrency(totalPorPagar));
+
+            $('#total_pagado_MXN_p').val(formatCurrency(totalPagadoMXNp));
+            $('#total_pagado_MXN_t').val(formatCurrency(totalPagadoMXNt));
+            $('#total_pagadoMXN').val(formatCurrency(totalPagadoMXN));
         }
 
         getResumen();

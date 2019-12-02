@@ -356,7 +356,7 @@ $(document).ready(function() {
             // 'guia_transito' : "required",
             // 'forwarder_transito' : "required",
             // 'fecha_embarque_transito' : "required",
-            'fecha_tentativa_llegada_transito' : "required",
+            // 'fecha_tentativa_llegada_transito' : "required",
             // 'comercial_invoce_transito' : "required",
             // 'cbm_transito' : "required",
             // 'peso_transito' : "required"
@@ -366,7 +366,7 @@ $(document).ready(function() {
             'guia_transito' : "La es Guia es requerida",
             'forwarder_transito' : "El es Forwarder es requerido",
             'fecha_embarque_transito' : "La es Fecha de embarque es requerida",
-            'fecha_tentativa_llegada_transito' : "La Fecha tentativa de llegada es requerida",
+            // 'fecha_tentativa_llegada_transito' : "La Fecha tentativa de llegada es requerida",
             'comercial_invoce_transito' : "El Comercial invoce es requerido",
             'cajas_transito' : "Las Cajas son requeridas",
             'peso_transito' : "El es Paso es requerido"
